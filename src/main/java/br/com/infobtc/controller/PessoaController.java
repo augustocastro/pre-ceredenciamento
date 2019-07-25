@@ -25,8 +25,8 @@ public class PessoaController {
 
 	@GetMapping("/todos")
 	public ResponseEntity<List<Pessoa>> buscarTodos() {
-		List<Pessoa> pessoaFisica = pessoaRepository.findAll();
-		return ResponseEntity.ok(pessoaFisica);
+		List<Pessoa> pessoas = pessoaRepository.findAll();
+		return ResponseEntity.ok(pessoas);
 	}
 	
 	@GetMapping("/{id}")
