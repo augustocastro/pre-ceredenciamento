@@ -19,6 +19,7 @@ import br.com.infobtc.repository.PessoaRepository;
 @RestController
 @RequestMapping("/pessoa")
 public class PessoaController {
+	
 	@Autowired
 	private PessoaRepository pessoaRepository;
 
