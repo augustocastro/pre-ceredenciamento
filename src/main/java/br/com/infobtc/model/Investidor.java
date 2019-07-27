@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa {
+public class Investidor {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class Pessoa {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
-	public Pessoa() {
+	public Investidor() {
 	}
 
-	public Pessoa(String nome, String email, String telefone, Endereco endereco) {
+	public Investidor(String nome, String email, String telefone, Endereco endereco) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;

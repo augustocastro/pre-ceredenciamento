@@ -5,11 +5,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class PessoaJuridica extends Pessoa {
+public class InvestidorPessoaJuridica extends Investidor {
 
 	private String cnpj;
 
-	public PessoaJuridica() {
+	public InvestidorPessoaJuridica() {
 		this.setTipo("pessoa_juridica");
 	}
 

@@ -5,23 +5,31 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class PessoaFisica extends Pessoa {
-
+public class InvestidorPessoaFisica extends Investidor {
+	
 	private String cpf;
-	private LocalDate dt_nascimento;
-
-	@Enumerated(EnumType.STRING)
-	private Sexo sexo;
 	private String profissao;
 	private String documento;
 	private String orgao_emissor_uf;
 	private String regime_bens;
+	private String nacionalidade;
+	private LocalDate dt_nascimento;
+	
+	@Enumerated(EnumType.STRING)
+	private Sexo sexo;
+	
+	@Enumerated(EnumType.STRING)
+	private EstadoCivil estadoCivil;
 
-	public PessoaFisica() {
+	@OneToOne
+	private Consultor consultor;
+
+	public InvestidorPessoaFisica() {
 		this.setTipo("pessoa_fisica");
 	}
 
@@ -79,6 +87,30 @@ public class PessoaFisica extends Pessoa {
 
 	public void setRegime_bens(String regime_bens) {
 		this.regime_bens = regime_bens;
+	}
+
+	public String getNacionalidade() {
+		return nacionalidade;
+	}
+
+	public EstadoCivil getEstadoCivil() {
+		return estadoCivil;
+	}
+
+	public void setNacionalidade(String nacionalidade) {
+		this.nacionalidade = nacionalidade;
+	}
+
+	public void setEstadoCivil(EstadoCivil estadoCivil) {
+		this.estadoCivil = estadoCivil;
+	}
+
+	public Consultor getConsultor() {
+		return consultor;
+	}
+
+	public void setConsultor(Consultor consultor) {
+		this.consultor = consultor;
 	}
 
 }

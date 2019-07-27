@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.infobtc.controller.dto.ConsultorDetalhadoDto;
 import br.com.infobtc.controller.form.ConsultorForm;
 import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.UsuarioForm;
@@ -47,7 +49,7 @@ public class ConsultorController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Consultor> cadastrar(@RequestBody @Valid ConsultorForm consltorForm, UriComponentsBuilder uriComponentsBuilder) {
+	public ResponseEntity<ConsultorDetalhadoDto> cadastrar(@RequestBody @Valid ConsultorForm consltorForm, UriComponentsBuilder uriComponentsBuilder) {
 		Consultor consultor = new Consultor();
 		Endereco endereco = new Endereco();
 		Usuario usuario = new Usuario();
@@ -60,28 +62,42 @@ public class ConsultorController {
 		consltorForm.setarPropriedades(consultor);
 		
 		consultor.setEndereco(endereco);	
-		usuario.setConsultor(consultor);
+		consultor.setUsuario(usuario);
 		
 		enderecoRepository.save(endereco);
-		consultorRepository.save(consultor);
 		usuarioRepository.save(usuario);
+		consultorRepository.save(consultor);
 		
 		URI uri = uriComponentsBuilder.path("/consultor/{id}").buildAndExpand(consultor.getId()).toUri();
-		return ResponseEntity.created(uri).body(consultor);
+		return ResponseEntity.created(uri).body(new ConsultorDetalhadoDto(consultor));
+	}
+	
+	@PutMapping("/{id}")
+	@Transactional
+	public ResponseEntity<ConsultorDetalhadoDto> atualizar(@PathVariable Long id, @Valid @RequestBody ConsultorForm form) {
+		Optional<Consultor> investidor = consultorRepository.findById(id);
+
+		if (investidor.isPresent()) {
+			Consultor consultorAtualizado = form.atualizar(id, consultorRepository, enderecoRepository, usuarioRepository, perfilRepository);
+			ConsultorDetalhadoDto consultorDto = new ConsultorDetalhadoDto(consultorAtualizado);
+			return ResponseEntity.ok(consultorDto);
+		}
+
+		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/todos")
-	public ResponseEntity<List<Consultor>> buscarTodos() {
+	public ResponseEntity<List<ConsultorDetalhadoDto>> buscarTodos() {
 		List<Consultor> consultores = consultorRepository.findAll();
-		return ResponseEntity.ok(consultores);
+		return ResponseEntity.ok(new ConsultorDetalhadoDto().converter(consultores));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Consultor> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<ConsultorDetalhadoDto> buscarPorId(@PathVariable Long id) {
 		Optional<Consultor> consultor = consultorRepository.findById(id);
 
 		if (consultor.isPresent()) {
-			return ResponseEntity.ok(consultor.get());
+			return ResponseEntity.ok(new ConsultorDetalhadoDto(consultor.get()));
 		}
 
 		return ResponseEntity.notFound().build();

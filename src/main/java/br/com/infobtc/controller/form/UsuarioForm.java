@@ -1,8 +1,9 @@
 package br.com.infobtc.controller.form;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import br.com.infobtc.model.Perfil;
 import br.com.infobtc.model.Usuario;
 import br.com.infobtc.repository.PerfilRepository;
+import br.com.infobtc.repository.UsuarioRepository;
 
 public class UsuarioForm {
 	@NotNull
@@ -38,15 +40,15 @@ public class UsuarioForm {
 	}
 
 	public void setarPropriedades(Usuario usuario, PerfilRepository perfilRepository) {
-		List<Perfil> perfis = new ArrayList<Perfil>();
+		Set<Perfil> perfis = new HashSet<Perfil>();
 		setarPerfis(perfis, perfilRepository);
 		
 		usuario.setEmail(email);
 		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
-//		usuario.setPerfis(perfis);
+		usuario.setPerfis(perfis);
 	}
 
-	private List<Perfil> setarPerfis(List<Perfil> perfis, PerfilRepository perfilRepository) {
+	private Set<Perfil> setarPerfis(Set<Perfil> perfis, PerfilRepository perfilRepository) {		
 		for (Long id : this.perfis) {
 			Optional<Perfil> perfil = perfilRepository.findById(id);
 			if (perfil.isPresent()) {
@@ -55,5 +57,12 @@ public class UsuarioForm {
 		}
 
 		return perfis;
+	}
+
+	public void atualizar(Long id, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository) {
+		Usuario usuario = usuarioRepository.getOne(id);
+		usuario.setEmail(email);
+		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
+		setarPerfis(usuario.getPerfis(), perfilRepository);
 	}
 }

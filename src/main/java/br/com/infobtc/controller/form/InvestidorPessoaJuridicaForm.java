@@ -4,11 +4,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.infobtc.model.PessoaJuridica;
+import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.repository.EnderecoRepository;
-import br.com.infobtc.repository.PessoaJuridicaRepository;
+import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 
-public class PessoaJuridicaForm {
+public class InvestidorPessoaJuridicaForm {
 
 	@NotNull
 	@NotEmpty
@@ -50,8 +50,8 @@ public class PessoaJuridicaForm {
 		return endereco;
 	}
 
-	public PessoaJuridica atualizar(Long id, PessoaJuridicaRepository pessoaJuridicaRepository, EnderecoRepository enderecoRepository) {
-		PessoaJuridica pessoaJuridica = pessoaJuridicaRepository.getOne(id);
+	public InvestidorPessoaJuridica atualizar(Long id, InvestidorPessoaJuridicaRepository pessoaJuridicaRepository, EnderecoRepository enderecoRepository) {
+		InvestidorPessoaJuridica pessoaJuridica = pessoaJuridicaRepository.getOne(id);
 		
 		this.endereco.atualizar(pessoaJuridica.getEndereco().getId(), enderecoRepository);
 		setarPropriedades(pessoaJuridica);
@@ -59,7 +59,7 @@ public class PessoaJuridicaForm {
 		return pessoaJuridica;
 	}
 	
-	public void setarPropriedades(PessoaJuridica pessoaJuridica) {
+	public void setarPropriedades(InvestidorPessoaJuridica pessoaJuridica) {
 		pessoaJuridica.setCnpj(cnpj);
 		pessoaJuridica.setEmail(email);
 		pessoaJuridica.setNome(nome);

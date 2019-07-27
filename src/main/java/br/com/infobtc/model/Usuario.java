@@ -1,8 +1,8 @@
 package br.com.infobtc.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,10 +30,7 @@ public class Usuario implements UserDetails {
 	private String senha;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Perfil> perfis = new ArrayList<Perfil>();
-	
-	@OneToOne
-	private Consultor consultor;
+	private Set<Perfil> perfis = new HashSet<Perfil>();
 	
 	@Override
 	public int hashCode() {
@@ -85,20 +81,12 @@ public class Usuario implements UserDetails {
 		this.senha = senha;
 	}
 
-	public List<Perfil> getPerfis() {
+	public Set<Perfil> getPerfis() {
 		return perfis;
 	}
 
-	public void setPerfis(List<Perfil> perfis) {
+	public void setPerfis(Set<Perfil> perfis) {
 		this.perfis = perfis;
-	}
-
-	public Consultor getConsultor() {
-		return consultor;
-	}
-
-	public void setConsultor(Consultor consultor) {
-		this.consultor = consultor;
 	}
 
 	@Override

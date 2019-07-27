@@ -1,6 +1,7 @@
 package br.com.infobtc.controller;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,8 +58,7 @@ public class PerfilController {
 	@GetMapping("/todos")
 	public ResponseEntity<List<PerfilDto>> buscarTodos() {
 		List<Perfil> perfis = perfilRepository.findAll();
-		
-		return ResponseEntity.ok(new PerfilDto().converterPerfis(perfis));
+		return ResponseEntity.ok(new PerfilDto().converterPerfisLista(new ArrayList<Perfil>(perfis)));
 	}
 	
 	@GetMapping("/{id}")

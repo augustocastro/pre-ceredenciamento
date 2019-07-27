@@ -13,25 +13,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.infobtc.model.Pessoa;
-import br.com.infobtc.repository.PessoaRepository;
+import br.com.infobtc.controller.dto.InvestidorDto;
+import br.com.infobtc.model.Investidor;
+import br.com.infobtc.repository.InvestidorRepository;
 
 @RestController
-@RequestMapping("/pessoa")
-public class PessoaController {
+@RequestMapping("/investidor")
+public class InvestidorController {
 	
 	@Autowired
-	private PessoaRepository pessoaRepository;
+	private InvestidorRepository investidorRepository;
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<Pessoa>> buscarTodos() {
-		List<Pessoa> pessoas = pessoaRepository.findAll();
-		return ResponseEntity.ok(pessoas);
+	public ResponseEntity<List<InvestidorDto>> buscarTodos() {
+		List<Investidor> pessoas = investidorRepository.findAll();
+		return ResponseEntity.ok(new InvestidorDto().converter(pessoas));
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Pessoa> buscarPorId(@PathVariable Long id) {
-		Optional<Pessoa> pessoa = pessoaRepository.findById(id);
+	public ResponseEntity<Investidor> buscarPorId(@PathVariable Long id) {
+		Optional<Investidor> pessoa = investidorRepository.findById(id);
 
 		if (pessoa.isPresent()) {
 			return ResponseEntity.ok(pessoa.get());
@@ -43,8 +44,8 @@ public class PessoaController {
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> remover(@PathVariable Long id) {
-		if (pessoaRepository.findById(id).isPresent()) {
-			pessoaRepository.deleteById(id);
+		if (investidorRepository.findById(id).isPresent()) {
+			investidorRepository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
 

@@ -5,6 +5,10 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import br.com.infobtc.model.Consultor;
+import br.com.infobtc.repository.ConsultorRepository;
+import br.com.infobtc.repository.EnderecoRepository;
+import br.com.infobtc.repository.PerfilRepository;
+import br.com.infobtc.repository.UsuarioRepository;
 
 public class ConsultorForm {
 
@@ -47,6 +51,16 @@ public class ConsultorForm {
 	public void setarPropriedades(Consultor consultor) {
 		consultor.setNome(nome);
 		consultor.setTelefone(telefone);
+	}
+
+	public Consultor atualizar(Long id, ConsultorRepository consultorRepository, EnderecoRepository enderecoRepository, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository) {
+		Consultor consultor = consultorRepository.getOne(id);
+		consultor.setNome(nome);
+		consultor.setTelefone(telefone);
+		
+		this.usuario.atualizar(consultor.getUsuario().getId(), usuarioRepository, perfilRepository);
+		this.endereco.atualizar(consultor.getEndereco().getId(), enderecoRepository);
+		return consultor;
 	}
 
 }
