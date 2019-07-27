@@ -26,16 +26,16 @@ public class InvestidorController {
 
 	@GetMapping("/todos")
 	public ResponseEntity<List<InvestidorDto>> buscarTodos() {
-		List<Investidor> pessoas = investidorRepository.findAll();
-		return ResponseEntity.ok(new InvestidorDto().converter(pessoas));
+		List<Investidor> investidores = investidorRepository.findAll();
+		return ResponseEntity.ok(new InvestidorDto().converter(investidores));
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Investidor> buscarPorId(@PathVariable Long id) {
-		Optional<Investidor> pessoa = investidorRepository.findById(id);
+		Optional<Investidor> investidor = investidorRepository.findById(id);
 
-		if (pessoa.isPresent()) {
-			return ResponseEntity.ok(pessoa.get());
+		if (investidor.isPresent()) {
+			return ResponseEntity.ok(investidor.get());
 		}
 
 		return ResponseEntity.notFound().build();

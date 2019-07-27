@@ -39,30 +39,30 @@ public class InvestidorPessoaJuridicaControler {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(@RequestBody @Valid InvestidorPessoaJuridicaForm pessoaForm, UriComponentsBuilder uriComponentsBuilder) {
-		InvestidorPessoaJuridica pessoaJuridica = new InvestidorPessoaJuridica();
+		InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
 		Endereco endereco = new Endereco();
 		EnderecoForm enderecoForm = pessoaForm.getEndereco();
 
-		pessoaJuridica.setEndereco(endereco);
+		investidor.setEndereco(endereco);
 		
 		enderecoForm.setarPropriedades(endereco);
-		pessoaForm.setarPropriedades(pessoaJuridica);
+		pessoaForm.setarPropriedades(investidor);
 
 		enderecoRepository.save(endereco);
-		investidorPessoaJuridicaRepository.save(pessoaJuridica);
+		investidorPessoaJuridicaRepository.save(investidor);
 
-		URI uri = uriComponentsBuilder.path("/investidor-pessoa-juridica/{id}").buildAndExpand(pessoaJuridica.getId()).toUri();
-		return ResponseEntity.created(uri).body(new InvestidorPessoaJuridicaDto(pessoaJuridica));
+		URI uri = uriComponentsBuilder.path("/investidor-pessoa-juridica/{id}").buildAndExpand(investidor.getId()).toUri();
+		return ResponseEntity.created(uri).body(new InvestidorPessoaJuridicaDto(investidor));
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<InvestidorPessoaJuridicaDto> atualizar(@PathVariable Long id, @Valid @RequestBody InvestidorPessoaJuridicaForm form) {
-		Optional<InvestidorPessoaJuridica> pessoaJuridica = investidorPessoaJuridicaRepository.findById(id);
+		Optional<InvestidorPessoaJuridica> investidor = investidorPessoaJuridicaRepository.findById(id);
 
-		if (pessoaJuridica.isPresent()) {
-			InvestidorPessoaJuridica pessoaJuridicaAtualizada = form.atualizar(id, investidorPessoaJuridicaRepository, enderecoRepository);
-			return ResponseEntity.ok(new InvestidorPessoaJuridicaDto(pessoaJuridicaAtualizada));
+		if (investidor.isPresent()) {
+			InvestidorPessoaJuridica investidorAtualizado = form.atualizar(id, investidorPessoaJuridicaRepository, enderecoRepository);
+			return ResponseEntity.ok(new InvestidorPessoaJuridicaDto(investidorAtualizado));
 		}
 
 		return ResponseEntity.notFound().build();

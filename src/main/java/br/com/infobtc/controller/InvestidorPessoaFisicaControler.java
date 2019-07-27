@@ -42,22 +42,22 @@ public class InvestidorPessoaFisicaControler {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<InvestidorPessoaFisicaDto> cadastrar(@RequestBody @Valid InvestidorPessoaFisicaForm pessoaForm, UriComponentsBuilder uriComponentsBuilder) {
-		InvestidorPessoaFisica pessoaFisica = new InvestidorPessoaFisica();
+	public ResponseEntity<InvestidorPessoaFisicaDto> cadastrar(@RequestBody @Valid InvestidorPessoaFisicaForm form, UriComponentsBuilder uriComponentsBuilder) {
+		InvestidorPessoaFisica investidor = new InvestidorPessoaFisica();
 		Endereco endereco = new Endereco();
-		EnderecoForm enderecoForm = pessoaForm.getEndereco();
+		EnderecoForm enderecoForm = form.getEndereco();
 
-		pessoaFisica.setEndereco(endereco);
+		investidor.setEndereco(endereco);
 		
 		enderecoForm.setarPropriedades(endereco);
-		pessoaForm.setarPropriedades(pessoaFisica, consultorRepository);
+		form.setarPropriedades(investidor, consultorRepository);
 		
 		enderecoRepository.save(endereco);
-		investidorPessoaFisicaRepository.save(pessoaFisica);
+		investidorPessoaFisicaRepository.save(investidor);
 
-		URI uri = uriComponentsBuilder.path("/investidor-pessoa-fisica/{id}").buildAndExpand(pessoaFisica.getId()).toUri();
-		InvestidorPessoaFisicaDto pessoaFisicaDto = new InvestidorPessoaFisicaDto(pessoaFisica);
-		return ResponseEntity.created(uri).body(pessoaFisicaDto);
+		URI uri = uriComponentsBuilder.path("/investidor-pessoa-fisica/{id}").buildAndExpand(investidor.getId()).toUri();
+		InvestidorPessoaFisicaDto investidorDto = new InvestidorPessoaFisicaDto(investidor);
+		return ResponseEntity.created(uri).body(investidorDto);
 	}
 
 	@PutMapping("/{id}")
