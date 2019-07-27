@@ -1,4 +1,4 @@
-package br.com.infobtc.config.security;
+package br.com.infobtc.config.security.service;
 
 import java.util.Optional;
 
@@ -25,7 +25,7 @@ public class AutenticacaoService implements UserDetailsService {
 			return usuario.get();
 		}
 		
-		throw new UsernameNotFoundException("Dados Inválidos");
+		throw new UsernameNotFoundException("Dados Inválidos!");
 	}
 	
 }

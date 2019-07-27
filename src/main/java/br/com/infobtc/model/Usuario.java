@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,14 +27,14 @@ public class Usuario implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	private String nome;
 	private String email;
 	private String senha;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Perfil> perfis = new ArrayList<Perfil>();
 	
+	@OneToOne
+	private Consultor consultor;
 	
 	@Override
 	public int hashCode() {
@@ -68,14 +69,6 @@ public class Usuario implements UserDetails {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -98,6 +91,14 @@ public class Usuario implements UserDetails {
 
 	public void setPerfis(List<Perfil> perfis) {
 		this.perfis = perfis;
+	}
+
+	public Consultor getConsultor() {
+		return consultor;
+	}
+
+	public void setConsultor(Consultor consultor) {
+		this.consultor = consultor;
 	}
 
 	@Override
