@@ -127,7 +127,7 @@ Edição de Pessoa Física
 ````
 
 # Pessoa:
-##### GET http://localhost:8080/pessoa/todos
+##### GET http://localhost:8080/pessoa/todos?pagina=0&quantidade=1
 Consulta de todas as Pessoas, tanto Pessoa Física quanto Pessoa Jurídica.
 
 ##### GET http://localhost:8080/pessoa/{id}
