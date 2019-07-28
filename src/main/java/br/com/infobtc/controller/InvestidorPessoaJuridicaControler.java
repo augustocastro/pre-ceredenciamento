@@ -55,7 +55,7 @@ public class InvestidorPessoaJuridicaControler {
 		enderecoRepository.save(endereco);
 		investidorPessoaJuridicaRepository.save(investidor);
 
-		URI uri = uriComponentsBuilder.path("/investidor-pessoa-juridica/{id}").buildAndExpand(investidor.getId()).toUri();
+		URI uri = uriComponentsBuilder.path("/investidor/{id}").buildAndExpand(investidor.getId()).toUri();
 		return ResponseEntity.created(uri).body(new InvestidorPessoaJuridicaDto(investidor));
 	}
 	
