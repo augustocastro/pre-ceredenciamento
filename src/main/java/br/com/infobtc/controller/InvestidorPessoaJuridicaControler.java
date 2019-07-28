@@ -23,6 +23,7 @@ import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.InvestidorPessoaJuridicaForm;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
+import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 
@@ -36,6 +37,9 @@ public class InvestidorPessoaJuridicaControler {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 
+	@Autowired
+	private ConsultorRepository consultorRepository; 
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(@RequestBody @Valid InvestidorPessoaJuridicaForm pessoaForm, UriComponentsBuilder uriComponentsBuilder) {
@@ -46,7 +50,7 @@ public class InvestidorPessoaJuridicaControler {
 		investidor.setEndereco(endereco);
 		
 		enderecoForm.setarPropriedades(endereco);
-		pessoaForm.setarPropriedades(investidor);
+		pessoaForm.setarPropriedades(investidor, consultorRepository);
 
 		enderecoRepository.save(endereco);
 		investidorPessoaJuridicaRepository.save(investidor);
@@ -61,7 +65,7 @@ public class InvestidorPessoaJuridicaControler {
 		Optional<InvestidorPessoaJuridica> investidor = investidorPessoaJuridicaRepository.findById(id);
 
 		if (investidor.isPresent()) {
-			InvestidorPessoaJuridica investidorAtualizado = form.atualizar(id, investidorPessoaJuridicaRepository, enderecoRepository);
+			InvestidorPessoaJuridica investidorAtualizado = form.atualizar(id, investidorPessoaJuridicaRepository, enderecoRepository, consultorRepository);
 			return ResponseEntity.ok(new InvestidorPessoaJuridicaDto(investidorAtualizado));
 		}
 

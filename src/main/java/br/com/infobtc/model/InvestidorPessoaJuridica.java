@@ -8,7 +8,8 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class InvestidorPessoaJuridica extends Investidor {
 
 	private String cnpj;
-
+	private String inscricao;
+	
 	public InvestidorPessoaJuridica() {
 		this.setTipo("pessoa_juridica");
 	}
@@ -19,6 +20,14 @@ public class InvestidorPessoaJuridica extends Investidor {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+	
+	public String getInscricao() {
+		return inscricao;
+	}
+	
+	public void setInscricao(String inscricao) {
+		this.inscricao = inscricao;
 	}
 
 }

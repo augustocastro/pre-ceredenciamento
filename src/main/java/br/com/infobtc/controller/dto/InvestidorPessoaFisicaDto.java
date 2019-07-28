@@ -29,23 +29,23 @@ public class InvestidorPessoaFisicaDto {
 	public InvestidorPessoaFisicaDto() {
 	}
 	
-	public InvestidorPessoaFisicaDto(InvestidorPessoaFisica pessoaFisica) {
-		this.id = pessoaFisica.getId();
-		this.nome = pessoaFisica.getNome();
-		this.email = pessoaFisica.getEmail();
-		this.telefone = pessoaFisica.getTelefone();
-		this.tipo = pessoaFisica.getTipo();
-		this.cpf = pessoaFisica.getCpf();
-		this.profissao = pessoaFisica.getProfissao();
-		this.documento = pessoaFisica.getDocumento();
-		this.orgao_emissor_uf = pessoaFisica.getOrgao_emissor_uf();
-		this.regime_bens = pessoaFisica.getRegime_bens();
-		this.nacionalidade = pessoaFisica.getNacionalidade();
-		this.dt_nascimento = pessoaFisica.getDt_nascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		this.sexo = pessoaFisica.getSexo();
-		this.estado_civil = pessoaFisica.getEstadoCivil();
-		this.consultor = new ConsultorDto(pessoaFisica.getConsultor());
-		this.endereco = new EnderecoDto(pessoaFisica.getEndereco());
+	public InvestidorPessoaFisicaDto(InvestidorPessoaFisica investidor) {
+		this.id = investidor.getId();
+		this.nome = investidor.getNome();
+		this.email = investidor.getEmail();
+		this.telefone = investidor.getTelefone();
+		this.tipo = investidor.getTipo();
+		this.cpf = investidor.getCpf();
+		this.profissao = investidor.getProfissao();
+		this.documento = investidor.getDocumento();
+		this.orgao_emissor_uf = investidor.getOrgao_emissor_uf();
+		this.regime_bens = investidor.getRegime_bens();
+		this.nacionalidade = investidor.getNacionalidade();
+		this.dt_nascimento = investidor.getDt_nascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.sexo = investidor.getSexo();
+		this.estado_civil = investidor.getEstadoCivil();
+		this.consultor = new ConsultorDto(investidor.getConsultor());
+		this.endereco = new EnderecoDto(investidor.getEndereco());
 	}
 
 	public Long getId() {

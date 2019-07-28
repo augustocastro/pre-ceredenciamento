@@ -176,32 +176,32 @@ public class InvestidorPessoaFisicaForm {
 
 	public InvestidorPessoaFisica atualizar(Long id, InvestidorPessoaFisicaRepository pessoaFisicaRepository,
 			EnderecoRepository enderecoRepository, ConsultorRepository consultorRepository) {
-		InvestidorPessoaFisica pessoaFisica = pessoaFisicaRepository.getOne(id);
+		InvestidorPessoaFisica investidor = pessoaFisicaRepository.getOne(id);
 
-		this.endereco.atualizar(pessoaFisica.getEndereco().getId(), enderecoRepository);
-		setarPropriedades(pessoaFisica, consultorRepository);
+		this.endereco.atualizar(investidor.getEndereco().getId(), enderecoRepository);
+		setarPropriedades(investidor, consultorRepository);
 
-		return pessoaFisica;
+		return investidor;
 	}
 
-	public void setarPropriedades(InvestidorPessoaFisica pessoaFisica, ConsultorRepository consultorRepository) {
-		pessoaFisica.setCpf(cpf);
-		pessoaFisica.setDocumento(documento);
-		pessoaFisica.setDt_nascimento(dt_nascimento);
-		pessoaFisica.setEmail(email);
-		pessoaFisica.setNome(nome);
-		pessoaFisica.setProfissao(profissao);
-		pessoaFisica.setSexo(sexo);
-		pessoaFisica.setTelefone(telefone);
-		pessoaFisica.setRegime_bens(regime_bens);
-		pessoaFisica.setOrgao_emissor_uf(orgao_emissor_uf);
-		pessoaFisica.setNacionalidade(nacionalidade);
-		pessoaFisica.setEstadoCivil(estado_civil);
+	public void setarPropriedades(InvestidorPessoaFisica investidor, ConsultorRepository consultorRepository) {
+		investidor.setCpf(cpf);
+		investidor.setDocumento(documento);
+		investidor.setDt_nascimento(dt_nascimento);
+		investidor.setEmail(email);
+		investidor.setNome(nome);
+		investidor.setProfissao(profissao);
+		investidor.setSexo(sexo);
+		investidor.setTelefone(telefone);
+		investidor.setRegime_bens(regime_bens);
+		investidor.setOrgao_emissor_uf(orgao_emissor_uf);
+		investidor.setNacionalidade(nacionalidade);
+		investidor.setEstadoCivil(estado_civil);
 		
 		Optional<Consultor> consultor = consultorRepository.findById(id_consultor);
 		
 		if (consultor.isPresent()) {
-			pessoaFisica.setConsultor(consultor.get());
+			investidor.setConsultor(consultor.get());
 		}
 	}
 

@@ -12,19 +12,23 @@ public class InvestidorPessoaJuridicaDto {
 	private String telefone;
 	private String tipo;
 	private String cnpj;
+	private String inscricao;
 	private EnderecoDto endereco;
-
+	private ConsultorDto consultor;
+	
 	public InvestidorPessoaJuridicaDto() {
 	}
 
-	public InvestidorPessoaJuridicaDto(InvestidorPessoaJuridica pessoaJuridica) {
-		this.id = pessoaJuridica.getId();
-		this.nome = pessoaJuridica.getNome();
-		this.email = pessoaJuridica.getEmail();
-		this.telefone = pessoaJuridica.getTelefone();
-		this.tipo = pessoaJuridica.getTipo();
-		this.cnpj = pessoaJuridica.getCnpj();
-		this.endereco = new EnderecoDto(pessoaJuridica.getEndereco());
+	public InvestidorPessoaJuridicaDto(InvestidorPessoaJuridica investidor) {
+		this.id = investidor.getId();
+		this.nome = investidor.getNome();
+		this.email = investidor.getEmail();
+		this.telefone = investidor.getTelefone();
+		this.tipo = investidor.getTipo();
+		this.cnpj = investidor.getCnpj();
+		this.inscricao = investidor.getInscricao();
+		this.endereco = new EnderecoDto(investidor.getEndereco());
+		this.consultor = new ConsultorDto(investidor.getConsultor());
 	}
 
 	public Long getId() {
@@ -79,13 +83,28 @@ public class InvestidorPessoaJuridicaDto {
 		this.cnpj = cnpj;
 	}
 
+	public String getInscricao() {
+		return inscricao;
+	}
+	
+	public void setInscricao(String inscricao) {
+		this.inscricao = inscricao;
+	}
+	
 	public void setEndereco(EnderecoDto endereco) {
 		this.endereco = endereco;
 	}
 
+	public ConsultorDto getConsultor() {
+		return consultor;
+	}
+
+	public void setConsultor(ConsultorDto consultor) {
+		this.consultor = consultor;
+	}
+
 	public List<InvestidorPessoaJuridicaDto> converter(List<InvestidorPessoaJuridica> investidores) {
 		return investidores.stream().map(InvestidorPessoaJuridicaDto::new).collect(Collectors.toList());
-
 	}
 	
 }

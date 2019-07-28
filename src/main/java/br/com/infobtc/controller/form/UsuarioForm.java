@@ -16,6 +16,7 @@ import br.com.infobtc.repository.PerfilRepository;
 import br.com.infobtc.repository.UsuarioRepository;
 
 public class UsuarioForm {
+	
 	@NotNull
 	@NotEmpty
 	private String email;

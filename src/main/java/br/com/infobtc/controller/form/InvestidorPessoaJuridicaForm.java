@@ -1,10 +1,14 @@
 package br.com.infobtc.controller.form;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
+import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 
@@ -26,10 +30,18 @@ public class InvestidorPessoaJuridicaForm {
 	@NotEmpty
 	private String telefone;
 	
+	
+	@NotNull
+	@NotEmpty
+	private String inscricao;
+	
 	@Valid
 	@NotNull
 	private EnderecoForm endereco;
 
+	@NotNull
+	private Long id_consultor;
+	
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -46,24 +58,48 @@ public class InvestidorPessoaJuridicaForm {
 		return telefone;
 	}
 
+	public String getInscricao() {
+		return inscricao;
+	}
+	
+	public void setInscricao(String inscricao) {
+		this.inscricao = inscricao;
+	}
+	
 	public EnderecoForm getEndereco() {
 		return endereco;
 	}
 
-	public InvestidorPessoaJuridica atualizar(Long id, InvestidorPessoaJuridicaRepository pessoaJuridicaRepository, EnderecoRepository enderecoRepository) {
-		InvestidorPessoaJuridica pessoaJuridica = pessoaJuridicaRepository.getOne(id);
+	public Long getId_consultor() {
+		return id_consultor;
+	}
+
+	public void setId_consultor(Long id_consultor) {
+		this.id_consultor = id_consultor;
+	}
+
+	public InvestidorPessoaJuridica atualizar(Long id, InvestidorPessoaJuridicaRepository pessoaJuridicaRepository, 
+			EnderecoRepository enderecoRepository, ConsultorRepository consultorRepository) {
+		InvestidorPessoaJuridica investidor = pessoaJuridicaRepository.getOne(id);
 		
-		this.endereco.atualizar(pessoaJuridica.getEndereco().getId(), enderecoRepository);
-		setarPropriedades(pessoaJuridica);
+		this.endereco.atualizar(investidor.getEndereco().getId(), enderecoRepository);
+		setarPropriedades(investidor, consultorRepository);
 		
-		return pessoaJuridica;
+		return investidor;
 	}
 	
-	public void setarPropriedades(InvestidorPessoaJuridica pessoaJuridica) {
-		pessoaJuridica.setCnpj(cnpj);
-		pessoaJuridica.setEmail(email);
-		pessoaJuridica.setNome(nome);
-		pessoaJuridica.setTelefone(telefone);
+	public void setarPropriedades(InvestidorPessoaJuridica investidor, ConsultorRepository consultorRepository) {
+		investidor.setCnpj(cnpj);
+		investidor.setEmail(email);
+		investidor.setNome(nome);
+		investidor.setTelefone(telefone);
+		investidor.setInscricao(inscricao);
+		
+		Optional<Consultor> consultor = consultorRepository.findById(id_consultor);
+		
+		if (consultor.isPresent()) {
+			investidor.setConsultor(consultor.get());
+		}
 	}
 
 }

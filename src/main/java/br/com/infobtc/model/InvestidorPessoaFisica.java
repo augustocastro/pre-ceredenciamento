@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
@@ -25,9 +24,6 @@ public class InvestidorPessoaFisica extends Investidor {
 	
 	@Enumerated(EnumType.STRING)
 	private EstadoCivil estadoCivil;
-
-	@OneToOne
-	private Consultor consultor;
 
 	public InvestidorPessoaFisica() {
 		this.setTipo("pessoa_fisica");
@@ -103,14 +99,6 @@ public class InvestidorPessoaFisica extends Investidor {
 
 	public void setEstadoCivil(EstadoCivil estadoCivil) {
 		this.estadoCivil = estadoCivil;
-	}
-
-	public Consultor getConsultor() {
-		return consultor;
-	}
-
-	public void setConsultor(Consultor consultor) {
-		this.consultor = consultor;
 	}
 
 }

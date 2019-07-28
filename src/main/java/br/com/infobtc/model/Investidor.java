@@ -14,16 +14,18 @@ import javax.persistence.OneToOne;
 public class Investidor {
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private String telefone;
 	private String tipo;
-	
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
+
+	@OneToOne
+	private Consultor consultor;
 
 	public Investidor() {
 	}
@@ -81,6 +83,14 @@ public class Investidor {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public Consultor getConsultor() {
+		return consultor;
+	}
+
+	public void setConsultor(Consultor consultor) {
+		this.consultor = consultor;
 	}
 
 }

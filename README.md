@@ -51,17 +51,19 @@ Cadastro de Investidor Pessoa Jurídica
 
 ````
 {
-	"cnpj": "00.000.000/0000-00",
-	"nome": "John Doe",
-	"email": "investidor@teste.com",
-	"telefone": "(00) 0 0000-0000",
-	"endereco": {
-		"endereco": "SCRL 709, Asa Norte",
-		"cidade": "Brasília",
-		"estado": "Destrito Federal",
-		"pais": "Brasil",
-		"cep": "00000-0000."
-	}
+    "cnpj": "00.000.000/0000-00",
+    "nome": "John Doe",
+    "email": "investidor@teste.com",
+    "telefone": "(00) 0 0000-0000",
+    "inscricao": "00000000",
+    "id_consultor": 1,
+    "endereco": {
+        "endereco": "SCRL 709, Asa Norte",
+        "cidade": "Brasília",
+        "estado": "Destrito Federal",
+        "pais": "Brasil",
+        "cep": "00000-0000."
+    }
 }
 ````
 
@@ -70,17 +72,19 @@ Edição de Investidor Pessoa Jurídica
 
 ````
 {
-	"cnpj": "00.000.000/0000-00",
-	"nome": "John Doe edit",
-	"email": "investidor@teste.com edit",
-	"telefone": "(00) 0 0000-0000 edit",
-	"endereco": {
-		"endereco": "SCRL 709, Asa Norte edit",
-		"cidade": "Brasília edit",
-		"estado": "Destrito Federal edit",
-		"pais": "Brasil edit",
-		"cep": "00000-0000. edit"
-	}
+    "cnpj": "00.000.000/0000-00 edit",
+    "nome": "John Doe edit",
+    "email": "investidor@teste.com edit",
+    "telefone": "(00) 0 0000-0000 edit",
+    "inscricao": "00000000 edit",
+    "id_consultor": 1,
+    "endereco": {
+        "endereco": "SCRL 709, Asa Norte edit",
+        "cidade": "Brasília edit",
+        "estado": "Destrito Federal edit",
+        "pais": "Brasil edit",
+        "cep": "00000-0000. edit"
+    }
 }
 ````
 
