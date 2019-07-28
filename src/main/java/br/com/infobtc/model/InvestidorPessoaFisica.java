@@ -7,6 +7,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class InvestidorPessoaFisica extends Investidor {
@@ -17,6 +19,8 @@ public class InvestidorPessoaFisica extends Investidor {
 	private String orgao_emissor_uf;
 	private String regime_bens;
 	private String nacionalidade;
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dt_nascimento;
 	
 	@Enumerated(EnumType.STRING)
