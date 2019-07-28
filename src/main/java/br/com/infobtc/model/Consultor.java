@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Consultor {
 
@@ -15,8 +17,12 @@ public class Consultor {
 	private Long id;
 	private String nome;
 	private String telefone;
-	@OneToOne(cascade = CascadeType.ALL) 
+	
+	@JsonIgnore
+	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
+	
+	@JsonIgnore
 	@OneToOne 
 	private Usuario usuario;
 
