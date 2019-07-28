@@ -6,6 +6,7 @@ import java.util.Set;
 import br.com.infobtc.model.Usuario;
 
 public class UsuarioDto {
+	
 	private Long id;
 	private String email;
 	private Set<PerfilDto> perfis = new HashSet<PerfilDto>();

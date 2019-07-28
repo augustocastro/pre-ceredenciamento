@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.Perfil;
 
 public class PerfilDto {
+	
 	private Long id;
 	private String nome;
 	

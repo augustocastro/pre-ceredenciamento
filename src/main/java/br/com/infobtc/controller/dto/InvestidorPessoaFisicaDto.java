@@ -9,6 +9,7 @@ import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
 
 public class InvestidorPessoaFisicaDto {
+	
 	private Long id;
 	private String nome;
 	private String email;
@@ -179,4 +180,5 @@ public class InvestidorPessoaFisicaDto {
 	public List<InvestidorPessoaFisicaDto> converter(List<InvestidorPessoaFisica> investidores) {
 		return investidores.stream().map(InvestidorPessoaFisicaDto::new).collect(Collectors.toList());
 	}
+	
 }

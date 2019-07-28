@@ -67,4 +67,5 @@ public class InvestidorDto {
 	public List<InvestidorDto> converter(List<Investidor> pessoas) {
 		return pessoas.stream().map(InvestidorDto::new).collect(Collectors.toList());
 	}
+	
 }

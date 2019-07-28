@@ -3,6 +3,7 @@ package br.com.infobtc.controller.dto;
 import br.com.infobtc.model.Endereco;
 
 public class EnderecoDto {
+	
 	private String endereco;
 	private String cidade;
 	private String estado;
@@ -47,6 +48,5 @@ public class EnderecoDto {
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
 	
 }

@@ -41,17 +41,17 @@ public class UsuarioForm {
 	}
 
 	public void setarPropriedades(Usuario usuario, PerfilRepository perfilRepository) {
-		Set<Perfil> perfis = new HashSet<Perfil>();
-		setarPerfis(perfis, perfilRepository);
-		
 		usuario.setEmail(email);
 		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
-		usuario.setPerfis(perfis);
+		usuario.setPerfis(setarPerfis(perfilRepository));
 	}
 
-	private Set<Perfil> setarPerfis(Set<Perfil> perfis, PerfilRepository perfilRepository) {		
+	private Set<Perfil> setarPerfis(PerfilRepository perfilRepository) {		
+		Set<Perfil> perfis = new HashSet<Perfil>();
+		
 		for (Long id : this.perfis) {
 			Optional<Perfil> perfil = perfilRepository.findById(id);
+			
 			if (perfil.isPresent()) {
 				perfis.add(perfil.get());
 			}
@@ -64,6 +64,6 @@ public class UsuarioForm {
 		Usuario usuario = usuarioRepository.getOne(id);
 		usuario.setEmail(email);
 		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
-		setarPerfis(usuario.getPerfis(), perfilRepository);
+		usuario.setPerfis(setarPerfis(perfilRepository));
 	}
 }

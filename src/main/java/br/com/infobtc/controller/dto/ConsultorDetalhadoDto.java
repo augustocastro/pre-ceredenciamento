@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.Consultor;
 
 public class ConsultorDetalhadoDto {
+	
 	private Long id;
 	private String nome;
 	private String telefone;

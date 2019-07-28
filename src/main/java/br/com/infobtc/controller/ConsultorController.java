@@ -113,4 +113,5 @@ public class ConsultorController {
 
 		return ResponseEntity.notFound().build();
 	}
+	
 }

@@ -17,4 +17,5 @@ public class ErroDeValidacaoDto {
 	public String getErro() {
 		return erro;
 	}
+	
 }

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 
 public class InvestidorPessoaJuridicaDto {
+	
 	private Long id;
 	private String nome;
 	private String email;
