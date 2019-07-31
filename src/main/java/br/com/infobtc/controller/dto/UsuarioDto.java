@@ -6,7 +6,7 @@ import java.util.Set;
 import br.com.infobtc.model.Usuario;
 
 public class UsuarioDto {
-	
+
 	private Long id;
 	private String email;
 	private Set<PerfilDto> perfis = new HashSet<PerfilDto>();
@@ -21,24 +21,12 @@ public class UsuarioDto {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public Set<PerfilDto> getPerfis() {
 		return perfis;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setPerfis(HashSet<PerfilDto> perfis) {
-		this.perfis = perfis;
 	}
 
 }

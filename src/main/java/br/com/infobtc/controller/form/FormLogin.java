@@ -1,10 +1,18 @@
 package br.com.infobtc.controller.form;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 public class FormLogin {
 
+	@NotNull
+	@NotEmpty
 	private String email;
+	
+	@NotNull
+	@NotEmpty
 	private String senha;
 
 	public String getEmail() {

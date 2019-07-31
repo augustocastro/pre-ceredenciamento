@@ -15,7 +15,7 @@ public class InvestidorDto {
 
 	public InvestidorDto() {
 	}
-	
+
 	public InvestidorDto(Investidor pessoa) {
 		this.id = pessoa.getId();
 		this.nome = pessoa.getNome();
@@ -44,28 +44,8 @@ public class InvestidorDto {
 		return tipo;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
 	public List<InvestidorDto> converter(List<Investidor> pessoas) {
 		return pessoas.stream().map(InvestidorDto::new).collect(Collectors.toList());
 	}
-	
+
 }

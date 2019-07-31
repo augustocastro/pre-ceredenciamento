@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.Consultor;
 
 public class ConsultorDetalhadoDto {
-	
+
 	private Long id;
 	private String nome;
 	private String telefone;
@@ -42,26 +42,6 @@ public class ConsultorDetalhadoDto {
 
 	public EnderecoDto getEndereco() {
 		return endereco;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public void setUsuario(UsuarioDto usuario) {
-		this.usuario = usuario;
-	}
-
-	public void setEndereco(EnderecoDto endereco) {
-		this.endereco = endereco;
 	}
 
 	public List<ConsultorDetalhadoDto> converter(List<Consultor> consultores) {

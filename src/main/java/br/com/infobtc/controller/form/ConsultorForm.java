@@ -60,6 +60,7 @@ public class ConsultorForm {
 		
 		this.usuario.atualizar(consultor.getUsuario().getId(), usuarioRepository, perfilRepository);
 		this.endereco.atualizar(consultor.getEndereco().getId(), enderecoRepository);
+		
 		return consultor;
 	}
 

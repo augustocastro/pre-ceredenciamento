@@ -152,7 +152,7 @@ Edição de Investidor Pessoa Física
 ##### GET http://localhost:8080/investidor-pessoa-fisica/todos
 Consulta de todos Investidor Pessoa Física
 
-# Pessoa:
+# Investidor:
 ##### GET http://localhost:8080/investidor/todos
 Consulta de todos Investidor
 
@@ -243,4 +243,121 @@ Consulta de Consultor por id
 
 ##### DELETE http://localhost:8080/consultor/{id}
 Exclusão de Consultor por id
+
+# Investimento
+##### POST localhost:8080/investimento/
+Cadastro de Investimento
+
+```
+{
+	"nome": "Teste",
+	"dt_inicio": "2019-07-30",
+	"dt_termino": "2019-07-31",
+	"quantidade_meses": 1,
+	"valor": 10000,
+	"investimento_id": 1,
+	"alinea": "teste",
+	"banco": {
+		"instruicao_finaceira": "itau",
+		"agencia": "00000",
+		"conta": "00000 eidt",
+		"tipo_conta": "Conta-Corrente",
+		"codigo": 0,
+		"titular": "John Doe",
+		"cpf_or_cnpj_titular": "000.000.000-00"
+	}
+}
+```
+
+##### PUT localhost:8080/investimento/{id}
+Edição de Investimento
+
+```
+{
+	"nome": "Teste edit",
+	"dt_inicio": "2019-07-30",
+	"dt_termino": "2019-07-31",
+	"quantidade_meses": 1,
+	"valor": 5000,
+	"investidor_id": 1,
+	"tipo_rendimento": "Fixo edit",
+	"banco": {
+		"instruicao_finaceira": "itau edit",
+		"agencia": "00000 edit",
+		"conta": "00000 edit",
+		"tipo_conta": "Conta-Corrente edit",
+		"codigo": 1,
+		"titular": "John Doe edit",
+		"cpf_or_cnpj_titular": "000.000.000-00 edit"
+	}
+}
+```
+
+##### GET http://localhost:8080/investimento/todos
+Consulta de todos Investimento.
+
+##### GET http://localhost:8080/investimento/{id}
+Consulta de Investimento por id
+
+##### DELETE http://localhost:8080/investimento/{id}
+Exclusão de Investimento por id
+
+# Reinvestimento
+##### POST localhost:8080/reinvestimento/
+Cadastro de Reinvestimento
+
+```
+{
+	"nome": "Teste",
+	"dt_inicio": "2019-07-30",
+	"dt_termino": "2019-07-31",
+	"quantidade_meses": 1,
+	"valor": 5000,
+	"investidor_id": 1,
+	"tipo_rendimento": "Fixo",
+	"banco": {
+		"instruicao_finaceira": "Itau",
+		"agencia": "00000",
+		"conta": "00000",
+		"tipo_conta": "Conta-Corrente",
+		"codigo": 0,
+		"titular": "John Doe",
+		"cpf_or_cnpj_titular": "000.000.000-00"
+	}
+}
+```
+
+
+##### PUT localhost:8080/reinvestimento/{id}
+Edição de Reinvestimento
+
+```
+{
+	"nome": "Teste edit",
+	"dt_inicio": "2019-07-30",
+	"dt_termino": "2019-07-31",
+	"quantidade_meses": 1,
+	"valor": 20000,
+	"investimento_id": 1,
+	"alinea": "teste edit",
+	"banco": {
+		"instruicao_finaceira": "itau edit",
+		"agencia": "00000 edit",
+		"conta": "00000 edit",
+		"tipo_conta": "Conta-Corrente edit",
+		"codigo": 1,
+		"titular": "John Doe edit",
+		"cpf_or_cnpj_titular": "000.000.000-00 edit"
+	}
+}
+```
+
+##### GET http://localhost:8080/reinvestimento/todos
+Consulta de todos Reinvestimento.
+
+##### GET http://localhost:8080/reinvestimento/{id}
+Consulta de Reinvestimento por id
+
+##### DELETE http://localhost:8080/reinvestimento/{id}
+Exclusão de Reinvestimento por id
 

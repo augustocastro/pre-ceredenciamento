@@ -9,7 +9,7 @@ import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
 
 public class InvestidorPessoaFisicaDto {
-	
+
 	private Long id;
 	private String nome;
 	private String email;
@@ -29,7 +29,7 @@ public class InvestidorPessoaFisicaDto {
 
 	public InvestidorPessoaFisicaDto() {
 	}
-	
+
 	public InvestidorPessoaFisicaDto(InvestidorPessoaFisica investidor) {
 		this.id = investidor.getId();
 		this.nome = investidor.getNome();
@@ -67,26 +67,6 @@ public class InvestidorPessoaFisicaDto {
 
 	public String getTipo() {
 		return tipo;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getCpf() {
@@ -133,52 +113,8 @@ public class InvestidorPessoaFisicaDto {
 		return endereco;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public void setProfissao(String profissao) {
-		this.profissao = profissao;
-	}
-
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
-
-	public void setOrgao_emissor_uf(String orgao_emissor_uf) {
-		this.orgao_emissor_uf = orgao_emissor_uf;
-	}
-
-	public void setRegime_bens(String regime_bens) {
-		this.regime_bens = regime_bens;
-	}
-
-	public void setNacionalidade(String nacionalidade) {
-		this.nacionalidade = nacionalidade;
-	}
-
-	public void setDt_nascimento(String dt_nascimento) {
-		this.dt_nascimento = dt_nascimento;
-	}
-
-	public void setSexo(Sexo sexo) {
-		this.sexo = sexo;
-	}
-
-	public void setEstado_civil(EstadoCivil estado_civil) {
-		this.estado_civil = estado_civil;
-	}
-
-	public void setConsultor(ConsultorDto consultor) {
-		this.consultor = consultor;
-	}
-
-	public void setEndereco(EnderecoDto endereco) {
-		this.endereco = endereco;
-	}
-	
 	public List<InvestidorPessoaFisicaDto> converter(List<InvestidorPessoaFisica> investidores) {
 		return investidores.stream().map(InvestidorPessoaFisicaDto::new).collect(Collectors.toList());
 	}
-	
+
 }
