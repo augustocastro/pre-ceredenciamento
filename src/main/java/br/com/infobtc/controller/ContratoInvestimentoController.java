@@ -56,7 +56,7 @@ public class ContratoInvestimentoController {
 		bancoRepository.save(banco);
 		contratoInvestimentoRepository.save(contrato);
 		
-		URI uri = uriComponentsBuilder.path("/contrato-investimento/{id}").buildAndExpand(contrato.getId()).toUri();
+		URI uri = uriComponentsBuilder.path("/investimento/{id}").buildAndExpand(contrato.getId()).toUri();
 		return ResponseEntity.created(uri).body(new ContratoInvestimentoDetalhadoDto(contrato));
 	}
 	

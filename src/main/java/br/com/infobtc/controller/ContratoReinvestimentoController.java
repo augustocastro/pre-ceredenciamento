@@ -64,7 +64,7 @@ public class ContratoReinvestimentoController {
 			investimento.get().getReinvestimentos().add(contrato);
 		}
 		
-		URI uri = uriComponentsBuilder.path("/contrato-reinvestimento/{id}").buildAndExpand(contrato.getId()).toUri();
+		URI uri = uriComponentsBuilder.path("/reinvestimento/{id}").buildAndExpand(contrato.getId()).toUri();
 		return ResponseEntity.created(uri).body(new ContratoReinvestimentoDto(contrato));
 	}
 	
