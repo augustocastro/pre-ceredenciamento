@@ -254,19 +254,20 @@ Cadastro de Investimento
 	"dt_inicio": "2019-07-30",
 	"dt_termino": "2019-07-31",
 	"quantidade_meses": 1,
-	"valor": 10000,
-	"investimento_id": 1,
-	"alinea": "teste",
+	"valor": 5000,
+	"investidor_id": 1,
+	"tipo_rendimento": "Fixo",
 	"banco": {
 		"instruicao_finaceira": "itau",
 		"agencia": "00000",
-		"conta": "00000 eidt",
+		"conta": "00000",
 		"tipo_conta": "Conta-Corrente",
-		"codigo": 0,
+		"codigo": 1,
 		"titular": "John Doe",
 		"cpf_or_cnpj_titular": "000.000.000-00"
 	}
 }
+
 ```
 
 ##### PUT localhost:8080/investimento/{id}
