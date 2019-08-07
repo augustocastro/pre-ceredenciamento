@@ -30,6 +30,11 @@ Algumas coisas são necessárias para iniciarmos com este projeto:
 4. Rode o comando mvn install.
 5. Rode a aplicação pelo método main definido em InfobtcApplication.java.
 
+# Swagger
+A partir de agora a documentação gerá gerado com Swagger
+
+Para acessar a documentação da API rode a aplicação e acesse: http://localhost:8080/swagger-ui.html
+
 # Consumindo a API:
 Recomendamos a utilização de um HTTP Client para a realização dos testes, sugerismo o Postman.
 
