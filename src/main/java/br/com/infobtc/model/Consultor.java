@@ -9,6 +9,9 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @Entity
 public class Consultor {
 

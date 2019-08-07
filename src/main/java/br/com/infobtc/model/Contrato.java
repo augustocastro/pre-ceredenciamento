@@ -14,6 +14,9 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Contrato {

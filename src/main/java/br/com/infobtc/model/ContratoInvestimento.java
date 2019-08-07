@@ -11,6 +11,9 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import springfox.documentation.annotations.ApiIgnore;
+
+@ApiIgnore
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class ContratoInvestimento extends Contrato {

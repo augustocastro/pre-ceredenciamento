@@ -5,7 +5,17 @@ import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.com.infobtc.model.Banco;
+import br.com.infobtc.model.Consultor;
+import br.com.infobtc.model.Contrato;
+import br.com.infobtc.model.ContratoInvestimento;
+import br.com.infobtc.model.ContratoReinvestimento;
+import br.com.infobtc.model.Endereco;
+import br.com.infobtc.model.InvestidorPessoaFisica;
+import br.com.infobtc.model.InvestidorPessoaJuridica;
+import br.com.infobtc.model.Perfil;
 import br.com.infobtc.model.Usuario;
+import br.com.infobtc.repository.PerfilRepository;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -22,10 +32,20 @@ public class SwaggerConfigurations {
 	public Docket infobtc() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("br.com.infobtc"))
+				.apis(RequestHandlerSelectors.basePackage("br.com.infobtc.controller"))
 				.paths(PathSelectors.ant("/**"))
 				.build()
+				.ignoredParameterTypes(Banco.class)
+				.ignoredParameterTypes(Consultor.class)
+				.ignoredParameterTypes(Contrato.class)
+				.ignoredParameterTypes(ContratoInvestimento.class)
+				.ignoredParameterTypes(ContratoReinvestimento.class)
+				.ignoredParameterTypes(Endereco.class)
+				.ignoredParameterTypes(InvestidorPessoaFisica.class)
+				.ignoredParameterTypes(InvestidorPessoaJuridica.class)
 				.ignoredParameterTypes(Usuario.class)
+				.ignoredParameterTypes(Perfil.class)
+				.ignoredParameterTypes(PerfilRepository.class)
 				.globalOperationParameters(Arrays.asList(
 						new ParameterBuilder()
 						.name("Authorization")
