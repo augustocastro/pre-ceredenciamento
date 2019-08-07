@@ -31,7 +31,7 @@ Algumas coisas são necessárias para iniciarmos com este projeto:
 5. Rode a aplicação pelo método main definido em InfobtcApplication.java.
 
 # Swagger
-A partir de agora a documentação gerá gerado com Swagger
+A partir de agora a documentação será gerada com Swagger.
 
 Para acessar a documentação da API rode a aplicação e acesse: http://localhost:8080/swagger-ui.html
 
