@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-	private final String SENDER_EMAIL = "augusto.castro@sempreceub.com";
-	private final String SENDER_PASSWORD = "GU@051316";
+	private final String SENDER_EMAIL = "infobtctest@gmail.com";
+	private final String SENDER_PASSWORD = "infobtctest";
 
 	public void send(String ...args) {
 		try {
