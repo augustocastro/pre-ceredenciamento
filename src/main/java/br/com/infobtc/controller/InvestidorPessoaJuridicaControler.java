@@ -4,10 +4,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,9 +23,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.InvestidorPessoaJuridicaForm;
+import br.com.infobtc.model.DadosHash;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.repository.ConsultorRepository;
+import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 
@@ -40,23 +44,36 @@ public class InvestidorPessoaJuridicaControler {
 	@Autowired
 	private ConsultorRepository consultorRepository; 
 	
+	@Autowired
+	private DadosHashRepository dadosHashRepository; 
+	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(@RequestBody @Valid InvestidorPessoaJuridicaForm pessoaForm, UriComponentsBuilder uriComponentsBuilder) {
-		InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
-		Endereco endereco = new Endereco();
-		EnderecoForm enderecoForm = pessoaForm.getEndereco();
-
-		investidor.setEndereco(endereco);
+	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(HttpServletRequest request, @RequestBody @Valid InvestidorPessoaJuridicaForm pessoaForm, UriComponentsBuilder uriComponentsBuilder) {
+		String hash = request.getHeader("HashCode");
+		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
 		
-		enderecoForm.setarPropriedades(endereco);
-		pessoaForm.setarPropriedades(investidor, consultorRepository);
+		if(dadosHash.isPresent()) {
+			InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
+			Endereco endereco = new Endereco();
+			EnderecoForm enderecoForm = pessoaForm.getEndereco();
 
-		enderecoRepository.save(endereco);
-		investidorPessoaJuridicaRepository.save(investidor);
+			investidor.setEndereco(endereco);
+			
+			enderecoForm.setarPropriedades(endereco);
+			pessoaForm.setarPropriedades(investidor, consultorRepository);
 
-		URI uri = uriComponentsBuilder.path("/investidor/{id}").buildAndExpand(investidor.getId()).toUri();
-		return ResponseEntity.created(uri).body(new InvestidorPessoaJuridicaDto(investidor));
+			enderecoRepository.save(endereco);
+			investidorPessoaJuridicaRepository.save(investidor);
+
+			URI uri = uriComponentsBuilder.path("/investidor/{id}").buildAndExpand(investidor.getId()).toUri();
+			
+			dadosHashRepository.deleteById(dadosHash.get().getId());
+			
+			return ResponseEntity.created(uri).body(new InvestidorPessoaJuridicaDto(investidor));
+		}
+		
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 	}
 	
 	@PutMapping("/{id}")

@@ -10,11 +10,13 @@ import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.ContratoReinvestimento;
+import br.com.infobtc.model.DadosHash;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.model.Perfil;
 import br.com.infobtc.model.Usuario;
+import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.PerfilRepository;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -46,10 +48,19 @@ public class SwaggerConfigurations {
 				.ignoredParameterTypes(Usuario.class)
 				.ignoredParameterTypes(Perfil.class)
 				.ignoredParameterTypes(PerfilRepository.class)
+				.ignoredParameterTypes(DadosHashRepository.class)
+				.ignoredParameterTypes(DadosHash.class)
 				.globalOperationParameters(Arrays.asList(
 						new ParameterBuilder()
 						.name("Authorization")
 						.description("Header para token JWT")
+						.modelRef(new ModelRef("string"))
+						.parameterType("header")
+						.required(false)
+						.build(),
+						new ParameterBuilder()
+						.name("HashCode")
+						.description("Header para Hash Code")
 						.modelRef(new ModelRef("string"))
 						.parameterType("header")
 						.required(false)
