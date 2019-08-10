@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
 	private final String SENDER_EMAIL = "infobtctest@gmail.com";
-	private final String SENDER_PASSWORD = "infobtctest";
+	private final String SENDER_PASSWORD = "infobtctest123";
 
 	public void send(String ...args) {
 		try {
