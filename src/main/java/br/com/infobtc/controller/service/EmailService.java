@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-	private final String SENDER_EMAIL = "augusto.castro@sempreceub.com";
-	private final String SENDER_PASSWORD = "GU@051316";
+	private final String SENDER_EMAIL = "infobtctest@gmail.com";
+	private final String SENDER_PASSWORD = "infobtctest";
 
 	public void send(String ...args) {
 		try {
 			StringBuilder msg = new StringBuilder();
-			msg.append("<html><p>Olá, %s. Você acaba de receber um token para realizar o seu cadastro em nosso sistema. O código é: <strong>%s</strong></html>.");
-			msg.append("<br>Faça o cadastro até às 00:00 do dia de hoje, pois token expira o nesse horário.");
-			msg.append("<br><br>Para se cadastrar acesso agora: http://infobtcbr.com.br/cliente.</p>");
+			msg.append("<html><p>Olá, %s. Você acaba de receber um token para realizar o seu cadastro em nosso sistema. O código é: <strong>%s</strong>.");
+			msg.append("<br>Faça o cadastro até às 00:00 do dia de hoje, pois token expira nesse horário.");
+			msg.append("<br><br>Para se cadastrar acesse: http://infobtcbr.com.br/cliente.</p></html>");
 			
 			String mensagem = String.format(msg.toString(), args[0], args[2]);
 			
