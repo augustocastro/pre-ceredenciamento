@@ -49,19 +49,19 @@ public class InvestidorPessoaJuridicaControler {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(HttpServletRequest request, @RequestBody @Valid InvestidorPessoaJuridicaForm pessoaForm, UriComponentsBuilder uriComponentsBuilder) {
+	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(HttpServletRequest request, @RequestBody @Valid InvestidorPessoaJuridicaForm form, UriComponentsBuilder uriComponentsBuilder) {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
 		
 		if(dadosHash.isPresent()) {
 			InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
 			Endereco endereco = new Endereco();
-			EnderecoForm enderecoForm = pessoaForm.getEndereco();
+			EnderecoForm enderecoForm = form.getEndereco();
 
 			investidor.setEndereco(endereco);
 			
 			enderecoForm.setarPropriedades(endereco);
-			pessoaForm.setarPropriedades(investidor, consultorRepository);
+			form.setarPropriedades(investidor, consultorRepository);
 
 			enderecoRepository.save(endereco);
 			investidorPessoaJuridicaRepository.save(investidor);
