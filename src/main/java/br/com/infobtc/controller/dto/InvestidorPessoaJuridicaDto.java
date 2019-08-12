@@ -1,5 +1,6 @@
 package br.com.infobtc.controller.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,8 @@ public class InvestidorPessoaJuridicaDto {
 	private String inscricao;
 	private EnderecoDto endereco;
 	private ConsultorDto consultor;
-
+	private List<String> arquivos_url = new ArrayList<String>();
+	
 	public InvestidorPessoaJuridicaDto() {
 	}
 
@@ -30,6 +32,7 @@ public class InvestidorPessoaJuridicaDto {
 		this.inscricao = investidor.getInscricao();
 		this.endereco = new EnderecoDto(investidor.getEndereco());
 		this.consultor = new ConsultorDto(investidor.getConsultor());
+		this.arquivos_url = investidor.getArquivosUrl();
 	}
 
 	public Long getId() {
@@ -66,6 +69,14 @@ public class InvestidorPessoaJuridicaDto {
 
 	public ConsultorDto getConsultor() {
 		return consultor;
+	}
+
+	public List<String> getArquivos_url() {
+		return arquivos_url;
+	}
+
+	public void setArquivos_url(List<String> arquivos_url) {
+		this.arquivos_url = arquivos_url;
 	}
 
 	public List<InvestidorPessoaJuridicaDto> converter(List<InvestidorPessoaJuridica> investidores) {

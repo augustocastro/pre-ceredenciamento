@@ -1,6 +1,10 @@
 package br.com.infobtc.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +24,9 @@ public class Investidor {
 	private String email;
 	private String telefone;
 	private String tipo;
+	
+	@ElementCollection
+	private List<String> arquivosUrl = new ArrayList<String>();
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
@@ -91,6 +98,14 @@ public class Investidor {
 
 	public void setConsultor(Consultor consultor) {
 		this.consultor = consultor;
+	}
+
+	public List<String> getArquivosUrl() {
+		return arquivosUrl;
+	}
+
+	public void setArquivosUrl(List<String> arquivosUrl) {
+		this.arquivosUrl = arquivosUrl;
 	}
 
 }
