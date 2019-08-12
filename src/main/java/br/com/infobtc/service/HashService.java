@@ -1,4 +1,4 @@
-package br.com.infobtc.controller.service;
+package br.com.infobtc.service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,4 +1,4 @@
-package br.com.infobtc.controller.service;
+package br.com.infobtc.service;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.EmailException;

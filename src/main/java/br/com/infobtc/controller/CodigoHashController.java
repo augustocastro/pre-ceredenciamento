@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.infobtc.controller.dto.DadosHashDto;
 import br.com.infobtc.controller.form.DadosHashForm;
-import br.com.infobtc.controller.service.EmailService;
-import br.com.infobtc.controller.service.HashService;
 import br.com.infobtc.model.DadosHash;
 import br.com.infobtc.repository.DadosHashRepository;
+import br.com.infobtc.service.EmailService;
+import br.com.infobtc.service.HashService;
 
 @RestController
 @RequestMapping("/hash")

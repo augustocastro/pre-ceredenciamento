@@ -50,6 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/investidor-pessoa-juridica").permitAll()
 			.antMatchers(HttpMethod.POST, "/investidor-pessoa-fisica").permitAll()
+			.antMatchers(HttpMethod.POST, "/picture").permitAll() // teste
 			.anyRequest().authenticated()
 			.and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
