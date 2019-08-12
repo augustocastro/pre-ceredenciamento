@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -43,33 +45,31 @@ public class PictureController {
 
 	@Autowired
 	private ConsultorRepository consultorRepository;
-	
+
 	@Transactional
 	@PostMapping
 	ResponseEntity<Void> uploadFile(@RequestParam("investidor") String investidorStringJson, List<MultipartFile> arquivos) {
-		ObjectMapper mapper = new ObjectMapper();
-
-		InvestidorPessoaJuridicaForm investidorForm = null;
-
 		try {
-			investidorForm  = mapper.readValue(investidorStringJson, InvestidorPessoaJuridicaForm.class);
+			InvestidorPessoaJuridicaForm investidorForm = new ObjectMapper().readValue(investidorStringJson, 
+					InvestidorPessoaJuridicaForm.class);
+			
+			EnderecoForm enderecoForm = investidorForm.getEndereco();
+
 			InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
 			Endereco endereco = new Endereco();
-			EnderecoForm enderecoForm = investidorForm.getEndereco();
-			
+
 			investidor.setEndereco(endereco);
-			
 			enderecoForm.setarPropriedades(endereco);
 			investidorForm.setarPropriedades(investidor, consultorRepository);
-			
-			enderecoRepository.save(endereco);
-			
+
 			for (MultipartFile file : arquivos) {
 				URI uploadFile = s3Service.uploadFile(file);
 				investidor.getArquivosUrl().add(uploadFile.toURL().toString());
 			}
-			
+
+			enderecoRepository.save(endereco);
 			investidorPessoaJuridicaRepository.save(investidor);
+			return ResponseEntity.status(HttpStatus.CREATED).build();
 		} catch (JsonParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,14 +80,8 @@ public class PictureController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 
-		System.out.println(investidorStringJson);
-
-		for (MultipartFile arquivo : arquivos) {
-			System.out.println(arquivo.getOriginalFilename());
-		}
-
-		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
