@@ -32,13 +32,11 @@ public class CodigoHashController {
 	@PostMapping
 	public ResponseEntity<DadosHashDto> gerarCodigoHash(@RequestBody @Valid DadosHashForm dadosHashForm) {
 		String hash = hashService.gerarCodigoHash();
-		
 		DadosHash dadosHash = new DadosHash();
 		dadosHash.setHash(hash);
 		dadosHashForm.setarPropriedades(dadosHash);
 		
 		dadosHashController.save(dadosHash);
-		
 		emailService.send(dadosHash.getNome(), dadosHash.getEmail(), dadosHash.getHash());
 		return ResponseEntity.ok(new DadosHashDto(dadosHash));
 	}

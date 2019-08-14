@@ -40,6 +40,8 @@ public class Contrato {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Banco banco;
 
+	private boolean valid;
+	
 	public Long getId() {
 		return id;
 	}
@@ -94,6 +96,14 @@ public class Contrato {
 
 	public void setBanco(Banco banco) {
 		this.banco = banco;
+	}
+
+	public boolean isValid() {
+		return valid;
+	}
+
+	public void setValid(boolean valid) {
+		this.valid = valid;
 	}
 
 }

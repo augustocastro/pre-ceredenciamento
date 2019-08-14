@@ -25,7 +25,7 @@ public class HashService {
 		return stringHexa(gerarHash(palavraChave, "SHA-256"));
 	}
 	
-	private static String stringHexa(byte[] bytes) {
+	private String stringHexa(byte[] bytes) {
 		StringBuilder s = new StringBuilder();
 		for (int i = 0; i < bytes.length; i++) {
 			int parteAlta = ((bytes[i] >> 4) & 0xf) << 4;
@@ -37,7 +37,7 @@ public class HashService {
 		return s.toString();
 	}
 
-	public static byte[] gerarHash(String frase, String algoritmo) {
+	public byte[] gerarHash(String frase, String algoritmo) {
 		try {
 			MessageDigest md = MessageDigest.getInstance(algoritmo);
 			md.update(frase.getBytes());

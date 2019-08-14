@@ -1,16 +1,20 @@
 package br.com.infobtc.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -73,11 +77,33 @@ public class ContratoInvestimentoController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@PatchMapping("/{id}")
+	@Transactional
+	public ResponseEntity<ContratoInvestimentoDetalhadoDto> validar(@PathVariable Long id) {
+		Optional<ContratoInvestimento> contrato = contratoInvestimentoRepository.findById(id);
+
+		if (contrato.isPresent()) {
+//			contratoInvestimentoRepository.validarInvestimento(id, !contrato.get().isValid());
+			contrato.get().setValid(true);
+			return ResponseEntity.ok(new ContratoInvestimentoDetalhadoDto(contrato.get()));
+		}
+
+		return ResponseEntity.notFound().build();
+	}
+	
 	
 	@GetMapping("/todos")
-	public ResponseEntity<List<ContratoInvestimentoDetalhadoDto>> buscarTodos() {
-		List<ContratoInvestimento> contratos = contratoInvestimentoRepository.findAll();
-		return ResponseEntity.ok(new ContratoInvestimentoDetalhadoDto().converter(contratos));
+	public Page<ContratoInvestimentoDetalhadoDto> buscarTodos(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+		Page<ContratoInvestimento> contratos;
+		System.out.println(valid);
+		
+		if (valid == null) {
+			contratos = contratoInvestimentoRepository.findAll(paginacao);
+		} else {
+			contratos = contratoInvestimentoRepository.findByValid(valid, paginacao);
+		}
+		
+		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
 	}
 	
 	@GetMapping("/{id}")

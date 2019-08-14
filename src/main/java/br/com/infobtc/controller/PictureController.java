@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,7 +47,8 @@ public class PictureController {
 
 	@Transactional
 	@PostMapping
-	ResponseEntity<Void> uploadFile(@RequestParam("investidor") String investidorStringJson, List<MultipartFile> arquivos) {
+	@ResponseBody
+	ResponseEntity<Void> uploadFile(@RequestParam("investidor") String investidorStringJson, @RequestParam List<MultipartFile> arquivos) {
 		try {
 			InvestidorPessoaJuridicaForm investidorForm = new ObjectMapper().readValue(investidorStringJson, 
 					InvestidorPessoaJuridicaForm.class);

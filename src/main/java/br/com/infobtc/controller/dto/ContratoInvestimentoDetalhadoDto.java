@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
 
 import br.com.infobtc.model.ContratoInvestimento;
 
@@ -16,6 +17,7 @@ public class ContratoInvestimentoDetalhadoDto {
 	private String dt_termino;
 	private long quantidade_meses;
 	private BigDecimal valor;
+	private boolean valid;
 	private InvestidorDto investidor;
 	private BancoDto banco;
 	private List<ContratoReinvestimentoDto> reinvestimentos = new ArrayList<ContratoReinvestimentoDto>();
@@ -33,6 +35,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.investidor = new InvestidorDto(contratoInvestimento.getInvestidor());
 		this.banco = new BancoDto(contratoInvestimento.getBanco());
 		this.reinvestimentos = new ContratoReinvestimentoDto().converter(contratoInvestimento.getReinvestimentos());
+		this.valid = contratoInvestimento.isValid();
 	}
 
 	public Long getId() {
@@ -71,8 +74,12 @@ public class ContratoInvestimentoDetalhadoDto {
 		return reinvestimentos;
 	}
 
-	public List<ContratoInvestimentoDetalhadoDto> converter(List<ContratoInvestimento> contratos) {
-		return contratos.stream().map(ContratoInvestimentoDetalhadoDto::new).collect(Collectors.toList());
+	public boolean isValid() {
+		return valid;
+	}
+
+	public Page<ContratoInvestimentoDetalhadoDto> converter(Page<ContratoInvestimento> contratos) {
+		return contratos.map(ContratoInvestimentoDetalhadoDto::new);
 	}
 
 }

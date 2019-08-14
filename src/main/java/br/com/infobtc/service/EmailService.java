@@ -16,7 +16,7 @@ public class EmailService {
 			StringBuilder msg = new StringBuilder();
 			msg.append("<html><p>Olá, %s. Você acaba de receber um token para realizar o seu cadastro em nosso sistema. O código é: <strong>%s</strong>.");
 			msg.append("<br>Faça o cadastro até às 00:00 do dia de hoje, pois o token expira nesse horário.");
-			msg.append("<br><br>Para se cadastrar acesse: http://infobtcbr.com.br/cliente.</p></html>");
+			msg.append("<br><br>Para se cadastrar acesse: http://infobtc.com.br/cliente.</p></html>");
 			
 			String mensagem = String.format(msg.toString(), args[0], args[2]);
 			

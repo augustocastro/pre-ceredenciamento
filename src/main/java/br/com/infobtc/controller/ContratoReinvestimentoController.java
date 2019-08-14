@@ -1,16 +1,20 @@
 package br.com.infobtc.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -81,10 +85,30 @@ public class ContratoReinvestimentoController {
 		return ResponseEntity.notFound().build();
 	}
 
+	@PatchMapping("/{id}")
+	@Transactional
+	public ResponseEntity<ContratoReinvestimentoDto> validar(@PathVariable Long id) {
+		Optional<ContratoReinvestimento> contrato = contratoReinvestimentoRepository.findById(id);
+
+		if (contrato.isPresent()) {
+			contrato.get().setValid(true);
+			return ResponseEntity.ok(new ContratoReinvestimentoDto(contrato.get()));
+		}
+
+		return ResponseEntity.notFound().build();
+	}
+	
 	@GetMapping("/todos")
-	public ResponseEntity<List<ContratoReinvestimentoDto>> buscarTodos() {
-		List<ContratoReinvestimento> contratos = contratoReinvestimentoRepository.findAll();
-		return ResponseEntity.ok(new ContratoReinvestimentoDto().converter(contratos));
+	public Page<ContratoReinvestimentoDto> buscarTodos(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+		Page<ContratoReinvestimento> contratos;
+		
+		if (valid == null) {
+			contratos = contratoReinvestimentoRepository.findAll(paginacao);
+		} else {
+			contratos = contratoReinvestimentoRepository.findByValid(valid, paginacao);
+		}
+		
+		return new ContratoReinvestimentoDto().converter(contratos);
 	}
 
 	@GetMapping("/{id}")
