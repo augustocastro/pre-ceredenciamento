@@ -39,7 +39,7 @@ public class Contrato {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Banco banco;
-
+	
 	private boolean valid;
 	
 	public Long getId() {

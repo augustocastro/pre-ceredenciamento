@@ -1,18 +1,20 @@
 package br.com.infobtc.controller.form;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.infobtc.model.Consultor;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+
 import br.com.infobtc.model.EstadoCivil;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
-import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaFisicaRepository;
 
@@ -22,6 +24,8 @@ public class InvestidorPessoaFisicaForm {
 	@NotEmpty
 	private String cpf;
 
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
 	@NotNull
 	private LocalDate dt_nascimento;
 
@@ -62,9 +66,6 @@ public class InvestidorPessoaFisicaForm {
 
 	@NotNull
 	private EstadoCivil estado_civil;
-
-	@NotNull
-	private Long id_consultor;
 
 	@NotBlank
 	@NotNull
@@ -162,10 +163,6 @@ public class InvestidorPessoaFisicaForm {
 		this.estado_civil = estadoCivil;
 	}
 
-	public void setIdConsultor(Long idConsultor) {
-		this.id_consultor = idConsultor;
-	}
-
 	public String getNacionalidade() {
 		return nacionalidade;
 	}
@@ -174,17 +171,16 @@ public class InvestidorPessoaFisicaForm {
 		this.nacionalidade = nacionalidade;
 	}
 
-	public InvestidorPessoaFisica atualizar(Long id, InvestidorPessoaFisicaRepository pessoaFisicaRepository,
-			EnderecoRepository enderecoRepository, ConsultorRepository consultorRepository) {
+	public InvestidorPessoaFisica atualizar(Long id, InvestidorPessoaFisicaRepository pessoaFisicaRepository, EnderecoRepository enderecoRepository) {
 		InvestidorPessoaFisica investidor = pessoaFisicaRepository.getOne(id);
 
 		this.endereco.atualizar(investidor.getEndereco().getId(), enderecoRepository);
-		setarPropriedades(investidor, consultorRepository);
+		setarPropriedades(investidor);
 
 		return investidor;
 	}
 
-	public void setarPropriedades(InvestidorPessoaFisica investidor, ConsultorRepository consultorRepository) {
+	public void setarPropriedades(InvestidorPessoaFisica investidor) {
 		investidor.setCpf(cpf);
 		investidor.setDocumento(documento);
 		investidor.setDt_nascimento(dt_nascimento);
@@ -197,12 +193,6 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setOrgao_emissor_uf(orgao_emissor_uf);
 		investidor.setNacionalidade(nacionalidade);
 		investidor.setEstadoCivil(estado_civil);
-		
-		Optional<Consultor> consultor = consultorRepository.findById(id_consultor);
-		
-		if (consultor.isPresent()) {
-			investidor.setConsultor(consultor.get());
-		}
 	}
 
 }

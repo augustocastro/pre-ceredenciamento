@@ -22,7 +22,6 @@ import br.com.infobtc.controller.form.InvestidorArquivosForm;
 import br.com.infobtc.controller.form.InvestidorPessoaJuridicaForm;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
-import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 import br.com.infobtc.service.S3Service;
@@ -39,10 +38,7 @@ public class PictureController {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-
-	@Autowired
-	private ConsultorRepository consultorRepository;
-
+	
 	@Transactional
 	@PostMapping
 	ResponseEntity<Void> uploadFile(@Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm) {
@@ -62,7 +58,7 @@ public class PictureController {
 
 			investidor.setEndereco(endereco);
 			enderecoForm.setarPropriedades(endereco);
-			investidorForm.setarPropriedades(investidor, consultorRepository);
+			investidorForm.setarPropriedades(investidor);
 
 			for (MultipartFile file : investidorArquivosForm.getArquivos()) {
 				URI uploadFile = s3Service.uploadFile(file);

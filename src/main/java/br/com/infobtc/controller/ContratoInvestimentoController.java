@@ -29,6 +29,7 @@ import br.com.infobtc.controller.form.ContratoInvestimentoForm;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.repository.BancoRepository;
+import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.InvestidorRepository;
 
@@ -43,7 +44,10 @@ public class ContratoInvestimentoController {
 	private ContratoInvestimentoRepository contratoInvestimentoRepository; 
 	
 	@Autowired
-	private InvestidorRepository investidorRepository; 
+	private InvestidorRepository investidorRepository;
+	
+	@Autowired
+	private ConsultorRepository consultorRepository; 
 	
 	@PostMapping
 	@Transactional
@@ -54,7 +58,7 @@ public class ContratoInvestimentoController {
 		
 		BancoForm bancoForm = form.getBanco();
 
-		form.setarPropriedades(contrato, investidorRepository);
+		form.setarPropriedades(contrato, investidorRepository, consultorRepository);
 		bancoForm.setarPropriedades(banco);
 		
 		bancoRepository.save(banco);
@@ -70,7 +74,7 @@ public class ContratoInvestimentoController {
 		Optional<ContratoInvestimento> contrato = contratoInvestimentoRepository.findById(id);
 
 		if (contrato.isPresent()) {
-			ContratoInvestimento contratoAtualizado = form.atualizar(id, contratoInvestimentoRepository, bancoRepository, investidorRepository);
+			ContratoInvestimento contratoAtualizado = form.atualizar(id, contratoInvestimentoRepository, bancoRepository, investidorRepository, consultorRepository);
 			return ResponseEntity.ok(new ContratoInvestimentoDetalhadoDto(contratoAtualizado));
 		}
 

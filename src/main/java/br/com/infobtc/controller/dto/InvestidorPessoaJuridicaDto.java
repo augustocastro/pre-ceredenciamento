@@ -16,7 +16,6 @@ public class InvestidorPessoaJuridicaDto {
 	private String cnpj;
 	private String inscricao;
 	private EnderecoDto endereco;
-	private ConsultorDto consultor;
 	private List<String> arquivos_url = new ArrayList<String>();
 	
 	public InvestidorPessoaJuridicaDto() {
@@ -31,7 +30,6 @@ public class InvestidorPessoaJuridicaDto {
 		this.cnpj = investidor.getCnpj();
 		this.inscricao = investidor.getInscricao();
 		this.endereco = new EnderecoDto(investidor.getEndereco());
-		this.consultor = new ConsultorDto(investidor.getConsultor());
 		this.arquivos_url = investidor.getArquivosUrl();
 	}
 
@@ -65,10 +63,6 @@ public class InvestidorPessoaJuridicaDto {
 
 	public EnderecoDto getEndereco() {
 		return endereco;
-	}
-
-	public ConsultorDto getConsultor() {
-		return consultor;
 	}
 
 	public List<String> getArquivos_url() {

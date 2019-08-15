@@ -4,26 +4,26 @@ import br.com.infobtc.model.Banco;
 
 public class BancoDto {
 
-	private String instruicaoFinaceira;
+	private String instruicao_finaceira;
 	private String agencia;
 	private String conta;
-	private String tipoConta;
+	private String tipo_conta;
 	private Integer codigo;
 	private String titular;
-	private String cpfOrCnpjTitular;
+	private String cpf_or_cnpj_titular;
 
 	public BancoDto(Banco banco) {
-		this.instruicaoFinaceira = banco.getInstruicaoFinaceira();
+		this.instruicao_finaceira = banco.getInstruicaoFinaceira();
 		this.agencia = banco.getAgencia();
 		this.conta = banco.getConta();
-		this.tipoConta = banco.getTipoConta();
+		this.tipo_conta = banco.getTipoConta();
 		this.codigo = banco.getCodigo();
 		this.titular = banco.getTitular();
-		this.cpfOrCnpjTitular = banco.getCpfOrCnpjTitular();
+		this.cpf_or_cnpj_titular = banco.getCpfOrCnpjTitular();
 	}
 
-	public String getInstruicaoFinaceira() {
-		return instruicaoFinaceira;
+	public String getInstruicao_finaceira() {
+		return instruicao_finaceira;
 	}
 
 	public String getAgencia() {
@@ -34,8 +34,8 @@ public class BancoDto {
 		return conta;
 	}
 
-	public String getTipoConta() {
-		return tipoConta;
+	public String getTipo_conta() {
+		return tipo_conta;
 	}
 
 	public Integer getCodigo() {
@@ -46,8 +46,8 @@ public class BancoDto {
 		return titular;
 	}
 
-	public String getCpfOrCnpjTitular() {
-		return cpfOrCnpjTitular;
+	public String getCpf_or_cnpj_titular() {
+		return cpf_or_cnpj_titular;
 	}
 
 }

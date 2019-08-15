@@ -1,14 +1,10 @@
 package br.com.infobtc.controller.form;
 
-import java.util.Optional;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
-import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 
@@ -38,9 +34,6 @@ public class InvestidorPessoaJuridicaForm {
 	@Valid
 	@NotNull
 	private EnderecoForm endereco;
-
-	@NotNull
-	private Long id_consultor;
 	
 	public String getCnpj() {
 		return cnpj;
@@ -69,37 +62,22 @@ public class InvestidorPessoaJuridicaForm {
 	public EnderecoForm getEndereco() {
 		return endereco;
 	}
-
-	public Long getId_consultor() {
-		return id_consultor;
-	}
-
-	public void setId_consultor(Long id_consultor) {
-		this.id_consultor = id_consultor;
-	}
-
-	public InvestidorPessoaJuridica atualizar(Long id, InvestidorPessoaJuridicaRepository pessoaJuridicaRepository, 
-			EnderecoRepository enderecoRepository, ConsultorRepository consultorRepository) {
+	
+	public InvestidorPessoaJuridica atualizar(Long id, InvestidorPessoaJuridicaRepository pessoaJuridicaRepository, EnderecoRepository enderecoRepository) {
 		InvestidorPessoaJuridica investidor = pessoaJuridicaRepository.getOne(id);
 		
 		this.endereco.atualizar(investidor.getEndereco().getId(), enderecoRepository);
-		setarPropriedades(investidor, consultorRepository);
+		setarPropriedades(investidor);
 		
 		return investidor;
 	}
 	
-	public void setarPropriedades(InvestidorPessoaJuridica investidor, ConsultorRepository consultorRepository) {
+	public void setarPropriedades(InvestidorPessoaJuridica investidor) {
 		investidor.setCnpj(cnpj);
 		investidor.setEmail(email);
 		investidor.setNome(nome);
 		investidor.setTelefone(telefone);
 		investidor.setInscricao(inscricao);
-		
-		Optional<Consultor> consultor = consultorRepository.findById(id_consultor);
-		
-		if (consultor.isPresent()) {
-			investidor.setConsultor(consultor.get());
-		}
 	}
 
 }

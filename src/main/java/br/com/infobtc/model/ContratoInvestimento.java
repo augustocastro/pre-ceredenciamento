@@ -27,6 +27,9 @@ public class ContratoInvestimento extends Contrato {
 	@OneToOne
 	private Investidor investidor;
 
+	@OneToOne
+	private Consultor consultor;
+
 	public String getTipoRendimento() {
 		return tipoRendimento;
 	}
@@ -49,6 +52,14 @@ public class ContratoInvestimento extends Contrato {
 
 	public void setInvestidor(Investidor investidor) {
 		this.investidor = investidor;
+	}
+
+	public Consultor getConsultor() {
+		return consultor;
+	}
+
+	public void setConsultor(Consultor consultor) {
+		this.consultor = consultor;
 	}
 
 }

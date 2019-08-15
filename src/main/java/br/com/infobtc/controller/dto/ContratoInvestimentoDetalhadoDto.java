@@ -13,12 +13,13 @@ public class ContratoInvestimentoDetalhadoDto {
 
 	private Long id;
 	private String nome;
-	private String data_inicio;
+	private String dt_inicio;
 	private String dt_termino;
 	private long quantidade_meses;
 	private BigDecimal valor;
 	private boolean valid;
 	private InvestidorDto investidor;
+	private ConsultorDto consultor;
 	private BancoDto banco;
 	private List<ContratoReinvestimentoDto> reinvestimentos = new ArrayList<ContratoReinvestimentoDto>();
 
@@ -28,11 +29,12 @@ public class ContratoInvestimentoDetalhadoDto {
 	public ContratoInvestimentoDetalhadoDto(ContratoInvestimento contratoInvestimento) {
 		this.id = contratoInvestimento.getId();
 		this.nome = contratoInvestimento.getNome();
-		this.data_inicio = contratoInvestimento.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.dt_inicio = contratoInvestimento.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_termino = contratoInvestimento.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.quantidade_meses = contratoInvestimento.getQuantidadeMeses();
 		this.valor = contratoInvestimento.getValor();
 		this.investidor = new InvestidorDto(contratoInvestimento.getInvestidor());
+		this.consultor = new ConsultorDto(contratoInvestimento.getConsultor());
 		this.banco = new BancoDto(contratoInvestimento.getBanco());
 		this.reinvestimentos = new ContratoReinvestimentoDto().converter(contratoInvestimento.getReinvestimentos());
 		this.valid = contratoInvestimento.isValid();
@@ -46,8 +48,8 @@ public class ContratoInvestimentoDetalhadoDto {
 		return nome;
 	}
 
-	public String getData_inicio() {
-		return data_inicio;
+	public String getDt_inicio() {
+		return dt_inicio;
 	}
 
 	public String getDt_termino() {
@@ -64,6 +66,10 @@ public class ContratoInvestimentoDetalhadoDto {
 
 	public InvestidorDto getInvestidor() {
 		return investidor;
+	}
+	
+	public ConsultorDto getConsultor() {
+		return consultor;
 	}
 
 	public BancoDto getBanco() {

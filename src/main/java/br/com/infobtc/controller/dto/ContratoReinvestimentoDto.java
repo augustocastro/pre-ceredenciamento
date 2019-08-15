@@ -13,7 +13,7 @@ public class ContratoReinvestimentoDto {
 
 	private Long id;
 	private String nome;
-	private String data_inicio;
+	private String dt_inicio;
 	private String dt_termino;
 	private long quantidade_meses;
 	private BigDecimal valor;
@@ -29,7 +29,7 @@ public class ContratoReinvestimentoDto {
 	public ContratoReinvestimentoDto(ContratoReinvestimento contratoReinvestimento) {
 		this.id = contratoReinvestimento.getId();
 		this.nome = contratoReinvestimento.getNome();
-		this.data_inicio = contratoReinvestimento.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.dt_inicio = contratoReinvestimento.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_termino = contratoReinvestimento.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.quantidade_meses = contratoReinvestimento.getQuantidadeMeses();
 		this.valor = contratoReinvestimento.getValor();
@@ -47,8 +47,8 @@ public class ContratoReinvestimentoDto {
 		return nome;
 	}
 
-	public String getData_inicio() {
-		return data_inicio;
+	public String getDt_inicio() {
+		return dt_inicio;
 	}
 
 	public String getDt_termino() {

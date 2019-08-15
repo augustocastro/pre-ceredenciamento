@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
-import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.InvestidorRepository;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -24,9 +23,6 @@ public class InfobtcApplication implements CommandLineRunner {
 	@Autowired
 	private InvestidorRepository investidorRepository; 
 	
-	@Autowired
-	private ConsultorRepository consultorRepository; 
-	
 	@Autowired ContratoInvestimentoRepository contratoInvestimentoRepository; 
 	
 	public static void main(String[] args) {
@@ -36,9 +32,8 @@ public class InfobtcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
+		
 		ContratoInvestimento contratoInvestimento = new ContratoInvestimento();
-
-		investidor.setConsultor(consultorRepository.getOne(Long.valueOf(1)));
 		contratoInvestimento.setInvestidor(investidor);
 		contratoInvestimento.setDtInicio(LocalDate.now());
 		contratoInvestimento.setDtTermino(LocalDate.now());
