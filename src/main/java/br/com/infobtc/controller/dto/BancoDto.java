@@ -23,7 +23,7 @@ public class BancoDto {
 	}
 
 	public String getInstituicao_finaceira() {
-		return instituicao_finaceira;
+		return instituicao_financeira;
 	}
 
 	public String getAgencia() {
