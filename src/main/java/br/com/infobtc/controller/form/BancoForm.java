@@ -36,7 +36,7 @@ public class BancoForm {
 	private String cpf_or_cnpj_titular;
 
 	public String getInstituicao_finaceira() {
-		return instruicao_finaceira;
+		return instituicao_finaceira;
 	}
 
 	public String getAgencia() {
