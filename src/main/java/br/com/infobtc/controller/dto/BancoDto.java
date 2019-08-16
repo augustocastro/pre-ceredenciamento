@@ -4,7 +4,7 @@ import br.com.infobtc.model.Banco;
 
 public class BancoDto {
 
-	private String instruicao_finaceira;
+	private String instituicao_finaceira;
 	private String agencia;
 	private String conta;
 	private String tipo_conta;
@@ -13,7 +13,7 @@ public class BancoDto {
 	private String cpf_or_cnpj_titular;
 
 	public BancoDto(Banco banco) {
-		this.instruicao_finaceira = banco.getInstruicaoFinaceira();
+		this.instituicao_finaceira = banco.getInstituicaoFinaceira();
 		this.agencia = banco.getAgencia();
 		this.conta = banco.getConta();
 		this.tipo_conta = banco.getTipoConta();
@@ -22,8 +22,8 @@ public class BancoDto {
 		this.cpf_or_cnpj_titular = banco.getCpfOrCnpjTitular();
 	}
 
-	public String getInstruicao_finaceira() {
-		return instruicao_finaceira;
+	public String getInstituicaofinaceira() {
+		return instituicao_finaceira;
 	}
 
 	public String getAgencia() {
