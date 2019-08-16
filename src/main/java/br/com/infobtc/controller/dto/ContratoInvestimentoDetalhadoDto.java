@@ -86,7 +86,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		return valid;
 	}
 	
-	public boolean getTipo_rendimento() {
+	public String getTipo_rendimento() {
 		return this.tipo_rendimento;
 	}
 
