@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.infobtc.controller.dto.ContratoReinvestimentoDto;
+import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.BancoForm;
 import br.com.infobtc.controller.form.ContratoReinvestimentoForm;
 import br.com.infobtc.model.Banco;
@@ -32,6 +34,7 @@ import br.com.infobtc.model.ContratoReinvestimento;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.ContratoReinvestimentoRepository;
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/reinvestimento")
@@ -49,14 +52,19 @@ public class ContratoReinvestimentoController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<ContratoReinvestimentoDto> cadastrar(@RequestBody @Valid ContratoReinvestimentoForm form, UriComponentsBuilder uriComponentsBuilder) {
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContratoReinvestimentoForm form, UriComponentsBuilder uriComponentsBuilder) {
 		ContratoReinvestimento contrato = new ContratoReinvestimento();
 		Banco banco = new Banco();
 		contrato.setBanco(banco);
 		
 		BancoForm bancoForm = form.getBanco();
 
-		form.setarPropriedades(contrato, contratoInvestimentoRepository);
+		try {
+			form.setarPropriedades(contrato, contratoInvestimentoRepository);
+		} catch (NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+		}
+		
 		bancoForm.setarPropriedades(banco);
 		
 		bancoRepository.save(banco);
@@ -74,11 +82,16 @@ public class ContratoReinvestimentoController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<ContratoReinvestimentoDto> atualizar(@PathVariable Long id, @Valid @RequestBody ContratoReinvestimentoForm form) {
+	public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody ContratoReinvestimentoForm form) {
 		Optional<ContratoReinvestimento> contrato = contratoReinvestimentoRepository.findById(id);
 
 		if (contrato.isPresent()) {
-			ContratoReinvestimento contratoAtualizado = form.atualizar(id, contratoInvestimentoRepository, contratoReinvestimentoRepository, bancoRepository);
+			ContratoReinvestimento contratoAtualizado;
+			try {
+				contratoAtualizado = form.atualizar(id, contratoInvestimentoRepository, contratoReinvestimentoRepository, bancoRepository);
+			} catch (NotFoundException e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+			}
 			return ResponseEntity.ok(new ContratoReinvestimentoDto(contratoAtualizado));
 		}
 
@@ -132,4 +145,5 @@ public class ContratoReinvestimentoController {
 
 		return ResponseEntity.notFound().build();
 	}
+	
 }

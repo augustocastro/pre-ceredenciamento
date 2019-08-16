@@ -30,4 +30,5 @@ public class S3Config {
 
 		return amazonS3;
 	}
+	
 }

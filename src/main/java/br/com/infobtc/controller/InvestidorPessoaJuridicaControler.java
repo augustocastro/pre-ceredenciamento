@@ -27,6 +27,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.InvestidorArquivosForm;
@@ -57,15 +58,13 @@ public class InvestidorPessoaJuridicaControler {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<InvestidorPessoaJuridicaDto> cadastrar(HttpServletRequest request, @Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm, 
+	public ResponseEntity<?> cadastrar(HttpServletRequest request, @Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm, 
 			UriComponentsBuilder uriComponentsBuilder) {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
-
-		InvestidorPessoaJuridicaForm form;
+		
 		try {
-			form = new ObjectMapper().readValue(investidorArquivosForm.getInvestidor(),
-					InvestidorPessoaJuridicaForm.class);
+			InvestidorPessoaJuridicaForm form = new ObjectMapper().readValue(investidorArquivosForm.getInvestidor(), InvestidorPessoaJuridicaForm.class);
 
 			if (dadosHash.isPresent()) {
 				InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
@@ -77,9 +76,11 @@ public class InvestidorPessoaJuridicaControler {
 				enderecoForm.setarPropriedades(endereco);
 				form.setarPropriedades(investidor);
 
-				for (MultipartFile file : investidorArquivosForm.getArquivos()) {
-					URI uploadFile = s3Service.uploadFile(file);
-					investidor.getArquivosUrl().add(uploadFile.toURL().toString());
+				if (investidorArquivosForm.getArquivos() != null && investidorArquivosForm.getArquivos().length > 0) {
+					for (MultipartFile file : investidorArquivosForm.getArquivos()) {
+						URI uploadFile = s3Service.uploadFile(file);
+						investidor.getArquivosUrl().add(uploadFile.toURL().toString());
+					}
 				}
 
 				enderecoRepository.save(endereco);
@@ -94,14 +95,12 @@ public class InvestidorPessoaJuridicaControler {
 
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		} catch (JsonParseException e) {
-			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao converter JSON para objeto Java"));
 		} catch (JsonMappingException e) {
-			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro na desrealização do JSON devido a erros de mapeamento."));
 		} catch (IOException e) {
-			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));
 		}
-
-		return null;
 	}
 
 	@PutMapping("/{id}")
@@ -111,8 +110,7 @@ public class InvestidorPessoaJuridicaControler {
 		Optional<InvestidorPessoaJuridica> investidor = investidorPessoaJuridicaRepository.findById(id);
 
 		if (investidor.isPresent()) {
-			InvestidorPessoaJuridica investidorAtualizado = form.atualizar(id, investidorPessoaJuridicaRepository,
-					enderecoRepository);
+			InvestidorPessoaJuridica investidorAtualizado = form.atualizar(id, investidorPessoaJuridicaRepository, enderecoRepository);
 			return ResponseEntity.ok(new InvestidorPessoaJuridicaDto(investidorAtualizado));
 		}
 

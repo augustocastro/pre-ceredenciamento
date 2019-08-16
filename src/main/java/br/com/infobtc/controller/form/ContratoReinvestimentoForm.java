@@ -13,6 +13,7 @@ import br.com.infobtc.model.ContratoReinvestimento;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.ContratoReinvestimentoRepository;
+import javassist.NotFoundException;
 
 public class ContratoReinvestimentoForm {
 
@@ -79,7 +80,7 @@ public class ContratoReinvestimentoForm {
 		this.investimento_id = investimento_id;
 	}
 	
-	public void setarPropriedades(ContratoReinvestimento contrato, ContratoInvestimentoRepository contratoInvestimentoRepository) {
+	public void setarPropriedades(ContratoReinvestimento contrato, ContratoInvestimentoRepository contratoInvestimentoRepository) throws NotFoundException {
 		contrato.setNome(nome);
 		contrato.setValor(new BigDecimal(valor));
 		contrato.setDtInicio(dt_inicio);
@@ -91,10 +92,12 @@ public class ContratoReinvestimentoForm {
 		
 		if (contratoInvestimento.isPresent()) {
 			contrato.setInvestimento(contratoInvestimento.get());
+		} else {
+			throw new NotFoundException(String.format("O investimento de id \"%s\" não foi encontrado.", investimento_id));
 		}
 	}
 
-	public ContratoReinvestimento atualizar(Long id, ContratoInvestimentoRepository contratoInvestimentoRepository, ContratoReinvestimentoRepository contratoReinvestimentoRepository, BancoRepository bancoRepository) {
+	public ContratoReinvestimento atualizar(Long id, ContratoInvestimentoRepository contratoInvestimentoRepository, ContratoReinvestimentoRepository contratoReinvestimentoRepository, BancoRepository bancoRepository) throws NotFoundException {
 		ContratoReinvestimento contrato = contratoReinvestimentoRepository.getOne(id);
 		setarPropriedades(contrato, contratoInvestimentoRepository);
 		banco.atualizar(contrato.getBanco().getId(), bancoRepository);

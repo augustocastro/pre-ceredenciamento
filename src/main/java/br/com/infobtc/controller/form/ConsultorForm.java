@@ -9,6 +9,7 @@ import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.PerfilRepository;
 import br.com.infobtc.repository.UsuarioRepository;
+import javassist.NotFoundException;
 
 public class ConsultorForm {
 
@@ -53,7 +54,7 @@ public class ConsultorForm {
 		consultor.setTelefone(telefone);
 	}
 
-	public Consultor atualizar(Long id, ConsultorRepository consultorRepository, EnderecoRepository enderecoRepository, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository) {
+	public Consultor atualizar(Long id, ConsultorRepository consultorRepository, EnderecoRepository enderecoRepository, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository) throws NotFoundException {
 		Consultor consultor = consultorRepository.getOne(id);
 		consultor.setNome(nome);
 		consultor.setTelefone(telefone);

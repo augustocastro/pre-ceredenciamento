@@ -14,6 +14,7 @@ import br.com.infobtc.model.Perfil;
 import br.com.infobtc.model.Usuario;
 import br.com.infobtc.repository.PerfilRepository;
 import br.com.infobtc.repository.UsuarioRepository;
+import javassist.NotFoundException;
 
 public class UsuarioForm {
 	
@@ -40,13 +41,13 @@ public class UsuarioForm {
 		return perfis;
 	}
 
-	public void setarPropriedades(Usuario usuario, PerfilRepository perfilRepository) {
+	public void setarPropriedades(Usuario usuario, PerfilRepository perfilRepository) throws NotFoundException {
 		usuario.setEmail(email);
 		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));
 		usuario.setPerfis(setarPerfis(perfilRepository));
 	}
 
-	private Set<Perfil> setarPerfis(PerfilRepository perfilRepository) {		
+	private Set<Perfil> setarPerfis(PerfilRepository perfilRepository) throws NotFoundException {		
 		Set<Perfil> perfis = new HashSet<Perfil>();
 		
 		for (Long id : this.perfis) {
@@ -54,13 +55,15 @@ public class UsuarioForm {
 			
 			if (perfil.isPresent()) {
 				perfis.add(perfil.get());
+			} else {
+				throw new NotFoundException(String.format("O perfil de id \"%s\" não foi encontrado.", id));
 			}
 		}
 
 		return perfis;
 	}
 
-	public void atualizar(Long id, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository) {
+	public void atualizar(Long id, UsuarioRepository usuarioRepository, PerfilRepository perfilRepository) throws NotFoundException {
 		Usuario usuario = usuarioRepository.getOne(id);
 		usuario.setEmail(email);
 		usuario.setSenha(new BCryptPasswordEncoder().encode(senha));

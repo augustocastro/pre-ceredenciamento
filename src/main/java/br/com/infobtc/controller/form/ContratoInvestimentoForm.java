@@ -15,6 +15,7 @@ import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.InvestidorRepository;
+import javassist.NotFoundException;
 
 public class ContratoInvestimentoForm {
 
@@ -88,7 +89,7 @@ public class ContratoInvestimentoForm {
 	}
 	
 
-	public void setarPropriedades(ContratoInvestimento contrato, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) {
+	public void setarPropriedades(ContratoInvestimento contrato, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) throws NotFoundException {
 		contrato.setNome(nome);
 		contrato.setTipoRendimento(tipo_rendimento);
 		contrato.setValor(new BigDecimal(valor));
@@ -99,18 +100,21 @@ public class ContratoInvestimentoForm {
 		Optional<Investidor> investidor = investidorRepository.findById(investidor_id);
 		Optional<Consultor> consultor = consultorRepository.findById(consultor_id);
 		
-		if (investidor.isPresent()) {
+		if (investidor.isPresent()) { 
 			contrato.setInvestidor(investidor.get());
+		} else {
+			throw new NotFoundException(String.format("O investidor de id \"%s\" não foi encontrado.", investidor_id));
 		}
 		
-		if (investidor.isPresent()) {
+		if (consultor.isPresent()) {
 			contrato.setConsultor(consultor.get());
-
+		} else {
+			throw new NotFoundException(String.format("O consultor de id \"%s\" não foi encontrado.", consultor_id));
 		}
 	}
 
 	public ContratoInvestimento atualizar(Long id, ContratoInvestimentoRepository contratoInvestimentoRepository, 
-			BancoRepository bancoRepository, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) {
+			BancoRepository bancoRepository, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) throws NotFoundException {
 		ContratoInvestimento contrato = contratoInvestimentoRepository.getOne(id);
 		setarPropriedades(contrato, investidorRepository, consultorRepository);
 		banco.atualizar(contrato.getBanco().getId(), bancoRepository);

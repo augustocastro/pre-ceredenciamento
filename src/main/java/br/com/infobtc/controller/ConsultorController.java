@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.infobtc.controller.dto.ConsultorDetalhadoDto;
+import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.ConsultorForm;
 import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.UsuarioForm;
@@ -30,6 +32,7 @@ import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.PerfilRepository;
 import br.com.infobtc.repository.UsuarioRepository;
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/consultor")
@@ -49,7 +52,7 @@ public class ConsultorController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<ConsultorDetalhadoDto> cadastrar(@RequestBody @Valid ConsultorForm consltorForm, UriComponentsBuilder uriComponentsBuilder) {
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid ConsultorForm consltorForm, UriComponentsBuilder uriComponentsBuilder) {
 		Consultor consultor = new Consultor();
 		Endereco endereco = new Endereco();
 		Usuario usuario = new Usuario();
@@ -57,7 +60,12 @@ public class ConsultorController {
 		EnderecoForm enderecoForm = consltorForm.getEndereco();
 		UsuarioForm usuarioForm = consltorForm.getUsuario();
 		
-		usuarioForm.setarPropriedades(usuario, perfilRepository);
+		try {
+			usuarioForm.setarPropriedades(usuario, perfilRepository);
+		} catch (NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+		}
+		
 		enderecoForm.setarPropriedades(endereco);
 		consltorForm.setarPropriedades(consultor);
 		
@@ -74,11 +82,16 @@ public class ConsultorController {
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<ConsultorDetalhadoDto> atualizar(@PathVariable Long id, @Valid @RequestBody ConsultorForm form) {
+	public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody ConsultorForm form) {
 		Optional<Consultor> investidor = consultorRepository.findById(id);
 
 		if (investidor.isPresent()) {
-			Consultor consultorAtualizado = form.atualizar(id, consultorRepository, enderecoRepository, usuarioRepository, perfilRepository);
+			Consultor consultorAtualizado;
+			try {
+				consultorAtualizado = form.atualizar(id, consultorRepository, enderecoRepository, usuarioRepository, perfilRepository);
+			} catch (NotFoundException e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+			}
 			ConsultorDetalhadoDto consultorDto = new ConsultorDetalhadoDto(consultorAtualizado);
 			return ResponseEntity.ok(consultorDto);
 		}
