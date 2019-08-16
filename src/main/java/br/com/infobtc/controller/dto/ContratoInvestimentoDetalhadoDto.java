@@ -18,6 +18,7 @@ public class ContratoInvestimentoDetalhadoDto {
 	private long quantidade_meses;
 	private BigDecimal valor;
 	private boolean valid;
+	private String tipo_rendimento;
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
 	private BancoDto banco;
@@ -38,6 +39,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.banco = new BancoDto(contratoInvestimento.getBanco());
 		this.reinvestimentos = new ContratoReinvestimentoDto().converter(contratoInvestimento.getReinvestimentos());
 		this.valid = contratoInvestimento.isValid();
+		this.tipo_rendimento = contratoInvestimento.getTipoRendimento();
 	}
 
 	public Long getId() {
@@ -83,6 +85,11 @@ public class ContratoInvestimentoDetalhadoDto {
 	public boolean isValid() {
 		return valid;
 	}
+	
+	public boolean getTipo_rendimento() {
+		return this.tipo_rendimento;
+	}
+
 
 	public Page<ContratoInvestimentoDetalhadoDto> converter(Page<ContratoInvestimento> contratos) {
 		return contratos.map(ContratoInvestimentoDetalhadoDto::new);
