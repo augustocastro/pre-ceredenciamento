@@ -10,7 +10,7 @@ public class BancoForm {
 
 	@NotNull
 	@NotEmpty
-	private String instituicao_finaceira;
+	private String instituicao_financeira;
 
 	@NotNull
 	@NotEmpty
@@ -35,7 +35,7 @@ public class BancoForm {
 	@NotEmpty
 	private String cpf_or_cnpj_titular;
 
-	public String getInstituicao_finaceira() {
+	public String getInstituicao_financeira() {
 		return instituicao_finaceira;
 	}
 
@@ -64,7 +64,7 @@ public class BancoForm {
 	}
 
 	public void setarPropriedades(Banco banco) {
-		banco.setInstituicaoFinaceira(instruicao_finaceira);
+		banco.setInstituicaoFinanceira(instruicao_financeira);
 		banco.setAgencia(agencia);
 		banco.setConta(conta);
 		banco.setTipoConta(tipo_conta);
