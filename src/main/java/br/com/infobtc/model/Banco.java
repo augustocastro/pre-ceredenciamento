@@ -14,7 +14,7 @@ public class Banco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String instruicaoFinaceira;
+	private String instituicaoFinaceira;
 	private String agencia;
 	private String conta;
 	private String tipoConta;
@@ -26,8 +26,8 @@ public class Banco {
 		return id;
 	}
 
-	public String getInstruicaoFinaceira() {
-		return instruicaoFinaceira;
+	public String getInstituicaoFinaceira() {
+		return instituicaoFinaceira;
 	}
 
 	public String getAgencia() {
@@ -58,8 +58,8 @@ public class Banco {
 		this.id = id;
 	}
 
-	public void setInstruicaoFinaceira(String instruicaoFinaceira) {
-		this.instruicaoFinaceira = instruicaoFinaceira;
+	public void setInstituicaoFinaceira(String instituicaoFinaceira) {
+		this.instituicaoFinaceira = instituicaoFinaceira;
 	}
 
 	public void setAgencia(String agencia) {
