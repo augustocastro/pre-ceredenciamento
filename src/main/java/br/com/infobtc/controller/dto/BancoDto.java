@@ -22,7 +22,7 @@ public class BancoDto {
 		this.cpf_or_cnpj_titular = banco.getCpfOrCnpjTitular();
 	}
 
-	public String getInstituicaofinaceira() {
+	public String getInstituicao_finaceira() {
 		return instituicao_finaceira;
 	}
 
