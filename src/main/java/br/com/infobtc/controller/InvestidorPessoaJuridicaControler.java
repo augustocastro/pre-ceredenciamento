@@ -95,8 +95,10 @@ public class InvestidorPessoaJuridicaControler {
 				investidorPessoaJuridicaRepository.save(investidor);
 
 				URI uri = uriComponentsBuilder.path("/investidor/{id}").buildAndExpand(investidor.getId()).toUri();
-
-				dadosHashRepository.deleteById(dadosHash.get().getId());
+				
+				if (!isTokenValido) {
+					dadosHashRepository.deleteById(dadosHash.get().getId());
+				}
 
 				return ResponseEntity.created(uri).body(new InvestidorPessoaJuridicaDto(investidor));
 			}
