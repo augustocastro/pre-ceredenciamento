@@ -16,10 +16,6 @@ import br.com.infobtc.repository.ContratoReinvestimentoRepository;
 import javassist.NotFoundException;
 
 public class ContratoReinvestimentoForm {
-
-	@NotNull
-	@NotEmpty
-	private String nome;
 	
 	@NotNull
 	private LocalDate dt_inicio;
@@ -44,10 +40,6 @@ public class ContratoReinvestimentoForm {
 	@NotNull
 	@NotEmpty
 	private String alinea;
-	
-	public String getNome() {
-		return nome;
-	}
 	
 	public LocalDate getDt_inicio() {
 		return dt_inicio;
@@ -81,7 +73,6 @@ public class ContratoReinvestimentoForm {
 	}
 	
 	public void setarPropriedades(ContratoReinvestimento contrato, ContratoInvestimentoRepository contratoInvestimentoRepository) throws NotFoundException {
-		contrato.setNome(nome);
 		contrato.setValor(new BigDecimal(valor));
 		contrato.setDtInicio(dt_inicio);
 		contrato.setDtTermino(dt_termino);

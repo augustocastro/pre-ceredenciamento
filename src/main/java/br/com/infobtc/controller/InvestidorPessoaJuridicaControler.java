@@ -27,6 +27,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.controller.form.EnderecoForm;
@@ -56,6 +57,9 @@ public class InvestidorPessoaJuridicaControler {
 	@Autowired
 	private S3Service s3Service;
 
+	@Autowired
+	private TokenService tokenService; 
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cadastrar(HttpServletRequest request, @Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm, 
@@ -63,10 +67,14 @@ public class InvestidorPessoaJuridicaControler {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
 		
+		String token = recuperarToken(request);
+		
+		boolean isTokenValido = tokenService.isTokenValido(token);
+		
 		try {
 			InvestidorPessoaJuridicaForm form = new ObjectMapper().readValue(investidorArquivosForm.getInvestidor(), InvestidorPessoaJuridicaForm.class);
 
-			if (dadosHash.isPresent()) {
+			if (dadosHash.isPresent() || isTokenValido) {
 				InvestidorPessoaJuridica investidor = new InvestidorPessoaJuridica();
 				Endereco endereco = new Endereco();
 				EnderecoForm enderecoForm = form.getEndereco();
@@ -121,6 +129,16 @@ public class InvestidorPessoaJuridicaControler {
 	public ResponseEntity<List<InvestidorPessoaJuridicaDto>> buscarTodos() {
 		List<InvestidorPessoaJuridica> investidores = investidorPessoaJuridicaRepository.findAll();
 		return ResponseEntity.ok(new InvestidorPessoaJuridicaDto().converter(investidores));
+	}
+	
+	private String recuperarToken(HttpServletRequest request) {
+		String token = request.getHeader("Authorization");
+		
+		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
+			return null;
+		}
+		
+		return token.substring(7, token.length());
 	}
 
 }

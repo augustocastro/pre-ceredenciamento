@@ -3,13 +3,23 @@ package br.com.infobtc.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import br.com.infobtc.model.DadosHash;
+import br.com.infobtc.repository.DadosHashRepository;
 
 @Service
 public class HashService {
 
+	@Autowired
+	private DadosHashRepository dadosHashRepository;
+	
 	@Value("${infobtc.jwt.secret}")
 	private String secret;
 	
@@ -45,6 +55,15 @@ public class HashService {
 		} catch (NoSuchAlgorithmException e) {
 			return null;
 		}
+	}
+	
+	public boolean isHashCodeValido(HttpServletRequest request) {
+		String hash = request.getHeader("HashCode");
+		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
+		if (dadosHash.isPresent() && request.getMethod().equals("POST")  && request.getRequestURL().toString().contains("/investidor-pessoa")) {
+			return true;
+		}
+		return false;
 	}
 
 }

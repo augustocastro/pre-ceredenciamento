@@ -27,6 +27,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaFisicaDto;
 import br.com.infobtc.controller.form.EnderecoForm;
@@ -56,6 +57,9 @@ public class InvestidorPessoaFisicaControler {
 	@Autowired
 	private S3Service s3Service;
 
+	@Autowired
+	private TokenService tokenService; 
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cadastrar(HttpServletRequest request, @Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm,
@@ -63,10 +67,14 @@ public class InvestidorPessoaFisicaControler {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
 		
+		String token = recuperarToken(request);
+		
+		boolean isTokenValido = tokenService.isTokenValido(token);
+		
 		try {
 			InvestidorPessoaFisicaForm form = new ObjectMapper().readValue(investidorArquivosForm.getInvestidor(), InvestidorPessoaFisicaForm.class);
 
-			if (dadosHash.isPresent()) {
+			if (dadosHash.isPresent() || isTokenValido) {
 				InvestidorPessoaFisica investidor = new InvestidorPessoaFisica();
 				Endereco endereco = new Endereco();
 				EnderecoForm enderecoForm = form.getEndereco();
@@ -87,8 +95,10 @@ public class InvestidorPessoaFisicaControler {
 				investidorPessoaFisicaRepository.save(investidor);
 
 				URI uri = uriComponentsBuilder.path("/investidor/{id}").buildAndExpand(investidor.getId()).toUri();
-
-				dadosHashRepository.deleteById(dadosHash.get().getId());
+				
+				if (!isTokenValido) {
+					dadosHashRepository.deleteById(dadosHash.get().getId());
+				}
 
 				return ResponseEntity.created(uri).body(new InvestidorPessoaFisicaDto(investidor));
 			}
@@ -124,4 +134,13 @@ public class InvestidorPessoaFisicaControler {
 		return ResponseEntity.ok(new InvestidorPessoaFisicaDto().converter(investidores));
 	}
 
+	private String recuperarToken(HttpServletRequest request) {
+		String token = request.getHeader("Authorization");
+		
+		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
+			return null;
+		}
+		
+		return token.substring(7, token.length());
+	}
 }

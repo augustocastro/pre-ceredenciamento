@@ -25,8 +25,6 @@ public class Contrato {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private String nome;
-	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dtInicio;
 	
@@ -44,10 +42,6 @@ public class Contrato {
 	
 	public Long getId() {
 		return id;
-	}
-
-	public String getNome() {
-		return nome;
 	}
 
 	public LocalDate getDtInicio() {
@@ -72,10 +66,6 @@ public class Contrato {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public void setDtInicio(LocalDate dtInicio) {

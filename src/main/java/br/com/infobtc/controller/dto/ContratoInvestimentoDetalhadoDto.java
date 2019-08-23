@@ -12,7 +12,6 @@ import br.com.infobtc.model.ContratoInvestimento;
 public class ContratoInvestimentoDetalhadoDto {
 
 	private Long id;
-	private String nome;
 	private String dt_inicio;
 	private String dt_termino;
 	private long quantidade_meses;
@@ -29,7 +28,6 @@ public class ContratoInvestimentoDetalhadoDto {
 
 	public ContratoInvestimentoDetalhadoDto(ContratoInvestimento contratoInvestimento) {
 		this.id = contratoInvestimento.getId();
-		this.nome = contratoInvestimento.getNome();
 		this.dt_inicio = contratoInvestimento.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_termino = contratoInvestimento.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.quantidade_meses = contratoInvestimento.getQuantidadeMeses();
@@ -44,10 +42,6 @@ public class ContratoInvestimentoDetalhadoDto {
 
 	public Long getId() {
 		return id;
-	}
-
-	public String getNome() {
-		return nome;
 	}
 
 	public String getDt_inicio() {
