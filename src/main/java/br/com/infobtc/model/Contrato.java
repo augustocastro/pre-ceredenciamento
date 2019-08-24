@@ -19,7 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @ApiIgnore
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Contrato {
+public abstract class Contrato {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,8 @@ public class Contrato {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Banco banco;
 	
-	private boolean valid;
+	private boolean valid1;
+	private boolean valid2;
 	
 	public Long getId() {
 		return id;
@@ -88,12 +89,21 @@ public class Contrato {
 		this.banco = banco;
 	}
 
-	public boolean isValid() {
-		return valid;
+	public boolean isValid1() {
+		return valid1;
+	}
+	
+	public void setValid1(boolean valid1) {
+		this.valid1 = valid1;
+	}
+	
+	public boolean isValid2() {
+		return valid2;
+	}
+	
+	public void setValid2(boolean valid2) {
+		this.valid2 = valid2;
 	}
 
-	public void setValid(boolean valid) {
-		this.valid = valid;
-	}
-
+	public abstract Object criaDto(Contrato contrato);
 }

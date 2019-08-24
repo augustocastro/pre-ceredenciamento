@@ -18,7 +18,8 @@ public class ContratoReinvestimentoDto {
 	private BigDecimal valor;
 	private String alinea;
 	private Long investimento_id;
-	private boolean valid;
+	private boolean valid1;
+	private boolean valid2;
 	private BancoDto banco;
 
 	public ContratoReinvestimentoDto() {
@@ -34,7 +35,8 @@ public class ContratoReinvestimentoDto {
 		this.banco = new BancoDto(contratoReinvestimento.getBanco());
 		this.alinea = contratoReinvestimento.getAlinea();
 		this.investimento_id = contratoReinvestimento.getInvestimento().getId();
-		this.valid = contratoReinvestimento.isValid();
+		this.valid1 = contratoReinvestimento.isValid1();
+		this.valid2 = contratoReinvestimento.isValid2();
 	}
 
 	public Long getId() {
@@ -65,8 +67,12 @@ public class ContratoReinvestimentoDto {
 		return investimento_id;
 	}
 
-	public boolean isValid() {
-		return valid;
+	public boolean isValid1() {
+		return valid1;
+	}
+	
+	public boolean isValid2() {
+		return valid2;
 	}
 	
 	public BancoDto getBanco() {

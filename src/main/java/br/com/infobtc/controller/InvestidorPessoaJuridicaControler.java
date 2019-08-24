@@ -67,7 +67,7 @@ public class InvestidorPessoaJuridicaControler {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
 		
-		String token = recuperarToken(request);
+		String token = tokenService.recuperarToken(request);
 		
 		boolean isTokenValido = tokenService.isTokenValido(token);
 		
@@ -131,16 +131,6 @@ public class InvestidorPessoaJuridicaControler {
 	public ResponseEntity<List<InvestidorPessoaJuridicaDto>> buscarTodos() {
 		List<InvestidorPessoaJuridica> investidores = investidorPessoaJuridicaRepository.findAll();
 		return ResponseEntity.ok(new InvestidorPessoaJuridicaDto().converter(investidores));
-	}
-	
-	private String recuperarToken(HttpServletRequest request) {
-		String token = request.getHeader("Authorization");
-		
-		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
-			return null;
-		}
-		
-		return token.substring(7, token.length());
 	}
 
 }

@@ -13,9 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -97,53 +95,32 @@ public class ContratoReinvestimentoController {
 
 		return ResponseEntity.notFound().build();
 	}
-
-	@PatchMapping("/{id}")
-	@Transactional
-	public ResponseEntity<ContratoReinvestimentoDto> validar(@PathVariable Long id) {
-		Optional<ContratoReinvestimento> contrato = contratoReinvestimentoRepository.findById(id);
-
-		if (contrato.isPresent()) {
-			contrato.get().setValid(true);
-			return ResponseEntity.ok(new ContratoReinvestimentoDto(contrato.get()));
-		}
-
-		return ResponseEntity.notFound().build();
-	}
 	
-	@GetMapping("/todos")
-	public Page<ContratoReinvestimentoDto> buscarTodos(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+	@GetMapping("/valid1")
+	public Page<ContratoReinvestimentoDto> buscarTodosAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		Page<ContratoReinvestimento> contratos;
 		
 		if (valid == null) {
 			contratos = contratoReinvestimentoRepository.findAll(paginacao);
 		} else {
-			contratos = contratoReinvestimentoRepository.findByValid(valid, paginacao);
+			contratos = contratoReinvestimentoRepository.findByValid1(valid, paginacao);
+		}
+		
+		return new ContratoReinvestimentoDto().converter(contratos);
+	}
+	
+	
+	@GetMapping("/valid2")
+	public Page<ContratoReinvestimentoDto> buscarTodosAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+		Page<ContratoReinvestimento> contratos;
+		
+		if (valid == null || !valid) {
+			contratos = contratoReinvestimentoRepository.findByValid1(true, paginacao);
+		} else {
+			contratos = contratoReinvestimentoRepository.findByValid2(valid, paginacao);
 		}
 		
 		return new ContratoReinvestimentoDto().converter(contratos);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<ContratoReinvestimentoDto> buscarPorId(@PathVariable Long id) {
-		Optional<ContratoReinvestimento> contrato = contratoReinvestimentoRepository.findById(id);
-
-		if (contrato.isPresent()) {
-			return ResponseEntity.ok(new ContratoReinvestimentoDto(contrato.get()));
-		}
-
-		return ResponseEntity.notFound().build();
-	}
-	
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity<?> remover(@PathVariable Long id) {
-		if (contratoReinvestimentoRepository.findById(id).isPresent()) {
-			contratoReinvestimentoRepository.deleteById(id);
-			return ResponseEntity.ok().build();
-		}
-
-		return ResponseEntity.notFound().build();
-	}
-	
 }

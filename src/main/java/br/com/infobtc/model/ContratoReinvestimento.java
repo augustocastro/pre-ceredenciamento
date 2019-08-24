@@ -6,6 +6,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import br.com.infobtc.controller.dto.ContratoReinvestimentoDto;
 import springfox.documentation.annotations.ApiIgnore;
 
 @ApiIgnore
@@ -32,5 +33,11 @@ public class ContratoReinvestimento extends Contrato {
 
 	public void setAlinea(String alinea) {
 		this.alinea = alinea;
+	}
+
+	@Override
+	public Object criaDto(Contrato contrato) {
+		ContratoReinvestimento contratoReinvestimento = (ContratoReinvestimento) contrato;
+		return new ContratoReinvestimentoDto(contratoReinvestimento);
 	}
 }

@@ -13,9 +13,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -93,53 +91,31 @@ public class ContratoInvestimentoController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PatchMapping("/{id}")
-	@Transactional
-	public ResponseEntity<ContratoInvestimentoDetalhadoDto> validar(@PathVariable Long id) {
-		Optional<ContratoInvestimento> contrato = contratoInvestimentoRepository.findById(id);
-
-		if (contrato.isPresent()) {
-			contrato.get().setValid(true);
-			return ResponseEntity.ok(new ContratoInvestimentoDetalhadoDto(contrato.get()));
-		}
-
-		return ResponseEntity.notFound().build();
-	}
-	
-	@GetMapping("/todos")
-	public Page<ContratoInvestimentoDetalhadoDto> buscarTodos(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+	@GetMapping("/valid1")
+	public Page<ContratoInvestimentoDetalhadoDto> buscarTodosAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		Page<ContratoInvestimento> contratos;
-		System.out.println(valid);
 		
 		if (valid == null) {
 			contratos = contratoInvestimentoRepository.findAll(paginacao);
 		} else {
-			contratos = contratoInvestimentoRepository.findByValid(valid, paginacao);
+			contratos = contratoInvestimentoRepository.findByValid1(valid, paginacao);
 		}
 		
 		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<ContratoInvestimentoDetalhadoDto> buscarPorId(@PathVariable Long id) {
-		Optional<ContratoInvestimento> contrato = contratoInvestimentoRepository.findById(id);
-
-		if (contrato.isPresent()) {
-			return ResponseEntity.ok(new ContratoInvestimentoDetalhadoDto(contrato.get()));
-		}
-
-		return ResponseEntity.notFound().build();
-	}
 	
-	@DeleteMapping("/{id}")
-	@Transactional
-	public ResponseEntity<?> remover(@PathVariable Long id) {
-		if (contratoInvestimentoRepository.findById(id).isPresent()) {
-			contratoInvestimentoRepository.deleteById(id);
-			return ResponseEntity.ok().build();
+	@GetMapping("/valid2")
+	public Page<ContratoInvestimentoDetalhadoDto> buscarTodosAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+		Page<ContratoInvestimento> contratos;
+		
+		if (valid == null) {
+			contratos = contratoInvestimentoRepository.findByValid1(true, paginacao);
+		} else {
+			contratos = contratoInvestimentoRepository.findByValid2(valid, paginacao);
 		}
-
-		return ResponseEntity.notFound().build();
+		
+		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
 	}
-	
+
 }

@@ -2,6 +2,8 @@ package br.com.infobtc.config.security.service;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,16 @@ public class TokenService {
 	public Long getUsuario(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 		return Long.parseLong(claims.getSubject());
+	}
+	
+	public String recuperarToken(HttpServletRequest request) {
+		String token = request.getHeader("Authorization");
+		
+		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {
+			return null;
+		}
+		
+		return token.substring(7, token.length());
 	}
 
 }

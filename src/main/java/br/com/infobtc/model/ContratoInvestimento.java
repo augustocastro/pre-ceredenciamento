@@ -11,6 +11,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import br.com.infobtc.controller.dto.ContratoInvestimentoDetalhadoDto;
 import springfox.documentation.annotations.ApiIgnore;
 
 @ApiIgnore
@@ -60,6 +61,12 @@ public class ContratoInvestimento extends Contrato {
 
 	public void setConsultor(Consultor consultor) {
 		this.consultor = consultor;
+	}
+
+	@Override
+	public Object criaDto(Contrato contrato) {
+		ContratoInvestimento contratoInvestimento = (ContratoInvestimento) contrato;
+		return new ContratoInvestimentoDetalhadoDto(contratoInvestimento);
 	}
 
 }
