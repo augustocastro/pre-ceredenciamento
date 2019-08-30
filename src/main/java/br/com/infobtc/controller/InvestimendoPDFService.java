@@ -96,7 +96,7 @@ public class InvestimendoPDFService {
 			String documento = "";
 			String tipoDocumento = "";
 			
-			if (contratoInvestimento.getInvestidor().getTipo() == "pessoa_fisica") {
+			if (contratoInvestimento.getInvestidor().getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
@@ -107,7 +107,7 @@ public class InvestimendoPDFService {
 			}
 			
 			
-			return String.format(html.toString(), contratoInvestimento.getInvestidor().getNome().toUpperCase(), "NS", "NS", tipoDocumento, documento, contratoInvestimento.getInvestidor().getEndereco().getEndereco(), contratoInvestimento.getInvestidor().getEndereco().getCep(), "10%");
+			return String.format(html.toString(), contratoInvestimento.getInvestidor().getNome().toUpperCase(), "XXXXX", "XXXXX", tipoDocumento, documento, contratoInvestimento.getInvestidor().getEndereco().getEndereco(), contratoInvestimento.getInvestidor().getEndereco().getCep(), "10%");
 
 		} else {
 			ContratoReinvestimento contratoReinvestimento = (ContratoReinvestimento) contrato;
@@ -116,7 +116,7 @@ public class InvestimendoPDFService {
 			
 			Investidor investidor = contratoReinvestimento.getInvestimento().getInvestidor();
 			
-			if (investidor.getTipo() == "pessoa_fisica") {
+			if (investidor.getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) investidor;
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
@@ -221,7 +221,7 @@ public class InvestimendoPDFService {
 			String documento = "";
 			String tipoDocumento = "";
 
-			if (contratoInvestimento.getInvestidor().getTipo() == "pessoa_fisica") {
+			if (contratoInvestimento.getInvestidor().getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
@@ -240,7 +240,7 @@ public class InvestimendoPDFService {
 			
 			Investidor investidor = contratoReinvestimento.getInvestimento().getInvestidor();
 			
-			if (investidor.getTipo() == "pessoa_fisica") {
+			if (investidor.getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) investidor;
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
