@@ -109,4 +109,16 @@ public class ContratoController<T> {
 		
 		return ResponseEntity.notFound().build();
 	}
+	
+//	@DeleteMapping("arquivo/{id}")
+//	@Transactional
+//	public ResponseEntity<?> removerArquivo(@RequestParam Long id, @RequestParam String arquivo) {
+//		Optional<Contrato> findById = contratoRespository.findById(id);
+//		if () {
+//			contratoRespository.deleteById(id);
+//			return ResponseEntity.ok().build();
+//		}
+//
+//		return ResponseEntity.notFound().build();
+//	}
 }
