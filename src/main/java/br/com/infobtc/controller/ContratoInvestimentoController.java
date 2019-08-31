@@ -49,7 +49,7 @@ public class ContratoInvestimentoController {
 	
 	@Autowired
 	private ConsultorRepository consultorRepository; 
-	
+		
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContratoInvestimentoForm form, UriComponentsBuilder uriComponentsBuilder) {

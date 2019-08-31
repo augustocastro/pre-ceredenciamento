@@ -1,5 +1,6 @@
 package br.com.infobtc.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -15,7 +16,7 @@ import springfox.documentation.annotations.ApiIgnore;
 public class ContratoReinvestimento extends Contrato {
 
 	@JsonBackReference
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private ContratoInvestimento investimento;
 	private String alinea;
 

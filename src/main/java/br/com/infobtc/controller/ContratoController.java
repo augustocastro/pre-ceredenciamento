@@ -1,11 +1,17 @@
 package br.com.infobtc.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +19,8 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.itextpdf.text.DocumentException;
 
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
@@ -24,6 +32,9 @@ public class ContratoController<T> {
 
 	@Autowired
 	private ContratoRepository contratoRespository;
+	
+	@Autowired
+	private InvestimendoPDFService investimendoPDFService; 
 	
 	@DeleteMapping("/{id}")
 	@Transactional
@@ -78,5 +89,24 @@ public class ContratoController<T> {
 		}
 
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/gerar-pdf/{id}")
+	public ResponseEntity<?> gerarPdf(@PathVariable Long id) throws Docx4JException, IOException, DocumentException {
+		Optional<Contrato> contrato = contratoRespository.findById(id);
+		
+		if (contrato.isPresent()) {
+			
+			File file = investimendoPDFService.gerarPdf(contrato.get());
+		    InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+			  return ResponseEntity.ok()
+			            .contentLength(file.length())
+			            .contentType(MediaType.parseMediaType("application/pdf"))
+			            .body(resource);
+		}
+			return ResponseEntity.notFound().build();
+		
+		
 	}
 }
