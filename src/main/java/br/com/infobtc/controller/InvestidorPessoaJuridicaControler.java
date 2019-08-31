@@ -123,7 +123,6 @@ public class InvestidorPessoaJuridicaControler {
 			InvestidorPessoaJuridica investidorAtualizado = form.atualizar(id, investidorPessoaJuridicaRepository, enderecoRepository);
 			return ResponseEntity.ok(new InvestidorPessoaJuridicaDto(investidorAtualizado));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 

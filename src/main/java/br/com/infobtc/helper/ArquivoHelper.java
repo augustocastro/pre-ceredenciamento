@@ -24,7 +24,6 @@ public class ArquivoHelper {
 		if (reader != null) {
 			reader.close();
 		}
-
 		return conteudo.toString();
 	}
 }

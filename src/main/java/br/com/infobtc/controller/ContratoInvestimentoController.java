@@ -87,7 +87,6 @@ public class ContratoInvestimentoController {
 			}
 			return ResponseEntity.ok(new ContratoInvestimentoDetalhadoDto(contratoAtualizado));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -100,7 +99,6 @@ public class ContratoInvestimentoController {
 		} else {
 			contratos = contratoInvestimentoRepository.findByValid1(valid, paginacao);
 		}
-		
 		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
 	}
 	
@@ -114,7 +112,6 @@ public class ContratoInvestimentoController {
 		} else {
 			contratos = contratoInvestimentoRepository.findByValid2(valid, paginacao);
 		}
-		
 		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
 	}
 

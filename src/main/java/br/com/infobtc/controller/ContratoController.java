@@ -44,7 +44,6 @@ public class ContratoController<T> {
 			contratoRespository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 
@@ -57,7 +56,6 @@ public class ContratoController<T> {
 			contrato.get().setValid1(true);
 			return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 
@@ -71,7 +69,6 @@ public class ContratoController<T> {
 				contrato.get().setValid2(true);
 				return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
 			}
-
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
 					new ErroDto("Não é permitido fazer a segunda validação sem antes ter sido feita a primeira!"));
 		}
@@ -86,7 +83,6 @@ public class ContratoController<T> {
 		if (contrato.isPresent()) {
 			return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 
@@ -106,10 +102,10 @@ public class ContratoController<T> {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao gerar PDF do contrato."));
 			}
 		}
-		
 		return ResponseEntity.notFound().build();
 	}
 	
+//	TODO
 //	@DeleteMapping("arquivo/{id}")
 //	@Transactional
 //	public ResponseEntity<?> removerArquivo(@RequestParam Long id, @RequestParam String arquivo) {

@@ -95,7 +95,6 @@ public class ConsultorController {
 			ConsultorDetalhadoDto consultorDto = new ConsultorDetalhadoDto(consultorAtualizado);
 			return ResponseEntity.ok(consultorDto);
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -112,7 +111,6 @@ public class ConsultorController {
 		if (consultor.isPresent()) {
 			return ResponseEntity.ok(new ConsultorDetalhadoDto(consultor.get()));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -123,7 +121,6 @@ public class ConsultorController {
 			consultorRepository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	

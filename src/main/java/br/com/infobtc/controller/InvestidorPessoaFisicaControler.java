@@ -102,7 +102,6 @@ public class InvestidorPessoaFisicaControler {
 
 				return ResponseEntity.created(uri).body(new InvestidorPessoaFisicaDto(investidor));
 			}
-
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		} catch (JsonParseException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao converter JSON para objeto Java"));
@@ -124,7 +123,6 @@ public class InvestidorPessoaFisicaControler {
 			InvestidorPessoaFisicaDto investidorDto = new InvestidorPessoaFisicaDto(investidorAtualizado);
 			return ResponseEntity.ok(investidorDto);
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 

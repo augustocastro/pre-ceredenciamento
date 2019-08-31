@@ -81,16 +81,17 @@ public class InvestidorController {
 		Optional<Investidor> optional = investidorRepository.findById(id);
 
 		try {
-			Investidor investidor = optional.get();
-			
-			if (arquivos != null && arquivos.length > 0) {
-				for (MultipartFile file : arquivos) {
-					URI uploadFile = s3Service.uploadFile(file);
-					investidor.getArquivosUrl().add(uploadFile.toURL().toString());
-				}
-				return ResponseEntity.ok(investidor);
-			} 
-
+			if (optional.isPresent()) {
+				Investidor investidor = optional.get();
+				
+				if (arquivos != null && arquivos.length > 0) {
+					for (MultipartFile file : arquivos) {
+						URI uploadFile = s3Service.uploadFile(file);
+						investidor.getArquivosUrl().add(uploadFile.toURL().toString());
+					}
+					return ResponseEntity.ok(investidor);
+				} 
+			}
 			return ResponseEntity.notFound().build();
 		} catch (IOException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));

@@ -92,7 +92,6 @@ public class ContratoReinvestimentoController {
 			}
 			return ResponseEntity.ok(new ContratoReinvestimentoDto(contratoAtualizado));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -105,7 +104,6 @@ public class ContratoReinvestimentoController {
 		} else {
 			contratos = contratoReinvestimentoRepository.findByValid1(valid, paginacao);
 		}
-		
 		return new ContratoReinvestimentoDto().converter(contratos);
 	}
 	
@@ -119,7 +117,6 @@ public class ContratoReinvestimentoController {
 		} else {
 			contratos = contratoReinvestimentoRepository.findByValid2(valid, paginacao);
 		}
-		
 		return new ContratoReinvestimentoDto().converter(contratos);
 	}
 

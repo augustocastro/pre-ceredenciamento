@@ -32,7 +32,6 @@ public class ErroDeValidacaoHandler {
 			ErroDeValidacaoDto erroDeValidacaoDto = new ErroDeValidacaoDto(e.getField(), mensagem);
 			errosDto.add(erroDeValidacaoDto);
 		});
-
 		return errosDto;
 	}
 	

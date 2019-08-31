@@ -51,7 +51,6 @@ public class PerfilController {
 			perfil.get().setNome(form.getNome());
 			return ResponseEntity.ok(new PerfilDto().converter(perfil.get()));
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -68,7 +67,6 @@ public class PerfilController {
 		if (perfil.isPresent()) {
 			return ResponseEntity.ok(new PerfilDto().converter(perfil.get()));
 		}
-		
 		return ResponseEntity.notFound().build();
 	}
 	
@@ -79,7 +77,6 @@ public class PerfilController {
 			perfilRepository.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
-		
 		return ResponseEntity.notFound().build();
 	}
 
