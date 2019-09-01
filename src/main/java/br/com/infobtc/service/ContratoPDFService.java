@@ -31,6 +31,7 @@ public class ContratoPDFService {
 		OutputStream os = null;
 
 		boolean isInvestimento = contrato instanceof ContratoInvestimento ? true : false;
+		
 		Map<String, String> dadosInvestidor = retornaDadosInvestidor(contrato, isInvestimento);
 		LocalDate hoje = LocalDate.now();
 
@@ -78,11 +79,7 @@ public class ContratoPDFService {
 			return outputFile;
 		} finally {
 			if (os != null) {
-				try {
-					os.close();
-				} catch (IOException e) {
-
-				}
+				os.close();
 			}
 		}
 	}

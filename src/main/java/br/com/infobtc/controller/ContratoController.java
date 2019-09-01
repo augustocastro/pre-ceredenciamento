@@ -98,7 +98,7 @@ public class ContratoController<T> {
 			try {
 				File file = contratoPDFService.gerarPdf(contrato.get());
 				InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-
+				
 				return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.parseMediaType("application/pdf")).body(resource);
 			} catch (IOException e) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao ler arquivo para gerar PDF do contrato."));
