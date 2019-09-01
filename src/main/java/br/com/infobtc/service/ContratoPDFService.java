@@ -43,7 +43,8 @@ public class ContratoPDFService {
 			dadosInvestidor.get("tipoDocumento"),
 			dadosInvestidor.get("documento"), 
 			dadosInvestidor.get("endereco"), 
-			dadosInvestidor.get("cep"), "10%"
+			dadosInvestidor.get("cep"), 
+			"10%"
 		);
 
 		String page2 = lerArquivo("page2.txt");
