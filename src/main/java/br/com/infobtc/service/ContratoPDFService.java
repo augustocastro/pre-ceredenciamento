@@ -64,7 +64,6 @@ public class ContratoPDFService {
 
 			ITextRenderer renderer = new ITextRenderer();
 
-			System.out.println(paginas[0]);
 			renderer.setDocumentFromString(paginas[0]);
 			renderer.layout();
 			renderer.createPDF(os, false);
@@ -110,10 +109,11 @@ public class ContratoPDFService {
 
 	private Map<String, String> retornaDadosInvestidor(Contrato contrato, boolean isInvestimento) {
 		Map<String, String> dadosInvestidor = new HashMap<String, String>();
+		String documento;
+		String tipoDocumento;
+		
 		if (isInvestimento) {
 			ContratoInvestimento contratoInvestimento = (ContratoInvestimento) contrato;
-			String documento = "";
-			String tipoDocumento = "";
 
 			if (contratoInvestimento.getInvestidor().getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento
@@ -130,16 +130,12 @@ public class ContratoPDFService {
 			dadosInvestidor.put("nomeInvestidor", contratoInvestimento.getInvestidor().getNome().toUpperCase());
 			dadosInvestidor.put("tipoDocumento", tipoDocumento);
 			dadosInvestidor.put("documento", documento);
-			dadosInvestidor.put("endereco",
-					contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
+			dadosInvestidor.put("endereco", contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
 			dadosInvestidor.put("cep", contratoInvestimento.getInvestidor().getEndereco().getCep());
 			dadosInvestidor.put("NAO_SEI1", "NAO_SEI1");
 			dadosInvestidor.put("NAO_SEI2", "NAO_SEI2");
 		} else {
 			ContratoReinvestimento contratoReinvestimento = (ContratoReinvestimento) contrato;
-			String documento = "";
-			String tipoDocumento = "";
-
 			Investidor investidor = contratoReinvestimento.getInvestimento().getInvestidor();
 
 			if (investidor.getTipo().equals("pessoa_fisica")) {
