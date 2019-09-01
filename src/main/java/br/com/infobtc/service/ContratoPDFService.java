@@ -91,37 +91,6 @@ public class ContratoPDFService {
 		}
 	}
 
-	private String retornaMes(int mes) {
-		switch (mes) {
-		case 1:
-			return "Janeiro";
-		case 2:
-			return "Fevereiro";
-		case 3:
-			return "Março";
-		case 4:
-			return "Abril";
-		case 5:
-			return "Maio";
-		case 6:
-			return "Junho";
-		case 7:
-			return "Julho";
-		case 8:
-			return "Agosto";
-		case 9:
-			return "Setembro";
-		case 10:
-			return "Outubro";
-		case 11:
-			return "Novembro";
-		case 12:
-			return "Dezembro";
-		default:
-			return "";
-		}
-	}
-
 	private String lerArquivo(String nomeArquivo) {
 		String file = CAMINHO_PASTA_RESOURCE + "/" + nomeArquivo;
 		StringBuilder conteudo = new StringBuilder();
@@ -164,7 +133,7 @@ public class ContratoPDFService {
 			String documento = "";
 			String tipoDocumento = "";
 
-			if (contratoInvestimento.getInvestidor().getTipo() == "pessoa_fisica") {
+			if (contratoInvestimento.getInvestidor().getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
@@ -189,7 +158,7 @@ public class ContratoPDFService {
 
 			Investidor investidor = contratoReinvestimento.getInvestimento().getInvestidor();
 
-			if (investidor.getTipo() == "pessoa_fisica") {
+			if (investidor.getTipo().equals("pessoa_fisica")) {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) investidor;
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
@@ -209,6 +178,37 @@ public class ContratoPDFService {
 		}
 		
 		return dadosInvestidor;
+	}
+	
+	private String retornaMes(int mes) {
+		switch (mes) {
+		case 1:
+			return "Janeiro";
+		case 2:
+			return "Fevereiro";
+		case 3:
+			return "Março";
+		case 4:
+			return "Abril";
+		case 5:
+			return "Maio";
+		case 6:
+			return "Junho";
+		case 7:
+			return "Julho";
+		case 8:
+			return "Agosto";
+		case 9:
+			return "Setembro";
+		case 10:
+			return "Outubro";
+		case 11:
+			return "Novembro";
+		case 12:
+			return "Dezembro";
+		default:
+			return "";
+		}
 	}
 
 }
