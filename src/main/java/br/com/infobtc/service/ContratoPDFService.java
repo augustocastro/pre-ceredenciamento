@@ -2,7 +2,6 @@ package br.com.infobtc.service;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,27 +36,25 @@ public class ContratoPDFService {
 		LocalDate hoje = LocalDate.now();
 
 		String page1 = String.format(lerArquivo("page1.txt"), 
-			dadosInvestidor.get("nomeInvestidor"),
-			dadosInvestidor.get("NAO_SEI1"), 
-			dadosInvestidor.get("NAO_SEI1"), 
-			dadosInvestidor.get("tipoDocumento"),
-			dadosInvestidor.get("documento"), 
-			dadosInvestidor.get("endereco"), 
-			dadosInvestidor.get("cep"), 
-			"10%"
-		);
+				dadosInvestidor.get("nomeInvestidor"),
+				dadosInvestidor.get("NAO_SEI1"), 
+				dadosInvestidor.get("NAO_SEI1"), 
+				dadosInvestidor.get("tipoDocumento"),
+				dadosInvestidor.get("documento"), 
+				dadosInvestidor.get("endereco"), 
+				dadosInvestidor.get("cep"), 
+				"10%");
 
 		String page2 = lerArquivo("page2.txt");
 		String page3 = lerArquivo("page3.txt");
-		
+
 		String page4 = String.format(lerArquivo("page4.txt"), 
-			hoje.getDayOfMonth(), 
-			retornaMes(hoje.getMonthValue()),
-			hoje.getYear(), 
-			dadosInvestidor.get("nomeInvestidor"), 
-			dadosInvestidor.get("tipoDocumento"),
-			dadosInvestidor.get("documento")
-		);
+				hoje.getDayOfMonth(), 
+				retornaMes(hoje.getMonthValue()),
+				hoje.getYear(), 
+				dadosInvestidor.get("nomeInvestidor"), 
+				dadosInvestidor.get("tipoDocumento"),
+				dadosInvestidor.get("documento"));
 
 		try {
 			final String[] paginas = new String[] { page1, page2, page3, page4 };
@@ -92,36 +89,20 @@ public class ContratoPDFService {
 		}
 	}
 
-	private String lerArquivo(String nomeArquivo) {
+	private String lerArquivo(String nomeArquivo) throws IOException {
 		String file = CAMINHO_PASTA_RESOURCE + "/" + nomeArquivo;
 		StringBuilder conteudo = new StringBuilder();
-		FileReader ler;
-		
-		try {
-			ler = new FileReader(file);
-			BufferedReader reader = new BufferedReader(ler);
-			String linha;
+		FileReader ler = new FileReader(file);
+		BufferedReader reader = new BufferedReader(ler);
+		String linha;
 
-			try {
-				while ((linha = reader.readLine()) != null) {
-					conteudo.append(linha);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} finally {
-				if (reader != null) {
-					try {
-						reader.close();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		while ((linha = reader.readLine()) != null) {
+			conteudo.append(linha);
+
+		}
+		
+		if (reader != null) {
+			reader.close();
 		}
 
 		return conteudo.toString();
@@ -135,7 +116,8 @@ public class ContratoPDFService {
 			String tipoDocumento = "";
 
 			if (contratoInvestimento.getInvestidor().getTipo().equals("pessoa_fisica")) {
-				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento.getInvestidor();
+				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento
+						.getInvestidor();
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
 			} else {
@@ -148,7 +130,8 @@ public class ContratoPDFService {
 			dadosInvestidor.put("nomeInvestidor", contratoInvestimento.getInvestidor().getNome().toUpperCase());
 			dadosInvestidor.put("tipoDocumento", tipoDocumento);
 			dadosInvestidor.put("documento", documento);
-			dadosInvestidor.put("endereco", contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
+			dadosInvestidor.put("endereco",
+					contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
 			dadosInvestidor.put("cep", contratoInvestimento.getInvestidor().getEndereco().getCep());
 			dadosInvestidor.put("NAO_SEI1", "NAO_SEI1");
 			dadosInvestidor.put("NAO_SEI2", "NAO_SEI2");
@@ -177,10 +160,10 @@ public class ContratoPDFService {
 			dadosInvestidor.put("NAO_SEI1", "NAO_SEI1");
 			dadosInvestidor.put("NAO_SEI2", "NAO_SEI2");
 		}
-		
+
 		return dadosInvestidor;
 	}
-	
+
 	private String retornaMes(int mes) {
 		switch (mes) {
 		case 1:
