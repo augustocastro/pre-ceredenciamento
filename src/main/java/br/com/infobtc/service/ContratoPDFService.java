@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.springframework.stereotype.Service;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 
@@ -28,7 +27,7 @@ public class ContratoPDFService {
 
 	private final String CAMINHO_PASTA_RESOURCE = "src/main/resources/contrato";
 
-	public File gerarPdf(Contrato contrato) throws Docx4JException, IOException, DocumentException {
+	public File gerarPdf(Contrato contrato) throws IOException, DocumentException {
 		OutputStream os = null;
 
 		boolean isInvestimento = contrato instanceof ContratoInvestimento ? true : false;
@@ -97,7 +96,6 @@ public class ContratoPDFService {
 
 		while ((linha = reader.readLine()) != null) {
 			conteudo.append(linha);
-
 		}
 		
 		if (reader != null) {

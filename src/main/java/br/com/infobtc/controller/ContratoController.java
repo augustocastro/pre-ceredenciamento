@@ -33,10 +33,10 @@ public class ContratoController<T> {
 
 	@Autowired
 	private ContratoRepository contratoRespository;
-	
+
 	@Autowired
-	private ContratoPDFService contratoPDFService; 
-	
+	private ContratoPDFService contratoPDFService;
+
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> remover(@PathVariable Long id) {
@@ -47,8 +47,7 @@ public class ContratoController<T> {
 
 		return ResponseEntity.notFound().build();
 	}
-	
-	
+
 	@PatchMapping("/validar1/{id}")
 	@Transactional
 	public ResponseEntity<?> validar1(@PathVariable Long id) {
@@ -61,26 +60,25 @@ public class ContratoController<T> {
 
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PatchMapping("/validar2/{id}")
 	@Transactional
 	public ResponseEntity<?> validar2(@PathVariable Long id) {
 		Optional<Contrato> contrato = contratoRespository.findById(id);
 
 		if (contrato.isPresent()) {
-			if(contrato.get().isValid1()) {
+			if (contrato.get().isValid1()) {
 				contrato.get().setValid2(true);
 				return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
 			}
 
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new ErroDto("Não é permitido fazer a segunda validação sem antes ter sido feita a primeira!"));
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+					new ErroDto("Não é permitido fazer a segunda validação sem antes ter sido feita a primeira!"));
 		}
 
 		return ResponseEntity.notFound().build();
 	}
-	
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 		Optional<Contrato> contrato = contratoRespository.findById(id);
@@ -91,23 +89,24 @@ public class ContratoController<T> {
 
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@GetMapping("/gerar-pdf/{id}")
 	public ResponseEntity<?> gerarPdf(@PathVariable Long id) throws Docx4JException, IOException, DocumentException {
 		Optional<Contrato> contrato = contratoRespository.findById(id);
-		
-		if (contrato.isPresent()) {
-			
-			File file = contratoPDFService.gerarPdf(contrato.get());
-		    InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
-			  return ResponseEntity.ok()
-			            .contentLength(file.length())
-			            .contentType(MediaType.parseMediaType("application/pdf"))
-			            .body(resource);
+		if (contrato.isPresent()) {
+			try {
+				File file = contratoPDFService.gerarPdf(contrato.get());
+				InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+
+				return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.parseMediaType("application/pdf")).body(resource);
+			} catch (IOException e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao ler arquivo para gerar PDF do contrato."));
+			} catch (DocumentException e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao gerar PDF do contrato."));
+			}
 		}
-			return ResponseEntity.notFound().build();
 		
-		
+		return ResponseEntity.notFound().build();
 	}
 }
