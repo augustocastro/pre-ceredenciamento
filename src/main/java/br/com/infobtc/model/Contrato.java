@@ -2,8 +2,11 @@ package br.com.infobtc.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -32,6 +35,9 @@ public abstract class Contrato {
 	private LocalDate dtTermino;
 	
 	private Integer quantidadeMeses;
+	
+	@ElementCollection
+	private List<String> arquivosUrl = new ArrayList<String>();
 	
 	private BigDecimal valor;
 	
@@ -79,6 +85,14 @@ public abstract class Contrato {
 
 	public void setQuantidadeMeses(Integer quantidadeMeses) {
 		this.quantidadeMeses = quantidadeMeses;
+	}
+	
+	public List<String> getArquivosUrl() {
+		return arquivosUrl;
+	}
+
+	public void setArquivosUrl(List<String> arquivosUrl) {
+		this.arquivosUrl = arquivosUrl;
 	}
 
 	public void setValor(BigDecimal valor) {

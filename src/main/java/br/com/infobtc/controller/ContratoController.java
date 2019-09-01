@@ -3,6 +3,7 @@ package br.com.infobtc.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -17,8 +18,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.DocumentException;
 
@@ -26,6 +30,7 @@ import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.repository.ContratoRepository;
 import br.com.infobtc.service.ContratoPDFService;
+import br.com.infobtc.service.S3Service;
 
 @RestController
 @RequestMapping("/contrato")
@@ -36,7 +41,10 @@ public class ContratoController<T> {
 
 	@Autowired
 	private ContratoPDFService contratoPDFService;
-
+	
+	@Autowired
+	private S3Service s3Service;
+	
 	@DeleteMapping("/{id}")
 	@Transactional
 	public ResponseEntity<?> remover(@PathVariable Long id) {
@@ -105,16 +113,40 @@ public class ContratoController<T> {
 		return ResponseEntity.notFound().build();
 	}
 	
-//	TODO
-//	@DeleteMapping("arquivo/{id}")
-//	@Transactional
-//	public ResponseEntity<?> removerArquivo(@RequestParam Long id, @RequestParam String arquivo) {
-//		Optional<Contrato> findById = contratoRespository.findById(id);
-//		if () {
-//			contratoRespository.deleteById(id);
-//			return ResponseEntity.ok().build();
-//		}
-//
-//		return ResponseEntity.notFound().build();
-//	}
+	@DeleteMapping("arquivo/{id}")
+	@Transactional
+	public ResponseEntity<?> removerArquivo(@PathVariable Long id, @RequestParam String arquivo) {
+		Optional<Contrato> contrato = contratoRespository.findById(id);
+		String nomeArquivo = arquivo.split("/")[3];
+
+		if (contrato.isPresent()) {
+			contrato.get().getArquivosUrl().removeIf(file -> file.contains(nomeArquivo));
+			s3Service.remover(nomeArquivo);	
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@PutMapping("arquivo/{id}")
+	@Transactional
+	public ResponseEntity<?> adicionarArquivos(@PathVariable Long id, @RequestParam("arquivos") MultipartFile[] arquivos) {
+		Optional<Contrato> optional = contratoRespository.findById(id);
+
+		try {
+			if (optional.isPresent()) {
+				Contrato contrato = optional.get();
+				
+				if (arquivos != null && arquivos.length > 0) {
+					for (MultipartFile file : arquivos) {
+						URI uploadFile = s3Service.uploadFile(file);
+						contrato.getArquivosUrl().add(uploadFile.toURL().toString());
+					}
+					return ResponseEntity.ok(contrato);
+				} 
+			}
+			return ResponseEntity.notFound().build();
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));
+		}
+	}
 }

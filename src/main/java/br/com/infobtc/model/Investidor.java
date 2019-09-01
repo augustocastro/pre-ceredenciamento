@@ -30,9 +30,6 @@ public class Investidor {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
-//
-//	@OneToOne
-//	private Consultor consultor;
 
 	public Investidor() {
 	}
@@ -91,14 +88,6 @@ public class Investidor {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
-//	public Consultor getConsultor() {
-//		return consultor;
-//	}
-//
-//	public void setConsultor(Consultor consultor) {
-//		this.consultor = consultor;
-//	}
 
 	public List<String> getArquivosUrl() {
 		return arquivosUrl;

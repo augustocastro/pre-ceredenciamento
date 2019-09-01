@@ -23,7 +23,8 @@ public class ContratoInvestimentoDetalhadoDto {
 	private ConsultorDto consultor;
 	private BancoDto banco;
 	private List<ContratoReinvestimentoDto> reinvestimentos = new ArrayList<ContratoReinvestimentoDto>();
-
+	private List<String> arquivos_url = new ArrayList<String>();
+	
 	public ContratoInvestimentoDetalhadoDto() {
 	}
 
@@ -40,6 +41,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.valid1 = contratoInvestimento.isValid1();
 		this.valid2 = contratoInvestimento.isValid2();
 		this.tipo_rendimento = contratoInvestimento.getTipoRendimento();
+		this.arquivos_url = contratoInvestimento.getArquivosUrl(); 
 	}
 
 	public Long getId() {
@@ -90,6 +92,9 @@ public class ContratoInvestimentoDetalhadoDto {
 		return this.tipo_rendimento;
 	}
 
+	public List<String> getArquivos_Url() {
+		return arquivos_url;
+	}
 
 	public Page<ContratoInvestimentoDetalhadoDto> converter(Page<ContratoInvestimento> contratos) {
 		return contratos.map(ContratoInvestimentoDetalhadoDto::new);

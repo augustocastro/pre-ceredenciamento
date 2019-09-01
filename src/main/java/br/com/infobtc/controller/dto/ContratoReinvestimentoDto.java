@@ -2,6 +2,7 @@ package br.com.infobtc.controller.dto;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,8 @@ public class ContratoReinvestimentoDto {
 	private boolean valid1;
 	private boolean valid2;
 	private BancoDto banco;
-
+	private List<String> arquivos_url = new ArrayList<String>();
+	
 	public ContratoReinvestimentoDto() {
 
 	}
@@ -37,6 +39,7 @@ public class ContratoReinvestimentoDto {
 		this.investimento_id = contratoReinvestimento.getInvestimento().getId();
 		this.valid1 = contratoReinvestimento.isValid1();
 		this.valid2 = contratoReinvestimento.isValid2();
+		this.arquivos_url = contratoReinvestimento.getArquivosUrl();
 	}
 
 	public Long getId() {
@@ -77,6 +80,10 @@ public class ContratoReinvestimentoDto {
 	
 	public BancoDto getBanco() {
 		return banco;
+	}
+	
+	public List<String> getArquivos_url() {
+		return arquivos_url;
 	}
 
 	public Page<ContratoReinvestimentoDto> converter(Page<ContratoReinvestimento> contratos) {
