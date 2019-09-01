@@ -25,6 +25,7 @@ import com.itextpdf.text.DocumentException;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.repository.ContratoRepository;
+import br.com.infobtc.service.ContratoPDFService;
 
 @RestController
 @RequestMapping("/contrato")
@@ -34,7 +35,7 @@ public class ContratoController<T> {
 	private ContratoRepository contratoRespository;
 	
 	@Autowired
-	private InvestimendoPDFService investimendoPDFService; 
+	private ContratoPDFService contratoPDFService; 
 	
 	@DeleteMapping("/{id}")
 	@Transactional
@@ -97,7 +98,7 @@ public class ContratoController<T> {
 		
 		if (contrato.isPresent()) {
 			
-			File file = investimendoPDFService.gerarPdf(contrato.get());
+			File file = contratoPDFService.gerarPdf(contrato.get());
 		    InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
 
 			  return ResponseEntity.ok()
