@@ -16,12 +16,12 @@ public class InvestidorPessoaFisica extends Investidor {
 	private String cpf;
 	private String profissao;
 	private String documento;
-	private String orgao_emissor_uf;
-	private String regime_bens;
+	private String orgaoEmissorUf;
+	private String regimeBens;
 	private String nacionalidade;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	private LocalDate dt_nascimento;
+	private LocalDate dtNascimento;
 	
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
@@ -42,11 +42,11 @@ public class InvestidorPessoaFisica extends Investidor {
 	}
 
 	public LocalDate getDt_nascimento() {
-		return dt_nascimento;
+		return dtNascimento;
 	}
 
 	public void setDt_nascimento(LocalDate dt_nascimento) {
-		this.dt_nascimento = dt_nascimento;
+		this.dtNascimento = dt_nascimento;
 	}
 
 	public Sexo getSexo() {
@@ -74,19 +74,19 @@ public class InvestidorPessoaFisica extends Investidor {
 	}
 
 	public String getOrgao_emissor_uf() {
-		return orgao_emissor_uf;
+		return orgaoEmissorUf;
 	}
 
 	public void setOrgao_emissor_uf(String orgao_emissor_uf) {
-		this.orgao_emissor_uf = orgao_emissor_uf;
+		this.orgaoEmissorUf = orgao_emissor_uf;
 	}
 
 	public String getRegime_bens() {
-		return regime_bens;
+		return regimeBens;
 	}
 
 	public void setRegime_bens(String regime_bens) {
-		this.regime_bens = regime_bens;
+		this.regimeBens = regime_bens;
 	}
 
 	public String getNacionalidade() {
