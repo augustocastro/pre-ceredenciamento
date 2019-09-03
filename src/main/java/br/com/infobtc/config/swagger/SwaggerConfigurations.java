@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.Consultor;
+import br.com.infobtc.model.Conta;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.ContratoReinvestimento;
@@ -16,6 +17,7 @@ import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.model.Perfil;
 import br.com.infobtc.model.Usuario;
+import br.com.infobtc.repository.ContaRepository;
 import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.PerfilRepository;
 import springfox.documentation.builders.ParameterBuilder;
@@ -50,6 +52,8 @@ public class SwaggerConfigurations {
 				.ignoredParameterTypes(PerfilRepository.class)
 				.ignoredParameterTypes(DadosHashRepository.class)
 				.ignoredParameterTypes(DadosHash.class)
+				.ignoredParameterTypes(Conta.class)
+				.ignoredParameterTypes(ContaRepository.class)
 				.globalOperationParameters(Arrays.asList(
 						new ParameterBuilder()
 						.name("Authorization")
