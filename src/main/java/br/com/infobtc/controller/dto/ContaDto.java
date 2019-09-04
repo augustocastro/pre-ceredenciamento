@@ -12,6 +12,7 @@ public class ContaDto {
 	private Long id;
 	private String centro_de_custo;
 	private String fornecedor;
+	private String numero_doc;
 	private String conta_contabil;
 	private String dt_cadastramento;
 	private String dt_vencimento;
@@ -23,9 +24,9 @@ public class ContaDto {
 	private BigDecimal valor_total;
 
 	public ContaDto() {
-		
+
 	}
-	
+
 	public ContaDto(Conta conta) {
 		this.id = conta.getId();
 		this.centro_de_custo = conta.getCentroDeCusto();
@@ -39,6 +40,7 @@ public class ContaDto {
 		this.juros = conta.getJuros();
 		this.desconto = conta.getDesconto();
 		this.valor_total = conta.getValorTotal();
+		this.numero_doc = conta.getNumeroDoc();
 	}
 
 	public Long getId() {
@@ -51,6 +53,10 @@ public class ContaDto {
 
 	public String getFornecedor() {
 		return fornecedor;
+	}
+
+	public String getNumero_doc() {
+		return numero_doc;
 	}
 
 	public String getConta_contabil() {
@@ -88,7 +94,7 @@ public class ContaDto {
 	public BigDecimal getValor_total() {
 		return valor_total;
 	}
-	
+
 	public List<ContaDto> converter(List<Conta> perfis) {
 		return perfis.stream().map(ContaDto::new).collect(Collectors.toList());
 	}

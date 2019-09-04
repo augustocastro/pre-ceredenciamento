@@ -25,12 +25,11 @@ public class ContaForm {
 
 	@NotNull
 	@NotBlank
-	private String conta_contabil;
+	private String numero_doc;
 
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	@JsonSerialize(using = LocalDateSerializer.class)
 	@NotNull
-	private LocalDate dt_cadastramento;
+	@NotBlank
+	private String conta_contabil;
 
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@JsonSerialize(using = LocalDateSerializer.class)
@@ -65,12 +64,12 @@ public class ContaForm {
 		return fornecedor;
 	}
 
-	public String getConta_contabil() {
-		return conta_contabil;
+	public String getNumero_doc() {
+		return numero_doc;
 	}
 
-	public LocalDate getDt_cadastramento() {
-		return dt_cadastramento;
+	public String getConta_contabil() {
+		return conta_contabil;
 	}
 
 	public LocalDate getDt_vencimento() {
@@ -106,13 +105,13 @@ public class ContaForm {
 		conta.setFornecedor(fornecedor);
 		conta.setContaContabil(conta_contabil);
 		conta.setDesconto(desconto);
-		conta.setDtCadastramento(dt_cadastramento);
 		conta.setDtPagamento(dt_pagamento);
 		conta.setDtVencimento(dt_vencimento);
 		conta.setHistorico(historico);
 		conta.setJuros(juros);
 		conta.setValor(valor);
 		conta.setValorTotal(valor_total);
+		conta.setNumeroDoc(numero_doc);
 		return conta;
 	}
 

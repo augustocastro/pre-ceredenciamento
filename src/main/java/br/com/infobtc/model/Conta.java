@@ -18,6 +18,7 @@ public class Conta {
 	private Long id;
 	private String centroDeCusto;
 	private String fornecedor;
+	private String numeroDoc;
 	private String contaContabil;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dtCadastramento;
@@ -29,20 +30,32 @@ public class Conta {
 	private BigDecimal desconto;
 	private BigDecimal valorTotal;
 
+	public Conta() {
+		this.dtCadastramento = LocalDate.now();
+	}
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getCentroDeCusto() {
 		return centroDeCusto;
 	}
 
 	public String getFornecedor() {
 		return fornecedor;
+	}
+
+	public String getNumeroDoc() {
+		return numeroDoc;
+	}
+
+	public void setNumeroDoc(String numeroDoc) {
+		this.numeroDoc = numeroDoc;
 	}
 
 	public String getContaContabil() {
