@@ -33,8 +33,8 @@ public class ContaDto {
 		this.fornecedor = conta.getFornecedor();
 		this.conta_contabil = conta.getContaContabil();
 		this.dt_cadastramento = conta.getDtCadastramento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		this.dt_vencimento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		this.dt_pagamento = conta.getDtVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.dt_vencimento = conta.getDtVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.historico = conta.getHistorico();
 		this.valor = conta.getValor();
 		this.juros = conta.getJuros();
