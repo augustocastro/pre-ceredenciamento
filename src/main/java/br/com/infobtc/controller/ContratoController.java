@@ -7,6 +7,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -127,7 +128,8 @@ public class ContratoController<T> {
 		}
 		
 		double valorTotalLiquido = contratos.stream().mapToDouble(contrato -> contrato.getValor().doubleValue() * 0.01).sum();
-		return ResponseEntity.ok(new ContaReceberFinanceiroDto(contratos.size(), valorTotalLiquido));
+		List<Long> ids = contratos.stream().map(contrato -> contrato.getId()).collect(Collectors.toList());
+		return ResponseEntity.ok(new ContaReceberFinanceiroDto(contratos.size(), valorTotalLiquido, ids));
 	}
 	
 	@DeleteMapping("arquivo/{id}")

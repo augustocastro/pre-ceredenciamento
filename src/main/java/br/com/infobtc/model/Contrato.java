@@ -46,6 +46,7 @@ public abstract class Contrato {
 	
 	private boolean valid1;
 	private boolean valid2;
+	private boolean repassado;
 	
 	public Long getId() {
 		return id;
@@ -119,5 +120,14 @@ public abstract class Contrato {
 		this.valid2 = valid2;
 	}
 
+	public void setRepassado(boolean repassado) {
+		this.repassado = repassado;
+	}
+	
 	public abstract Object criaDto(Contrato contrato);
+
+	public boolean isRepassado() {
+		return repassado;
+	}
+
 }
