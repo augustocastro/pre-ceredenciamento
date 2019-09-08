@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.DocumentException;
 
+import br.com.infobtc.controller.dto.ContaReceberFinanceiroDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.repository.ContratoRepository;
@@ -105,12 +108,26 @@ public class ContratoController<T> {
 				
 				return ResponseEntity.ok().contentLength(file.length()).contentType(MediaType.parseMediaType("application/pdf")).body(resource);
 			} catch (IOException e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao ler arquivo para gerar PDF do contrato."));
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao ler arquivo para gerar PDF."));
 			} catch (DocumentException e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao gerar PDF do contrato."));
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao gerar PDF."));
 			}
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/relatorio-finaceiro")
+	public ResponseEntity<?> gerarRelatorioFinanceiro(String dtInicio, String dtTermino) {
+		List<Contrato> contratos;
+		
+		if (dtInicio != null && dtTermino != null) {
+			contratos = contratoRespository.findByIntervalDate(LocalDate.parse(dtInicio), LocalDate.parse(dtTermino));
+		} else {
+			 contratos = contratoRespository.getThisMonth();
+		}
+		
+		double valorTotalLiquido = contratos.stream().mapToDouble(contrato -> contrato.getValor().doubleValue() * 0.01).sum();
+		return ResponseEntity.ok(new ContaReceberFinanceiroDto(contratos.size(), valorTotalLiquido));
 	}
 	
 	@DeleteMapping("arquivo/{id}")
