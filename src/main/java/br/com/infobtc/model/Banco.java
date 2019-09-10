@@ -5,9 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import springfox.documentation.annotations.ApiIgnore;
-
-@ApiIgnore
 @Entity
 public class Banco {
 

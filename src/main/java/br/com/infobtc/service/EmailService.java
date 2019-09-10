@@ -29,7 +29,7 @@ public class EmailService {
 			email.setFrom(SENDER_EMAIL);
 			email.setSubject("Realize seu cadastro no InfoBTC");
 			email.setHtmlMsg(mensagem);
-
+			email.setContent(mensagem, "text/plain; charset=UTF-8");
 			email.addTo(args[1]);
 			email.send();
 

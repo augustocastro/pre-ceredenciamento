@@ -12,9 +12,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.infobtc.controller.dto.ContratoInvestimentoDetalhadoDto;
-import springfox.documentation.annotations.ApiIgnore;
 
-@ApiIgnore
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
 public class ContratoInvestimento extends Contrato {
