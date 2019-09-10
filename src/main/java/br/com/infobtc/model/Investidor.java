@@ -24,7 +24,9 @@ public class Investidor {
 	private String email;
 	private String telefone;
 	private String tipo;
-	
+	private String facebook;
+	private String instragam;
+
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
 
@@ -34,11 +36,14 @@ public class Investidor {
 	public Investidor() {
 	}
 
-	public Investidor(String nome, String email, String telefone, Endereco endereco) {
+	public Investidor(String nome, String email, String telefone, Endereco endereco, String facebook,
+			String instragam) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.endereco = endereco;
+		this.facebook = facebook;
+		this.instragam = instragam;
 	}
 
 	public Long getId() {
@@ -87,6 +92,22 @@ public class Investidor {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getInstragam() {
+		return instragam;
+	}
+
+	public void setInstragam(String instragam) {
+		this.instragam = instragam;
 	}
 
 	public List<String> getArquivosUrl() {

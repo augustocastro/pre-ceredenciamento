@@ -1,6 +1,7 @@
 package br.com.infobtc.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.infobtc.controller.dto.ContaDto;
 import br.com.infobtc.controller.form.ContaForm;
 import br.com.infobtc.model.Conta;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.ContaRepository;
 
 @RestController
@@ -58,9 +61,14 @@ public class ContaPagarController {
 	}
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<ContaDto>> buscarTodos() {
-		List<Conta> perfis = contaRepository.findAll();
-		return ResponseEntity.ok(new ContaDto().converter(perfis));
+	public ResponseEntity<List<ContaDto>> buscarTodos(Status status) {
+		List<Conta> contas;
+		if (status != null) {
+			contas = contaRepository.findByStatus(status);
+		} else {
+			contas = contaRepository.findAll();
+		}
+		return ResponseEntity.ok(new ContaDto().converter(contas));
 	}
 
 	@GetMapping("/{id}")
@@ -70,6 +78,22 @@ public class ContaPagarController {
 		if (conta.isPresent()) {
 			return ResponseEntity.ok(new ContaDto(conta.get()));
 		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	@PatchMapping("/{id}")
+	@Transactional
+	public ResponseEntity<ContaDto> pagar(@PathVariable Long id) {
+		Optional<Conta> optional = contaRepository.findById(id);
+
+		if (optional.isPresent()) {
+			Conta conta = optional.get();
+			conta.setStatus(Status.PAGO);
+			conta.setDtPagamento(LocalDate.now());
+			
+			return ResponseEntity.ok(new ContaDto(conta));
+		}
+		
 		return ResponseEntity.notFound().build();
 	}
 

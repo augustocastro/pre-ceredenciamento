@@ -17,6 +17,7 @@ public class ContaDto {
 	private String dt_cadastramento;
 	private String dt_vencimento;
 	private String dt_pagamento;
+	private String status; 
 	private String historico;
 	private BigDecimal valor;
 	private String juros;
@@ -41,6 +42,7 @@ public class ContaDto {
 		this.desconto = conta.getDesconto();
 		this.valor_total = conta.getValorTotal();
 		this.numero_doc = conta.getNumeroDoc();
+		this.status = conta.getStatus().name();
 	}
 
 	public Long getId() {
@@ -73,6 +75,10 @@ public class ContaDto {
 
 	public String getDt_pagamento() {
 		return dt_pagamento;
+	}
+	
+	public String getStatus() {
+		return status;
 	}
 
 	public String getHistorico() {

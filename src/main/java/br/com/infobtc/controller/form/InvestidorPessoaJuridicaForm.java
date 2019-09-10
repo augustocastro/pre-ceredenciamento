@@ -35,6 +35,14 @@ public class InvestidorPessoaJuridicaForm {
 	@NotNull
 	private EnderecoForm endereco;
 	
+	@Valid
+	@NotNull
+	private String facebook;
+	
+	@Valid
+	@NotNull
+	private String instragam;
+	
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -63,6 +71,14 @@ public class InvestidorPessoaJuridicaForm {
 		return endereco;
 	}
 	
+	public String getFacebook() {
+		return facebook;
+	}
+	
+	public String getInstragam() {
+		return instragam;
+	}
+	
 	public InvestidorPessoaJuridica atualizar(Long id, InvestidorPessoaJuridicaRepository pessoaJuridicaRepository, EnderecoRepository enderecoRepository) {
 		InvestidorPessoaJuridica investidor = pessoaJuridicaRepository.getOne(id);
 		
@@ -78,6 +94,8 @@ public class InvestidorPessoaJuridicaForm {
 		investidor.setNome(nome);
 		investidor.setTelefone(telefone);
 		investidor.setInscricao(inscricao);
+		investidor.setFacebook(facebook);
+		investidor.setInstragam(instragam);
 	}
 
 }

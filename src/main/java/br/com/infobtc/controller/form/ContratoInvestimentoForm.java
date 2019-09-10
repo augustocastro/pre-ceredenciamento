@@ -34,7 +34,6 @@ public class ContratoInvestimentoForm {
 	
 	@NotNull
 	private Long investidor_id;
-
 	
 	@NotNull
 	private Long consultor_id;
@@ -42,10 +41,19 @@ public class ContratoInvestimentoForm {
 	@NotNull
 	@NotEmpty
 	private String tipo_rendimento;
-
+	
+	@Valid
+	@NotNull
+	private boolean declaracao_licitude;
+	
+	@Valid
+	@NotNull
+	private boolean declaracao_politicamente_exposta;
+	
 	@Valid
 	@NotNull
 	private BancoForm banco;
+
 	
 	public LocalDate getDt_inicio() {
 		return dt_inicio;
@@ -75,10 +83,17 @@ public class ContratoInvestimentoForm {
 		return consultor_id;
 	}
 	
+	public boolean isDeclaracao_licitude() {
+		return declaracao_licitude;
+	}
+	
+	public boolean isDeclaracao_politicamente_exposta() {
+		return declaracao_politicamente_exposta;
+	}
+	
 	public BancoForm getBanco() {
 		return banco;
 	}
-	
 
 	public void setarPropriedades(ContratoInvestimento contrato, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) throws NotFoundException {
 		contrato.setTipoRendimento(tipo_rendimento);
@@ -86,6 +101,8 @@ public class ContratoInvestimentoForm {
 		contrato.setDtInicio(dt_inicio);
 		contrato.setDtTermino(dt_termino);
 		contrato.setQuantidadeMeses(quantidade_meses);	
+		contrato.setDeclaracaoLicitude(declaracao_licitude);
+		contrato.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
 		
 		Optional<Investidor> investidor = investidorRepository.findById(investidor_id);
 		Optional<Consultor> consultor = consultorRepository.findById(consultor_id);

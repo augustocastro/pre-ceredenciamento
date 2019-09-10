@@ -104,5 +104,4 @@ public class InvestidorPessoaFisica extends Investidor {
 	public void setEstadoCivil(EstadoCivil estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
-
 }

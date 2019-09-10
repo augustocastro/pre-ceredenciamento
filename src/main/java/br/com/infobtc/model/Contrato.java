@@ -24,27 +24,29 @@ public abstract class Contrato {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dtInicio;
-	
+
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dtTermino;
-	
+
 	private Integer quantidadeMeses;
-	
+
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
-	
+
 	private BigDecimal valor;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Banco banco;
-	
+
 	private boolean valid1;
 	private boolean valid2;
 	private boolean repassado;
-	
+	private boolean declaracaoLicitude;
+	private boolean declaracaoPoliticamentExposta;
+
 	public Long getId() {
 		return id;
 	}
@@ -84,7 +86,7 @@ public abstract class Contrato {
 	public void setQuantidadeMeses(Integer quantidadeMeses) {
 		this.quantidadeMeses = quantidadeMeses;
 	}
-	
+
 	public List<String> getArquivosUrl() {
 		return arquivosUrl;
 	}
@@ -104,15 +106,15 @@ public abstract class Contrato {
 	public boolean isValid1() {
 		return valid1;
 	}
-	
+
 	public void setValid1(boolean valid1) {
 		this.valid1 = valid1;
 	}
-	
+
 	public boolean isValid2() {
 		return valid2;
 	}
-	
+
 	public void setValid2(boolean valid2) {
 		this.valid2 = valid2;
 	}
@@ -120,7 +122,23 @@ public abstract class Contrato {
 	public void setRepassado(boolean repassado) {
 		this.repassado = repassado;
 	}
-	
+
+	public boolean isDeclaracaoLicitude() {
+		return declaracaoLicitude;
+	}
+
+	public boolean isDeclaracaoPoliticamentExposta() {
+		return declaracaoPoliticamentExposta;
+	}
+
+	public void setDeclaracaoLicitude(boolean declaracaoLicitude) {
+		this.declaracaoLicitude = declaracaoLicitude;
+	}
+
+	public void setDeclaracaoPoliticamenteExposta(boolean declaracaoPoliticamenteExposta) {
+		this.declaracaoPoliticamentExposta = declaracaoPoliticamenteExposta;
+	}
+
 	public abstract Object criaDto(Contrato contrato);
 
 	public boolean isRepassado() {

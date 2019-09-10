@@ -71,6 +71,13 @@ public class InvestidorPessoaFisicaForm {
 	@NotNull
 	private String nacionalidade;
 
+	@NotNull
+	private String facebook;
+	
+	@Valid
+	@NotNull
+	private String instragam;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -193,6 +200,8 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setOrgao_emissor_uf(orgao_emissor_uf);
 		investidor.setNacionalidade(nacionalidade);
 		investidor.setEstadoCivil(estado_civil);
+		investidor.setFacebook(facebook);
+		investidor.setInstragam(instragam);
 	}
 
 }

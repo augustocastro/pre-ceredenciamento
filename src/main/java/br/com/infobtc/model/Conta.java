@@ -29,6 +29,7 @@ public class Conta {
 	private String juros;
 	private BigDecimal desconto;
 	private BigDecimal valorTotal;
+	private Status status;
 
 	public Conta() {
 		this.dtCadastramento = LocalDate.now();
@@ -136,6 +137,14 @@ public class Conta {
 
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+	
+	public Status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 }

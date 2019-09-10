@@ -19,6 +19,8 @@ public class ContratoInvestimentoDetalhadoDto {
 	private boolean valid1;
 	private boolean valid2;
 	private String tipo_rendimento;
+	private boolean declaracao_licitude;
+	private boolean declaracao_politicamente_exposta;
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
 	private BancoDto banco;
@@ -41,7 +43,9 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.valid1 = contratoInvestimento.isValid1();
 		this.valid2 = contratoInvestimento.isValid2();
 		this.tipo_rendimento = contratoInvestimento.getTipoRendimento();
-		this.arquivos_url = contratoInvestimento.getArquivosUrl(); 
+		this.arquivos_url = contratoInvestimento.getArquivosUrl();
+		this.declaracao_licitude = contratoInvestimento.isDeclaracaoLicitude();
+		this.declaracao_politicamente_exposta = contratoInvestimento.isDeclaracaoPoliticamentExposta();
 	}
 
 	public Long getId() {
@@ -90,6 +94,14 @@ public class ContratoInvestimentoDetalhadoDto {
 	
 	public String getTipo_rendimento() {
 		return this.tipo_rendimento;
+	}
+	
+	public boolean isDeclaracao_licitude() {
+		return declaracao_licitude;
+	}
+	
+	public boolean isDeclaracao_politicamente_exposta() {
+		return declaracao_politicamente_exposta;
 	}
 
 	public List<String> getArquivos_Url() {

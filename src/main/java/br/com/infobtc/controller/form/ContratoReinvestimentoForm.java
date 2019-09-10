@@ -33,13 +33,21 @@ public class ContratoReinvestimentoForm {
 	@NotNull
 	private Long investimento_id;
 	
-	@Valid
-	@NotNull
-	private BancoForm banco;
-	
 	@NotNull
 	@NotEmpty
 	private String alinea;
+
+	@Valid
+	@NotNull
+	private boolean declaracao_licitude;
+	
+	@Valid
+	@NotNull
+	private boolean declaracao_politicamente_exposta;
+	
+	@Valid
+	@NotNull
+	private BancoForm banco;
 	
 	public LocalDate getDt_inicio() {
 		return dt_inicio;
@@ -55,6 +63,14 @@ public class ContratoReinvestimentoForm {
 
 	public String getValor() {
 		return valor;
+	}
+	
+	public boolean isDeclaracao_licitude() {
+		return declaracao_licitude;
+	}
+	
+	public boolean isDeclaracao_politicamente_exposta() {
+		return declaracao_politicamente_exposta;
 	}
 
 	public BancoForm getBanco() {
@@ -78,6 +94,8 @@ public class ContratoReinvestimentoForm {
 		contrato.setDtTermino(dt_termino);
 		contrato.setQuantidadeMeses(quantidade_meses);	
 		contrato.setAlinea(alinea);
+		contrato.setDeclaracaoLicitude(declaracao_licitude);
+		contrato.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
 		
 		Optional<ContratoInvestimento> contratoInvestimento = contratoInvestimentoRepository.findById(investimento_id);
 		

@@ -15,6 +15,8 @@ public class InvestidorPessoaJuridicaDto {
 	private String tipo;
 	private String cnpj;
 	private String inscricao;
+	private String facebook;
+	private String instragam;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
 	
@@ -31,6 +33,8 @@ public class InvestidorPessoaJuridicaDto {
 		this.inscricao = investidor.getInscricao();
 		this.endereco = new EnderecoDto(investidor.getEndereco());
 		this.arquivos_url = investidor.getArquivosUrl();
+		this.facebook = investidor.getFacebook();
+		this.instragam = investidor.getInstragam();
 	}
 
 	public Long getId() {
@@ -59,6 +63,14 @@ public class InvestidorPessoaJuridicaDto {
 
 	public String getInscricao() {
 		return inscricao;
+	}
+	
+	public String getFacebook() {
+		return facebook;
+	}
+	
+	public String getInstragam() {
+		return instragam;
 	}
 
 	public EnderecoDto getEndereco() {
