@@ -4,5 +4,6 @@ public enum Status {
 
 	EM_ABERTO,
 	PAGO,
-	ATRASADO
+	ATRASADO,
+	PAGO_PARCIAL
 }

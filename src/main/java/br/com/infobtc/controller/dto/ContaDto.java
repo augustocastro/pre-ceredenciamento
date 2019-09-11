@@ -35,7 +35,6 @@ public class ContaDto {
 		this.conta_contabil = conta.getContaContabil();
 		this.dt_cadastramento = conta.getDtCadastramento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_vencimento = conta.getDtVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.historico = conta.getHistorico();
 		this.valor = conta.getValor();
 		this.juros = conta.getJuros();
@@ -43,6 +42,9 @@ public class ContaDto {
 		this.valor_total = conta.getValorTotal();
 		this.numero_doc = conta.getNumeroDoc();
 		this.status = conta.getStatus().name();
+		if (conta.getDtPagamento() != null) {
+			this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		}
 	}
 
 	public Long getId() {

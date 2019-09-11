@@ -1,5 +1,6 @@
 package br.com.infobtc.controller;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.infobtc.controller.dto.ContaDto;
+import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.ContaForm;
 import br.com.infobtc.model.Conta;
 import br.com.infobtc.model.Status;
@@ -44,7 +48,7 @@ public class ContaPagarController {
 
 		contaRepository.save(conta);
 
-		URI uri = uriComponentsBuilder.path("/perfil/{id}").buildAndExpand(conta.getId()).toUri();
+		URI uri = uriComponentsBuilder.path("//conta-pagar/{id}").buildAndExpand(conta.getId()).toUri();
 		return ResponseEntity.created(uri).body(new ContaDto(conta));
 	}
 
@@ -83,13 +87,22 @@ public class ContaPagarController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<ContaDto> pagar(@PathVariable Long id) {
+	public ResponseEntity<?> pagar(@PathVariable Long id, @RequestParam double valor) {
 		Optional<Conta> optional = contaRepository.findById(id);
 
 		if (optional.isPresent()) {
 			Conta conta = optional.get();
-			conta.setStatus(Status.PAGO);
-			conta.setDtPagamento(LocalDate.now());
+			
+			if (valor > conta.getValor().doubleValue() || valor < 1) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
+			} else if (conta.getValor().doubleValue() == valor) {
+				conta.setStatus(Status.PAGO);
+				conta.setDtPagamento(LocalDate.now());
+				conta.setValor(new BigDecimal(conta.getValor().doubleValue() - valor));
+			} else if (valor < conta.getValor().doubleValue()) {
+				conta.setStatus(Status.PAGO_PARCIAL);
+				conta.setValor(new BigDecimal(conta.getValor().doubleValue() - valor));
+			}
 			
 			return ResponseEntity.ok(new ContaDto(conta));
 		}

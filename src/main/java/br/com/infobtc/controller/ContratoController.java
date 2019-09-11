@@ -77,12 +77,8 @@ public class ContratoController<T> {
 		Optional<Contrato> contrato = contratoRespository.findById(id);
 
 		if (contrato.isPresent()) {
-			if (contrato.get().isValid1()) {
-				contrato.get().setValid2(true);
-				return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
-			}
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-					new ErroDto("Não é permitido fazer a segunda validação sem antes ter sido feita a primeira!"));
+			contrato.get().setValid2(true);
+			return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
 		}
 
 		return ResponseEntity.notFound().build();

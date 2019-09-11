@@ -89,30 +89,49 @@ public class ContratoInvestimentoController {
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
-	@GetMapping("/valid1")
-	public Page<ContratoInvestimentoDetalhadoDto> buscarTodosAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+
+	@GetMapping("/todos")
+	public Page<?> buscarTodos(Boolean valid1, Boolean valid2, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		Page<ContratoInvestimento> contratos;
 		
-		if (valid == null) {
+		if (valid1 == null && valid2 == null) {
 			contratos = contratoInvestimentoRepository.findAll(paginacao);
 		} else {
-			contratos = contratoInvestimentoRepository.findByValid1(valid, paginacao);
+			if (valid1 != null && valid2 == null) {
+				contratos = contratoInvestimentoRepository.findByValid1(valid1, paginacao);
+			} else if (valid2 != null && valid1 == null) {
+				contratos = contratoInvestimentoRepository.findByValid2(valid2, paginacao);
+			} else {
+				contratos = contratoInvestimentoRepository.findByValid1AndValid2(valid1, valid2, paginacao);
+			}
 		}
 		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
+
 	}
 	
-	
-	@GetMapping("/valid2")
-	public Page<ContratoInvestimentoDetalhadoDto> buscarTodosAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
-		Page<ContratoInvestimento> contratos;
-		
-		if (valid == null) {
-			contratos = contratoInvestimentoRepository.findByValid1(true, paginacao);
-		} else {
-			contratos = contratoInvestimentoRepository.findByValid2(valid, paginacao);
-		}
-		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
-	}
+//	@GetMapping("/valid1")
+//	public Page<ContratoInvestimentoDetalhadoDto> buscarTodosAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+//		Page<ContratoInvestimento> contratos;
+//		
+//		if (valid == null) {
+//			contratos = contratoInvestimentoRepository.findAll(paginacao);
+//		} else {
+//			contratos = contratoInvestimentoRepository.findByValid1(valid, paginacao);
+//		}
+//		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
+//	}
+//	
+//	
+//	@GetMapping("/valid2")
+//	public Page<ContratoInvestimentoDetalhadoDto> buscarTodosAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+//		Page<ContratoInvestimento> contratos;
+//		
+//		if (valid == null) {
+//			contratos = contratoInvestimentoRepository.findByValid1(true, paginacao);
+//		} else {
+//			contratos = contratoInvestimentoRepository.findByValid2(valid, paginacao);
+//		}
+//		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
+//	}
 
 }

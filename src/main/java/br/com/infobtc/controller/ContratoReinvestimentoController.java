@@ -95,29 +95,52 @@ public class ContratoReinvestimentoController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/valid1")
-	public Page<ContratoReinvestimentoDto> buscarTodosAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+	
+	@GetMapping("/todos")
+	public Page<?> buscarTodos(Boolean valid1, Boolean valid2, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		Page<ContratoReinvestimento> contratos;
 		
-		if (valid == null) {
+		if (valid1 == null && valid2 == null) {
 			contratos = contratoReinvestimentoRepository.findAll(paginacao);
 		} else {
-			contratos = contratoReinvestimentoRepository.findByValid1(valid, paginacao);
+			if (valid1 != null && valid2 == null) {
+				contratos = contratoReinvestimentoRepository.findByValid1(valid1, paginacao);
+			} else if (valid2 != null && valid1 == null) {
+				contratos = contratoReinvestimentoRepository.findByValid2(valid2, paginacao);
+			} else {
+				contratos = contratoReinvestimentoRepository.findByValid1AndValid2(valid1, valid2, paginacao);
+			}
 		}
 		return new ContratoReinvestimentoDto().converter(contratos);
+
 	}
 	
-	
-	@GetMapping("/valid2")
-	public Page<ContratoReinvestimentoDto> buscarTodosAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
-		Page<ContratoReinvestimento> contratos;
-		
-		if (valid == null || !valid) {
-			contratos = contratoReinvestimentoRepository.findByValid1(true, paginacao);
-		} else {
-			contratos = contratoReinvestimentoRepository.findByValid2(valid, paginacao);
-		}
-		return new ContratoReinvestimentoDto().converter(contratos);
-	}
+//	valid1 = null and valid2 = null = all
+//	valid1 = false and valid2 = null = valid1
+//	valid1 = null and valid2 = true = valid2
+//	valid1 = true and valid2 = true = valid1valid2
+
+//	@GetMapping("/valid1")
+//	public Page<?> buscarAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+//		Page<ContratoReinvestimento> contratos;
+//		
+//		if (valid == null) {
+//			contratos = contratoReinvestimentoRepository.findByValid2(valid, paginacao);
+//			return new ContratoReinvestimentoDto().converter(contratos);
+//		} 
+//		return (Page<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Forneça o parâmetro \"valid1\""));
+//	}
+//	
+//	
+//	@GetMapping("/valid2")
+//	public Page<?> buscarAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+//		Page<ContratoReinvestimento> contratos;
+//		
+//		if (valid == null || !valid) {
+//			contratos = contratoReinvestimentoRepository.findByValid1(true, paginacao);
+//			return new ContratoReinvestimentoDto().converter(contratos);
+//		} 
+//		return (Page<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Forneça o parâmetro \"valid2\""));
+//	}
 
 }
