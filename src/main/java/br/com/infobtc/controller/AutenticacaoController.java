@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.config.security.service.dto.TokenDto;
-import br.com.infobtc.controller.form.FormLogin;
+import br.com.infobtc.controller.form.LoginForm;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,7 +28,7 @@ public class AutenticacaoController {
 	private TokenService tokenService;
 
 	@PostMapping
-	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid FormLogin form) {
+	public ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm form) {
 		UsernamePasswordAuthenticationToken authenticationToken = form.converter();
 
 		try {

@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-public class FormLogin {
+public class LoginForm {
 
 	@NotNull
 	@NotEmpty

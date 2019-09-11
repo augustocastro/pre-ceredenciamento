@@ -37,11 +37,6 @@ public class ContaForm {
 	@NotNull
 	private LocalDate dt_vencimento;
 
-//	@JsonDeserialize(using = LocalDateDeserializer.class)
-//	@JsonSerialize(using = LocalDateSerializer.class)
-//	@NotNull
-//	private LocalDate dt_pagamento;
-
 	@NotNull
 	@NotBlank
 	private String historico;
@@ -76,10 +71,6 @@ public class ContaForm {
 	public LocalDate getDt_vencimento() {
 		return dt_vencimento;
 	}
-
-//	public LocalDate getDt_pagamento() {
-//		return dt_pagamento;
-//	}
 
 	public String getHistorico() {
 		return historico;

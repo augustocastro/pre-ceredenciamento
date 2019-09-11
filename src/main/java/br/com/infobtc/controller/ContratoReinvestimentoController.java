@@ -114,33 +114,5 @@ public class ContratoReinvestimentoController {
 		return new ContratoReinvestimentoDto().converter(contratos);
 
 	}
-	
-//	valid1 = null and valid2 = null = all
-//	valid1 = false and valid2 = null = valid1
-//	valid1 = null and valid2 = true = valid2
-//	valid1 = true and valid2 = true = valid1valid2
-
-//	@GetMapping("/valid1")
-//	public Page<?> buscarAprovados1(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
-//		Page<ContratoReinvestimento> contratos;
-//		
-//		if (valid == null) {
-//			contratos = contratoReinvestimentoRepository.findByValid2(valid, paginacao);
-//			return new ContratoReinvestimentoDto().converter(contratos);
-//		} 
-//		return (Page<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Forneça o parâmetro \"valid1\""));
-//	}
-//	
-//	
-//	@GetMapping("/valid2")
-//	public Page<?> buscarAprovados2(Boolean valid, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
-//		Page<ContratoReinvestimento> contratos;
-//		
-//		if (valid == null || !valid) {
-//			contratos = contratoReinvestimentoRepository.findByValid1(true, paginacao);
-//			return new ContratoReinvestimentoDto().converter(contratos);
-//		} 
-//		return (Page<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Forneça o parâmetro \"valid2\""));
-//	}
 
 }

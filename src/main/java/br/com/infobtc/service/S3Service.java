@@ -33,7 +33,6 @@ public class S3Service {
 			String fileName = multipartFile.getOriginalFilename();
 			String contentType = multipartFile.getContentType();
 			InputStream inputStream = multipartFile.getInputStream();
-
 			return uploadFile(inputStream, fileName, contentType);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -47,7 +46,6 @@ public class S3Service {
 			ObjectMetadata metadata = new ObjectMetadata();
 			metadata.setContentType(contentType);
 			amazonS3.putObject(bucketName, fileName, inputStream, metadata);
-			
 			return amazonS3.getUrl(bucketName, fileName).toURI();
 		} catch (URISyntaxException e) {
 			LOG.info("URISyntaxException: " + e.getMessage());
