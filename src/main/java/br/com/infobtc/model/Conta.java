@@ -28,8 +28,9 @@ public class Conta {
 	private LocalDate dtPagamento;
 	private String historico;
 	private BigDecimal valor;
-	private String juros;
+	private BigDecimal valorPago;
 	private BigDecimal desconto;
+	private String juros;
 	private BigDecimal valorTotal;
 	@Enumerated(EnumType.STRING)
 	private Status status;
@@ -90,6 +91,14 @@ public class Conta {
 		return juros;
 	}
 
+	public void setValorPago(BigDecimal valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public BigDecimal getValorPago() {
+		return valorPago;
+	}
+
 	public BigDecimal getDesconto() {
 		return desconto;
 	}
@@ -141,11 +150,11 @@ public class Conta {
 	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-	
+
 	public Status getStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(Status status) {
 		this.status = status;
 	}

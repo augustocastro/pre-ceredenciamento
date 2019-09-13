@@ -97,14 +97,14 @@ public class ContaForm {
 		conta.setFornecedor(fornecedor);
 		conta.setContaContabil(conta_contabil);
 		conta.setDesconto(desconto);
-//		conta.setDtPagamento(dt_pagamento);
 		conta.setDtVencimento(dt_vencimento);
 		conta.setHistorico(historico);
 		conta.setJuros(juros);
 		conta.setValor(valor);
 		conta.setValorTotal(valor_total);
 		conta.setNumeroDoc(numero_doc);
-		conta.setStatus(Status.EM_ABERTO);
+		conta.setStatus(Status.ABERTO);
+		conta.setValorPago(new BigDecimal(0));
 		return conta;
 	}
 

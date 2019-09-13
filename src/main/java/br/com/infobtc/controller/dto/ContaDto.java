@@ -23,6 +23,7 @@ public class ContaDto {
 	private String juros;
 	private BigDecimal desconto;
 	private BigDecimal valor_total;
+	private BigDecimal valor_pago;
 
 	public ContaDto() {
 
@@ -44,6 +45,10 @@ public class ContaDto {
 		this.status = conta.getStatus().name();
 		if (conta.getDtPagamento() != null) {
 			this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		}
+		
+		if (conta.getValorPago() != null) {
+			this.valor_pago = conta.getValorPago();
 		}
 	}
 
@@ -103,6 +108,10 @@ public class ContaDto {
 		return valor_total;
 	}
 
+	public BigDecimal getValor_pago() {
+		return valor_pago;
+	}
+	
 	public List<ContaDto> converter(List<Conta> perfis) {
 		return perfis.stream().map(ContaDto::new).collect(Collectors.toList());
 	}

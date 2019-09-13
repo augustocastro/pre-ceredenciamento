@@ -92,16 +92,26 @@ public class ContaPagarController {
 
 		if (optional.isPresent()) {
 			Conta conta = optional.get();
+			double valorPago = conta.getValorPago().doubleValue();
+			double valorTotal = conta.getValorTotal().doubleValue();
 			
-			if (valor > conta.getValor().doubleValue() || valor < 1) {
+			if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
-			} else if (conta.getValor().doubleValue() == valor) {
-				conta.setStatus(Status.PAGO);
+			}  else if (valor < valorTotal) {
+				conta.setStatus(Status.PENDENTE);
+				conta.setValorPago(new BigDecimal(valorPago + valor));
+			}
+			
+			valorPago = conta.getValorPago().doubleValue();
+			valorTotal = conta.getValorTotal().doubleValue();
+					
+			if (valorTotal == valorPago || valorTotal == valor) {
+				conta.setStatus(Status.ENCERRADO);
 				conta.setDtPagamento(LocalDate.now());
-				conta.setValor(new BigDecimal(conta.getValor().doubleValue() - valor));
-			} else if (valor < conta.getValor().doubleValue()) {
-				conta.setStatus(Status.PAGO_PARCIAL);
-				conta.setValor(new BigDecimal(conta.getValor().doubleValue() - valor));
+				
+				if (valorTotal != valorPago) {
+					conta.setValorPago(new BigDecimal(valor));
+				}
 			}
 			
 			return ResponseEntity.ok(new ContaDto(conta));
