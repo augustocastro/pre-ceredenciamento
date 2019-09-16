@@ -25,7 +25,7 @@ public class InvestidorPessoaFisicaDto {
 	private String dt_nascimento;
 	private Sexo sexo;
 	private String facebook;
-	private String instragam;	
+	private String instagram;	
 	private EstadoCivil estado_civil;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
@@ -51,7 +51,7 @@ public class InvestidorPessoaFisicaDto {
 		this.endereco = new EnderecoDto(investidor.getEndereco());
 		this.arquivos_url = investidor.getArquivosUrl();
 		this.facebook = investidor.getFacebook();
-		this.instragam = investidor.getInstragam();
+		this.instagram = investidor.getInstagram();
 	}
 
 	public Long getId() {
@@ -110,8 +110,8 @@ public class InvestidorPessoaFisicaDto {
 		return facebook;
 	}
 	
-	public String getInstragam() {
-		return instragam;
+	public String getInstagram() {
+		return instagram;
 	}
 	
 	public EstadoCivil getEstado_civil() {
