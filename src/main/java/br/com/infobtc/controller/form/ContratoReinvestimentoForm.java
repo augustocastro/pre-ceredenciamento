@@ -94,8 +94,6 @@ public class ContratoReinvestimentoForm {
 		contrato.setDtTermino(dt_termino);
 		contrato.setQuantidadeMeses(quantidade_meses);	
 		contrato.setAlinea(alinea);
-		contrato.setDeclaracaoLicitude(declaracao_licitude);
-		contrato.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
 		
 		Optional<ContratoInvestimento> contratoInvestimento = contratoInvestimentoRepository.findById(investimento_id);
 		

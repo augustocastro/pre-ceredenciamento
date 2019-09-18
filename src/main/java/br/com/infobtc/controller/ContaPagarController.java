@@ -28,7 +28,7 @@ import br.com.infobtc.controller.dto.ContaDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.ContaForm;
 import br.com.infobtc.model.Conta;
-import br.com.infobtc.model.Status;
+import br.com.infobtc.model.StatusConta;
 import br.com.infobtc.repository.ContaRepository;
 
 @RestController
@@ -65,7 +65,7 @@ public class ContaPagarController {
 	}
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<ContaDto>> buscarTodos(Status status) {
+	public ResponseEntity<List<ContaDto>> buscarTodos(StatusConta status) {
 		List<Conta> contas;
 		if (status != null) {
 			contas = contaRepository.findByStatus(status);
@@ -98,7 +98,10 @@ public class ContaPagarController {
 			if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
 			}  else if (valor < valorTotal) {
-				conta.setStatus(Status.PENDENTE);
+				if (LocalDate.now().isBefore(conta.getDtVencimento())) {
+					conta.setStatus(StatusConta.EM_ATRASO);
+				}
+				
 				conta.setValorPago(new BigDecimal(valorPago + valor));
 			}
 			
@@ -106,7 +109,7 @@ public class ContaPagarController {
 			valorTotal = conta.getValorTotal().doubleValue();
 					
 			if (valorTotal == valorPago || valorTotal == valor) {
-				conta.setStatus(Status.ENCERRADO);
+				conta.setStatus(StatusConta.LIQUIDADO);
 				conta.setDtPagamento(LocalDate.now());
 				
 				if (valorTotal != valorPago) {

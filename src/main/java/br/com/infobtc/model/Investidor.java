@@ -26,6 +26,8 @@ public class Investidor {
 	private String tipo;
 	private String facebook;
 	private String instragam;
+	private boolean declaracaoLicitude;
+	private boolean declaracaoPoliticamentExposta;
 
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
@@ -116,6 +118,22 @@ public class Investidor {
 
 	public void setArquivosUrl(List<String> arquivosUrl) {
 		this.arquivosUrl = arquivosUrl;
+	}
+
+	public boolean isDeclaracaoLicitude() {
+		return declaracaoLicitude;
+	}
+
+	public boolean isDeclaracaoPoliticamentExposta() {
+		return declaracaoPoliticamentExposta;
+	}
+
+	public void setDeclaracaoLicitude(boolean declaracaoLicitude) {
+		this.declaracaoLicitude = declaracaoLicitude;
+	}
+
+	public void setDeclaracaoPoliticamenteExposta(boolean declaracaoPoliticamenteExposta) {
+		this.declaracaoPoliticamentExposta = declaracaoPoliticamenteExposta;
 	}
 
 }

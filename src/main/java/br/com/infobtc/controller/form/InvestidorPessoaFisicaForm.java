@@ -78,6 +78,14 @@ public class InvestidorPessoaFisicaForm {
 	@NotNull
 	private String instragam;
 	
+	@Valid
+	@NotNull
+	private boolean declaracao_licitude;
+	
+	@Valid
+	@NotNull
+	private boolean declaracao_politicamente_exposta;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -178,6 +186,21 @@ public class InvestidorPessoaFisicaForm {
 		this.nacionalidade = nacionalidade;
 	}
 
+	public void setDeclaracao_licitude(boolean declaracao_licitude) {
+		this.declaracao_licitude = declaracao_licitude;
+	}
+	
+	public boolean isDeclaracao_licitude() {
+		return declaracao_licitude;
+	}
+	
+	public void setDeclaracao_politicamente_exposta(boolean declaracao_politicamente_exposta) {
+		this.declaracao_politicamente_exposta = declaracao_politicamente_exposta;
+	}
+	public boolean isDeclaracao_politicamente_exposta() {
+		return declaracao_politicamente_exposta;
+	}
+	
 	public InvestidorPessoaFisica atualizar(Long id, InvestidorPessoaFisicaRepository pessoaFisicaRepository, EnderecoRepository enderecoRepository) {
 		InvestidorPessoaFisica investidor = pessoaFisicaRepository.getOne(id);
 
@@ -202,6 +225,8 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setEstadoCivil(estado_civil);
 		investidor.setFacebook(facebook);
 		investidor.setInstragam(instragam);
+		investidor.setDeclaracaoLicitude(declaracao_licitude);
+		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
 	}
 
 }

@@ -26,6 +26,8 @@ public class InvestidorPessoaFisicaDto {
 	private Sexo sexo;
 	private String facebook;
 	private String instragam;	
+	private boolean declaracao_licitude;
+	private boolean declaracao_politicamente_exposta;
 	private EstadoCivil estado_civil;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
@@ -52,6 +54,8 @@ public class InvestidorPessoaFisicaDto {
 		this.arquivos_url = investidor.getArquivosUrl();
 		this.facebook = investidor.getFacebook();
 		this.instragam = investidor.getInstragam();
+		this.declaracao_licitude = investidor.isDeclaracaoLicitude();
+		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
 	}
 
 	public Long getId() {
@@ -112,6 +116,14 @@ public class InvestidorPessoaFisicaDto {
 	
 	public String getInstragam() {
 		return instragam;
+	}
+	
+	public boolean isDeclaracao_licitude() {
+		return declaracao_licitude;
+	}
+	
+	public boolean isDeclaracao_politicamente_exposta() {
+		return declaracao_politicamente_exposta;
 	}
 	
 	public EstadoCivil getEstado_civil() {

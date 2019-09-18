@@ -44,8 +44,6 @@ public abstract class Contrato {
 	private boolean valid1;
 	private boolean valid2;
 	private boolean repassado;
-	private boolean declaracaoLicitude;
-	private boolean declaracaoPoliticamentExposta;
 
 	public Long getId() {
 		return id;
@@ -121,22 +119,6 @@ public abstract class Contrato {
 
 	public void setRepassado(boolean repassado) {
 		this.repassado = repassado;
-	}
-
-	public boolean isDeclaracaoLicitude() {
-		return declaracaoLicitude;
-	}
-
-	public boolean isDeclaracaoPoliticamentExposta() {
-		return declaracaoPoliticamentExposta;
-	}
-
-	public void setDeclaracaoLicitude(boolean declaracaoLicitude) {
-		this.declaracaoLicitude = declaracaoLicitude;
-	}
-
-	public void setDeclaracaoPoliticamenteExposta(boolean declaracaoPoliticamenteExposta) {
-		this.declaracaoPoliticamentExposta = declaracaoPoliticamenteExposta;
 	}
 
 	public abstract Object criaDto(Contrato contrato);

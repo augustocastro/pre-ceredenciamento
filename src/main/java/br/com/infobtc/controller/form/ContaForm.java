@@ -12,7 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import br.com.infobtc.model.Conta;
-import br.com.infobtc.model.Status;
+import br.com.infobtc.model.StatusConta;
 
 public class ContaForm {
 
@@ -103,7 +103,7 @@ public class ContaForm {
 		conta.setValor(valor);
 		conta.setValorTotal(valor_total);
 		conta.setNumeroDoc(numero_doc);
-		conta.setStatus(Status.ABERTO);
+		conta.setStatus(StatusConta.EM_ABERTO);
 		conta.setValorPago(new BigDecimal(0));
 		return conta;
 	}

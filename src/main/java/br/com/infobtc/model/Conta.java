@@ -33,7 +33,7 @@ public class Conta {
 	private String juros;
 	private BigDecimal valorTotal;
 	@Enumerated(EnumType.STRING)
-	private Status status;
+	private StatusConta status;
 
 	public Conta() {
 		this.dtCadastramento = LocalDate.now();
@@ -151,11 +151,11 @@ public class Conta {
 		this.valorTotal = valorTotal;
 	}
 
-	public Status getStatus() {
+	public StatusConta getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(StatusConta status) {
 		this.status = status;
 	}
 

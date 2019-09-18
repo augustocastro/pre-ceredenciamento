@@ -21,8 +21,6 @@ public class ContratoReinvestimentoDto {
 	private Long investimento_id;
 	private boolean valid1;
 	private boolean valid2;
-	private boolean declaracao_licitude;
-	private boolean declaracao_politicament_exposta;
 	private BancoDto banco;
 	private List<String> arquivos_url = new ArrayList<String>();
 	
@@ -42,8 +40,6 @@ public class ContratoReinvestimentoDto {
 		this.valid1 = contratoReinvestimento.isValid1();
 		this.valid2 = contratoReinvestimento.isValid2();
 		this.arquivos_url = contratoReinvestimento.getArquivosUrl();
-		this.declaracao_licitude = contratoReinvestimento.isDeclaracaoLicitude();
-		this.declaracao_politicament_exposta = contratoReinvestimento.isDeclaracaoPoliticamentExposta();
 	}
 
 	public Long getId() {
@@ -80,14 +76,6 @@ public class ContratoReinvestimentoDto {
 	
 	public boolean isValid2() {
 		return valid2;
-	}
-	
-	public boolean isDeclaracao_licitude() {
-		return declaracao_licitude;
-	}
-	
-	public boolean isDeclaracao_politicament_exposta() {
-		return declaracao_politicament_exposta;
 	}
 	
 	public BancoDto getBanco() {
