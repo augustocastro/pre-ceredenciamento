@@ -40,9 +40,7 @@ public class ContaPagarController {
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContaForm contaForm,
-			UriComponentsBuilder uriComponentsBuilder) {
-
+	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContaForm contaForm, UriComponentsBuilder uriComponentsBuilder) {
 		Conta conta = new Conta();
 		contaForm.setarPropriedades(conta);
 
@@ -98,7 +96,7 @@ public class ContaPagarController {
 			if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
 			}  else if (valor < valorTotal) {
-				if (LocalDate.now().isBefore(conta.getDtVencimento())) {
+				if (LocalDate.now().isAfter(conta.getDtVencimento())) {
 					conta.setStatus(StatusConta.EM_ATRASO);
 				}
 				
