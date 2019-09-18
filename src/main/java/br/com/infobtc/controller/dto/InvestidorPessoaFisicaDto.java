@@ -53,9 +53,9 @@ public class InvestidorPessoaFisicaDto {
 		this.endereco = new EnderecoDto(investidor.getEndereco());
 		this.arquivos_url = investidor.getArquivosUrl();
 		this.facebook = investidor.getFacebook();
-		this.instragam = investidor.getInstragam();
 		this.declaracao_licitude = investidor.isDeclaracaoLicitude();
 		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
+		this.instragam = investidor.getInstagram();
 	}
 
 	public Long getId() {

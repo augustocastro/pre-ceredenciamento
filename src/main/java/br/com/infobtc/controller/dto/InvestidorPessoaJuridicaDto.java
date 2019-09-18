@@ -16,7 +16,7 @@ public class InvestidorPessoaJuridicaDto {
 	private String cnpj;
 	private String inscricao;
 	private String facebook;
-	private String instragam;
+	private String instagram;
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
 	private EnderecoDto endereco;
@@ -36,9 +36,9 @@ public class InvestidorPessoaJuridicaDto {
 		this.endereco = new EnderecoDto(investidor.getEndereco());
 		this.arquivos_url = investidor.getArquivosUrl();
 		this.facebook = investidor.getFacebook();
-		this.instragam = investidor.getInstragam();
 		this.declaracao_licitude = investidor.isDeclaracaoLicitude();
 		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
+		this.instagram = investidor.getInstagram();
 	}
 
 	public Long getId() {
@@ -73,8 +73,8 @@ public class InvestidorPessoaJuridicaDto {
 		return facebook;
 	}
 	
-	public String getInstragam() {
-		return instragam;
+	public String getInstagram() {
+		return instagram;
 	}
 
 	public boolean isDeclaracao_licitude() {

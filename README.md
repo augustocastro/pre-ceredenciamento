@@ -64,9 +64,9 @@ investidor = {
     "telefone": "(00) 0 0000-0000",
     "inscricao": "00000000",
     "facebook": "https://www.facebook.com/johndoe",
-    "instragam": "johndoe",
+    "instagram": "johndoe",
     "declaracao_licitude": false,
-    "declaracao_politicamente_exposta" true: 
+    "declaracao_politicamente_exposta": true, 
     "endereco": {
         "endereco": "SCRL 709, Asa Norte",
         "cidade": "Brasília",
@@ -105,9 +105,9 @@ investidor = {
 	"estadoCivil": "SOLTEIRO",
 	"nacionalidade": "Brasileira",
 	"facebook": "https://www.facebook.com/johndoe",
-	"instragam": "johndoe",
+	"instagram": "johndoe",
 	"declaracao_licitude": false,
-	"declaracao_politicamente_exposta" true: 
+	"declaracao_politicamente_exposta": true, 
 	"endereco": {
 		"endereco": "SCRL 709, Asa Norte",
 		"cidade": "Brasília",

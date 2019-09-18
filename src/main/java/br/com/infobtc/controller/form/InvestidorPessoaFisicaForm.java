@@ -71,12 +71,9 @@ public class InvestidorPessoaFisicaForm {
 	@NotNull
 	private String nacionalidade;
 
-	@NotNull
 	private String facebook;
 	
-	@Valid
-	@NotNull
-	private String instragam;
+	private String instagram;
 	
 	@Valid
 	@NotNull
@@ -185,6 +182,27 @@ public class InvestidorPessoaFisicaForm {
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
+	
+
+	public EstadoCivil getEstado_civil() {
+		return estado_civil;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+	
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+	
+	public void setInstagram(String instagam) {
+		this.instagram = instagam;
+	}
 
 	public void setDeclaracao_licitude(boolean declaracao_licitude) {
 		this.declaracao_licitude = declaracao_licitude;
@@ -224,9 +242,10 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setNacionalidade(nacionalidade);
 		investidor.setEstadoCivil(estado_civil);
 		investidor.setFacebook(facebook);
-		investidor.setInstragam(instragam);
+		investidor.setInstagram(instagram);
 		investidor.setDeclaracaoLicitude(declaracao_licitude);
 		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
+		investidor.setInstagram(instagram);
 	}
 
 }

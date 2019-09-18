@@ -40,7 +40,7 @@ public class InvestidorPessoaJuridicaForm {
 
 	@Valid
 	@NotNull
-	private String instragam;
+	private String instagram;
 
 	@Valid
 	@NotNull
@@ -49,7 +49,7 @@ public class InvestidorPessoaJuridicaForm {
 	@Valid
 	@NotNull
 	private boolean declaracao_politicamente_exposta;
-
+	
 	public String getCnpj() {
 		return cnpj;
 	}
@@ -81,10 +81,15 @@ public class InvestidorPessoaJuridicaForm {
 	public String getFacebook() {
 		return facebook;
 	}
-
-	public String getInstragam() {
-		return instragam;
+	
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
 	}
+	
+	public String getInstagram() {
+		return instagram;
+	}
+	
 
 	public void setDeclaracao_licitude(boolean declaracao_licitude) {
 		this.declaracao_licitude = declaracao_licitude;
@@ -119,9 +124,9 @@ public class InvestidorPessoaJuridicaForm {
 		investidor.setTelefone(telefone);
 		investidor.setInscricao(inscricao);
 		investidor.setFacebook(facebook);
-		investidor.setInstragam(instragam);
 		investidor.setDeclaracaoLicitude(declaracao_licitude);
 		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
+		investidor.setInstagram(instagram);
 	}
 
 }

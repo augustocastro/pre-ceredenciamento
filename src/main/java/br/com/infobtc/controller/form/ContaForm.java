@@ -37,15 +37,11 @@ public class ContaForm {
 	@NotNull
 	private LocalDate dt_vencimento;
 
-	@NotNull
-	@NotBlank
 	private String historico;
 
 	@NotNull
 	private BigDecimal valor;
 
-	@NotNull
-	@NotBlank
 	private String juros;
 	private BigDecimal desconto;
 

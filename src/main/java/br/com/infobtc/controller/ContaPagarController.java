@@ -48,7 +48,7 @@ public class ContaPagarController {
 
 		contaRepository.save(conta);
 
-		URI uri = uriComponentsBuilder.path("//conta-pagar/{id}").buildAndExpand(conta.getId()).toUri();
+		URI uri = uriComponentsBuilder.path("/conta-pagar/{id}").buildAndExpand(conta.getId()).toUri();
 		return ResponseEntity.created(uri).body(new ContaDto(conta));
 	}
 
