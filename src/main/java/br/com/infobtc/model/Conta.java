@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -19,7 +20,6 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String centroDeCusto;
-	private String fornecedor;
 	private String numeroDoc;
 	private String contaContabil;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -34,6 +34,8 @@ public class Conta {
 	private BigDecimal valorTotal;
 	@Enumerated(EnumType.STRING)
 	private StatusConta status;
+	@OneToOne
+	private Fornecedor fornecedor;
 
 	public Conta() {
 		this.dtCadastramento = LocalDate.now();
@@ -51,9 +53,6 @@ public class Conta {
 		return centroDeCusto;
 	}
 
-	public String getFornecedor() {
-		return fornecedor;
-	}
 
 	public String getNumeroDoc() {
 		return numeroDoc;
@@ -111,10 +110,6 @@ public class Conta {
 		this.centroDeCusto = centroDeCusto;
 	}
 
-	public void setFornecedor(String fornecedor) {
-		this.fornecedor = fornecedor;
-	}
-
 	public void setContaContabil(String contaContabil) {
 		this.contaContabil = contaContabil;
 	}
@@ -157,6 +152,14 @@ public class Conta {
 
 	public void setStatus(StatusConta status) {
 		this.status = status;
+	}
+	
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+	
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 }

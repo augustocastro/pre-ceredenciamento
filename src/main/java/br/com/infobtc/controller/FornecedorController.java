@@ -35,7 +35,6 @@ public class FornecedorController {
 	@Autowired
 	private FornecedorRepository fornecedorRepository; 
 	
-
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	

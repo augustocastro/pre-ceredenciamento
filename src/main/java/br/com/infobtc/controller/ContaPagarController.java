@@ -30,6 +30,8 @@ import br.com.infobtc.controller.form.ContaForm;
 import br.com.infobtc.model.Conta;
 import br.com.infobtc.model.StatusConta;
 import br.com.infobtc.repository.ContaRepository;
+import br.com.infobtc.repository.FornecedorRepository;
+import javassist.NotFoundException;
 
 @RestController
 @RequestMapping("/conta-pagar")
@@ -38,11 +40,18 @@ public class ContaPagarController {
 	@Autowired
 	private ContaRepository contaRepository;
 
+	@Autowired
+	private FornecedorRepository fornecedorRepository; 
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cadastrar(@RequestBody @Valid ContaForm contaForm, UriComponentsBuilder uriComponentsBuilder) {
 		Conta conta = new Conta();
-		contaForm.setarPropriedades(conta);
+		try {
+			contaForm.setarPropriedades(conta, fornecedorRepository);
+		} catch (NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+		}
 
 		contaRepository.save(conta);
 
@@ -52,11 +61,15 @@ public class ContaPagarController {
 
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<ContaDto> atualizar(@PathVariable Long id, @Valid @RequestBody ContaForm contaForm) {
+	public ResponseEntity<?> atualizar(@PathVariable Long id, @Valid @RequestBody ContaForm contaForm) {
 		Optional<Conta> conta = contaRepository.findById(id);
 
 		if (conta.isPresent()) {
-			contaForm.atualizar(conta.get());
+			try {
+				contaForm.atualizar(conta.get(), fornecedorRepository);
+			} catch (NotFoundException e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+			}
 			return ResponseEntity.ok(new ContaDto(conta.get()));
 		}
 		return ResponseEntity.notFound().build();

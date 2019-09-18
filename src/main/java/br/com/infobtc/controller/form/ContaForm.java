@@ -2,6 +2,7 @@ package br.com.infobtc.controller.form;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,10 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import br.com.infobtc.model.Conta;
+import br.com.infobtc.model.Fornecedor;
 import br.com.infobtc.model.StatusConta;
+import br.com.infobtc.repository.FornecedorRepository;
+import javassist.NotFoundException;
 
 public class ContaForm {
 
@@ -21,8 +25,7 @@ public class ContaForm {
 	private String centro_de_custo;
 
 	@NotNull
-	@NotBlank
-	private String fornecedor;
+	private Long fornecedor_id;
 
 	@NotNull
 	@NotBlank
@@ -52,8 +55,8 @@ public class ContaForm {
 		return centro_de_custo;
 	}
 
-	public String getFornecedor() {
-		return fornecedor;
+	public Long getFornecedor_id() {
+		return fornecedor_id;
 	}
 
 	public String getNumero_doc() {
@@ -88,9 +91,17 @@ public class ContaForm {
 		return valor_total;
 	}
 
-	public Conta setarPropriedades(Conta conta) {
+	public Conta setarPropriedades(Conta conta, FornecedorRepository fornecedorRepository) throws NotFoundException {
 		conta.setCentroDeCusto(centro_de_custo);
-		conta.setFornecedor(fornecedor);
+		
+		Optional<Fornecedor> fornecedor = fornecedorRepository.findById(fornecedor_id);
+		
+		if (fornecedor.isPresent()) {
+			conta.setFornecedor(fornecedor.get());
+		} else {
+			throw new NotFoundException(String.format("O fornecedor de id \"%s\" não foi encontrado.", fornecedor_id));
+		}
+		
 		conta.setContaContabil(conta_contabil);
 		conta.setDesconto(desconto);
 		conta.setDtVencimento(dt_vencimento);
@@ -104,8 +115,8 @@ public class ContaForm {
 		return conta;
 	}
 
-	public void atualizar(Conta conta) {
-		setarPropriedades(conta);
+	public void atualizar(Conta conta, FornecedorRepository fornecedorRepository) throws NotFoundException {
+		setarPropriedades(conta, fornecedorRepository);
 	}
 
 }
