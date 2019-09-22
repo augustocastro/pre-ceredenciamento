@@ -34,12 +34,8 @@ public class InvestidorPessoaJuridicaForm {
 	@NotNull
 	private EnderecoForm endereco;
 
-	@Valid
-	@NotNull
 	private String facebook;
 
-	@Valid
-	@NotNull
 	private String instagram;
 
 	@Valid

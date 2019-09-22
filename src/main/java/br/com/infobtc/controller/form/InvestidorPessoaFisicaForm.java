@@ -44,8 +44,6 @@ public class InvestidorPessoaFisicaForm {
 	@NotEmpty
 	private String orgao_emissor_uf;
 
-	@NotNull
-	@NotEmpty
 	private String regime_bens;
 
 	@NotNull
@@ -200,8 +198,8 @@ public class InvestidorPessoaFisicaForm {
 		return instagram;
 	}
 	
-	public void setInstagram(String instagam) {
-		this.instagram = instagam;
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
 	}
 
 	public void setDeclaracao_licitude(boolean declaracao_licitude) {
@@ -245,7 +243,6 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setInstagram(instagram);
 		investidor.setDeclaracaoLicitude(declaracao_licitude);
 		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
-		investidor.setInstagram(instagram);
 	}
 
 }

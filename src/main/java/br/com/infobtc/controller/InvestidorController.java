@@ -21,7 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.InvestidorDto;
+import br.com.infobtc.controller.dto.InvestidorPessoaFisicaDto;
+import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.model.Investidor;
+import br.com.infobtc.model.InvestidorPessoaFisica;
+import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.repository.InvestidorRepository;
 import br.com.infobtc.service.S3Service;
 
@@ -42,11 +46,17 @@ public class InvestidorController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Investidor> buscarPorId(@PathVariable Long id) {
-		Optional<Investidor> investidor = investidorRepository.findById(id);
+	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+		Optional<Investidor> optional = investidorRepository.findById(id);
 
-		if (investidor.isPresent()) {
-			return ResponseEntity.ok(investidor.get());
+		if (optional.isPresent()) {
+			Investidor investidor= optional.get();
+			
+			if (optional.get() instanceof InvestidorPessoaFisica) {
+				return ResponseEntity.ok(new InvestidorPessoaFisicaDto((InvestidorPessoaFisica)investidor));
+			}
+			
+			return ResponseEntity.ok(new InvestidorPessoaJuridicaDto((InvestidorPessoaJuridica)investidor));
 		}
 		return ResponseEntity.notFound().build();
 	}

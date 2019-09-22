@@ -25,7 +25,7 @@ public class InvestidorPessoaFisicaDto {
 	private String dt_nascimento;
 	private Sexo sexo;
 	private String facebook;
-	private String instragam;	
+	private String instagram;	
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
 	private EstadoCivil estado_civil;
@@ -55,7 +55,7 @@ public class InvestidorPessoaFisicaDto {
 		this.facebook = investidor.getFacebook();
 		this.declaracao_licitude = investidor.isDeclaracaoLicitude();
 		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
-		this.instragam = investidor.getInstagram();
+		this.instagram = investidor.getInstagram();
 	}
 
 	public Long getId() {
@@ -114,8 +114,8 @@ public class InvestidorPessoaFisicaDto {
 		return facebook;
 	}
 	
-	public String getInstragam() {
-		return instragam;
+	public String getInstagram() {
+		return instagram;
 	}
 	
 	public boolean isDeclaracao_licitude() {
