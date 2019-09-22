@@ -18,12 +18,13 @@ import br.com.infobtc.repository.InvestidorRepository;
 import javassist.NotFoundException;
 
 public class ContratoInvestimentoForm {
+	 
+
+	@NotNull
+	private String dt_inicio;
 	
 	@NotNull
-	private LocalDate dt_inicio;
-	
-	@NotNull
-	private LocalDate dt_termino;
+	private String dt_termino;
 	
 	@NotNull
 	private Integer quantidade_meses;
@@ -47,11 +48,11 @@ public class ContratoInvestimentoForm {
 	private BancoForm banco;
 
 	
-	public LocalDate getDt_inicio() {
+	public String getDt_inicio() {
 		return dt_inicio;
 	}
 
-	public LocalDate getDt_termino() {
+	public String getDt_termino() {
 		return dt_termino;
 	}
 
@@ -84,8 +85,8 @@ public class ContratoInvestimentoForm {
 	public void setarPropriedades(ContratoInvestimento contrato, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) throws NotFoundException {
 		contrato.setTipoRendimento(tipo_rendimento);
 		contrato.setValor(new BigDecimal(valor));
-		contrato.setDtInicio(dt_inicio);
-		contrato.setDtTermino(dt_termino);
+		contrato.setDtInicio(LocalDate.parse(dt_inicio));
+		contrato.setDtTermino(LocalDate.parse(dt_termino));
 		contrato.setQuantidadeMeses(quantidade_meses);	
 		
 		Optional<Investidor> investidor = investidorRepository.findById(investidor_id);

@@ -120,4 +120,60 @@ investidor = {
 arquivos = [files]
 ````
 
+# Cadastro Investimento:
+##### POST localhost:8080/investimento/
+Cadastro de Investimento
 
+Obs: Enviar um FormDate sem Content-Type.
+
+````
+contrato = {
+   "banco": {
+      "agencia": "00000",
+      "codigo": "1",
+      "conta": "000000",
+      "cpf_or_cnpj_titular": "24234234324234",
+      "instituicao_financeira": "341 - Itaú Unibanco S.A",
+      "tipo_conta": "Corrente",
+      "titular": "Augusto"
+   },
+   "valor": 10000,
+   "dt_inicio": "2019-09-18",
+   "dt_termino": "2019-10-18",
+   "investidor_id": 2,
+   "consultor_id": 1,
+   "quantidade_meses": 1,
+   "tipo_rendimento": "Simples"
+}
+
+arquivos = [files]
+````
+
+# Cadastro Reivestimento:
+##### POST localhost:8080/reinvestimento/
+Cadastro de Reivestimento
+
+Obs: Enviar um FormDate sem Content-Type.
+
+````
+contrato = {
+   "banco": {
+      "agencia": "00000",
+      "codigo": "1",
+      "conta": "000000",
+      "cpf_or_cnpj_titular": "24234234324234",
+      "instituicao_financeira": "341 - Itaú Unibanco S.A",
+      "tipo_conta": "Corrente",
+      "titular": "Augusto"
+   },
+   "valor": 10000,
+   "dt_inicio": "2019-09-18",
+   "dt_termino": "2019-10-18",
+   "investidor_id": 2,
+   "consultor_id": 1,
+   "quantidade_meses": 1,
+   "tipo_rendimento": "Simples"
+}
+
+arquivos = [files]
+````

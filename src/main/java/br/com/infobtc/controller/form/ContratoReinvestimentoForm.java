@@ -18,10 +18,10 @@ import javassist.NotFoundException;
 public class ContratoReinvestimentoForm {
 	
 	@NotNull
-	private LocalDate dt_inicio;
+	private String dt_inicio;
 	
 	@NotNull
-	private LocalDate dt_termino;
+	private String dt_termino;
 	
 	@NotNull
 	private Integer quantidade_meses;
@@ -36,24 +36,16 @@ public class ContratoReinvestimentoForm {
 	@NotNull
 	@NotEmpty
 	private String alinea;
-
-	@Valid
-	@NotNull
-	private boolean declaracao_licitude;
-	
-	@Valid
-	@NotNull
-	private boolean declaracao_politicamente_exposta;
 	
 	@Valid
 	@NotNull
 	private BancoForm banco;
 	
-	public LocalDate getDt_inicio() {
+	public String getDt_inicio() {
 		return dt_inicio;
 	}
 
-	public LocalDate getDt_termino() {
+	public String getDt_termino() {
 		return dt_termino;
 	}
 
@@ -63,14 +55,6 @@ public class ContratoReinvestimentoForm {
 
 	public String getValor() {
 		return valor;
-	}
-	
-	public boolean isDeclaracao_licitude() {
-		return declaracao_licitude;
-	}
-	
-	public boolean isDeclaracao_politicamente_exposta() {
-		return declaracao_politicamente_exposta;
 	}
 
 	public BancoForm getBanco() {
@@ -90,8 +74,8 @@ public class ContratoReinvestimentoForm {
 	
 	public void setarPropriedades(ContratoReinvestimento contrato, ContratoInvestimentoRepository contratoInvestimentoRepository) throws NotFoundException {
 		contrato.setValor(new BigDecimal(valor));
-		contrato.setDtInicio(dt_inicio);
-		contrato.setDtTermino(dt_termino);
+		contrato.setDtInicio(LocalDate.parse(dt_inicio));
+		contrato.setDtTermino(LocalDate.parse(dt_termino));
 		contrato.setQuantidadeMeses(quantidade_meses);	
 		contrato.setAlinea(alinea);
 		
