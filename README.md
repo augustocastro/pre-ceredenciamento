@@ -169,10 +169,9 @@ contrato = {
    "valor": 10000,
    "dt_inicio": "2019-09-18",
    "dt_termino": "2019-10-18",
-   "investidor_id": 2,
-   "consultor_id": 1,
+   "investimento_id": 2,
    "quantidade_meses": 1,
-   "tipo_rendimento": "Simples"
+   "alinea": "Teste"
 }
 
 arquivos = [files]
