@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,8 +41,15 @@ public class InvestidorController {
 	private S3Service s3Service;
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<InvestidorDto>> buscarTodos() {
-		List<Investidor> investidores = investidorRepository.findAll();
+	public ResponseEntity<List<InvestidorDto>> buscarTodos(Boolean aprovado) {
+		List<Investidor> investidores;
+		
+		if (aprovado == null) {
+			investidores = investidorRepository.findAll();
+		} else {
+			investidores = investidorRepository.findByAprovado(aprovado);
+		}
+		
 		return ResponseEntity.ok(new InvestidorDto().converter(investidores));
 	}
 
@@ -108,4 +116,16 @@ public class InvestidorController {
 		}
 	}
 	
+	@PatchMapping("/{id}")
+	@Transactional
+	public ResponseEntity<?> aprovar(@PathVariable Long id) {
+		Optional<Investidor> investidor = investidorRepository.findById(id);
+		
+		if (investidor.isPresent()) {
+			investidor.get().setAprovado(true);	
+			
+			return ResponseEntity.ok(investidor);
+		} 
+		return ResponseEntity.notFound().build();
+	}
 }

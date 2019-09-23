@@ -127,8 +127,15 @@ public class InvestidorPessoaFisicaControler {
 	}
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<InvestidorPessoaFisicaDto>> buscarTodos() {
-		List<InvestidorPessoaFisica> investidores = investidorPessoaFisicaRepository.findAll();
+	public ResponseEntity<List<InvestidorPessoaFisicaDto>> buscarTodos(Boolean aprovado) {
+		List<InvestidorPessoaFisica> investidores;
+		
+		if (aprovado == null) {
+			investidores = investidorPessoaFisicaRepository.findAll();
+		} else {
+			investidores = investidorPessoaFisicaRepository.findByAprovado(aprovado);
+		}
+		
 		return ResponseEntity.ok(new InvestidorPessoaFisicaDto().converter(investidores));
 	}
 	

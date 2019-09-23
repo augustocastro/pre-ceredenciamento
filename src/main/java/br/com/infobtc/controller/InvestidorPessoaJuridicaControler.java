@@ -62,7 +62,7 @@ public class InvestidorPessoaJuridicaControler {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<?> cadastrar(HttpServletRequest request, @Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm, 
+	public ResponseEntity<?> cadastrar(HttpServletRequest request, @Valid @ModelAttribute InvestidorArquivosForm investidorArquivosForm,  
 			UriComponentsBuilder uriComponentsBuilder) {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
@@ -127,8 +127,15 @@ public class InvestidorPessoaJuridicaControler {
 	}
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<InvestidorPessoaJuridicaDto>> buscarTodos() {
-		List<InvestidorPessoaJuridica> investidores = investidorPessoaJuridicaRepository.findAll();
+	public ResponseEntity<List<InvestidorPessoaJuridicaDto>> buscarTodos(Boolean aprovado) {
+		List<InvestidorPessoaJuridica> investidores;
+		
+		if (aprovado == null) {
+			investidores = investidorPessoaJuridicaRepository.findAll();
+		} else {
+			investidores = investidorPessoaJuridicaRepository.findByAprovado(aprovado);
+		}
+		
 		return ResponseEntity.ok(new InvestidorPessoaJuridicaDto().converter(investidores));
 	}
 

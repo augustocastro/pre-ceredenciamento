@@ -19,6 +19,7 @@ public class InvestidorPessoaJuridicaDto {
 	private String instagram;
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
+	private boolean aprovado;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
 	
@@ -38,6 +39,7 @@ public class InvestidorPessoaJuridicaDto {
 		this.facebook = investidor.getFacebook();
 		this.declaracao_licitude = investidor.isDeclaracaoLicitude();
 		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
+		this.aprovado = investidor.isAprovado();
 		this.instagram = investidor.getInstagram();
 	}
 
@@ -83,6 +85,10 @@ public class InvestidorPessoaJuridicaDto {
 	
 	public boolean isDeclaracao_politicamente_exposta() {
 		return declaracao_politicamente_exposta;
+	}
+	
+	public boolean isAprovado() {
+		return aprovado;
 	}
 	
 	public EnderecoDto getEndereco() {

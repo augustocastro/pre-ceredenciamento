@@ -28,6 +28,7 @@ public class Investidor {
 	private String instagram;
 	private boolean declaracaoLicitude;
 	private boolean declaracaoPoliticamentExposta;
+	private boolean aprovado;
 
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
@@ -135,5 +136,12 @@ public class Investidor {
 	public void setDeclaracaoPoliticamenteExposta(boolean declaracaoPoliticamenteExposta) {
 		this.declaracaoPoliticamentExposta = declaracaoPoliticamenteExposta;
 	}
-
+	
+	public boolean isAprovado() {
+		return aprovado;
+	}
+	
+	public void setAprovado(boolean aprovado) {
+		this.aprovado = aprovado;
+	}
 }
