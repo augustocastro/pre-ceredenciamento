@@ -45,11 +45,15 @@ public class ContaForm {
 	@NotNull
 	private BigDecimal valor;
 
-	private String juros;
-	private BigDecimal desconto;
-
 	@NotNull
 	private BigDecimal valor_total;
+
+	@NotNull
+	private BigDecimal juros;
+	
+	private BigDecimal desconto;
+	
+	private BigDecimal multa;
 
 	public String getCentro_de_custo() {
 		return centro_de_custo;
@@ -78,8 +82,12 @@ public class ContaForm {
 	public BigDecimal getValor() {
 		return valor;
 	}
+	
+	public BigDecimal getValor_total() {
+		return valor_total;
+	}
 
-	public String getJuros() {
+	public BigDecimal getJuros() {
 		return juros;
 	}
 
@@ -87,8 +95,8 @@ public class ContaForm {
 		return desconto;
 	}
 
-	public BigDecimal getValor_total() {
-		return valor_total;
+	public BigDecimal getMulta() {
+		return multa;
 	}
 
 	public Conta setarPropriedades(Conta conta, FornecedorRepository fornecedorRepository) throws NotFoundException {
@@ -108,6 +116,7 @@ public class ContaForm {
 		conta.setHistorico(historico);
 		conta.setJuros(juros);
 		conta.setValor(valor);
+		conta.setMulta(multa);
 		conta.setValorTotal(valor_total);
 		conta.setNumeroDoc(numero_doc);
 		conta.setStatus(StatusConta.EM_ABERTO);

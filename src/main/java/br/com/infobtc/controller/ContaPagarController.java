@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.infobtc.controller.dto.ContaDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.ContaForm;
+import br.com.infobtc.controller.form.PagamentoForm;
 import br.com.infobtc.model.Conta;
 import br.com.infobtc.model.StatusConta;
 import br.com.infobtc.repository.ContaRepository;
@@ -98,21 +98,28 @@ public class ContaPagarController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> pagar(@PathVariable Long id, @RequestParam double valor) {
+	public ResponseEntity<?> pagar(@PathVariable Long id,  @Valid @RequestBody PagamentoForm pagamentoForm) {
 		Optional<Conta> optional = contaRepository.findById(id);
 
 		if (optional.isPresent()) {
 			Conta conta = optional.get();
+			
+			double valor = pagamentoForm.getValor_pago().doubleValue();
 			double valorPago = conta.getValorPago().doubleValue();
 			double valorTotal = conta.getValorTotal().doubleValue();
 			
+			conta.setMulta(pagamentoForm.getMulta() != null ? pagamentoForm.getMulta() : conta.getMulta() );
+			conta.setDesconto(pagamentoForm.getDesconto() != null ? pagamentoForm.getDesconto() : conta.getDesconto());
+			conta.setJuros(pagamentoForm.getJuros() != null ? pagamentoForm.getJuros() : conta.getJuros());
+			conta.setValorTotal(pagamentoForm.getValor_total());
+			conta.setDtPagamento(pagamentoForm.getDt_pagamento());
+
 			if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
 			}  else if (valor < valorTotal) {
 				if (LocalDate.now().isAfter(conta.getDtVencimento())) {
 					conta.setStatus(StatusConta.EM_ATRASO);
 				}
-				
 				conta.setValorPago(new BigDecimal(valorPago + valor));
 			}
 			
@@ -121,7 +128,6 @@ public class ContaPagarController {
 					
 			if (valorTotal == valorPago || valorTotal == valor) {
 				conta.setStatus(StatusConta.LIQUIDADO);
-				conta.setDtPagamento(LocalDate.now());
 				
 				if (valorTotal != valorPago) {
 					conta.setValorPago(new BigDecimal(valor));

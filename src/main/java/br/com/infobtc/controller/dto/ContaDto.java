@@ -20,8 +20,9 @@ public class ContaDto {
 	private String status;
 	private String historico;
 	private BigDecimal valor;
-	private String juros;
+	private BigDecimal juros;
 	private BigDecimal desconto;
+	private BigDecimal multa;
 	private BigDecimal valor_total;
 	private BigDecimal valor_pago;
 
@@ -43,6 +44,7 @@ public class ContaDto {
 		this.valor_total = conta.getValorTotal();
 		this.numero_doc = conta.getNumeroDoc();
 		this.status = conta.getStatus().name();
+		this.multa = conta.getMulta();
 		if (conta.getDtPagamento() != null) {
 			this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
@@ -96,12 +98,16 @@ public class ContaDto {
 		return valor;
 	}
 
-	public String getJuros() {
+	public BigDecimal getJuros() {
 		return juros;
 	}
 
 	public BigDecimal getDesconto() {
 		return desconto;
+	}
+	
+	public BigDecimal getMulta() {
+		return multa;
 	}
 
 	public BigDecimal getValor_total() {

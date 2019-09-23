@@ -30,7 +30,8 @@ public class Conta {
 	private BigDecimal valor;
 	private BigDecimal valorPago;
 	private BigDecimal desconto;
-	private String juros;
+	private BigDecimal juros;
+	private BigDecimal multa;
 	private BigDecimal valorTotal;
 	@Enumerated(EnumType.STRING)
 	private StatusConta status;
@@ -86,8 +87,12 @@ public class Conta {
 		return valor;
 	}
 
-	public String getJuros() {
+	public BigDecimal getJuros() {
 		return juros;
+	}
+	
+	public BigDecimal getMulta() {
+		return multa;
 	}
 
 	public void setValorPago(BigDecimal valorPago) {
@@ -134,8 +139,12 @@ public class Conta {
 		this.valor = valor;
 	}
 
-	public void setJuros(String juros) {
+	public void setJuros(BigDecimal juros) {
 		this.juros = juros;
+	}
+	
+	public void setMulta(BigDecimal multa) {
+		this.multa = multa;
 	}
 
 	public void setDesconto(BigDecimal desconto) {
