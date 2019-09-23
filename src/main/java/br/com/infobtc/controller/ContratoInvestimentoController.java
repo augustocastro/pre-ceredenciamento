@@ -36,6 +36,7 @@ import br.com.infobtc.controller.form.ContratoInvestimentoForm;
 import br.com.infobtc.controller.form.ContratoArquivosForm;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
+import br.com.infobtc.model.StatusInvestidor;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
@@ -75,6 +76,10 @@ public class ContratoInvestimentoController {
 
 			try {
 				form.setarPropriedades(contrato, investidorRepository, consultorRepository);
+				
+				if (contrato.getInvestidor().getStatusInvestidor() != StatusInvestidor.APROVADO) {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Apenas investidores que tiveram o cadastro aprovado podem fazer investimentos."));
+				}
 			} catch (NotFoundException e) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
 			}
