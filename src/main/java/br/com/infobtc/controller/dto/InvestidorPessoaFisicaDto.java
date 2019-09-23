@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.EstadoCivil;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
+import br.com.infobtc.model.StatusInvestidor;
 
 public class InvestidorPessoaFisicaDto {
 
@@ -28,7 +29,7 @@ public class InvestidorPessoaFisicaDto {
 	private String instagram;	
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
-	private boolean aprovado;
+	private StatusInvestidor status_investidor;
 	private EstadoCivil estado_civil;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
@@ -56,7 +57,7 @@ public class InvestidorPessoaFisicaDto {
 		this.facebook = investidor.getFacebook();
 		this.declaracao_licitude = investidor.isDeclaracaoLicitude();
 		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
-		this.aprovado = investidor.isAprovado();
+		this.status_investidor = investidor.getStatusInvestidor();
 		this.instagram = investidor.getInstagram();
 	}
 
@@ -128,8 +129,9 @@ public class InvestidorPessoaFisicaDto {
 		return declaracao_politicamente_exposta;
 	}
 	
-	public boolean isAprovado() {
-		return aprovado;
+
+	public StatusInvestidor getStatus_investidor() {
+		return status_investidor;
 	}
 	
 	public EstadoCivil getEstado_civil() {

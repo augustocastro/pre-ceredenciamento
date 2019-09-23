@@ -27,6 +27,7 @@ import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.model.Investidor;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
+import br.com.infobtc.model.StatusInvestidor;
 import br.com.infobtc.repository.InvestidorRepository;
 import br.com.infobtc.service.S3Service;
 
@@ -41,13 +42,13 @@ public class InvestidorController {
 	private S3Service s3Service;
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<InvestidorDto>> buscarTodos(Boolean aprovado) {
+	public ResponseEntity<List<InvestidorDto>> buscarTodos(StatusInvestidor statusInvestidor) {
 		List<Investidor> investidores;
 		
-		if (aprovado == null) {
+		if (statusInvestidor == null) {
 			investidores = investidorRepository.findAll();
 		} else {
-			investidores = investidorRepository.findByAprovado(aprovado);
+			investidores = investidorRepository.findByStatusInvestidor(statusInvestidor);
 		}
 		
 		return ResponseEntity.ok(new InvestidorDto().converter(investidores));
@@ -118,14 +119,21 @@ public class InvestidorController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> aprovar(@PathVariable Long id) {
-		Optional<Investidor> investidor = investidorRepository.findById(id);
+	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) StatusInvestidor statusInvestidor) {
+		Optional<Investidor> optional = investidorRepository.findById(id);
 		
-		if (investidor.isPresent()) {
-			investidor.get().setAprovado(true);	
+		if (optional.isPresent()) {
+			Investidor investidor = optional.get();
 			
-			return ResponseEntity.ok(investidor);
+			if (investidor.getStatusInvestidor() != StatusInvestidor.REPROVADO && investidor.getStatusInvestidor() != StatusInvestidor.APROVADO) {
+				investidor.setStatusInvestidor(statusInvestidor);
+				return ResponseEntity.ok(investidor);
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+						new ErroDto("Após o cadastro de investidor ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
+			}
 		} 
 		return ResponseEntity.notFound().build();
 	}
+	
 }

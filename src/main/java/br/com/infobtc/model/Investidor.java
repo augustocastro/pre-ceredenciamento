@@ -28,7 +28,7 @@ public class Investidor {
 	private String instagram;
 	private boolean declaracaoLicitude;
 	private boolean declaracaoPoliticamentExposta;
-	private boolean aprovado;
+	private StatusInvestidor statusInvestidor;
 
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
@@ -37,6 +37,7 @@ public class Investidor {
 	private Endereco endereco;
 
 	public Investidor() {
+		this.setStatusInvestidor(StatusInvestidor.EM_ANALISE);
 	}
 
 	public Investidor(String nome, String email, String telefone, Endereco endereco, String facebook,
@@ -137,11 +138,11 @@ public class Investidor {
 		this.declaracaoPoliticamentExposta = declaracaoPoliticamenteExposta;
 	}
 	
-	public boolean isAprovado() {
-		return aprovado;
+	public StatusInvestidor getStatusInvestidor() {
+		return statusInvestidor;
 	}
 	
-	public void setAprovado(boolean aprovado) {
-		this.aprovado = aprovado;
+	public void setStatusInvestidor(StatusInvestidor statusInvestidor) {
+		this.statusInvestidor = statusInvestidor;
 	}
 }
