@@ -24,7 +24,6 @@ public class BancoForm {
 	@NotEmpty
 	private String tipo_conta;
 
-	@NotNull
 	private Integer codigo;
 
 	@NotNull
