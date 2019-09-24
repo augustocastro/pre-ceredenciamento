@@ -27,7 +27,7 @@ import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.model.Investidor;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
-import br.com.infobtc.model.StatusInvestidor;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.InvestidorRepository;
 import br.com.infobtc.service.S3Service;
 
@@ -42,7 +42,7 @@ public class InvestidorController {
 	private S3Service s3Service;
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<InvestidorDto>> buscarTodos(StatusInvestidor statusInvestidor) {
+	public ResponseEntity<List<InvestidorDto>> buscarTodos(Status statusInvestidor) {
 		List<Investidor> investidores;
 		
 		if (statusInvestidor == null) {
@@ -119,13 +119,13 @@ public class InvestidorController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) StatusInvestidor statusInvestidor) {
+	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusInvestidor) {
 		Optional<Investidor> optional = investidorRepository.findById(id);
 		
 		if (optional.isPresent()) {
 			Investidor investidor = optional.get();
 			
-			if (investidor.getStatusInvestidor() != StatusInvestidor.REPROVADO && investidor.getStatusInvestidor() != StatusInvestidor.APROVADO) {
+			if (investidor.getStatusInvestidor() != Status.REPROVADO && investidor.getStatusInvestidor() != Status.APROVADO) {
 				investidor.setStatusInvestidor(statusInvestidor);
 				return ResponseEntity.ok(investidor);
 			} else {

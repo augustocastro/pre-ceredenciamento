@@ -32,6 +32,7 @@ import com.itextpdf.text.DocumentException;
 import br.com.infobtc.controller.dto.ContaReceberFinanceiroDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.ContratoRepository;
 import br.com.infobtc.service.ContratoPDFService;
 import br.com.infobtc.service.S3Service;
@@ -163,5 +164,24 @@ public class ContratoController<T> {
 		} catch (IOException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));
 		}
+	}
+	
+	@PatchMapping("/{id}")
+	@Transactional
+	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusContrato) {
+		Optional<Contrato> optional = contratoRespository.findById(id);
+		
+		if (optional.isPresent()) {
+			Contrato contrato = optional.get();
+			
+			if (contrato.getStatusContrato() != Status.REPROVADO && contrato.getStatusContrato() != Status.APROVADO) {
+				contrato.setStatusContrato(statusContrato);
+				return ResponseEntity.ok(contrato);
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+						new ErroDto("Após o cadastro de investimento ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
+			}
+		} 
+		return ResponseEntity.notFound().build();
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +30,8 @@ public class Investidor {
 	private String instagram;
 	private boolean declaracaoLicitude;
 	private boolean declaracaoPoliticamentExposta;
-	private StatusInvestidor statusInvestidor;
+	@Enumerated(EnumType.STRING)
+	private Status statusInvestidor;
 
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
@@ -37,7 +40,7 @@ public class Investidor {
 	private Endereco endereco;
 
 	public Investidor() {
-		this.setStatusInvestidor(StatusInvestidor.EM_ANALISE);
+		this.setStatusInvestidor(Status.EM_ANALISE);
 	}
 
 	public Investidor(String nome, String email, String telefone, Endereco endereco, String facebook,
@@ -138,11 +141,11 @@ public class Investidor {
 		this.declaracaoPoliticamentExposta = declaracaoPoliticamenteExposta;
 	}
 	
-	public StatusInvestidor getStatusInvestidor() {
+	public Status getStatusInvestidor() {
 		return statusInvestidor;
 	}
 	
-	public void setStatusInvestidor(StatusInvestidor statusInvestidor) {
+	public void setStatusInvestidor(Status statusInvestidor) {
 		this.statusInvestidor = statusInvestidor;
 	}
 }

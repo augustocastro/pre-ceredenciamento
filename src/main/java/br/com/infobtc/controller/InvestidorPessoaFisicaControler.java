@@ -36,7 +36,7 @@ import br.com.infobtc.controller.form.InvestidorPessoaFisicaForm;
 import br.com.infobtc.model.DadosHash;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.InvestidorPessoaFisica;
-import br.com.infobtc.model.StatusInvestidor;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaFisicaRepository;
@@ -128,7 +128,7 @@ public class InvestidorPessoaFisicaControler {
 	}
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<InvestidorPessoaFisicaDto>> buscarTodos(StatusInvestidor statusInvestidor) {
+	public ResponseEntity<List<InvestidorPessoaFisicaDto>> buscarTodos(Status statusInvestidor) {
 		List<InvestidorPessoaFisica> investidores;
 		
 		if (statusInvestidor == null) {

@@ -1,6 +1,6 @@
 package br.com.infobtc.model;
 
-public enum StatusInvestidor {
+public enum Status {
 
 	APROVADO,
 	REPROVADO,

@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.EstadoCivil;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
-import br.com.infobtc.model.StatusInvestidor;
+import br.com.infobtc.model.Status;
 
 public class InvestidorPessoaFisicaDto {
 
@@ -29,7 +29,7 @@ public class InvestidorPessoaFisicaDto {
 	private String instagram;	
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
-	private StatusInvestidor status_investidor;
+	private Status status_investidor;
 	private EstadoCivil estado_civil;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
@@ -130,7 +130,7 @@ public class InvestidorPessoaFisicaDto {
 	}
 	
 
-	public StatusInvestidor getStatus_investidor() {
+	public Status getStatus_investidor() {
 		return status_investidor;
 	}
 	

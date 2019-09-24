@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.infobtc.model.InvestidorPessoaJuridica;
-import br.com.infobtc.model.StatusInvestidor;
+import br.com.infobtc.model.Status;
 
 public class InvestidorPessoaJuridicaDto {
 
@@ -20,7 +20,7 @@ public class InvestidorPessoaJuridicaDto {
 	private String instagram;
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
-	private StatusInvestidor status_investidor;
+	private Status status_investidor;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
 	
@@ -88,7 +88,7 @@ public class InvestidorPessoaJuridicaDto {
 		return declaracao_politicamente_exposta;
 	}
 
-	public StatusInvestidor getStatus_investidor() {
+	public Status getStatus_investidor() {
 		return status_investidor;
 	}
 
