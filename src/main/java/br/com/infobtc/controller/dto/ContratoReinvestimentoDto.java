@@ -19,11 +19,11 @@ public class ContratoReinvestimentoDto {
 	private BigDecimal valor;
 	private String alinea;
 	private Long investimento_id;
-	private boolean valid1;
-	private boolean valid2;
+	private String status_contrato;
+	private String status_financeiro;
 	private BancoDto banco;
 	private List<String> arquivos_url = new ArrayList<String>();
-	
+
 	public ContratoReinvestimentoDto() {
 
 	}
@@ -37,8 +37,8 @@ public class ContratoReinvestimentoDto {
 		this.banco = new BancoDto(contratoReinvestimento.getBanco());
 		this.alinea = contratoReinvestimento.getAlinea();
 		this.investimento_id = contratoReinvestimento.getInvestimento().getId();
-		this.valid1 = contratoReinvestimento.isValid1();
-		this.valid2 = contratoReinvestimento.isValid2();
+		this.status_contrato = contratoReinvestimento.getStatusContrato().toString();
+		this.status_financeiro = contratoReinvestimento.getStatusFinanceiro().toString();
 		this.arquivos_url = contratoReinvestimento.getArquivosUrl();
 	}
 
@@ -70,18 +70,18 @@ public class ContratoReinvestimentoDto {
 		return investimento_id;
 	}
 
-	public boolean isValid1() {
-		return valid1;
+	public String getStatus_contrato() {
+		return status_contrato;
 	}
-	
-	public boolean isValid2() {
-		return valid2;
+
+	public String getStatus_financeiro() {
+		return status_financeiro;
 	}
-	
+
 	public BancoDto getBanco() {
 		return banco;
 	}
-	
+
 	public List<String> getArquivos_url() {
 		return arquivos_url;
 	}
@@ -89,7 +89,7 @@ public class ContratoReinvestimentoDto {
 	public Page<ContratoReinvestimentoDto> converter(Page<ContratoReinvestimento> contratos) {
 		return contratos.map(ContratoReinvestimentoDto::new);
 	}
-	
+
 	public List<ContratoReinvestimentoDto> converter(List<ContratoReinvestimento> contratos) {
 		return contratos.stream().map(ContratoReinvestimentoDto::new).collect(Collectors.toList());
 	}

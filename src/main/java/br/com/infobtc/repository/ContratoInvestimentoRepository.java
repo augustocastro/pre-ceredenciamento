@@ -9,12 +9,10 @@ import br.com.infobtc.model.Status;
 
 public interface ContratoInvestimentoRepository extends JpaRepository<ContratoInvestimento, Long> {
 
-	Page<ContratoInvestimento> findByValid1(boolean valid1, Pageable paginacao);
-
-	Page<ContratoInvestimento> findByValid2(boolean valid2, Pageable paginacao);
-
-	Page<ContratoInvestimento> findByValid1AndValid2(boolean valid1, boolean valid2, Pageable paginacao);
-
 	Page<ContratoInvestimento> findByStatusContrato(Status statusContrato, Pageable paginacao);
+
+	Page<ContratoInvestimento> findByStatusFinanceiro(Status statusFinanceiro, Pageable paginacao);
+
+	Page<ContratoInvestimento> findByStatusContratoAndStatusFinanceiro(Status statusContrato, Status statusFinanceiro, Pageable paginacao);
 
 }

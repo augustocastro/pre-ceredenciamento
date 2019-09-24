@@ -35,8 +35,7 @@ public class ContratoReinvestimento extends Contrato {
 	}
 
 	@Override
-	public Object criaDto(Contrato contrato) {
-		ContratoReinvestimento contratoReinvestimento = (ContratoReinvestimento) contrato;
-		return new ContratoReinvestimentoDto(contratoReinvestimento);
+	public Object criaDto() {
+		return new ContratoReinvestimentoDto(this);
 	}
 }

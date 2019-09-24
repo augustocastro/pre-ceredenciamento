@@ -59,38 +59,13 @@ public class ContratoController<T> {
 		}
 		return ResponseEntity.notFound().build();
 	}
-
-	@PatchMapping("/validar1/{id}")
-	@Transactional
-	public ResponseEntity<?> validar1(@PathVariable Long id) {
-		Optional<Contrato> contrato = contratoRespository.findById(id);
-
-		if (contrato.isPresent()) {
-			contrato.get().setValid1(true);
-			return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
-		}
-		return ResponseEntity.notFound().build();
-	}
-
-	@PatchMapping("/validar2/{id}")
-	@Transactional
-	public ResponseEntity<?> validar2(@PathVariable Long id) {
-		Optional<Contrato> contrato = contratoRespository.findById(id);
-
-		if (contrato.isPresent()) {
-			contrato.get().setValid2(true);
-			return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
-		}
-
-		return ResponseEntity.notFound().build();
-	}
-
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
 		Optional<Contrato> contrato = contratoRespository.findById(id);
 
 		if (contrato.isPresent()) {
-			return ResponseEntity.ok(contrato.get().criaDto(contrato.get()));
+			return ResponseEntity.ok(contrato.get().criaDto());
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -166,22 +141,43 @@ public class ContratoController<T> {
 		}
 	}
 	
-	@PatchMapping("/{id}")
+	@PatchMapping("/aprovar-contrato/{id}")
 	@Transactional
-	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusContrato) {
+	public ResponseEntity<?> validarContrato(@PathVariable Long id, @RequestParam(required = true) Status statusContrato) {
 		Optional<Contrato> optional = contratoRespository.findById(id);
-		
+
 		if (optional.isPresent()) {
 			Contrato contrato = optional.get();
-			
 			if (contrato.getStatusContrato() != Status.REPROVADO && contrato.getStatusContrato() != Status.APROVADO) {
 				contrato.setStatusContrato(statusContrato);
-				return ResponseEntity.ok(contrato);
+				return ResponseEntity.ok(contrato.criaDto());
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
 						new ErroDto("Após o cadastro de investimento ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
 			}
-		} 
+
+		}
 		return ResponseEntity.notFound().build();
 	}
+
+	@PatchMapping("/aprovar-financeiro/{id}")
+	@Transactional
+	public ResponseEntity<?> validarFinanceiro(@PathVariable Long id, @RequestParam(required = true) Status statusFinanceiro) {
+		Optional<Contrato> optional = contratoRespository.findById(id);
+
+		if (optional.isPresent()) {
+			Contrato contrato = optional.get();
+			
+			if (contrato.getStatusContrato() != Status.REPROVADO && contrato.getStatusContrato() != Status.APROVADO) {
+				optional.get().setStatusFinanceiro(statusFinanceiro);
+				return ResponseEntity.ok(optional.get().criaDto());
+			} else {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+						new ErroDto("Após o cadastro de investimento ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
+			}
+		}
+
+		return ResponseEntity.notFound().build();
+	}
+
 }

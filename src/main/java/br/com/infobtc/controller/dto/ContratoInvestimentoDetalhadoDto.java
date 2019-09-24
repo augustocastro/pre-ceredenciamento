@@ -16,8 +16,8 @@ public class ContratoInvestimentoDetalhadoDto {
 	private String dt_termino;
 	private long quantidade_meses;
 	private BigDecimal valor;
-	private boolean valid1;
-	private boolean valid2;
+	private String status_contrato;
+	private String status_financeiro;
 	private String tipo_rendimento;
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
@@ -38,8 +38,8 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.consultor = new ConsultorDto(contratoInvestimento.getConsultor());
 		this.banco = new BancoDto(contratoInvestimento.getBanco());
 		this.reinvestimentos = new ContratoReinvestimentoDto().converter(contratoInvestimento.getReinvestimentos());
-		this.valid1 = contratoInvestimento.isValid1();
-		this.valid2 = contratoInvestimento.isValid2();
+		this.status_contrato = contratoInvestimento.getStatusContrato().toString();
+		this.status_financeiro = contratoInvestimento.getStatusFinanceiro().toString();
 		this.tipo_rendimento = contratoInvestimento.getTipoRendimento();
 		this.arquivos_url = contratoInvestimento.getArquivosUrl();
 	}
@@ -79,13 +79,13 @@ public class ContratoInvestimentoDetalhadoDto {
 	public List<ContratoReinvestimentoDto> getReinvestimentos() {
 		return reinvestimentos;
 	}
-
-	public boolean isValid1() {
-		return valid1;
+	
+	public String getStatus_contrato() {
+		return status_contrato;
 	}
 	
-	public boolean isValid2() {
-		return valid2;
+	public String getStatus_financeiro() {
+		return status_financeiro;
 	}
 	
 	public String getTipo_rendimento() {

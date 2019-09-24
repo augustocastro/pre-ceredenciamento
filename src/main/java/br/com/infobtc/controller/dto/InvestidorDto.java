@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.infobtc.model.Investidor;
+import br.com.infobtc.model.InvestidorPessoaFisica;
+import br.com.infobtc.model.InvestidorPessoaJuridica;
 
 public class InvestidorDto {
 
@@ -12,16 +14,25 @@ public class InvestidorDto {
 	private String email;
 	private String telefone;
 	private String tipo;
+	private String cpf_or_cnpj;
 
 	public InvestidorDto() {
 	}
 
-	public InvestidorDto(Investidor pessoa) {
-		this.id = pessoa.getId();
-		this.nome = pessoa.getNome();
-		this.email = pessoa.getEmail();
-		this.telefone = pessoa.getTelefone();
-		this.tipo = pessoa.getTipo();
+	public InvestidorDto(Investidor investidor) {
+		this.id = investidor.getId();
+		this.nome = investidor.getNome();
+		this.email = investidor.getEmail();
+		this.telefone = investidor.getTelefone();
+		this.tipo = investidor.getTipo();
+		
+		if (investidor.getTipo().equals("pessoa_fisica")) {
+			InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica)investidor;
+			this.cpf_or_cnpj = investidorPessoaFisica.getCpf();
+		} else {
+			InvestidorPessoaJuridica investidorPessoaJuridica = (InvestidorPessoaJuridica)investidor;
+			this.cpf_or_cnpj = investidorPessoaJuridica.getCnpj();
+		}
 	}
 
 	public Long getId() {
@@ -44,6 +55,10 @@ public class InvestidorDto {
 		return tipo;
 	}
 
+	public String getCpf_or_cnpj() {
+		return cpf_or_cnpj;
+	}
+	
 	public List<InvestidorDto> converter(List<Investidor> pessoas) {
 		return pessoas.stream().map(InvestidorDto::new).collect(Collectors.toList());
 	}

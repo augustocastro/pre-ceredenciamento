@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,10 +43,17 @@ public abstract class Contrato {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Banco banco;
 
-	private boolean valid1;
-	private boolean valid2;
+	@Enumerated(EnumType.STRING)
 	private Status statusContrato;
+	
+	@Enumerated(EnumType.STRING)
+	private Status statusFinanceiro;
 
+	public Contrato() {
+		this.setStatusContrato(Status.EM_ANALISE);
+		this.setStatusFinanceiro(Status.EM_ANALISE);
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -101,30 +110,22 @@ public abstract class Contrato {
 		this.banco = banco;
 	}
 
-	public boolean isValid1() {
-		return valid1;
-	}
-
-	public void setValid1(boolean valid1) {
-		this.valid1 = valid1;
-	}
-
-	public boolean isValid2() {
-		return valid2;
-	}
-
-	public void setValid2(boolean valid2) {
-		this.valid2 = valid2;
-	}
-
 	public Status getStatusContrato() {
 		return statusContrato;
+	}
+
+	public Status getStatusFinanceiro() {
+		return statusFinanceiro;
 	}
 
 	public void setStatusContrato(Status statusContrato) {
 		this.statusContrato = statusContrato;
 	}
 
-	public abstract Object criaDto(Contrato contrato);
+	public void setStatusFinanceiro(Status statusFinanceiro) {
+		this.statusFinanceiro = statusFinanceiro;
+	}
+
+	public abstract Object criaDto();
 
 }

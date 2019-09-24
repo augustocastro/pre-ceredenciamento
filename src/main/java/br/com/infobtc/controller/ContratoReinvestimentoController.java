@@ -37,6 +37,7 @@ import br.com.infobtc.controller.form.ContratoReinvestimentoForm;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.ContratoReinvestimento;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.ContratoReinvestimentoRepository;
@@ -124,18 +125,18 @@ public class ContratoReinvestimentoController {
 	
 	
 	@GetMapping("/todos")
-	public Page<ContratoReinvestimentoDto> buscarTodos(Boolean valid1, Boolean valid2, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+	public Page<ContratoReinvestimentoDto> buscarTodos(Status statusContrato, Status statusFinanceiro, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		Page<ContratoReinvestimento> contratos;
 		
-		if (valid1 == null && valid2 == null) {
+		if (statusContrato == null && statusFinanceiro == null) {
 			contratos = contratoReinvestimentoRepository.findAll(paginacao);
 		} else {
-			if (valid1 != null && valid2 == null) {
-				contratos = contratoReinvestimentoRepository.findByValid1(valid1, paginacao);
-			} else if (valid2 != null && valid1 == null) {
-				contratos = contratoReinvestimentoRepository.findByValid2(valid2, paginacao);
+			if (statusContrato != null && statusFinanceiro == null) {
+				contratos = contratoReinvestimentoRepository.findByStatusContrato(statusContrato, paginacao);
+			} else if (statusFinanceiro != null && statusContrato == null) {
+				contratos = contratoReinvestimentoRepository.findByStatusFinanceiro(statusFinanceiro, paginacao);
 			} else {
-				contratos = contratoReinvestimentoRepository.findByValid1AndValid2(valid1, valid2, paginacao);
+				contratos = contratoReinvestimentoRepository.findByStatusContratoAndStatusFinanceiro(statusContrato, statusFinanceiro, paginacao);
 			}
 		}
 		return new ContratoReinvestimentoDto().converter(contratos);

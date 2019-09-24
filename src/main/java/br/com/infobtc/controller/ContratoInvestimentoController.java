@@ -125,22 +125,21 @@ public class ContratoInvestimentoController {
 	}
 
 	@GetMapping("/todos")
-	public Page<?> buscarTodos(Boolean valid1, Boolean valid2, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
+	public Page<?> buscarTodos(Status statusContrato, Status statusFinanceiro, @PageableDefault(sort = "id", direction = Direction.DESC) Pageable paginacao) {
 		Page<ContratoInvestimento> contratos;
 		
-		if (valid1 == null && valid2 == null) {
+		if (statusContrato == null && statusFinanceiro == null) {
 			contratos = contratoInvestimentoRepository.findAll(paginacao);
 		} else {
-			if (valid1 != null && valid2 == null) {
-				contratos = contratoInvestimentoRepository.findByValid1(valid1, paginacao);
-			} else if (valid2 != null && valid1 == null) {
-				contratos = contratoInvestimentoRepository.findByValid2(valid2, paginacao);
+			if (statusContrato != null && statusFinanceiro == null) {
+				contratos = contratoInvestimentoRepository.findByStatusContrato(statusContrato, paginacao);
+			} else if (statusFinanceiro != null && statusContrato == null) {
+				contratos = contratoInvestimentoRepository.findByStatusFinanceiro(statusFinanceiro, paginacao);
 			} else {
-				contratos = contratoInvestimentoRepository.findByValid1AndValid2(valid1, valid2, paginacao);
+				contratos = contratoInvestimentoRepository.findByStatusContratoAndStatusFinanceiro(statusContrato, statusFinanceiro, paginacao);
 			}
 		}
 		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
-
 	}
 	
 }

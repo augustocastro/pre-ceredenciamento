@@ -26,12 +26,8 @@ public class BancoForm {
 
 	private Integer codigo;
 
-	@NotNull
-	@NotEmpty
 	private String titular;
 
-	@NotNull
-	@NotEmpty
 	private String cpf_or_cnpj_titular;
 
 	public String getInstituicao_financeira() {
