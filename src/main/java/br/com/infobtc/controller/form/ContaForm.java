@@ -48,7 +48,6 @@ public class ContaForm {
 	@NotNull
 	private BigDecimal valor_total;
 
-	@NotNull
 	private BigDecimal juros;
 	
 	private BigDecimal desconto;
