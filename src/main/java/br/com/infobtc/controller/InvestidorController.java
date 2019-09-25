@@ -89,6 +89,7 @@ public class InvestidorController {
 		if (investidor.isPresent()) {
 			investidor.get().getArquivosUrl().removeIf(file -> file.contains(nomeArquivo));
 			s3Service.remover(nomeArquivo);	
+			
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();

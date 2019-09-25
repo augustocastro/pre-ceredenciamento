@@ -2,6 +2,7 @@ package br.com.infobtc.controller.dto;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,7 @@ public class ContaDto {
 	private BigDecimal multa;
 	private BigDecimal valor_total;
 	private BigDecimal valor_pago;
+	private List<String> arquivos_url = new ArrayList<String>();
 
 	public ContaDto() {
 
@@ -45,6 +47,7 @@ public class ContaDto {
 		this.numero_doc = conta.getNumeroDoc();
 		this.status = conta.getStatus().name();
 		this.multa = conta.getMulta();
+		this.arquivos_url = conta.getArquivosUrl();
 		if (conta.getDtPagamento() != null) {
 			this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		}
@@ -118,6 +121,10 @@ public class ContaDto {
 		return valor_pago;
 	}
 
+	public List<String> getArquivos_url() {
+		return arquivos_url;
+	}
+	
 	public List<ContaDto> converter(List<Conta> perfis) {
 		return perfis.stream().map(ContaDto::new).collect(Collectors.toList());
 	}

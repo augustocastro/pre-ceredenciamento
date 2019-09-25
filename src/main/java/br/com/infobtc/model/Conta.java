@@ -2,7 +2,10 @@ package br.com.infobtc.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -37,6 +40,8 @@ public class Conta {
 	private StatusConta status;
 	@OneToOne
 	private Fornecedor fornecedor;
+	@ElementCollection
+	private List<String> arquivosUrl = new ArrayList<String>();
 
 	public Conta() {
 		this.dtCadastramento = LocalDate.now();
@@ -169,6 +174,14 @@ public class Conta {
 	
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+	
+	public void setArquivosUrl(List<String> arquivosUrl) {
+		this.arquivosUrl = arquivosUrl;
+	}
+	
+	public List<String> getArquivosUrl() {
+		return arquivosUrl;
 	}
 
 }

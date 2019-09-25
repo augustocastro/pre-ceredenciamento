@@ -1,5 +1,6 @@
 package br.com.infobtc.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.LocalDate;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.infobtc.controller.dto.ContaDto;
@@ -31,6 +34,7 @@ import br.com.infobtc.model.Conta;
 import br.com.infobtc.model.StatusConta;
 import br.com.infobtc.repository.ContaRepository;
 import br.com.infobtc.repository.FornecedorRepository;
+import br.com.infobtc.service.S3Service;
 import javassist.NotFoundException;
 
 @RestController
@@ -42,6 +46,9 @@ public class ContaPagarController {
 
 	@Autowired
 	private FornecedorRepository fornecedorRepository; 
+	
+	@Autowired
+	private S3Service s3Service;
 	
 	@PostMapping
 	@Transactional
@@ -148,6 +155,44 @@ public class ContaPagarController {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@DeleteMapping("arquivo/{id}")
+	@Transactional
+	public ResponseEntity<?> removerArquivo(@PathVariable Long id, @RequestParam String arquivo) {
+		Optional<Conta> conta = contaRepository.findById(id);
+		String nomeArquivo = arquivo.split("/")[3];
+
+		if (conta.isPresent()) {
+			conta.get().getArquivosUrl().removeIf(file -> file.contains(nomeArquivo));
+			s3Service.remover(nomeArquivo);	
+			
+			return ResponseEntity.ok().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
+
+	@PutMapping("arquivo/{id}")
+	@Transactional
+	public ResponseEntity<?> adicionarArquivos(@PathVariable Long id, @RequestParam("arquivos") MultipartFile[] arquivos) {
+		Optional<Conta> optional = contaRepository.findById(id);
+
+		try {
+			if (optional.isPresent()) {
+				Conta conta = optional.get();
+				
+				if (arquivos != null && arquivos.length > 0) {
+					for (MultipartFile file : arquivos) {
+						URI uploadFile = s3Service.uploadFile(file);
+						conta.getArquivosUrl().add(uploadFile.toURL().toString());
+					}
+					return ResponseEntity.ok(new ContaDto(conta));
+				} 
+			}
+			return ResponseEntity.notFound().build();
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));
+		}
 	}
 
 }

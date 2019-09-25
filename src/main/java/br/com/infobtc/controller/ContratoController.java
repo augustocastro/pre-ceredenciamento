@@ -113,6 +113,7 @@ public class ContratoController<T> {
 		if (contrato.isPresent()) {
 			contrato.get().getArquivosUrl().removeIf(file -> file.contains(nomeArquivo));
 			s3Service.remover(nomeArquivo);	
+			
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
