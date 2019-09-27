@@ -35,6 +35,9 @@ public abstract class Contrato {
 
 	private Integer quantidadeMeses;
 
+	@OneToOne
+	private Consultor consultor;
+	
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
 
@@ -126,6 +129,16 @@ public abstract class Contrato {
 		this.statusFinanceiro = statusFinanceiro;
 	}
 
+
+	public Consultor getConsultor() {
+		return consultor;
+	}
+
+	public void setConsultor(Consultor consultor) {
+		this.consultor = consultor;
+	}
+
+	
 	public abstract Object criaDto();
 
 }

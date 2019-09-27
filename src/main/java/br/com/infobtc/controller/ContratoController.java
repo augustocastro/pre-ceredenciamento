@@ -169,7 +169,7 @@ public class ContratoController<T> {
 		if (optional.isPresent()) {
 			Contrato contrato = optional.get();
 			
-			if (contrato.getStatusContrato() != Status.REPROVADO && contrato.getStatusContrato() != Status.APROVADO) {
+			if (contrato.getStatusFinanceiro() != Status.REPROVADO && contrato.getStatusFinanceiro() != Status.APROVADO) {
 				optional.get().setStatusFinanceiro(statusFinanceiro);
 				return ResponseEntity.ok(optional.get().criaDto());
 			} else {
