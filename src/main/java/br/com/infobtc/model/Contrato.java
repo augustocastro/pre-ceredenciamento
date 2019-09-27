@@ -38,6 +38,9 @@ public abstract class Contrato {
 	@OneToOne
 	private Consultor consultor;
 	
+	@OneToOne
+	private Investidor investidor;
+	
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
 
@@ -137,6 +140,15 @@ public abstract class Contrato {
 	public void setConsultor(Consultor consultor) {
 		this.consultor = consultor;
 	}
+	
+	public Investidor getInvestidor() {
+		return investidor;
+	}
+
+	public void setInvestidor(Investidor investidor) {
+		this.investidor = investidor;
+	}
+
 
 	
 	public abstract Object criaDto();

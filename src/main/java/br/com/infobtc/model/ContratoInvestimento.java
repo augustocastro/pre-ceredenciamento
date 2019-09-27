@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -23,11 +22,6 @@ public class ContratoInvestimento extends Contrato {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<ContratoReinvestimento> reinvestimentos = new ArrayList<ContratoReinvestimento>();
 
-	@OneToOne
-	private Investidor investidor;
-
-	@OneToOne
-	private Consultor consultor;
 
 	public String getTipoRendimento() {
 		return tipoRendimento;
@@ -43,22 +37,6 @@ public class ContratoInvestimento extends Contrato {
 
 	public void setReinvestimentos(List<ContratoReinvestimento> reinvestimentos) {
 		this.reinvestimentos = reinvestimentos;
-	}
-
-	public Investidor getInvestidor() {
-		return investidor;
-	}
-
-	public void setInvestidor(Investidor investidor) {
-		this.investidor = investidor;
-	}
-
-	public Consultor getConsultor() {
-		return consultor;
-	}
-
-	public void setConsultor(Consultor consultor) {
-		this.consultor = consultor;
 	}
 
 	@Override
