@@ -32,11 +32,12 @@ public class ContaReceberController {
 		Month month = LocalDate.now().getMonth();
 		
 		List<ContaReceberDto> contas = contratos
-				.stream()
-				.filter(contrato -> {LocalDate plusMonths = contrato.getDtInicio().plusMonths(1);
-					return plusMonths.getMonth() == month && plusMonths.getYear() == year && dtInicioParse.getDayOfMonth() >= plusMonths.getDayOfMonth();
-				})
-				.map(contrato -> new ContaReceberDto(contrato, dtInicioParse)).collect(Collectors.toList());
+			.stream()
+			.filter(contrato -> {
+				LocalDate plusMonths = contrato.getDtInicio().plusMonths(1);
+				return plusMonths.getMonth() == month && plusMonths.getYear() == year && dtInicioParse.getDayOfMonth() >= plusMonths.getDayOfMonth();
+			})
+			.map(contrato -> new ContaReceberDto(contrato, dtInicioParse)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok(contas);
 	}
