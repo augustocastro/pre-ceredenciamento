@@ -34,9 +34,9 @@ public class ContaReceberController {
 		List<ContaReceberDto> contas = contratos
 				.stream()
 				.filter(contrato -> {LocalDate plusMonths = contrato.getDtInicio().plusMonths(1);
-					return plusMonths.getMonth() == month && plusMonths.getYear() == year && dtInicioParse.getDayOfMonth() >= plusMonths.getDayOfMonth() && contrato.getDtInicio().getMonth() != dtInicioParse.getMonth();
+					return plusMonths.getMonth() == month && plusMonths.getYear() == year && dtInicioParse.getDayOfMonth() >= plusMonths.getDayOfMonth();
 				})
-				.map(contrato -> new ContaReceberDto(contrato)).collect(Collectors.toList());
+				.map(contrato -> new ContaReceberDto(contrato, dtInicioParse)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok(contas);
 	}
