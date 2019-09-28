@@ -23,12 +23,12 @@ public class ContaReceberDto {
 		this.investidor = contrato.getInvestidor().getNome();
 		this.id_contrato = contrato.getId();
 		this.valor_investido = contrato.getValor().doubleValue();
-		this.valor_investidor = contrato.getValor().doubleValue() * 0.1;
 		this.dt_inicio = contrato.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_termino = contrato.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.quantidade_meses = contrato.getQuantidadeMeses();
 		if (contrato.getDtInicio().getMonth() != dtInicio.getMonth()) {
 			this.valor_consultor = contrato.getValor().doubleValue() * 0.01;
+			this.valor_investidor = contrato.getValor().doubleValue() * 0.1;
 		} else {
 			this.valor_escritorio = contrato.getValor().doubleValue() * 0.01;
 		}
