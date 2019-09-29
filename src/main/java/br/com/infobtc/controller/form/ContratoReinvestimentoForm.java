@@ -86,7 +86,7 @@ public class ContratoReinvestimentoForm {
 			contrato.setConsultor(contratoInvestimento.get().getConsultor());
 			contrato.setInvestidor(contratoInvestimento.get().getInvestidor());
 		} else {
-			throw new NotFoundException(String.format("O investimento de id \"%s\" não foi encontrado.", investimento_id));
+			throw new NotFoundException(String.format("O investimento de id %s não foi encontrado.", investimento_id));
 		}
 	}
 

@@ -95,13 +95,13 @@ public class ContratoInvestimentoForm {
 		if (investidor.isPresent()) { 
 			contrato.setInvestidor(investidor.get());
 		} else {
-			throw new NotFoundException(String.format("O investidor de id \"%s\" não foi encontrado.", investidor_id));
+			throw new NotFoundException(String.format("O investidor de id %s não foi encontrado.", investidor_id));
 		}
 		
 		if (consultor.isPresent()) {
 			contrato.setConsultor(consultor.get());
 		} else {
-			throw new NotFoundException(String.format("O consultor de id \"%s\" não foi encontrado.", consultor_id));
+			throw new NotFoundException(String.format("O consultor de id %s não foi encontrado.", consultor_id));
 		}
 	}
 

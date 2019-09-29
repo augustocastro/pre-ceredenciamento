@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -29,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.DocumentException;
 
-import br.com.infobtc.controller.dto.ContaReceberFinanceiroDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.Status;
@@ -89,20 +85,20 @@ public class ContratoController<T> {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("/relatorio-finaceiro")
-	public ResponseEntity<?> gerarRelatorioFinanceiro(String dtInicio, String dtTermino) {
-		List<Contrato> contratos;
-		
-		if (dtInicio != null && dtTermino != null) {
-			contratos = contratoRespository.findByIntervalDate(LocalDate.parse(dtInicio), LocalDate.parse(dtTermino));
-		} else {
-			 contratos = contratoRespository.getThisMonth();
-		}
-		
-		double valorTotalLiquido = contratos.stream().mapToDouble(contrato -> contrato.getValor().doubleValue() * 0.01).sum();
-		List<Long> ids = contratos.stream().map(contrato -> contrato.getId()).collect(Collectors.toList());
-		return ResponseEntity.ok(new ContaReceberFinanceiroDto(contratos.size(), valorTotalLiquido, ids));
-	}
+//	@GetMapping("/relatorio-finaceiro")
+//	public ResponseEntity<?> gerarRelatorioFinanceiro(String dtInicio, String dtTermino) {
+//		List<Contrato> contratos;
+//		
+//		if (dtInicio != null && dtTermino != null) {
+//			contratos = contratoRespository.findByIntervalDate(LocalDate.parse(dtInicio), LocalDate.parse(dtTermino));
+//		} else {
+//			 contratos = contratoRespository.getThisMonth();
+//		}
+//		
+//		double valorTotalLiquido = contratos.stream().mapToDouble(contrato -> contrato.getValor().doubleValue() * 0.01).sum();
+//		List<Long> ids = contratos.stream().map(contrato -> contrato.getId()).collect(Collectors.toList());
+//		return ResponseEntity.ok(new ContaReceberFinanceiroDto(contratos.size(), valorTotalLiquido, ids));
+//	}
 	
 	@DeleteMapping("arquivo/{id}")
 	@Transactional

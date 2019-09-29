@@ -2,6 +2,7 @@ package br.com.infobtc.controller.dto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 import br.com.infobtc.model.Contrato;
 
@@ -26,11 +27,13 @@ public class ContaReceberDto {
 		this.dt_inicio = contrato.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_termino = contrato.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.quantidade_meses = contrato.getQuantidadeMeses();
-		if (contrato.getDtInicio().getMonth() != dtInicio.getMonth()) {
-			this.valor_consultor = contrato.getValor().doubleValue() * 0.01;
+		
+		if (ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtInicio) == 1) {
 			this.valor_investidor = contrato.getValor().doubleValue() * 0.1;
-		} else {
 			this.valor_escritorio = contrato.getValor().doubleValue() * 0.01;
+		} else {
+			this.valor_investidor = contrato.getValor().doubleValue() * 0.1;
+			this.valor_consultor = contrato.getValor().doubleValue() * 0.01;
 		}
 	}
 

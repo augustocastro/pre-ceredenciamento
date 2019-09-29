@@ -56,7 +56,7 @@ public class UsuarioForm {
 			if (perfil.isPresent()) {
 				perfis.add(perfil.get());
 			} else {
-				throw new NotFoundException(String.format("O perfil de id \"%s\" não foi encontrado.", id));
+				throw new NotFoundException(String.format("O perfil de id %s não foi encontrado.", id));
 			}
 		}
 

@@ -10,13 +10,16 @@ import br.com.infobtc.model.Contrato;
 
 public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 
-	@Query("SELECT c FROM Contrato c WHERE month(c.dtInicio) = month(current_date()) AND year(c.dtInicio) = year(current_date()) AND (day(c.dtInicio) < day(current_date()) OR day(c.dtInicio) = day(current_date())) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
-	List<Contrato> getThisMonth();
+//	@Query("SELECT c FROM Contrato c WHERE month(c.dtInicio) = month(current_date()) AND year(c.dtInicio) = year(current_date()) AND (day(c.dtInicio) < day(current_date()) OR day(c.dtInicio) = day(current_date())) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
+//	List<Contrato> getThisMonth();
 
-	@Query("SELECT c FROM Contrato c WHERE c.dtInicio BETWEEN ?1 AND ?2 AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
-	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
+//	@Query("SELECT c FROM Contrato c WHERE c.dtInicio BETWEEN ?1 AND ?2 AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
+//	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
 
 	
-	@Query("SELECT c FROM Contrato c WHERE (?2 >= c.dtInicio AND ?2 <= c.dtTermino AND c.dtTermino >= ?3) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1")
-	List<Contrato> findByIntervalDate(Long investidorId, LocalDate dtInicio, LocalDate dtTermino);
+	@Query("SELECT c FROM Contrato c WHERE (?2 >= c.dtInicio AND ?2 <= ?3 AND ?2 <= c.dtTermino AND c.dtTermino >= ?3) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1")
+	List<Contrato> findByIntervalDate(Long idConsultor, LocalDate dtInicio, LocalDate dtTermino);
+	
+	@Query("SELECT c FROM Contrato c WHERE (?1 >= c.dtInicio AND ?1 <= ?2 AND ?1 <= c.dtTermino AND c.dtTermino >= ?2) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
+	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
 }

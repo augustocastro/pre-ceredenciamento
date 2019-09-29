@@ -106,7 +106,7 @@ public class ContaForm {
 		if (fornecedor.isPresent()) {
 			conta.setFornecedor(fornecedor.get());
 		} else {
-			throw new NotFoundException(String.format("O fornecedor de id \"%s\" não foi encontrado.", fornecedor_id));
+			throw new NotFoundException(String.format("O fornecedor de id %s não foi encontrado.", fornecedor_id));
 		}
 		
 		conta.setContaContabil(conta_contabil);
