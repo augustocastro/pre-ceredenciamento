@@ -17,9 +17,9 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 //	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
 
 	
-	@Query("SELECT c FROM Contrato c WHERE (?2 >= c.dtInicio AND ?2 <= ?3 AND ?2 <= c.dtTermino AND c.dtTermino >= ?3) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1")
+	@Query("SELECT c FROM Contrato c WHERE (?2 >= c.dtInicio AND ?2 <= ?3 AND ?2 <= c.dtTermino AND c.dtTermino >= ?3) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1 ORDER BY c.consultor.nome")
 	List<Contrato> findByIntervalDate(Long idConsultor, LocalDate dtInicio, LocalDate dtTermino);
 	
-	@Query("SELECT c FROM Contrato c WHERE (?1 >= c.dtInicio AND ?1 <= ?2 AND ?1 <= c.dtTermino AND c.dtTermino >= ?2) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
+	@Query("SELECT c FROM Contrato c WHERE (?1 >= c.dtInicio AND ?1 <= ?2 AND ?1 <= c.dtTermino AND c.dtTermino >= ?2) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') ORDER BY c.consultor.nome")
 	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
 }
