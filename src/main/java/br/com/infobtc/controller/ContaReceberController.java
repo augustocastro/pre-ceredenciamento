@@ -45,7 +45,7 @@ public class ContaReceberController {
 		
 		List<ContaReceberDto> contas = contratos
 			.stream()
-			.filter(contrato -> ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtInicioParse) >= 1 && dtInicioParse.getDayOfMonth() >= contrato.getDtInicio().getDayOfMonth())
+			.filter(contrato -> ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtInicioParse) >= 1 && dtInicioParse.getDayOfMonth() == contrato.getDtInicio().getDayOfMonth())
 			.map(contrato -> new ContaReceberDto(contrato, dtInicioParse)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok(contas);
