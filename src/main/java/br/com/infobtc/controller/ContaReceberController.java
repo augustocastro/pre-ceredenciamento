@@ -32,20 +32,23 @@ public class ContaReceberController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> contasReceberConsultor(Long idConsultor, @RequestParam(required = true) String dtInicio, @RequestParam(required = true) String dtTermino) {
 		LocalDate dtInicioParse =  LocalDate.parse(dtInicio);
+		LocalDate dtTerminoParse =  LocalDate.parse(dtTermino);
 		List<Contrato> contratos;
 		
 		if (idConsultor != null) {
 			if (!consultorRepository.findById(idConsultor).isPresent()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(String.format("O consultor de id %s não foi encontrado.", idConsultor)));
 			}			
-			contratos = contratoRespository.findByIntervalDate(idConsultor, dtInicioParse, LocalDate.parse(dtTermino));
+			contratos = contratoRespository.findByIntervalDate(idConsultor, dtInicioParse, dtTerminoParse);
 		} else {
 			contratos = contratoRespository.findByIntervalDate(dtInicioParse, LocalDate.parse(dtTermino));
 		}
 		
 		List<ContaReceberDto> contas = contratos
 			.stream()
-			.filter(contrato -> ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtInicioParse) >= 1 && dtInicioParse.getDayOfMonth() == contrato.getDtInicio().getDayOfMonth())
+			.filter(contrato -> ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtInicioParse) >= 1 
+				&& contrato.getDtInicio().getDayOfMonth() >= dtInicioParse.getDayOfMonth() 
+				&& contrato.getDtInicio().getDayOfMonth() <= dtTerminoParse.getDayOfMonth())
 			.map(contrato -> new ContaReceberDto(contrato, dtInicioParse)).collect(Collectors.toList());
 		
 		return ResponseEntity.ok(contas);
