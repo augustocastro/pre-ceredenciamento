@@ -120,13 +120,14 @@ public class InvestidorController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusInvestidor) {
+	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusInvestidor, String justificativa) {
 		Optional<Investidor> optional = investidorRepository.findById(id);
 		
 		if (optional.isPresent()) {
 			Investidor investidor = optional.get();
 			
 			if (investidor.getStatusInvestidor() != Status.REPROVADO && investidor.getStatusInvestidor() != Status.APROVADO) {
+				investidor.setJustificativaReprovacao(justificativa != null && statusInvestidor == Status.REPROVADO ? justificativa : investidor.getJustificativaReprovacao());
 				investidor.setStatusInvestidor(statusInvestidor);
 				return ResponseEntity.ok(investidor);
 			} else {

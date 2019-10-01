@@ -30,6 +30,7 @@ public class InvestidorPessoaFisicaDto {
 	private boolean declaracao_licitude;
 	private boolean declaracao_politicamente_exposta;
 	private Status status_investidor;
+	private String justificativa_reprovacao;
 	private EstadoCivil estado_civil;
 	private EnderecoDto endereco;
 	private List<String> arquivos_url = new ArrayList<String>();
@@ -59,6 +60,7 @@ public class InvestidorPessoaFisicaDto {
 		this.declaracao_politicamente_exposta = investidor.isDeclaracaoPoliticamentExposta();
 		this.status_investidor = investidor.getStatusInvestidor();
 		this.instagram = investidor.getInstagram();
+		this.justificativa_reprovacao = investidor.getJustificativaReprovacao();
 	}
 
 	public Long getId() {
@@ -128,10 +130,13 @@ public class InvestidorPessoaFisicaDto {
 	public boolean isDeclaracao_politicamente_exposta() {
 		return declaracao_politicamente_exposta;
 	}
-	
 
 	public Status getStatus_investidor() {
 		return status_investidor;
+	}
+	
+	public String getJustificativa_reprovacao() {
+		return justificativa_reprovacao;
 	}
 	
 	public EstadoCivil getEstado_civil() {

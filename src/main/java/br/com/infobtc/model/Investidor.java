@@ -32,7 +32,7 @@ public class Investidor {
 	private boolean declaracaoPoliticamentExposta;
 	@Enumerated(EnumType.STRING)
 	private Status statusInvestidor;
-
+	private String justificativaReprovacao;
 	@ElementCollection
 	private List<String> arquivosUrl = new ArrayList<String>();
 
@@ -147,5 +147,13 @@ public class Investidor {
 	
 	public void setStatusInvestidor(Status statusInvestidor) {
 		this.statusInvestidor = statusInvestidor;
+	}
+	
+	public String getJustificativaReprovacao() {
+		return justificativaReprovacao;
+	}
+	
+	public void setJustificativaReprovacao(String justificativaReprovacao) {
+		this.justificativaReprovacao = justificativaReprovacao;
 	}
 }

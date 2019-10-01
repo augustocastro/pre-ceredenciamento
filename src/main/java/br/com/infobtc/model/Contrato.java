@@ -55,6 +55,8 @@ public abstract class Contrato {
 	@Enumerated(EnumType.STRING)
 	private Status statusFinanceiro;
 
+	private String justificativaReprovacao;
+	
 	public Contrato() {
 		this.setStatusContrato(Status.EM_ANALISE);
 		this.setStatusFinanceiro(Status.EM_ANALISE);
@@ -149,7 +151,13 @@ public abstract class Contrato {
 		this.investidor = investidor;
 	}
 
-
+	public String getJustificativaReprovacao() {
+		return justificativaReprovacao;
+	}
+	
+	public void setJustificativaReprovacao(String justificativaReprovacao) {
+		this.justificativaReprovacao = justificativaReprovacao;
+	}
 	
 	public abstract Object criaDto();
 

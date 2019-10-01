@@ -19,6 +19,7 @@ public class ContratoInvestimentoDetalhadoDto {
 	private String status_contrato;
 	private String status_financeiro;
 	private String tipo_rendimento;
+	private String justificativa_reprovacao;
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
 	private BancoDto banco;
@@ -42,6 +43,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.status_financeiro = contratoInvestimento.getStatusFinanceiro().toString();
 		this.tipo_rendimento = contratoInvestimento.getTipoRendimento();
 		this.arquivos_url = contratoInvestimento.getArquivosUrl();
+		this.justificativa_reprovacao = contratoInvestimento.getJustificativaReprovacao();
 	}
 
 	public Long getId() {
@@ -92,6 +94,10 @@ public class ContratoInvestimentoDetalhadoDto {
 		return this.tipo_rendimento;
 	}
 
+	public String getJustificativa_reprovacao() {
+		return justificativa_reprovacao;
+	}
+	
 	public List<String> getArquivos_Url() {
 		return arquivos_url;
 	}

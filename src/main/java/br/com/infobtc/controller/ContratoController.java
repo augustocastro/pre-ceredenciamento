@@ -140,13 +140,14 @@ public class ContratoController<T> {
 	
 	@PatchMapping("/aprovar-contrato/{id}")
 	@Transactional
-	public ResponseEntity<?> validarContrato(@PathVariable Long id, @RequestParam(required = true) Status statusContrato) {
+	public ResponseEntity<?> validarContrato(@PathVariable Long id, @RequestParam(required = true) Status statusContrato, String justificativa) {
 		Optional<Contrato> optional = contratoRespository.findById(id);
 
 		if (optional.isPresent()) {
 			Contrato contrato = optional.get();
 			if (contrato.getStatusContrato() != Status.REPROVADO && contrato.getStatusContrato() != Status.APROVADO) {
 				contrato.setStatusContrato(statusContrato);
+				contrato.setJustificativaReprovacao(justificativa != null && statusContrato == Status.REPROVADO ? justificativa : contrato.getJustificativaReprovacao());
 				return ResponseEntity.ok(contrato.criaDto());
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
@@ -159,7 +160,7 @@ public class ContratoController<T> {
 
 	@PatchMapping("/aprovar-financeiro/{id}")
 	@Transactional
-	public ResponseEntity<?> validarFinanceiro(@PathVariable Long id, @RequestParam(required = true) Status statusFinanceiro) {
+	public ResponseEntity<?> validarFinanceiro(@PathVariable Long id, @RequestParam(required = true) Status statusFinanceiro, String justificativa) {
 		Optional<Contrato> optional = contratoRespository.findById(id);
 
 		if (optional.isPresent()) {
@@ -167,6 +168,7 @@ public class ContratoController<T> {
 			
 			if (contrato.getStatusFinanceiro() != Status.REPROVADO && contrato.getStatusFinanceiro() != Status.APROVADO) {
 				optional.get().setStatusFinanceiro(statusFinanceiro);
+				contrato.setJustificativaReprovacao(justificativa != null && statusFinanceiro == Status.REPROVADO ? justificativa : contrato.getJustificativaReprovacao());
 				return ResponseEntity.ok(optional.get().criaDto());
 			} else {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
