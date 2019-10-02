@@ -145,15 +145,9 @@ public class ContratoController<T> {
 
 		if (optional.isPresent()) {
 			Contrato contrato = optional.get();
-			if (contrato.getStatusContrato() != Status.REPROVADO && contrato.getStatusContrato() != Status.APROVADO) {
-				contrato.setStatusContrato(statusContrato);
-				contrato.setJustificativaReprovacao(justificativa != null && statusContrato == Status.REPROVADO ? justificativa : contrato.getJustificativaReprovacao());
-				return ResponseEntity.ok(contrato.criaDto());
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-						new ErroDto("Após o cadastro de investimento ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
-			}
-
+			contrato.setStatusContrato(statusContrato);
+			contrato.setJustificativaReprovacao(justificativa != null && statusContrato == Status.REPROVADO ? justificativa : contrato.getJustificativaReprovacao());
+			return ResponseEntity.ok(contrato.criaDto());
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -165,15 +159,9 @@ public class ContratoController<T> {
 
 		if (optional.isPresent()) {
 			Contrato contrato = optional.get();
-			
-			if (contrato.getStatusFinanceiro() != Status.REPROVADO && contrato.getStatusFinanceiro() != Status.APROVADO) {
-				optional.get().setStatusFinanceiro(statusFinanceiro);
-				contrato.setJustificativaReprovacao(justificativa != null && statusFinanceiro == Status.REPROVADO ? justificativa : contrato.getJustificativaReprovacao());
-				return ResponseEntity.ok(optional.get().criaDto());
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-						new ErroDto("Após o cadastro de investimento ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
-			}
+			contrato.setStatusFinanceiro(statusFinanceiro);
+			contrato.setJustificativaReprovacao(justificativa != null && statusFinanceiro == Status.REPROVADO ? justificativa : contrato.getJustificativaReprovacao());
+			return ResponseEntity.ok(optional.get().criaDto());	
 		}
 
 		return ResponseEntity.notFound().build();

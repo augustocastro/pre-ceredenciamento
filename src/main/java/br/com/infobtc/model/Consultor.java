@@ -65,5 +65,9 @@ public class Consultor {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public double getPorcentagem() {
+		return usuario.getPerfis().stream().mapToDouble(perfil-> perfil.getPorcentagem()).sum();
+	}
 
 }

@@ -33,7 +33,7 @@ public class ContaReceberDto {
 			this.valor_escritorio = contrato.getValor().doubleValue() * 0.01;
 		} else {
 			this.valor_investidor = contrato.getValor().doubleValue() * 0.1;
-			this.valor_consultor = contrato.getValor().doubleValue() * 0.01;
+			this.valor_consultor = contrato.getValor().doubleValue() * contrato.getConsultor().getPorcentagem();
 		}
 	}
 

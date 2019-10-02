@@ -35,7 +35,9 @@ public class PerfilController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<PerfilDto> cadastrar(@RequestBody @Valid PerfilForm perfilForm, UriComponentsBuilder uriComponentsBuilder) {
-		Perfil perfil = new Perfil(perfilForm.getNome());
+		Perfil perfil = new Perfil();
+		perfilForm.setarPropriedades(perfil);
+		
 		perfilRepository.save(perfil);
 		
 		URI uri = uriComponentsBuilder.path("/perfil/{id}").buildAndExpand(perfil.getId()).toUri();

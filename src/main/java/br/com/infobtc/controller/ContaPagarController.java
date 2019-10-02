@@ -129,7 +129,7 @@ public class ContaPagarController {
 				conta.setValorTotal(pagamentoForm.getValor_total());
 				conta.setDtPagamento(pagamentoForm.getDt_pagamento());
 	
-				if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
+				if (valor > valorTotal || valor < 0 || (valor + valorPago) > valorTotal) {
 					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
 				}  else if (valor < valorTotal) {
 					if (LocalDate.now().isAfter(conta.getDtVencimento())) {

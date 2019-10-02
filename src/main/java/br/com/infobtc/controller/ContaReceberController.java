@@ -40,7 +40,7 @@ public class ContaReceberController {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(String.format("O consultor de id %s não foi encontrado.", idConsultor)));
 			}			
 			contratos = contratoRespository.findByIntervalDate(idConsultor, dtInicioParse, dtTerminoParse, repassado);
-		} else if (repassado == null) {
+		} else if (idConsultor != null && repassado == null) {
 			contratos = contratoRespository.findByIntervalDate(idConsultor, dtInicioParse, dtTerminoParse);
 		} else if(idConsultor == null && repassado != null) {
 			contratos = contratoRespository.findByIntervalDate(dtInicioParse, LocalDate.parse(dtTermino), repassado);
