@@ -154,11 +154,9 @@ public class ContaPagarController {
 						URI uploadFile = s3Service.uploadFile(file);
 						conta.getArquivosUrl().add(uploadFile.toURL().toString());
 					}
-					return ResponseEntity.ok(new ContaDto(conta));
 				}
 				
-				return ResponseEntity.ok(new ContaDto(conta));
-				
+				return ResponseEntity.ok(new ContaDto(conta));	
 			}
 		} catch (JsonParseException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao converter JSON para objeto Java"));
