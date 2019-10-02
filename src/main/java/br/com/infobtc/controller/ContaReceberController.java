@@ -30,16 +30,20 @@ public class ContaReceberController {
 	private ConsultorRepository consultorRepository;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> contasReceberConsultor(Long idConsultor, @RequestParam(required = true) String dtInicio, @RequestParam(required = true) String dtTermino) {
+	public ResponseEntity<?> contasReceberConsultor(Long idConsultor, @RequestParam(required = true) String dtInicio, @RequestParam(required = true) String dtTermino, Boolean repassado) {
 		LocalDate dtInicioParse =  LocalDate.parse(dtInicio);
 		LocalDate dtTerminoParse =  LocalDate.parse(dtTermino);
 		List<Contrato> contratos;
 		
-		if (idConsultor != null) {
+		if (idConsultor != null && repassado != null) {
 			if (!consultorRepository.findById(idConsultor).isPresent()) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(String.format("O consultor de id %s não foi encontrado.", idConsultor)));
 			}			
+			contratos = contratoRespository.findByIntervalDate(idConsultor, dtInicioParse, dtTerminoParse, repassado);
+		} else if (repassado == null) {
 			contratos = contratoRespository.findByIntervalDate(idConsultor, dtInicioParse, dtTerminoParse);
+		} else if(idConsultor == null && repassado != null) {
+			contratos = contratoRespository.findByIntervalDate(dtInicioParse, LocalDate.parse(dtTermino), repassado);
 		} else {
 			contratos = contratoRespository.findByIntervalDate(dtInicioParse, LocalDate.parse(dtTermino));
 		}

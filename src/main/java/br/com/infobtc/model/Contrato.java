@@ -57,6 +57,8 @@ public abstract class Contrato {
 
 	private String justificativaReprovacao;
 	
+	private boolean repassado;
+	
 	public Contrato() {
 		this.setStatusContrato(Status.EM_ANALISE);
 		this.setStatusFinanceiro(Status.EM_ANALISE);
@@ -157,6 +159,14 @@ public abstract class Contrato {
 	
 	public void setJustificativaReprovacao(String justificativaReprovacao) {
 		this.justificativaReprovacao = justificativaReprovacao;
+	}
+	
+	public void setRepassado(boolean repassado) {
+		this.repassado = repassado;
+	}
+	
+	public boolean isRepassado() {
+		return repassado;
 	}
 	
 	public abstract Object criaDto();

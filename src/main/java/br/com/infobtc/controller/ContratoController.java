@@ -178,5 +178,18 @@ public class ContratoController<T> {
 
 		return ResponseEntity.notFound().build();
 	}
+	
+	@PatchMapping("/repassar-pagamento-consultor/{id}")
+	@Transactional
+	public ResponseEntity<?> repassar(@PathVariable Long id) {
+		Optional<Contrato> optional = contratoRespository.findById(id);
+
+		if (optional.isPresent()) {
+			Contrato contrato = optional.get();
+			contrato.setRepassado(true);
+			return ResponseEntity.ok(contrato.criaDto());
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 }

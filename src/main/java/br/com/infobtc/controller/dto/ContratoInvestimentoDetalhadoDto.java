@@ -20,12 +20,12 @@ public class ContratoInvestimentoDetalhadoDto {
 	private String status_financeiro;
 	private String tipo_rendimento;
 	private String justificativa_reprovacao;
+	private boolean repassado;
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
 	private BancoDto banco;
 	private List<ContratoReinvestimentoDto> reinvestimentos = new ArrayList<ContratoReinvestimentoDto>();
 	private List<String> arquivos_url = new ArrayList<String>();
-	
 	public ContratoInvestimentoDetalhadoDto() {
 	}
 
@@ -44,6 +44,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.tipo_rendimento = contratoInvestimento.getTipoRendimento();
 		this.arquivos_url = contratoInvestimento.getArquivosUrl();
 		this.justificativa_reprovacao = contratoInvestimento.getJustificativaReprovacao();
+		this.repassado = contratoInvestimento.isRepassado();
 	}
 
 	public Long getId() {
@@ -66,6 +67,10 @@ public class ContratoInvestimentoDetalhadoDto {
 		return valor;
 	}
 
+	public boolean isRepassado() {
+		return repassado;
+	}
+	
 	public InvestidorDto getInvestidor() {
 		return investidor;
 	}

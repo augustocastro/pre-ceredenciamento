@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +27,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import br.com.infobtc.controller.dto.ContaDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.ContaForm;
+import br.com.infobtc.controller.form.PagamentoArquivosForm;
 import br.com.infobtc.controller.form.PagamentoForm;
 import br.com.infobtc.model.Conta;
 import br.com.infobtc.model.StatusConta;
@@ -105,43 +111,62 @@ public class ContaPagarController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> pagar(@PathVariable Long id,  @Valid @RequestBody PagamentoForm pagamentoForm) {
-		Optional<Conta> optional = contaRepository.findById(id);
+	public ResponseEntity<?> pagar(@PathVariable Long id, @Valid @ModelAttribute PagamentoArquivosForm pagamentoArquivosForm) {
+		try {
+			Optional<Conta> optional = contaRepository.findById(id);
 
-		if (optional.isPresent()) {
-			Conta conta = optional.get();
-			
-			double valor = pagamentoForm.getValor_pago().doubleValue();
-			double valorPago = conta.getValorPago().doubleValue();
-			double valorTotal = conta.getValorTotal().doubleValue();
-			
-			conta.setMulta(pagamentoForm.getMulta() != null ? pagamentoForm.getMulta() : conta.getMulta() );
-			conta.setDesconto(pagamentoForm.getDesconto() != null ? pagamentoForm.getDesconto() : conta.getDesconto());
-			conta.setJuros(pagamentoForm.getJuros() != null ? pagamentoForm.getJuros() : conta.getJuros());
-			conta.setValorTotal(pagamentoForm.getValor_total());
-			conta.setDtPagamento(pagamentoForm.getDt_pagamento());
-
-			if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
-			}  else if (valor < valorTotal) {
-				if (LocalDate.now().isAfter(conta.getDtVencimento())) {
-					conta.setStatus(StatusConta.EM_ATRASO);
-				}
-				conta.setValorPago(new BigDecimal(valorPago + valor));
-			}
-			
-			valorPago = conta.getValorPago().doubleValue();
-			valorTotal = conta.getValorTotal().doubleValue();
-					
-			if (valorTotal == valorPago || valorTotal == valor) {
-				conta.setStatus(StatusConta.LIQUIDADO);
+			if (optional.isPresent()) {
+				PagamentoForm pagamentoForm = new ObjectMapper().readValue(pagamentoArquivosForm.getPagamento(), PagamentoForm.class);
+				Conta conta = optional.get();
 				
-				if (valorTotal != valorPago) {
-					conta.setValorPago(new BigDecimal(valor));
+				double valor = pagamentoForm.getValor_pago().doubleValue();
+				double valorPago = conta.getValorPago().doubleValue();
+				double valorTotal = conta.getValorTotal().doubleValue();
+				
+				conta.setMulta(pagamentoForm.getMulta() != null ? pagamentoForm.getMulta() : conta.getMulta() );
+				conta.setDesconto(pagamentoForm.getDesconto() != null ? pagamentoForm.getDesconto() : conta.getDesconto());
+				conta.setJuros(pagamentoForm.getJuros() != null ? pagamentoForm.getJuros() : conta.getJuros());
+				conta.setValorTotal(pagamentoForm.getValor_total());
+				conta.setDtPagamento(pagamentoForm.getDt_pagamento());
+	
+				if (valor > valorTotal || valor < 1 || (valor + valorPago) > valorTotal) {
+					return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("O valor não pode ser maior que o valor da conta nem menor do que 0."));
+				}  else if (valor < valorTotal) {
+					if (LocalDate.now().isAfter(conta.getDtVencimento())) {
+						conta.setStatus(StatusConta.EM_ATRASO);
+					}
+					conta.setValorPago(new BigDecimal(valorPago + valor));
 				}
+				
+				valorPago = conta.getValorPago().doubleValue();
+				valorTotal = conta.getValorTotal().doubleValue();
+						
+				if (valorTotal == valorPago || valorTotal == valor) {
+					conta.setStatus(StatusConta.LIQUIDADO);
+					
+					if (valorTotal != valorPago) {
+						conta.setValorPago(new BigDecimal(valor));
+					}
+				}
+				
+				if (pagamentoArquivosForm.getArquivos() != null && pagamentoArquivosForm.getArquivos().length > 0) {
+					for (MultipartFile file : pagamentoArquivosForm.getArquivos()) {
+						URI uploadFile = s3Service.uploadFile(file);
+						conta.getArquivosUrl().add(uploadFile.toURL().toString());
+					}
+					return ResponseEntity.ok(new ContaDto(conta));
+				}
+				
+				return ResponseEntity.ok(new ContaDto(conta));
+				
 			}
-			
-			return ResponseEntity.ok(new ContaDto(conta));
+		} catch (JsonParseException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao converter JSON para objeto Java"));
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro na desrealização do JSON devido a erros de mapeamento."));
+		} catch (IOException e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));
 		}
 		
 		return ResponseEntity.notFound().build();

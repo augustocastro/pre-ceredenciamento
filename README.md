@@ -176,3 +176,24 @@ contrato = {
 
 arquivos = [files]
 ````
+
+# Pagamento de conta:
+##### PATCH localhost:8080/conta-pagar/{id}
+Pagamento de conta
+
+Obs: Enviar um FormDate sem Content-Type.
+Campos obrigatórios: [valor_pago, valor_total, dt_pagamento]
+
+````
+pagamento = { 
+   "valor_pago":1000,
+   "valor_total":1000,
+   "dt_pagamento":"2019-09-30",
+   "juros": 0,
+   "desconto":0,
+   "multa": 0
+}
+
+arquivos = [files]
+````
+
