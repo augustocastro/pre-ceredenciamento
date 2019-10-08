@@ -22,7 +22,7 @@ public class EmailService {
 			String mensagem = String.format(msg.toString(), args[0], args[2]);
 			
 			HtmlEmail email = new HtmlEmail();
-			email.setHostName("smtp.googlemail.com");
+			email.setHostName("smtp.gmail.com");
 			email.setSmtpPort(465);
 			email.setAuthenticator(new DefaultAuthenticator(SENDER_EMAIL, SENDER_PASSWORD));
 			email.setSSLOnConnect(true);
