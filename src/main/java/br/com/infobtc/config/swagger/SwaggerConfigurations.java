@@ -14,13 +14,14 @@ import br.com.infobtc.model.ContratoReinvestimento;
 import br.com.infobtc.model.DadosHash;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.Fornecedor;
+import br.com.infobtc.model.Funcionalidade;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.model.Perfil;
 import br.com.infobtc.model.Usuario;
 import br.com.infobtc.repository.ContaRepository;
 import br.com.infobtc.repository.DadosHashRepository;
-import br.com.infobtc.repository.FornecedorRepository;
+import br.com.infobtc.repository.FuncionalidadeRepository;
 import br.com.infobtc.repository.PerfilRepository;
 import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
@@ -57,7 +58,8 @@ public class SwaggerConfigurations {
 				.ignoredParameterTypes(Conta.class)
 				.ignoredParameterTypes(ContaRepository.class)
 				.ignoredParameterTypes(Fornecedor.class)
-				.ignoredParameterTypes(FornecedorRepository.class)
+				.ignoredParameterTypes(Funcionalidade.class)
+				.ignoredParameterTypes(FuncionalidadeRepository.class)
 				.globalOperationParameters(Arrays.asList(
 						new ParameterBuilder()
 						.name("Authorization")

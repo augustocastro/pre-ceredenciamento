@@ -2,8 +2,10 @@ package br.com.infobtc.controller;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -22,7 +24,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.infobtc.controller.dto.PerfilDto;
 import br.com.infobtc.controller.form.PerfilForm;
+import br.com.infobtc.model.Funcionalidade;
 import br.com.infobtc.model.Perfil;
+import br.com.infobtc.repository.FuncionalidadeRepository;
 import br.com.infobtc.repository.PerfilRepository;
 
 @RestController
@@ -30,14 +34,28 @@ import br.com.infobtc.repository.PerfilRepository;
 public class PerfilController {
 
 	@Autowired
-	private PerfilRepository perfilRepository; 
+	private PerfilRepository perfilRepository;
+	
+	@Autowired
+	private FuncionalidadeRepository funcionalidadeRepository; 
 	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<PerfilDto> cadastrar(@RequestBody @Valid PerfilForm perfilForm, UriComponentsBuilder uriComponentsBuilder) {
 		Perfil perfil = new Perfil();
-		perfilForm.setarPropriedades(perfil);
+		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
+
 		
+		perfilForm.getFuncionalidades().forEach(funcionalidadePermissaoForm -> {
+			Funcionalidade funcionalidade = new Funcionalidade();
+			funcionalidadePermissaoForm.setarPropriedades(funcionalidade);
+			funcionalidades.add(funcionalidade);
+		});
+		
+		perfilForm.setarPropriedades(perfil);
+		perfil.setFuncionalidades(funcionalidades);
+		
+		funcionalidadeRepository.saveAll(funcionalidades);
 		perfilRepository.save(perfil);
 		
 		URI uri = uriComponentsBuilder.path("/perfil/{id}").buildAndExpand(perfil.getId()).toUri();

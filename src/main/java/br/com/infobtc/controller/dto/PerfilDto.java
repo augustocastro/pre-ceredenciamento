@@ -11,7 +11,8 @@ public class PerfilDto {
 	private Long id;
 	private String nome;
 	private double porcentagem;
-
+	private Set<FuncionalidadeDto> funcionalidades;
+	
 	public PerfilDto() {
 	}
 
@@ -19,6 +20,7 @@ public class PerfilDto {
 		this.id = perfil.getId();
 		this.nome = perfil.getNome();
 		this.porcentagem = perfil.getPorcentagem();
+		this.funcionalidades = new FuncionalidadeDto().converterSet(perfil.getFuncionalidades());
 	}
 
 	public PerfilDto(Long id, String nome) {
@@ -40,6 +42,14 @@ public class PerfilDto {
 
 	public PerfilDto converter(Perfil perfil) {
 		return new PerfilDto(perfil);
+	}
+	
+	public void setFuncionalidades(Set<FuncionalidadeDto> funcionalidades) {
+		this.funcionalidades = funcionalidades;
+	}
+	
+	public Set<FuncionalidadeDto> getFuncionalidades() {
+		return funcionalidades;
 	}
 
 	public Set<PerfilDto> converterPerfis(Set<Perfil> perfis) {

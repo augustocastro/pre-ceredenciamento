@@ -1,9 +1,13 @@
 package br.com.infobtc.model;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 
@@ -20,7 +24,10 @@ public class Perfil implements GrantedAuthority {
 	private Long id;
 	private String nome;
 	private double porcentagem;
-
+	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Funcionalidade> funcionalidades;
+	
 	public Perfil() {
 	}
 
@@ -62,6 +69,14 @@ public class Perfil implements GrantedAuthority {
 	@Override
 	public String getAuthority() {
 		return nome;
+	}
+
+	public void setFuncionalidades(Set<Funcionalidade> funcionalidades) {
+		this.funcionalidades = funcionalidades;
+	}
+	
+	public Set<Funcionalidade> getFuncionalidades() {
+		return funcionalidades;
 	}
 
 }
