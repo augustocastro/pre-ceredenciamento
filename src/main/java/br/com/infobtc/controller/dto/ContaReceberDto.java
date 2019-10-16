@@ -19,7 +19,7 @@ public class ContaReceberDto {
 	private String dt_termino;
 	private int quantidade_meses;
 
-	public ContaReceberDto(Contrato contrato, LocalDate dtInicio) {
+	public ContaReceberDto(Contrato contrato, LocalDate dtInicio, LocalDate dtTermino) {
 		this.consultor = contrato.getConsultor().getNome();
 		this.investidor = contrato.getInvestidor().getNome();
 		this.id_contrato = contrato.getId();
@@ -28,7 +28,7 @@ public class ContaReceberDto {
 		this.dt_termino = contrato.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.quantidade_meses = contrato.getQuantidadeMeses();
 		
-		if (ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtInicio) == 1) {
+		if (ChronoUnit.MONTHS.between(contrato.getDtInicio(), dtTermino) == 1) {
 			this.valor_investidor = contrato.getValor().doubleValue() * 0.1;
 			this.valor_escritorio = contrato.getValor().doubleValue() * 0.01;
 		} else {
