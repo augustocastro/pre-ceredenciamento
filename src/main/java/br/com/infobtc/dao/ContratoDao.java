@@ -25,8 +25,8 @@ public class ContratoDao {
 		query.append("WHERE ((c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') "); 
 		query.append(String.format("AND %s) ", idConsultor != null ? "c.consultor.id = :idConsultor" : "1 = 1 "));
 		query.append("AND ((:monthDtTermino = :monthDtInicio OR :yearDtTermino = :yearDtInicio) AND DAY(c.dtInicio) BETWEEN :dayDtInicio AND :dayDtTermino ");
-		query.append("OR ((:monthDtTermino > :monthDtInicio OR :yearDtTermino > :yearDtInicio) AND (:dayDtTermino >= DAY(c.dtInicio) OR :dayDtInicio <= DAY(c.dtInicio) OR :diffMonth is true OR :diffYear is true)) ");
-		query.append("AND (:dtTermino <= c.dtTermino OR :dtInicio <= c.dtTermino ))");
+		query.append("OR ((:monthDtTermino > :monthDtInicio OR :yearDtTermino > :yearDtInicio) AND (:dayDtTermino >= DAY(c.dtInicio) OR :dayDtInicio <= DAY(c.dtInicio) OR :diffMonth is true OR :diffYear is true))) ");
+		query.append("AND (:dtTermino <= c.dtTermino OR :dtInicio <= c.dtTermino )");
 		
 		TypedQuery<Contrato> typedQuery = manager.createQuery(query.toString(),Contrato.class);
 		typedQuery.setParameter("dtInicio", dtInicio);
