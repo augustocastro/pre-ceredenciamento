@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.infobtc.controller.dto.ContaReceberDto;
+import br.com.infobtc.dao.ContratoDao;
 import br.com.infobtc.model.Contrato;
-import br.com.infobtc.repository.ContratoDao;
 
 @RestController
 @RequestMapping("/conta-receber")
