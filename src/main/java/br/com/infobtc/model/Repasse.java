@@ -3,6 +3,8 @@ package br.com.infobtc.model;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +22,10 @@ public class Repasse {
 	private String anexo;
 	private Status status;
 	private LocalDate data;
+
+	@Enumerated(EnumType.STRING)
+	private TipoRecebedor tipoRecebedor;
+	private String recebedor;
 	
 	@OneToOne
 	private Contrato contrato;
@@ -80,4 +86,19 @@ public class Repasse {
 		this.data = data;
 	}
 
+	public String getRecebedor() {
+		return recebedor;
+	}
+	
+	public TipoRecebedor getTipoRecebedor() {
+		return tipoRecebedor;
+	}
+	
+	public void setRecebedor(String recebedor) {
+		this.recebedor = recebedor;
+	}
+	
+	public void setTipoRecebedor(TipoRecebedor tipoRecebedor) {
+		this.tipoRecebedor = tipoRecebedor;
+	}
 }

@@ -4,6 +4,7 @@ import java.time.format.DateTimeFormatter;
 
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.Status;
+import br.com.infobtc.model.TipoRecebedor;
 
 public class RepasseDto {
 
@@ -13,6 +14,8 @@ public class RepasseDto {
 	private Status status;
 	private Long id_contrato;
 	private String data;
+	private TipoRecebedor tipo_recebedor;
+	private String recebedor;
 	
 	public RepasseDto(Repasse repasse) {
 		super();
@@ -22,6 +25,8 @@ public class RepasseDto {
 		this.status = repasse.getStatus();
 		this.id_contrato = repasse.getContrato().getId();
 		this.data = repasse.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.tipo_recebedor = repasse.getTipoRecebedor();
+		this.recebedor = repasse.getRecebedor();
 	}
 
 	public double getValor() {
@@ -46,5 +51,13 @@ public class RepasseDto {
 
 	public String getData() {
 		return data;
+	}
+	
+	public String getRecebedor() {
+		return recebedor;
+	}
+	
+	public TipoRecebedor getTipo_recebedor() {
+		return tipo_recebedor;
 	}
 }
