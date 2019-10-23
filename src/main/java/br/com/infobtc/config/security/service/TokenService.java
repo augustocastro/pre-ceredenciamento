@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.infobtc.controller.dto.UsuarioTokenDto;
@@ -59,6 +60,14 @@ public class TokenService {
 		}
 		
 		return token.substring(7, token.length());
+	}
+	
+	public String encondePassord(String password) {
+		return new BCryptPasswordEncoder().encode(password);
+	}
+	
+	public boolean matchesPassord(String rawPassword, String encodedPassword) {
+		return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
 	}
 
 }
