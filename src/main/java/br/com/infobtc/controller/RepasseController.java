@@ -2,6 +2,7 @@ package br.com.infobtc.controller;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -73,12 +74,8 @@ public class RepasseController {
 	}
 	
 	@GetMapping("contrato/{id}")
-	public ResponseEntity<RepasseDto> buscarRepassePorContrato(@PathVariable Long id) {
-		Optional<Repasse> repasse = repasseRepository.findByContratoId(id);
-		
-		if (repasse.isPresent()) {
-			return ResponseEntity.ok(new RepasseDto(repasse.get()));
-		}
-		return ResponseEntity.notFound().build();
+	public ResponseEntity<List<RepasseDto>> buscarRepassesPorContrato(@PathVariable Long id) {
+		List<Repasse> repasses = repasseRepository.findByContratoId(id);		
+		return ResponseEntity.ok(new RepasseDto().converterPerfis(repasses));
 	}
 }

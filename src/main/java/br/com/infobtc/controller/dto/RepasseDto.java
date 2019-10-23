@@ -1,6 +1,8 @@
 package br.com.infobtc.controller.dto;
 
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.Status;
@@ -17,8 +19,11 @@ public class RepasseDto {
 	private TipoRecebedor tipo_recebedor;
 	private String recebedor;
 	
+	public RepasseDto() {
+		
+	}
+	
 	public RepasseDto(Repasse repasse) {
-		super();
 		this.valor = repasse.getValor();
 		this.observacao = repasse.getObservacao();
 		this.anexo = repasse.getAnexo();
@@ -59,5 +64,9 @@ public class RepasseDto {
 	
 	public TipoRecebedor getTipo_recebedor() {
 		return tipo_recebedor;
+	}
+	
+	public List<RepasseDto> converterPerfis(List<Repasse> repasses) {
+		return repasses.stream().map(RepasseDto::new).collect(Collectors.toList());
 	}
 }
