@@ -43,9 +43,8 @@ public class PerfilController {
 	@Transactional
 	public ResponseEntity<PerfilDto> cadastrar(@RequestBody @Valid PerfilForm perfilForm, UriComponentsBuilder uriComponentsBuilder) {
 		Perfil perfil = new Perfil();
-		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
 		
-		salvar(perfilForm, perfil, funcionalidades);
+		salvar(perfilForm, perfil);
 		perfilRepository.save(perfil);
 		
 		URI uri = uriComponentsBuilder.path("/perfil/{id}").buildAndExpand(perfil.getId()).toUri();
@@ -56,13 +55,13 @@ public class PerfilController {
 	@Transactional
 	public ResponseEntity<PerfilDto> atualizar(@PathVariable Long id, @Valid @RequestBody PerfilForm perfilForm) {
 		Optional<Perfil> optional = perfilRepository.findById(id);
-		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
 		
 		if (optional.isPresent()) {
 			Perfil perfil = optional.get(); 
 			
 			funcionalidadeRepository.deleteAll(perfil.getFuncionalidades());
-			salvar(perfilForm, perfil, funcionalidades);
+			salvar(perfilForm, perfil);
+		
 			return ResponseEntity.ok(new PerfilDto().converter(perfil));
 		}
 		return ResponseEntity.notFound().build();
@@ -94,7 +93,9 @@ public class PerfilController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	private void salvar(PerfilForm perfilForm, Perfil perfil, Set<Funcionalidade> funcionalidades) {
+	private void salvar(PerfilForm perfilForm, Perfil perfil) {
+		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
+
 		perfilForm.getFuncionalidades().forEach(funcionalidadePermissaoForm -> {
 			Funcionalidade funcionalidade = new Funcionalidade();
 			funcionalidadePermissaoForm.setarPropriedades(funcionalidade);
