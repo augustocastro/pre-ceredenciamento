@@ -121,7 +121,7 @@ public class ConsultorController {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@GetMapping("usuario/{id}")
+	@GetMapping("/usuario/{id}")
 	public ResponseEntity<ConsultorDetalhadoDto> buscarPorUsuario(@PathVariable Long id) {
 		Optional<Consultor> consultor = consultorRepository.findByUsuarioId(id);
 

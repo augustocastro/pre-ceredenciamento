@@ -44,18 +44,9 @@ public class PerfilController {
 	public ResponseEntity<PerfilDto> cadastrar(@RequestBody @Valid PerfilForm perfilForm, UriComponentsBuilder uriComponentsBuilder) {
 		Perfil perfil = new Perfil();
 		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
-
 		
-		perfilForm.getFuncionalidades().forEach(funcionalidadePermissaoForm -> {
-			Funcionalidade funcionalidade = new Funcionalidade();
-			funcionalidadePermissaoForm.setarPropriedades(funcionalidade);
-			funcionalidades.add(funcionalidade);
-		});
+		salvar(perfilForm, perfil, funcionalidades);
 		
-		perfilForm.setarPropriedades(perfil);
-		perfil.setFuncionalidades(funcionalidades);
-		
-		funcionalidadeRepository.saveAll(funcionalidades);
 		perfilRepository.save(perfil);
 		
 		URI uri = uriComponentsBuilder.path("/perfil/{id}").buildAndExpand(perfil.getId()).toUri();
@@ -64,12 +55,17 @@ public class PerfilController {
 
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<PerfilDto> atualizar(@PathVariable Long id, @Valid @RequestBody PerfilForm form) {
-		Optional<Perfil> perfil = perfilRepository.findById(id);
-
-		if (perfil.isPresent()) {
-			perfil.get().setNome(form.getNome());
-			return ResponseEntity.ok(new PerfilDto().converter(perfil.get()));
+	public ResponseEntity<PerfilDto> atualizar(@PathVariable Long id, @Valid @RequestBody PerfilForm perfilForm) {
+		Optional<Perfil> optional = perfilRepository.findById(id);
+		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
+		
+		if (optional.isPresent()) {
+			Perfil perfil = optional.get(); 
+			
+			funcionalidadeRepository.deleteAll(perfil.getFuncionalidades());
+			salvar(perfilForm, perfil, funcionalidades);
+			
+			return ResponseEntity.ok(new PerfilDto().converter(perfil));
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -98,6 +94,18 @@ public class PerfilController {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	private void salvar(PerfilForm perfilForm, Perfil perfil, Set<Funcionalidade> funcionalidades) {
+		perfilForm.getFuncionalidades().forEach(funcionalidadePermissaoForm -> {
+			Funcionalidade funcionalidade = new Funcionalidade();
+			funcionalidadePermissaoForm.setarPropriedades(funcionalidade);
+			funcionalidades.add(funcionalidade);
+		});
+		
+		perfilForm.setarPropriedades(perfil);
+		perfil.setFuncionalidades(funcionalidades);
+		funcionalidadeRepository.saveAll(funcionalidades);
 	}
 
 }
