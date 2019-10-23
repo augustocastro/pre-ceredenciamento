@@ -46,7 +46,6 @@ public class PerfilController {
 		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
 		
 		salvar(perfilForm, perfil, funcionalidades);
-		
 		perfilRepository.save(perfil);
 		
 		URI uri = uriComponentsBuilder.path("/perfil/{id}").buildAndExpand(perfil.getId()).toUri();
@@ -64,7 +63,6 @@ public class PerfilController {
 			
 			funcionalidadeRepository.deleteAll(perfil.getFuncionalidades());
 			salvar(perfilForm, perfil, funcionalidades);
-			
 			return ResponseEntity.ok(new PerfilDto().converter(perfil));
 		}
 		return ResponseEntity.notFound().build();
