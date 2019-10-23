@@ -1,5 +1,6 @@
 package br.com.infobtc.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -35,4 +36,7 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 	List<Contrato> findByIntervalDate();
 //	@Query("SELECT c FROM Contrato c WHERE (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') ORDER BY c.consultor.nome")
 //	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
+	
+	@Query("SELECT c FROM Contrato c WHERE c.dtCadastro BETWEEN ?1 AND ?2 AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
+	List<Contrato> buscarContratosSemana(LocalDate dateUmaSemanaAtras, LocalDate dataHoje);
 }

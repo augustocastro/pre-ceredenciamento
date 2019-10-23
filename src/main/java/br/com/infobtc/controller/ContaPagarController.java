@@ -31,6 +31,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.infobtc.controller.dto.ContaDetalhadoDto;
 import br.com.infobtc.controller.dto.ContaDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.ContaForm;
@@ -69,7 +70,7 @@ public class ContaPagarController {
 		contaRepository.save(conta);
 
 		URI uri = uriComponentsBuilder.path("/conta-pagar/{id}").buildAndExpand(conta.getId()).toUri();
-		return ResponseEntity.created(uri).body(new ContaDto(conta));
+		return ResponseEntity.created(uri).body(new ContaDetalhadoDto(conta));
 	}
 
 	@PutMapping("/{id}")
@@ -83,28 +84,28 @@ public class ContaPagarController {
 			} catch (NotFoundException e) {
 				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
 			}
-			return ResponseEntity.ok(new ContaDto(conta.get()));
+			return ResponseEntity.ok(new ContaDetalhadoDto(conta.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/todos")
-	public ResponseEntity<List<ContaDto>> buscarTodos(StatusConta status) {
+	public ResponseEntity<List<ContaDetalhadoDto>> buscarTodos(StatusConta status) {
 		List<Conta> contas;
 		if (status != null) {
 			contas = contaRepository.findByStatus(status);
 		} else {
 			contas = contaRepository.findAll();
 		}
-		return ResponseEntity.ok(new ContaDto().converter(contas));
+		return ResponseEntity.ok(new ContaDetalhadoDto().converter(contas));
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ContaDto> buscarPorId(@PathVariable Long id) {
+	public ResponseEntity<ContaDetalhadoDto> buscarPorId(@PathVariable Long id) {
 		Optional<Conta> conta = contaRepository.findById(id);
 
 		if (conta.isPresent()) {
-			return ResponseEntity.ok(new ContaDto(conta.get()));
+			return ResponseEntity.ok(new ContaDetalhadoDto(conta.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}
@@ -156,7 +157,7 @@ public class ContaPagarController {
 					}
 				}
 				
-				return ResponseEntity.ok(new ContaDto(conta));	
+				return ResponseEntity.ok(new ContaDetalhadoDto(conta));	
 			}
 		} catch (JsonParseException e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro ao converter JSON para objeto Java"));
@@ -209,7 +210,7 @@ public class ContaPagarController {
 						URI uploadFile = s3Service.uploadFile(file);
 						conta.getArquivosUrl().add(uploadFile.toURL().toString());
 					}
-					return ResponseEntity.ok(new ContaDto(conta));
+					return ResponseEntity.ok(new ContaDetalhadoDto(conta));
 				} 
 			}
 			return ResponseEntity.notFound().build();
@@ -219,7 +220,7 @@ public class ContaPagarController {
 	}
 	
 	@GetMapping("/relatorio/pagamentos")
-	public ResponseEntity<List<ContaDto>> relatorioPagamentos(String dtInicio, String dtFim) {
+	public ResponseEntity<List<ContaDetalhadoDto>> buscarPagamentos(String dtInicio, String dtFim) {
 		List<Conta> contas;
 		
 		if (dtInicio == null && dtFim == null) {
@@ -230,7 +231,17 @@ public class ContaPagarController {
 			contas = contaRepository.findByDtPagamentoBetween(LocalDate.parse(dtInicio), LocalDate.parse(dtFim));
 		}
 		
+		return ResponseEntity.ok(new ContaDetalhadoDto().converter(contas));
+	}
+	
+	@GetMapping("relatorio/pagamentos-pedentes-semana")
+	public ResponseEntity<List<ContaDto>> buscarPagamentosPedentesSemana() {
+		LocalDate dataHoje = LocalDate.now();
+		LocalDate dateDaquiUmaUmaSemana = LocalDate.now().plusDays(7);
+		
+		List<Conta> contas = contaRepository.buscarContasPedentesSemana(dataHoje, dateDaquiUmaUmaSemana);
 		return ResponseEntity.ok(new ContaDto().converter(contas));
 	}
+
 
 }

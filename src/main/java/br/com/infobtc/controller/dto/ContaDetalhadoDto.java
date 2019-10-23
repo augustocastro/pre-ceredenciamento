@@ -2,40 +2,44 @@ package br.com.infobtc.controller.dto;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.infobtc.model.Conta;
 
-public class ContaDto {
+public class ContaDetalhadoDto {
 
 	private Long id;
 	private String centro_de_custo;
-	private String fornecedor;
+	private FornecedorDto fornecedor;
 	private String numero_doc;
 	private String conta_contabil;
 	private String dt_cadastramento;
 	private String dt_vencimento;
 	private String dt_pagamento;
 	private String status;
+	private String historico;
 	private BigDecimal valor;
 	private BigDecimal juros;
 	private BigDecimal desconto;
 	private BigDecimal multa;
 	private BigDecimal valor_total;
 	private BigDecimal valor_pago;
+	private List<String> arquivos_url = new ArrayList<String>();
 
-	public ContaDto() {
+	public ContaDetalhadoDto() {
 
 	}
 
-	public ContaDto(Conta conta) {
+	public ContaDetalhadoDto(Conta conta) {
 		this.id = conta.getId();
 		this.centro_de_custo = conta.getCentroDeCusto();
-		this.fornecedor = conta.getFornecedor().getNome();
+		this.fornecedor = new FornecedorDto(conta.getFornecedor());
 		this.conta_contabil = conta.getContaContabil();
 		this.dt_cadastramento = conta.getDtCadastramento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_vencimento = conta.getDtVencimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.historico = conta.getHistorico();
 		this.valor = conta.getValor();
 		this.juros = conta.getJuros();
 		this.desconto = conta.getDesconto();
@@ -43,6 +47,14 @@ public class ContaDto {
 		this.numero_doc = conta.getNumeroDoc();
 		this.status = conta.getStatus().name();
 		this.multa = conta.getMulta();
+		this.arquivos_url = conta.getArquivosUrl();
+		if (conta.getDtPagamento() != null) {
+			this.dt_pagamento = conta.getDtPagamento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		}
+
+		if (conta.getValorPago() != null) {
+			this.valor_pago = conta.getValorPago();
+		}
 	}
 
 	public Long getId() {
@@ -53,7 +65,7 @@ public class ContaDto {
 		return centro_de_custo;
 	}
 
-	public String getFornecedor() {
+	public FornecedorDto getFornecedor() {
 		return fornecedor;
 	}
 
@@ -81,6 +93,10 @@ public class ContaDto {
 		return status;
 	}
 
+	public String getHistorico() {
+		return historico;
+	}
+
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -92,7 +108,7 @@ public class ContaDto {
 	public BigDecimal getDesconto() {
 		return desconto;
 	}
-
+	
 	public BigDecimal getMulta() {
 		return multa;
 	}
@@ -105,8 +121,12 @@ public class ContaDto {
 		return valor_pago;
 	}
 
-	
-	public List<ContaDto> converter(List<Conta> perfis) {
-		return perfis.stream().map(ContaDto::new).collect(Collectors.toList());
+	public List<String> getArquivos_url() {
+		return arquivos_url;
 	}
+	
+	public List<ContaDetalhadoDto> converter(List<Conta> perfis) {
+		return perfis.stream().map(ContaDetalhadoDto::new).collect(Collectors.toList());
+	}
+
 }

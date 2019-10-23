@@ -57,11 +57,14 @@ public abstract class Contrato {
 
 	private String justificativaReprovacao;
 	
+	private LocalDate dtCadastro;
+	
 	private boolean repassado;
 	
 	public Contrato() {
 		this.setStatusContrato(Status.EM_ANALISE);
 		this.setStatusFinanceiro(Status.EM_ANALISE);
+		this.setDtCadastro(dtCadastro);
 	}
 	
 	public Long getId() {
@@ -167,6 +170,14 @@ public abstract class Contrato {
 	
 	public boolean isRepassado() {
 		return repassado;
+	}
+	
+	public LocalDate getDtCadastro() {
+		return dtCadastro;
+	}
+	
+	public void setDtCadastro(LocalDate dtCadastro) {
+		this.dtCadastro = dtCadastro;
 	}
 	
 	public abstract Object criaDto();

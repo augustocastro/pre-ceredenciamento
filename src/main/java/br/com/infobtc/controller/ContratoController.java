@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.DocumentException;
 
+import br.com.infobtc.controller.dto.ContratoDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.Status;
@@ -167,17 +170,26 @@ public class ContratoController<T> {
 		return ResponseEntity.notFound().build();
 	}
 	
-	@PatchMapping("/repassar-pagamento-consultor/{id}")
-	@Transactional
-	public ResponseEntity<?> repassar(@PathVariable Long id) {
-		Optional<Contrato> optional = contratoRespository.findById(id);
-
-		if (optional.isPresent()) {
-			Contrato contrato = optional.get();
-			contrato.setRepassado(true);
-			return ResponseEntity.ok(contrato.criaDto());
-		}
-		return ResponseEntity.notFound().build();
+//	@PatchMapping("/repassar-pagamento-consultor/{id}")
+//	@Transactional
+//	public ResponseEntity<?> repassar(@PathVariable Long id) {
+//		Optional<Contrato> optional = contratoRespository.findById(id);
+//
+//		if (optional.isPresent()) {
+//			Contrato contrato = optional.get();
+//			contrato.setRepassado(true);
+//			return ResponseEntity.ok(contrato.criaDto());
+//		}
+//		return ResponseEntity.notFound().build();
+//	}
+	
+	@GetMapping("relatorio/contratos-semana")
+	public ResponseEntity<?> buscarContratosSemana() {
+		LocalDate dataHoje= LocalDate.now();
+		LocalDate dateUmaSemanaAtras= LocalDate.now().minusDays(7);
+		
+		List<Contrato> contratos = contratoRespository.buscarContratosSemana(dateUmaSemanaAtras, dataHoje);
+		return ResponseEntity.ok(new ContratoDto().converter(contratos));
 	}
 
 }
