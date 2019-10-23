@@ -217,5 +217,20 @@ public class ContaPagarController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErroDto("Erro nos arquivos enviados."));
 		}
 	}
+	
+	@GetMapping("/relatorio/pagamentos")
+	public ResponseEntity<List<ContaDto>> relatorioPagamentos(String dtInicio, String dtFim) {
+		List<Conta> contas;
+		
+		if (dtInicio == null && dtFim == null) {
+			contas = contaRepository.findByDtPagamento(LocalDate.now());			
+		} else if (dtInicio != null && dtFim == null) {
+			contas = contaRepository.findByDtPagamento(LocalDate.parse(dtInicio));
+		} else {
+			contas = contaRepository.findByDtPagamentoBetween(LocalDate.parse(dtInicio), LocalDate.parse(dtFim));
+		}
+		
+		return ResponseEntity.ok(new ContaDto().converter(contas));
+	}
 
 }
