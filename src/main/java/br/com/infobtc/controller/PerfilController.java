@@ -4,8 +4,10 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -22,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.infobtc.controller.dto.UsuarioPerfilDto;
 import br.com.infobtc.controller.dto.PerfilDto;
 import br.com.infobtc.controller.form.PerfilForm;
+import br.com.infobtc.dao.PerfilDao;
+import br.com.infobtc.dao.result.UsuarioPerfilCustomResult;
 import br.com.infobtc.model.Funcionalidade;
 import br.com.infobtc.model.Perfil;
 import br.com.infobtc.repository.FuncionalidadeRepository;
@@ -38,6 +43,9 @@ public class PerfilController {
 	
 	@Autowired
 	private FuncionalidadeRepository funcionalidadeRepository; 
+	
+	@Autowired
+	private PerfilDao perfilDao;
 	
 	@PostMapping
 	@Transactional
@@ -93,6 +101,17 @@ public class PerfilController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("/relatorio/perfil-usuarios")
+	public ResponseEntity<?> buscarUsuariosAgrupandoPorPerfil() {		
+		List<UsuarioPerfilCustomResult> resultado = perfilDao.buscarUsuariosAgrupandoPorPerfil();
+		
+		Map<String, List<UsuarioPerfilDto>> perfilUsuarios = resultado
+				.stream()
+				.collect(Collectors.groupingBy(UsuarioPerfilCustomResult::getNomePerfil, Collectors.mapping(UsuarioPerfilDto::new, Collectors.toList())));
+
+		return ResponseEntity.ok(perfilUsuarios);
+	}
+	
 	private void salvar(PerfilForm perfilForm, Perfil perfil) {
 		Set<Funcionalidade> funcionalidades = new HashSet<Funcionalidade>();
 
@@ -106,5 +125,5 @@ public class PerfilController {
 		perfil.setFuncionalidades(funcionalidades);
 		funcionalidadeRepository.saveAll(funcionalidades);
 	}
-
+	
 }
