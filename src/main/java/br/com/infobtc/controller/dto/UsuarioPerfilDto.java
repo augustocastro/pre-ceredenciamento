@@ -1,6 +1,6 @@
 package br.com.infobtc.controller.dto;
 
-import br.com.infobtc.dao.result.UsuarioPerfilCustomResult;
+import br.com.infobtc.controller.vo.UsuarioPerfilVo;
 
 public class UsuarioPerfilDto {
 
@@ -8,7 +8,7 @@ public class UsuarioPerfilDto {
 	private String nome_usuario;
 	private double porcentagem_perfil;
 
-	public UsuarioPerfilDto(UsuarioPerfilCustomResult usuarioPerfilCustomDto) {
+	public UsuarioPerfilDto(UsuarioPerfilVo usuarioPerfilCustomDto) {
 		this.email_usuario = usuarioPerfilCustomDto.getEmailUsuario();
 		this.nome_usuario = usuarioPerfilCustomDto.getNomeUsuario();
 		this.porcentagem_perfil = usuarioPerfilCustomDto.getPorcentagemOerfil();

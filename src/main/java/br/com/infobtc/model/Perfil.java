@@ -3,6 +3,8 @@ package br.com.infobtc.model;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,11 +21,13 @@ public class Perfil implements GrantedAuthority {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 	private String nome;
 	private double porcentagem;
+	
+	@Enumerated(EnumType.STRING) 
+	private TipoPerfil tipoPerfil;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Funcionalidade> funcionalidades;
@@ -64,6 +68,14 @@ public class Perfil implements GrantedAuthority {
 
 	public double getPorcentagem() {
 		return porcentagem;
+	}
+	
+	public TipoPerfil getTipoPerfil() {
+		return tipoPerfil;
+	}
+	
+	public void setTipoPerfil(TipoPerfil tipoPerfil) {
+		this.tipoPerfil = tipoPerfil;
 	}
 
 	@Override

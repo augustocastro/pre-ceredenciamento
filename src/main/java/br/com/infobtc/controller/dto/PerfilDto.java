@@ -5,12 +5,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import br.com.infobtc.model.Perfil;
+import br.com.infobtc.model.TipoPerfil;
 
 public class PerfilDto {
 
 	private Long id;
 	private String nome;
 	private double porcentagem;
+	private TipoPerfil tipo_perfil;
 	private Set<FuncionalidadeDto> funcionalidades;
 	
 	public PerfilDto() {
@@ -21,6 +23,7 @@ public class PerfilDto {
 		this.nome = perfil.getNome();
 		this.porcentagem = perfil.getPorcentagem();
 		this.funcionalidades = new FuncionalidadeDto().converterSet(perfil.getFuncionalidades());
+		this.tipo_perfil = perfil.getTipoPerfil();
 	}
 
 	public PerfilDto(Long id, String nome) {
@@ -44,8 +47,8 @@ public class PerfilDto {
 		return new PerfilDto(perfil);
 	}
 	
-	public void setFuncionalidades(Set<FuncionalidadeDto> funcionalidades) {
-		this.funcionalidades = funcionalidades;
+	public TipoPerfil getTipo_perfil() {
+		return tipo_perfil;
 	}
 	
 	public Set<FuncionalidadeDto> getFuncionalidades() {

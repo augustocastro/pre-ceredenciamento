@@ -27,8 +27,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.infobtc.controller.dto.UsuarioPerfilDto;
 import br.com.infobtc.controller.dto.PerfilDto;
 import br.com.infobtc.controller.form.PerfilForm;
+import br.com.infobtc.controller.vo.UsuarioPerfilVo;
 import br.com.infobtc.dao.PerfilDao;
-import br.com.infobtc.dao.result.UsuarioPerfilCustomResult;
 import br.com.infobtc.model.Funcionalidade;
 import br.com.infobtc.model.Perfil;
 import br.com.infobtc.repository.FuncionalidadeRepository;
@@ -103,11 +103,11 @@ public class PerfilController {
 	
 	@GetMapping("/relatorio/perfil-usuarios")
 	public ResponseEntity<?> buscarUsuariosAgrupandoPorPerfil() {		
-		List<UsuarioPerfilCustomResult> resultado = perfilDao.buscarUsuariosAgrupandoPorPerfil();
+		List<UsuarioPerfilVo> resultado = perfilDao.buscarUsuariosAgrupandoPorPerfil();
 		
 		Map<String, List<UsuarioPerfilDto>> perfilUsuarios = resultado
 				.stream()
-				.collect(Collectors.groupingBy(UsuarioPerfilCustomResult::getNomePerfil, Collectors.mapping(UsuarioPerfilDto::new, Collectors.toList())));
+				.collect(Collectors.groupingBy(UsuarioPerfilVo::getNomePerfil, Collectors.mapping(UsuarioPerfilDto::new, Collectors.toList())));
 
 		return ResponseEntity.ok(perfilUsuarios);
 	}

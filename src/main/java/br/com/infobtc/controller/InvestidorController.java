@@ -125,15 +125,10 @@ public class InvestidorController {
 		
 		if (optional.isPresent()) {
 			Investidor investidor = optional.get();
+			investidor.setJustificativaReprovacao(justificativa != null && statusInvestidor == Status.REPROVADO ? justificativa : investidor.getJustificativaReprovacao());
+			investidor.setStatusInvestidor(statusInvestidor);
 			
-			if (investidor.getStatusInvestidor() != Status.REPROVADO && investidor.getStatusInvestidor() != Status.APROVADO) {
-				investidor.setJustificativaReprovacao(justificativa != null && statusInvestidor == Status.REPROVADO ? justificativa : investidor.getJustificativaReprovacao());
-				investidor.setStatusInvestidor(statusInvestidor);
-				return ResponseEntity.ok(investidor);
-			} else {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-						new ErroDto("Após o cadastro de investidor ser aprovado ou reprovado o status do mesmo não pode ser alterado."));
-			}
+			return ResponseEntity.ok(investidor);
 		} 
 		return ResponseEntity.notFound().build();
 	}
