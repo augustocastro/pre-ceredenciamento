@@ -1,5 +1,6 @@
 package br.com.infobtc.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,9 +39,12 @@ public class Investidor {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
-
+	
+	private LocalDate dtCadastramento;
+	
 	public Investidor() {
 		this.setStatusInvestidor(Status.EM_ANALISE);
+		this.setDtCadastramento(LocalDate.now());
 	}
 
 	public Investidor(String nome, String email, String telefone, Endereco endereco, String facebook,
@@ -155,5 +159,13 @@ public class Investidor {
 	
 	public void setJustificativaReprovacao(String justificativaReprovacao) {
 		this.justificativaReprovacao = justificativaReprovacao;
+	}
+	
+	public void setDtCadastramento(LocalDate dtCadastramento) {
+		this.dtCadastramento = dtCadastramento;
+	}
+	
+	public LocalDate getDtCadastramento() {
+		return dtCadastramento;
 	}
 }

@@ -1,5 +1,7 @@
 package br.com.infobtc.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,13 @@ public class Fornecedor {
 	private String telefone;
 	private String email;
 	private String cnpj;
+	private LocalDate dtCadastramento;
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
+
+	public Fornecedor() {
+		this.dtCadastramento = LocalDate.now();
+	}
 
 	public Long getId() {
 		return id;
@@ -62,6 +69,14 @@ public class Fornecedor {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+	
+	public void setDtCadastramento(LocalDate dtCadastramento) {
+		this.dtCadastramento = dtCadastramento;
+	}
+	
+	public LocalDate getDtCadastramento() {
+		return dtCadastramento;
 	}
 
 	public void setCnpj(String cnpj) {

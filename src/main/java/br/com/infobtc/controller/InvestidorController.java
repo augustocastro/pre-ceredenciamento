@@ -24,6 +24,8 @@ import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.InvestidorDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaFisicaDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
+import br.com.infobtc.controller.vo.InvestidorEnderecoVo;
+import br.com.infobtc.dao.InvestidorDao;
 import br.com.infobtc.model.Investidor;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
@@ -38,6 +40,9 @@ public class InvestidorController {
 	@Autowired
 	private InvestidorRepository investidorRepository;
 
+	@Autowired
+	private InvestidorDao investidorDao;
+	
 	@Autowired
 	private S3Service s3Service;
 
@@ -131,6 +136,12 @@ public class InvestidorController {
 			return ResponseEntity.ok(investidor);
 		} 
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("/relatorio/todos")
+	public ResponseEntity<List<?>> consultarTodos() {
+		List<InvestidorEnderecoVo> investidores = investidorDao.consultarTodos();
+		return ResponseEntity.ok(investidores);
 	}
 	
 }

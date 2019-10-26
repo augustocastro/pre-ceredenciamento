@@ -23,6 +23,8 @@ import br.com.infobtc.controller.dto.FornecedorDetalhadoDto;
 import br.com.infobtc.controller.dto.FornecedorDto;
 import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.FornecedorForm;
+import br.com.infobtc.controller.vo.FornecedorEnderecoVo;
+import br.com.infobtc.dao.FornecedorDao;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.Fornecedor;
 import br.com.infobtc.repository.EnderecoRepository;
@@ -36,7 +38,10 @@ public class FornecedorController {
 	private FornecedorRepository fornecedorRepository; 
 	
 	@Autowired
-	private EnderecoRepository enderecoRepository;
+	private FornecedorDao fornecedorDao;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository; 
 	
 	@PostMapping
 	@Transactional
@@ -94,6 +99,12 @@ public class FornecedorController {
 			return ResponseEntity.ok().build();
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	@GetMapping("relatorio/todos")
+	public ResponseEntity<List<FornecedorEnderecoVo>> consultarTodos() {
+		List<FornecedorEnderecoVo> fornecedores = fornecedorDao.consultarTodos();
+		return ResponseEntity.ok(fornecedores);
 	}
 
 }

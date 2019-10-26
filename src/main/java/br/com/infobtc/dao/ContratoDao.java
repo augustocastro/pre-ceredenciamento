@@ -18,7 +18,6 @@ public class ContratoDao {
 	@PersistenceContext
     private EntityManager manager;
 	
-	
 	public List<Contrato> finfByInterval(LocalDate dtInicio, LocalDate dtTermino, Long idConsultor, boolean repassado) {
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT c FROM Contrato as c ");
