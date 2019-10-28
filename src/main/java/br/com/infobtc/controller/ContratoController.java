@@ -30,6 +30,8 @@ import com.itextpdf.text.DocumentException;
 
 import br.com.infobtc.controller.dto.ContratoDto;
 import br.com.infobtc.controller.dto.ErroDto;
+import br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo;
+import br.com.infobtc.dao.ContratoDao;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.ContratoRepository;
@@ -43,6 +45,9 @@ public class ContratoController<T> {
 	@Autowired
 	private ContratoRepository contratoRespository;
 
+	@Autowired
+	private ContratoDao contratoDao; 
+	
 	@Autowired
 	private ContratoPDFService contratoPDFService;
 	
@@ -190,6 +195,15 @@ public class ContratoController<T> {
 		
 		List<Contrato> contratos = contratoRespository.buscarContratosSemana(dateUmaSemanaAtras, dataHoje);
 		return ResponseEntity.ok(new ContratoDto().converter(contratos));
+	}
+	
+	@GetMapping("relatorio/todos")
+	public ResponseEntity<?> consultarTodos(Long idConsultor, String dtInicio, String dtTermino) {
+		LocalDate dataIncio = dtInicio != null ? LocalDate.parse(dtInicio) : null;
+		LocalDate dataTermino=  dtInicio != null ? LocalDate.parse(dtTermino) : null;
+		
+		List<ContratoConsultorInvestidorVo> contratos = contratoDao.consultarFiltrandoPorConsultorEIntervalo(idConsultor, dataIncio, dataTermino);
+		return ResponseEntity.ok(contratos);
 	}
 
 }
