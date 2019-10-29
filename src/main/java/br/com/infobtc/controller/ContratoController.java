@@ -93,21 +93,6 @@ public class ContratoController<T> {
 		return ResponseEntity.notFound().build();
 	}
 	
-//	@GetMapping("/relatorio-finaceiro")
-//	public ResponseEntity<?> gerarRelatorioFinanceiro(String dtInicio, String dtTermino) {
-//		List<Contrato> contratos;
-//		
-//		if (dtInicio != null && dtTermino != null) {
-//			contratos = contratoRespository.findByIntervalDate(LocalDate.parse(dtInicio), LocalDate.parse(dtTermino));
-//		} else {
-//			 contratos = contratoRespository.getThisMonth();
-//		}
-//		
-//		double valorTotalLiquido = contratos.stream().mapToDouble(contrato -> contrato.getValor().doubleValue() * 0.01).sum();
-//		List<Long> ids = contratos.stream().map(contrato -> contrato.getId()).collect(Collectors.toList());
-//		return ResponseEntity.ok(new ContaReceberFinanceiroDto(contratos.size(), valorTotalLiquido, ids));
-//	}
-	
 	@DeleteMapping("arquivo/{id}")
 	@Transactional
 	public ResponseEntity<?> removerArquivo(@PathVariable Long id, @RequestParam String arquivo) {
@@ -174,19 +159,6 @@ public class ContratoController<T> {
 
 		return ResponseEntity.notFound().build();
 	}
-	
-//	@PatchMapping("/repassar-pagamento-consultor/{id}")
-//	@Transactional
-//	public ResponseEntity<?> repassar(@PathVariable Long id) {
-//		Optional<Contrato> optional = contratoRespository.findById(id);
-//
-//		if (optional.isPresent()) {
-//			Contrato contrato = optional.get();
-//			contrato.setRepassado(true);
-//			return ResponseEntity.ok(contrato.criaDto());
-//		}
-//		return ResponseEntity.notFound().build();
-//	}
 	
 	@GetMapping("relatorio/contratos-semana")
 	public ResponseEntity<?> buscarContratosSemana() {

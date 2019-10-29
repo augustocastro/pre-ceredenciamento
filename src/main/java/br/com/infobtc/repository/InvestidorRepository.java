@@ -9,6 +9,14 @@ import br.com.infobtc.model.Status;
 
 public interface InvestidorRepository extends JpaRepository<Investidor, Long> {
 
-	List<Investidor> findByStatusInvestidor(Status statusInvestidor);
+//	List<Investidor> findByStatusInvestidorAndConsultorId(Status statusInvestidor, Long consultorId);
 
+	List<Investidor> findByStatusInvestidorAndConsultorId(Status statusInvestidor, Long consultorId);
+	
+	List<Investidor> findByStatusInvestidor(Status statusInvestidor);
+	
+//	List<Investidor> findByConsultorId(Long consultorId);
+
+	List<Investidor> findByConsultorId(Long consultorId);
+	
 }

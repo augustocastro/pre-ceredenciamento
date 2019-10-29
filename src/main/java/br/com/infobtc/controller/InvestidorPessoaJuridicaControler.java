@@ -33,10 +33,12 @@ import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.controller.form.EnderecoForm;
 import br.com.infobtc.controller.form.InvestidorArquivosForm;
 import br.com.infobtc.controller.form.InvestidorPessoaJuridicaForm;
+import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.DadosHash;
 import br.com.infobtc.model.Endereco;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.model.Status;
+import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
@@ -55,6 +57,9 @@ public class InvestidorPessoaJuridicaControler {
 	@Autowired
 	private DadosHashRepository dadosHashRepository;
 
+	@Autowired
+	private ConsultorRepository consultorRepository;
+	
 	@Autowired
 	private S3Service s3Service;
 
@@ -85,6 +90,14 @@ public class InvestidorPessoaJuridicaControler {
 				enderecoForm.setarPropriedades(endereco);
 				form.setarPropriedades(investidor);
 
+				if (isTokenValido) {
+					Long usuarioId = tokenService.getUsuario(token);
+					Consultor consultor = consultorRepository.findByUsuarioId(usuarioId).isPresent() ? consultorRepository.findByUsuarioId(usuarioId).get() : null ; 
+					form.setarPropriedades(investidor, consultor);
+				} else {
+					form.setarPropriedades(investidor);
+				}
+				
 				if (investidorArquivosForm.getArquivos() != null && investidorArquivosForm.getArquivos().length > 0) {
 					for (MultipartFile file : investidorArquivosForm.getArquivos()) {
 						URI uploadFile = s3Service.uploadFile(file);

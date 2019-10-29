@@ -23,6 +23,7 @@ import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.RepasseDto;
 import br.com.infobtc.controller.form.RepasseForm;
 import br.com.infobtc.model.Repasse;
+import br.com.infobtc.model.TipoRepasse;
 import br.com.infobtc.repository.ContratoRepository;
 import br.com.infobtc.repository.RepasseRepository;
 import br.com.infobtc.service.S3Service;
@@ -74,8 +75,16 @@ public class RepasseController {
 	}
 	
 	@GetMapping("contrato/{id}")
-	public ResponseEntity<List<RepasseDto>> buscarRepassesPorContrato(@PathVariable Long id) {
-		List<Repasse> repasses = repasseRepository.findByContratoId(id);		
+	public ResponseEntity<List<RepasseDto>> buscarRepassesPorContrato(@PathVariable Long id, TipoRepasse tipoRepasse) {
+		List<Repasse> repasses;
+		
+		if (id != null && tipoRepasse != null) {
+			repasses = repasseRepository.findByContratoIdAndTipoRepasse(id, tipoRepasse);			
+		} else if (tipoRepasse != null) {
+			repasses = repasseRepository.findByTipoRepasse(tipoRepasse);		
+		} else {
+			repasses = repasseRepository.findByContratoId(id);
+		}
 		return ResponseEntity.ok(new RepasseDto().converterPerfis(repasses));
 	}
 }

@@ -42,6 +42,9 @@ public class Investidor {
 	
 	private LocalDate dtCadastramento;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Consultor consultor;
+	
 	public Investidor() {
 		this.setStatusInvestidor(Status.EM_ANALISE);
 		this.setDtCadastramento(LocalDate.now());
@@ -167,5 +170,13 @@ public class Investidor {
 	
 	public LocalDate getDtCadastramento() {
 		return dtCadastramento;
+	}
+	
+	public Consultor getConsultor() {
+		return consultor;
+	}
+	
+	public void setConsultor(Consultor consultor) {
+		this.consultor = consultor;
 	}
 }

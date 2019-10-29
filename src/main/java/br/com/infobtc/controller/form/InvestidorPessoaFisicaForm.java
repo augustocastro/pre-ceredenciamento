@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
+import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.EstadoCivil;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
@@ -226,6 +227,11 @@ public class InvestidorPessoaFisicaForm {
 		return investidor;
 	}
 
+	public void setarPropriedades(InvestidorPessoaFisica investidor, Consultor consultor) {
+		setarPropriedades(investidor);
+		investidor.setConsultor(consultor);
+	}
+
 	public void setarPropriedades(InvestidorPessoaFisica investidor) {
 		investidor.setCpf(cpf);
 		investidor.setDocumento(documento);
@@ -244,5 +250,5 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setDeclaracaoLicitude(declaracao_licitude);
 		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
 	}
-
+	
 }

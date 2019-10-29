@@ -10,9 +10,8 @@ public class InvestidorArquivosForm {
 	@NotBlank
 	@NotNull
 	private String investidor;
-	
 	private MultipartFile[] arquivos;
-
+	
 	public String getInvestidor() {
 		return investidor;
 	}

@@ -11,6 +11,7 @@ import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.Status;
 import br.com.infobtc.model.TipoRecebedor;
+import br.com.infobtc.model.TipoRepasse;
 import br.com.infobtc.repository.ContratoRepository;
 import javassist.NotFoundException;
 
@@ -23,14 +24,16 @@ public class RepasseForm {
 	private Long id_contrato;
 	@NotNull
 	private TipoRecebedor tipo_recebedor;
+	private TipoRepasse tipo_repasse;
 	private String data;
-
+	
 	public void setarPropriedades(Repasse repasse, ContratoRepository contratoRepository) throws NotFoundException {
 		repasse.setValor(valor);
 		repasse.setObservacao(observacao);
 		repasse.setStatus(status);
 		repasse.setData(LocalDate.parse(data));
 		repasse.setTipoRecebedor(tipo_recebedor);
+		repasse.setTipoRepasse(tipo_repasse);
 		
 		Optional<Contrato> optional = contratoRepository.findById(id_contrato);
 		
@@ -105,6 +108,14 @@ public class RepasseForm {
 	
 	public void setTipo_recebedor(TipoRecebedor tipo_recebedor) {
 		this.tipo_recebedor = tipo_recebedor;
+	}
+	
+	public void setTipo_repasse(TipoRepasse tipo_repasse) {
+		this.tipo_repasse = tipo_repasse;
+	}
+	
+	public TipoRepasse getTipo_repasse() {
+		return tipo_repasse;
 	}
 
 }

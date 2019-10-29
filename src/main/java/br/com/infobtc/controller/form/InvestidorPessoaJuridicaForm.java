@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
@@ -113,6 +114,11 @@ public class InvestidorPessoaJuridicaForm {
 		return investidor;
 	}
 
+	public void setarPropriedades(InvestidorPessoaJuridica investidor, Consultor consultor) {
+		setarPropriedades(investidor);
+		investidor.setConsultor(consultor);
+	}
+	
 	public void setarPropriedades(InvestidorPessoaJuridica investidor) {
 		investidor.setCnpj(cnpj);
 		investidor.setEmail(email);

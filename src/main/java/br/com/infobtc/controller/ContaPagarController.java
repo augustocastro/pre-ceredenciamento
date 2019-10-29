@@ -156,7 +156,6 @@ public class ContaPagarController {
 						conta.getArquivosUrl().add(uploadFile.toURL().toString());
 					}
 				}
-				
 				return ResponseEntity.ok(new ContaDetalhadoDto(conta));	
 			}
 		} catch (JsonParseException e) {
@@ -242,6 +241,5 @@ public class ContaPagarController {
 		List<Conta> contas = contaRepository.buscarContasPedentesSemana(dataHoje, dateDaquiUmaUmaSemana);
 		return ResponseEntity.ok(new ContaDto().converter(contas));
 	}
-
 
 }

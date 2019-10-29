@@ -22,7 +22,8 @@ public class Repasse {
 	private String anexo;
 	private Status status;
 	private LocalDate data;
-
+	@Enumerated(EnumType.STRING)
+	private TipoRepasse tipoRepasse; 
 	@Enumerated(EnumType.STRING)
 	private TipoRecebedor tipoRecebedor;
 	private String recebedor;
@@ -100,5 +101,13 @@ public class Repasse {
 	
 	public void setTipoRecebedor(TipoRecebedor tipoRecebedor) {
 		this.tipoRecebedor = tipoRecebedor;
+	}
+	
+	public TipoRepasse getTipoRepasse() {
+		return tipoRepasse;
+	}
+	
+	public void setTipoRepasse(TipoRepasse tipoRepasse) {
+		this.tipoRepasse = tipoRepasse;
 	}
 }

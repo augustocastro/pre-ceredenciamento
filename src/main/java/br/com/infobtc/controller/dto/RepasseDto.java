@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.Status;
 import br.com.infobtc.model.TipoRecebedor;
+import br.com.infobtc.model.TipoRepasse;
 
 public class RepasseDto {
 
@@ -18,7 +19,7 @@ public class RepasseDto {
 	private String data;
 	private TipoRecebedor tipo_recebedor;
 	private String recebedor;
-	
+	private TipoRepasse tipo_repasse;
 	public RepasseDto() {
 		
 	}
@@ -32,6 +33,7 @@ public class RepasseDto {
 		this.data = repasse.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.tipo_recebedor = repasse.getTipoRecebedor();
 		this.recebedor = repasse.getRecebedor();
+		this.tipo_repasse = repasse.getTipoRepasse();
 	}
 
 	public double getValor() {
@@ -64,6 +66,10 @@ public class RepasseDto {
 	
 	public TipoRecebedor getTipo_recebedor() {
 		return tipo_recebedor;
+	}
+	
+	public TipoRepasse getTipo_repasse() {
+		return tipo_repasse;
 	}
 	
 	public List<RepasseDto> converterPerfis(List<Repasse> repasses) {

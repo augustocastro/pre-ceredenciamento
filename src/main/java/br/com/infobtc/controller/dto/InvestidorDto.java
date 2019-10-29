@@ -15,7 +15,8 @@ public class InvestidorDto {
 	private String telefone;
 	private String tipo;
 	private String cpf_or_cnpj;
-
+	private String status_investidor;
+	
 	public InvestidorDto() {
 	}
 
@@ -25,6 +26,7 @@ public class InvestidorDto {
 		this.email = investidor.getEmail();
 		this.telefone = investidor.getTelefone();
 		this.tipo = investidor.getTipo();
+		this.status_investidor = investidor.getStatusInvestidor().toString();
 		
 		if (investidor.getTipo().equals("pessoa_fisica")) {
 			InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica)investidor;
@@ -57,6 +59,10 @@ public class InvestidorDto {
 
 	public String getCpf_or_cnpj() {
 		return cpf_or_cnpj;
+	}
+	
+	public String getStatus_investidor() {
+		return status_investidor;
 	}
 	
 	public List<InvestidorDto> converter(List<Investidor> pessoas) {

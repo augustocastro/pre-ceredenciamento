@@ -19,31 +19,17 @@ import br.com.infobtc.model.Contrato;
 @RestController
 @RequestMapping("/conta-receber")
 public class ContaReceberController {
-
-//	@Autowired
-//	private ContratoRepository contratoRespository;
 	
 	@Autowired
 	private ContratoDao contratoDao; 
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> contasReceberConsultor(Long idConsultor, @RequestParam(required = true) String dtInicio, @RequestParam(required = true) String dtTermino, Boolean repassado) {
+	public ResponseEntity<?> buscarContasReceberPorConsultor(Long idConsultor, @RequestParam(required = true) String dtInicio, @RequestParam(required = true) String dtTermino, Boolean repassado) {
 		LocalDate dtInicioParse =  LocalDate.parse(dtInicio);
 		LocalDate dtTerminoParse =  LocalDate.parse(dtTermino);
 		List<Contrato> contratos;
 		
-//		if (idConsultor != null && repassado != null) {
-//			if (!consultorRepository.findById(idConsultor).isPresent()) {
-//				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(String.format("O consultor de id %s não foi encontrado.", idConsultor)));
-//			}			
-//			contratos = contratoRespository.findByIntervalDate(idConsultor, repassado);
-//		} else if (idConsultor != null && repassado == null) {
-//			contratos = contratoRespository.findByIntervalDate(idConsultor);
-//		} else if(idConsultor == null && repassado != null) {
-//			contratos = contratoRespository.findByIntervalDate(repassado);
-//		} else {
-			contratos = contratoDao.finfByInterval(dtInicioParse, dtTerminoParse, idConsultor, false);
-//		}
+		contratos = contratoDao.finfByInterval(dtInicioParse, dtTerminoParse, idConsultor, false);
 		
 		List<ContaReceberDto> contas = contratos
 			.stream()
@@ -52,19 +38,5 @@ public class ContaReceberController {
 		
 		return ResponseEntity.ok(contas);
 	}
-	
-//	private boolean estaNoItervalo(LocalDate dtInicioContratro, LocalDate dtInicio, LocalDate dtTermino) {
-//		if(dtInicio.getDayOfMonth() <= dtInicioContratro.getDayOfMonth() && dtInicioContratro.getDayOfMonth() <= dtTermino.getDayOfMonth()) {
-//			return true;
-//		} else if (dtTermino.getMonthValue() > dtInicio.getMonthValue()
-//				&& (dtInicioContratro.getDayOfMonth() <= dtInicio.getDayOfMonth()
-//				&& dtTermino.getDayOfMonth() >= dtInicioContratro.getDayOfMonth() 
-//				|| dtInicioContratro.getDayOfMonth() <= dtInicio.getDayOfMonth() 
-//				&& dtTermino.getDayOfMonth() >= dtInicioContratro.getDayOfMonth())) {
-//			return true;
-//		}else {
-//			return false;
-//		}
-//	}
 
 }
