@@ -56,7 +56,7 @@ public class InvestidorController {
 	@Autowired
 	private TokenService tokenService; 
 	
-	@GetMapping("/consultores")
+	@GetMapping("/investidores")
 	public ResponseEntity<List<InvestidorDto>> buscarComFiltros(Status statusInvestidor, Long consultorId) {
 		List<Investidor> investidores;
 		
