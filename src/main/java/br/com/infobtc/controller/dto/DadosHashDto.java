@@ -8,12 +8,14 @@ public class DadosHashDto {
 	private String hash;
 	private String nome;
 	private String email;
-
+	private Long usuario_consultor_id;
+	
 	public DadosHashDto(DadosHash dadosHash) {
 		this.id = dadosHash.getId();
 		this.email = dadosHash.getEmail();
 		this.nome = dadosHash.getNome();
 		this.hash = dadosHash.getHash();
+		this.usuario_consultor_id = dadosHash.getUsuarioConsultorId();
 	}
 	
 	public Long getId() {
@@ -30,6 +32,10 @@ public class DadosHashDto {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public Long getUsuario_consultor_id() {
+		return usuario_consultor_id;
 	}
 
 }

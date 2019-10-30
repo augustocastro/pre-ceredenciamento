@@ -23,7 +23,7 @@ public class HashService {
 	@Value("${infobtc.jwt.secret}")
 	private String secret;
 	
-	public String gerarCodigoHash() {
+	public String gerarCodigoHash(Long idUsuario) {
 		String palavraChave = LocalDateTime.now().toString() + secret;
 		
 		/*
@@ -31,7 +31,8 @@ public class HashService {
 		 * MD5
 		 * SHA-1
 		 * SHA-256
-		*/
+		*/		
+		
 		return stringHexa(gerarHash(palavraChave, "SHA-256"));
 	}
 	
@@ -56,10 +57,11 @@ public class HashService {
 			return null;
 		}
 	}
-	
+
 	public boolean isHashCodeValido(HttpServletRequest request) {
 		String hash = request.getHeader("HashCode");
 		Optional<DadosHash> dadosHash = dadosHashRepository.findByHash(hash);
+		
 		if (dadosHash.isPresent() && request.getMethod().equals("POST")  && request.getRequestURL().toString().contains("/investidor-pessoa")) {
 			return true;
 		}

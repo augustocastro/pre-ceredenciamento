@@ -1,5 +1,6 @@
 package br.com.infobtc.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.DadosHashDto;
 import br.com.infobtc.controller.form.DadosHashForm;
 import br.com.infobtc.model.DadosHash;
@@ -29,11 +31,17 @@ public class CodigoHashController {
 	@Autowired
 	private EmailService emailService;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@PostMapping
-	public ResponseEntity<DadosHashDto> gerarCodigoHash(@RequestBody @Valid DadosHashForm dadosHashForm) {
-		String hash = hashService.gerarCodigoHash();
+	public ResponseEntity<DadosHashDto> gerarCodigoHash(HttpServletRequest request, @RequestBody @Valid DadosHashForm dadosHashForm) {
+		String token = tokenService.recuperarToken(request);
+		Long usuarioId = tokenService.getUsuario(token);
+		String hash = hashService.gerarCodigoHash(usuarioId);
 		
 		DadosHash dadosHash = new DadosHash();
+		dadosHash.setUsuario_consultor_id(usuarioId);
 		dadosHash.setHash(hash);
 		dadosHashForm.setarPropriedades(dadosHash);
 		

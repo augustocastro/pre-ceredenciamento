@@ -90,14 +90,12 @@ public class InvestidorPessoaJuridicaControler {
 				enderecoForm.setarPropriedades(endereco);
 				form.setarPropriedades(investidor);
 
-				if (isTokenValido) {
-					Long usuarioId = tokenService.getUsuario(token);
-					Consultor consultor = consultorRepository.findByUsuarioId(usuarioId).isPresent() ? consultorRepository.findByUsuarioId(usuarioId).get() : null ; 
-					form.setarPropriedades(investidor, consultor);
-				} else {
-					form.setarPropriedades(investidor);
-				}
-				
+				Optional<Consultor> findByUsuarioId = isTokenValido ? consultorRepository.findByUsuarioId(tokenService.getUsuario(token)) 
+					: consultorRepository.findByUsuarioId(dadosHash.get().getUsuarioConsultorId());
+					
+				Consultor consultor = findByUsuarioId.isPresent() ? findByUsuarioId.get() : null ; 
+				form.setarPropriedades(investidor, consultor);
+		
 				if (investidorArquivosForm.getArquivos() != null && investidorArquivosForm.getArquivos().length > 0) {
 					for (MultipartFile file : investidorArquivosForm.getArquivos()) {
 						URI uploadFile = s3Service.uploadFile(file);

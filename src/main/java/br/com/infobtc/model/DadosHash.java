@@ -14,7 +14,8 @@ public class DadosHash {
 	private String hash;
 	private String nome;
 	private String email;
-
+	private Long usuarioConsultorId;
+	
 	public Long getId() {
 		return id;
 	}
@@ -45,6 +46,14 @@ public class DadosHash {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public Long getUsuarioConsultorId() {
+		return usuarioConsultorId;
+	}
+	
+	public void setUsuario_consultor_id(Long usuarioConsultorId) {
+		this.usuarioConsultorId = usuarioConsultorId;
 	}
 
 }

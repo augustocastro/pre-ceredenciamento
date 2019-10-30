@@ -5,7 +5,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,19 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.InvestidorDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaFisicaDto;
 import br.com.infobtc.controller.dto.InvestidorPessoaJuridicaDto;
 import br.com.infobtc.controller.vo.InvestidorEnderecoVo;
 import br.com.infobtc.dao.InvestidorDao;
-import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.Investidor;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
 import br.com.infobtc.model.Status;
-import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.InvestidorRepository;
 import br.com.infobtc.service.S3Service;
 
@@ -48,13 +44,7 @@ public class InvestidorController {
 	private InvestidorDao investidorDao;
 	
 	@Autowired
-	private ConsultorRepository consultorRepository;
-	
-	@Autowired
 	private S3Service s3Service;
-
-	@Autowired
-	private TokenService tokenService; 
 	
 	@GetMapping("/investidores")
 	public ResponseEntity<List<InvestidorDto>> buscarComFiltros(Status statusInvestidor, Long consultorId) {
@@ -70,13 +60,6 @@ public class InvestidorController {
 		
 		return ResponseEntity.ok(new InvestidorDto().converter(investidores));
 	}
-	
-	
-//	@GetMapping("/consultor/{consultorId}")
-//	public ResponseEntity<List<InvestidorDto>> buscarTodos(@PathVariable Long consultorId) {
-//		List<Investidor> investidores = investidorRepository.findByConsultorId(consultorId);
-//		return ResponseEntity.ok(new InvestidorDto().converter(investidores));
-//	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
@@ -144,15 +127,15 @@ public class InvestidorController {
 	
 	@PatchMapping("/{id}")
 	@Transactional
-	public ResponseEntity<?> aprovar(HttpServletRequest request, @PathVariable Long id, @RequestParam(required = true) Status statusInvestidor, String justificativa) {
+	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusInvestidor, String justificativa) {
 		Optional<Investidor> optional = investidorRepository.findById(id);
-		String token = tokenService.recuperarToken(request);
+//		String token = tokenService.recuperarToken(request);
 				
 		if (optional.isPresent()) {
 			Investidor investidor = optional.get();
 			investidor.setJustificativaReprovacao(justificativa != null && statusInvestidor == Status.REPROVADO ? justificativa : investidor.getJustificativaReprovacao());
 			investidor.setStatusInvestidor(statusInvestidor);
-			setarConsultor(token, investidor);
+//			setarConsultor(token, investidor);
 			
 			return ResponseEntity.ok(investidor);
 		} 
@@ -165,9 +148,4 @@ public class InvestidorController {
 		return ResponseEntity.ok(investidores);
 	}
 	
-	private void setarConsultor(String token, Investidor investidor) {
-		Long usuarioId = tokenService.getUsuario(token);
-		Consultor consultor = consultorRepository.findByUsuarioId(usuarioId).isPresent() ? consultorRepository.findByUsuarioId(usuarioId).get() : null ; 
-		investidor.setConsultor(consultor);
-	}
 }
