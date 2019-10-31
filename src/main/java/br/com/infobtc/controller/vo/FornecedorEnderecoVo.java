@@ -11,15 +11,15 @@ public class FornecedorEnderecoVo {
 	private String nome;
 	private String cnpj;
 	private String telefone;
-	private String endereço;
+	private String endereco;
 	private String dt_cadastramento;
 
-	public FornecedorEnderecoVo(String nome, String cnpj, String telefone, String endereço,
+	public FornecedorEnderecoVo(String nome, String cnpj, String telefone, String endereco,
 			LocalDate dt_cadastramento) {
 		this.nome = nome;
 		this.cnpj = cnpj;
 		this.telefone = telefone;
-		this.endereço = endereço;
+		this.endereco = endereco;
 		this.dt_cadastramento = dt_cadastramento != null ? dt_cadastramento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : null;
 	}
 
@@ -35,8 +35,8 @@ public class FornecedorEnderecoVo {
 		return telefone;
 	}
 
-	public String getEndereço() {
-		return endereço;
+	public String getEndereco() {
+		return endereco;
 	}
 
 	public String getDt_cadastramento() {
