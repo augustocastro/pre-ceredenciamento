@@ -19,7 +19,6 @@ import javassist.NotFoundException;
 
 public class ContratoInvestimentoForm {
 	 
-
 	@NotNull
 	private String dt_inicio;
 	
@@ -47,7 +46,8 @@ public class ContratoInvestimentoForm {
 	@NotNull
 	private BancoForm banco;
 
-	
+	private String banco_recebimento_escritorio;
+
 	public String getDt_inicio() {
 		return dt_inicio;
 	}
@@ -76,10 +76,12 @@ public class ContratoInvestimentoForm {
 		return consultor_id;
 	}
 	
-
-	
 	public BancoForm getBanco() {
 		return banco;
+	}
+	
+	public String getBanco_recebimento_escritorio() {
+		return banco_recebimento_escritorio;
 	}
 
 	public void setarPropriedades(ContratoInvestimento contrato, InvestidorRepository investidorRepository, ConsultorRepository consultorRepository) throws NotFoundException {
@@ -88,6 +90,7 @@ public class ContratoInvestimentoForm {
 		contrato.setDtInicio(LocalDate.parse(dt_inicio));
 		contrato.setDtTermino(LocalDate.parse(dt_termino));
 		contrato.setQuantidadeMeses(quantidade_meses);	
+		contrato.setBancoRecebimentoEscritorio(banco_recebimento_escritorio);
 		
 		Optional<Investidor> investidor = investidorRepository.findById(investidor_id);
 		Optional<Consultor> consultor = consultorRepository.findById(consultor_id);

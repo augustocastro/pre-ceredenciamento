@@ -24,8 +24,9 @@ public class ContratoReinvestimentoDto {
 	private boolean repassado;
 	private String justificativa_reprovacao;
 	private BancoDto banco;
+	private String banco_recebimento_escritorio;
 	private List<String> arquivos_url = new ArrayList<String>();
-
+	
 	public ContratoReinvestimentoDto() {
 
 	}
@@ -44,6 +45,7 @@ public class ContratoReinvestimentoDto {
 		this.arquivos_url = contratoReinvestimento.getArquivosUrl();
 		this.justificativa_reprovacao = contratoReinvestimento.getJustificativaReprovacao();
 		this.repassado = contratoReinvestimento.isRepassado();
+		this.banco_recebimento_escritorio = contratoReinvestimento.getBancoRecebimentoEscritorio();
 	}
 
 	public Long getId() {
@@ -92,6 +94,10 @@ public class ContratoReinvestimentoDto {
 	
 	public BancoDto getBanco() {
 		return banco;
+	}
+	
+	public String getBanco_recebimento_escritorio() {
+		return banco_recebimento_escritorio;
 	}
 
 	public List<String> getArquivos_url() {

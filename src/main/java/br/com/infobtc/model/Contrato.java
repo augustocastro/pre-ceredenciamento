@@ -61,10 +61,12 @@ public abstract class Contrato {
 	
 	private boolean repassado;
 	
+	private String bancoRecebimentoEscritorio;
+	
 	public Contrato() {
 		this.setStatusContrato(Status.EM_ANALISE);
 		this.setStatusFinanceiro(Status.EM_ANALISE);
-		this.setDtCadastro(dtCadastro);
+		this.setDtCadastro(LocalDate.now());
 	}
 	
 	public Long getId() {
@@ -178,6 +180,14 @@ public abstract class Contrato {
 	
 	public void setDtCadastro(LocalDate dtCadastro) {
 		this.dtCadastro = dtCadastro;
+	}
+	
+	public String getBancoRecebimentoEscritorio() {
+		return bancoRecebimentoEscritorio;
+	}
+	
+	public void setBancoRecebimentoEscritorio(String bancoRecebimentoEscritorio) {
+		this.bancoRecebimentoEscritorio = bancoRecebimentoEscritorio;
 	}
 	
 	public abstract Object criaDto();

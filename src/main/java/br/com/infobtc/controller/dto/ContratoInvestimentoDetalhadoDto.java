@@ -24,8 +24,10 @@ public class ContratoInvestimentoDetalhadoDto {
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
 	private BancoDto banco;
+	private String banco_recebimento_escritorio;
 	private List<ContratoReinvestimentoDto> reinvestimentos = new ArrayList<ContratoReinvestimentoDto>();
 	private List<String> arquivos_url = new ArrayList<String>();
+	
 	public ContratoInvestimentoDetalhadoDto() {
 	}
 
@@ -45,6 +47,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.arquivos_url = contratoInvestimento.getArquivosUrl();
 		this.justificativa_reprovacao = contratoInvestimento.getJustificativaReprovacao();
 		this.repassado = contratoInvestimento.isRepassado();
+		this.banco_recebimento_escritorio = contratoInvestimento.getBancoRecebimentoEscritorio();
 	}
 
 	public Long getId() {
@@ -83,6 +86,10 @@ public class ContratoInvestimentoDetalhadoDto {
 		return banco;
 	}
 
+	public String getBanco_recebimento_escritorio() {
+		return banco_recebimento_escritorio;
+	}
+	
 	public List<ContratoReinvestimentoDto> getReinvestimentos() {
 		return reinvestimentos;
 	}

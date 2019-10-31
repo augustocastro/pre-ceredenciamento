@@ -41,6 +41,8 @@ public class ContratoReinvestimentoForm {
 	@NotNull
 	private BancoForm banco;
 	
+	private String banco_recebimento_escritorio;
+	
 	public String getDt_inicio() {
 		return dt_inicio;
 	}
@@ -72,12 +74,17 @@ public class ContratoReinvestimentoForm {
 		this.investimento_id = investimento_id;
 	}
 	
+	public String getBanco_recebimento_escritorio() {
+		return banco_recebimento_escritorio;
+	}
+	
 	public void setarPropriedades(ContratoReinvestimento contrato, ContratoInvestimentoRepository contratoInvestimentoRepository) throws NotFoundException {
 		contrato.setValor(new BigDecimal(valor));
 		contrato.setDtInicio(LocalDate.parse(dt_inicio));
 		contrato.setDtTermino(LocalDate.parse(dt_termino));
 		contrato.setQuantidadeMeses(quantidade_meses);	
 		contrato.setAlinea(alinea);
+		contrato.setBancoRecebimentoEscritorio(banco_recebimento_escritorio);
 		
 		Optional<ContratoInvestimento> contratoInvestimento = contratoInvestimentoRepository.findById(investimento_id);
 		
