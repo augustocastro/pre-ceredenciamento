@@ -8,11 +8,12 @@ import javax.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.infobtc.model.Contrato;
+import br.com.infobtc.model.Parcela;
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.Status;
 import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
-import br.com.infobtc.repository.ContratoRepository;
+import br.com.infobtc.repository.ParcelaRepository;
 import javassist.NotFoundException;
 
 public class RepasseForm {
@@ -21,13 +22,13 @@ public class RepasseForm {
 	private String observacao;
 	private MultipartFile anexo;
 	private Status status;
-	private Long id_contrato;
+	private Long id_parcela;
 	@NotNull
 	private TipoRecebedor tipo_recebedor;
 	private TipoRepasse tipo_repasse;
 	private String data;
 	
-	public void setarPropriedades(Repasse repasse, ContratoRepository contratoRepository) throws NotFoundException {
+	public void setarPropriedades(Repasse repasse, ParcelaRepository parcelaRepository) throws NotFoundException {
 		repasse.setValor(valor);
 		repasse.setObservacao(observacao);
 		repasse.setStatus(status);
@@ -35,11 +36,14 @@ public class RepasseForm {
 		repasse.setTipoRecebedor(tipo_recebedor);
 		repasse.setTipoRepasse(tipo_repasse);
 		
-		Optional<Contrato> optional = contratoRepository.findById(id_contrato);
+		Optional<Parcela> optional = parcelaRepository.findById(id_parcela);
 		
 		if (optional.isPresent()) {
-			Contrato contrato = optional.get();
-			repasse.setContrato(contrato);
+			Parcela parcela = optional.get();
+			Contrato contrato = parcela.getContrato();
+			parcela.setRepasse(repasse);
+
+			repasse.setParcela(parcela);
 			
 			if (tipo_recebedor == TipoRecebedor.CONSULTOR) {
 				repasse.setRecebedor(contrato.getConsultor().getNome());
@@ -50,7 +54,7 @@ public class RepasseForm {
 			}
 			
 		} else {
-			throw new NotFoundException(String.format("O contrato de id %s não foi encontrado.", id_contrato));
+			throw new NotFoundException(String.format("O contrato de id %s não foi encontrado.", id_parcela));
 		}
 	}
 
@@ -86,12 +90,12 @@ public class RepasseForm {
 		this.status = status;
 	}
 
-	public void setId_contrato(Long id_contrato) {
-		this.id_contrato = id_contrato;
+	public void setId_parecla(Long id_parcela) {
+		this.id_parcela = id_parcela;
 	}
 
-	public Long getId_contrato() {
-		return id_contrato;
+	public Long getId_parcela() {
+		return id_parcela;
 	}
 
 	public void setData(String data) {

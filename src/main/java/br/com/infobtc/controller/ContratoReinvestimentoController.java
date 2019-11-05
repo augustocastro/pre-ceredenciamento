@@ -34,6 +34,7 @@ import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.BancoForm;
 import br.com.infobtc.controller.form.ContratoArquivosForm;
 import br.com.infobtc.controller.form.ContratoReinvestimentoForm;
+import br.com.infobtc.controller.service.ParcelaService;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.ContratoReinvestimento;
@@ -59,6 +60,9 @@ public class ContratoReinvestimentoController {
 
 	@Autowired
 	private S3Service s3Service;
+	
+	@Autowired
+	private ParcelaService parcelaService;
 	
 	@PostMapping
 	@Transactional
@@ -88,6 +92,8 @@ public class ContratoReinvestimentoController {
 			
 			bancoRepository.save(banco);
 			contratoReinvestimentoRepository.save(contrato);
+			
+			parcelaService.criarParcelas(contrato);
 			
 			Optional<ContratoInvestimento> investimento = contratoInvestimentoRepository.findById(contrato.getInvestimento().getId());
 			

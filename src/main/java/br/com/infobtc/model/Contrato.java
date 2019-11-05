@@ -10,11 +10,13 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -62,6 +64,9 @@ public abstract class Contrato {
 	private boolean repassado;
 	
 	private String bancoRecebimentoEscritorio;
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Parcela> parcelas;
 	
 	public Contrato() {
 		this.setStatusContrato(Status.EM_ANALISE);
@@ -188,6 +193,14 @@ public abstract class Contrato {
 	
 	public void setBancoRecebimentoEscritorio(String bancoRecebimentoEscritorio) {
 		this.bancoRecebimentoEscritorio = bancoRecebimentoEscritorio;
+	}
+	
+	public List<Parcela> getParcelas() {
+		return parcelas;
+	}
+	
+	public void setParcelas(List<Parcela> parcelas) {
+		this.parcelas = parcelas;
 	}
 	
 	public abstract Object criaDto();

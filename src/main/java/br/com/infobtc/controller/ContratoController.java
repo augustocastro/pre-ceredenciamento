@@ -169,8 +169,8 @@ public class ContratoController<T> {
 		return ResponseEntity.ok(new ContratoDto().converter(contratos));
 	}
 	
-	@GetMapping("relatorio/todos")
-	public ResponseEntity<?> consultarTodos(Long idConsultor, String dtInicio, String dtTermino) {
+	@GetMapping("relatorio/relacao-contratos")
+	public ResponseEntity<?> consultarFiltrandoPorConsultorEIntervalo(Long idConsultor, String dtInicio, String dtTermino) {
 		LocalDate dataIncio = dtInicio != null ? LocalDate.parse(dtInicio) : null;
 		LocalDate dataTermino=  dtInicio != null ? LocalDate.parse(dtTermino) : null;
 		

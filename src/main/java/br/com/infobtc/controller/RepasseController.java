@@ -24,7 +24,7 @@ import br.com.infobtc.controller.dto.RepasseDto;
 import br.com.infobtc.controller.form.RepasseForm;
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.TipoRepasse;
-import br.com.infobtc.repository.ContratoRepository;
+import br.com.infobtc.repository.ParcelaRepository;
 import br.com.infobtc.repository.RepasseRepository;
 import br.com.infobtc.service.S3Service;
 import javassist.NotFoundException;
@@ -35,9 +35,12 @@ public class RepasseController {
 	
 	@Autowired
 	private RepasseRepository repasseRepository;
-	
+
+//	@Autowired
+//	private ContratoRepository contratoRepository;
+
 	@Autowired
-	private ContratoRepository contratoRepository;
+	private ParcelaRepository parcelaRepository;
 	
 	@Autowired
 	private S3Service s3Service;
@@ -49,7 +52,7 @@ public class RepasseController {
 		Repasse repasse = new Repasse();
 		
 		try {
-			repasseForm.setarPropriedades(repasse, contratoRepository);
+			repasseForm.setarPropriedades(repasse, parcelaRepository);
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
 		}
@@ -79,11 +82,11 @@ public class RepasseController {
 		List<Repasse> repasses;
 		
 		if (id != null && tipoRepasse != null) {
-			repasses = repasseRepository.findByContratoIdAndTipoRepasse(id, tipoRepasse);			
+			repasses = repasseRepository.findByParcelaContratoIdAndTipoRepasse(id, tipoRepasse);			
 		} else if (tipoRepasse != null) {
 			repasses = repasseRepository.findByTipoRepasse(tipoRepasse);		
 		} else {
-			repasses = repasseRepository.findByContratoId(id);
+			repasses = repasseRepository.findByParcelaContratoId(id);
 		}
 		return ResponseEntity.ok(new RepasseDto().converterPerfis(repasses));
 	}

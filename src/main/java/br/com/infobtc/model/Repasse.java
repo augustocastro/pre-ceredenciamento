@@ -12,8 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Repasse {
-
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -22,14 +21,17 @@ public class Repasse {
 	private String anexo;
 	private Status status;
 	private LocalDate data;
+	
 	@Enumerated(EnumType.STRING)
 	private TipoRepasse tipoRepasse; 
+	
 	@Enumerated(EnumType.STRING)
 	private TipoRecebedor tipoRecebedor;
+	
 	private String recebedor;
 	
 	@OneToOne
-	private Contrato contrato;
+	private Parcela parcela;
 
 	public Long getId() {
 		return id;
@@ -71,12 +73,12 @@ public class Repasse {
 		this.status = status;
 	}
 	
-	public void setContrato(Contrato contrato) {
-		this.contrato = contrato;
+	public void setParcela(Parcela parcela) {
+		this.parcela = parcela;
 	}
 	
-	public Contrato getContrato() {
-		return contrato;
+	public Parcela getParcela() {
+		return parcela;
 	}
 	
 	public LocalDate getData() {

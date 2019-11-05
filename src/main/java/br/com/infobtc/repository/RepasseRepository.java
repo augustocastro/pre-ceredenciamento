@@ -9,9 +9,9 @@ import br.com.infobtc.model.TipoRepasse;
 
 public interface RepasseRepository extends JpaRepository<Repasse, Long> {
 
-	List<Repasse> findByContratoId(Long idContrato);
+	List<Repasse> findByParcelaContratoId(Long idContrato);
 	
-	List<Repasse> findByContratoIdAndTipoRepasse(Long idContrato, TipoRepasse tipoRepasse);
+	List<Repasse> findByParcelaContratoIdAndTipoRepasse(Long idContrato, TipoRepasse tipoRepasse);
 	
 	List<Repasse> findByTipoRepasse(TipoRepasse tipoRepasse);
 }
