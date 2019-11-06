@@ -31,6 +31,7 @@ import com.itextpdf.text.DocumentException;
 import br.com.infobtc.controller.dto.ContratoDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo;
+import br.com.infobtc.controller.vo.ParcelaVo;
 import br.com.infobtc.dao.ContratoDao;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.Status;
@@ -133,7 +134,7 @@ public class ContratoController<T> {
 	
 	@PatchMapping("/aprovar-contrato/{id}")
 	@Transactional
-	public ResponseEntity<?> validarContrato(@PathVariable Long id, @RequestParam(required = true) Status statusContrato, String justificativa) {
+	public ResponseEntity<?> aprovarContrato(@PathVariable Long id, @RequestParam(required = true) Status statusContrato, String justificativa) {
 		Optional<Contrato> optional = contratoRespository.findById(id);
 
 		if (optional.isPresent()) {
@@ -147,7 +148,7 @@ public class ContratoController<T> {
 
 	@PatchMapping("/aprovar-financeiro/{id}")
 	@Transactional
-	public ResponseEntity<?> validarFinanceiro(@PathVariable Long id, @RequestParam(required = true) Status statusFinanceiro, String justificativa) {
+	public ResponseEntity<?> aprovarFinanceiro(@PathVariable Long id, @RequestParam(required = true) Status statusFinanceiro, String justificativa) {
 		Optional<Contrato> optional = contratoRespository.findById(id);
 
 		if (optional.isPresent()) {
@@ -174,7 +175,14 @@ public class ContratoController<T> {
 		LocalDate dataIncio = dtInicio != null ? LocalDate.parse(dtInicio) : null;
 		LocalDate dataTermino=  dtInicio != null ? LocalDate.parse(dtTermino) : null;
 		
-		List<ContratoConsultorInvestidorVo> contratos = contratoDao.consultarFiltrandoPorConsultorEIntervalo(idConsultor, dataIncio, dataTermino);
+		List<ContratoConsultorInvestidorVo> contratos = contratoDao.buscarRelacaoContratos(idConsultor, dataIncio, dataTermino);
+		return ResponseEntity.ok(contratos);
+	}
+	
+	@GetMapping("parcela/parcelas")
+	public ResponseEntity<?> buscarParcelas(Long idContrato, Boolean repassado) {
+		
+		List<ParcelaVo> contratos = contratoDao.buscarParcelas(idContrato, repassado);
 		return ResponseEntity.ok(contratos);
 	}
 

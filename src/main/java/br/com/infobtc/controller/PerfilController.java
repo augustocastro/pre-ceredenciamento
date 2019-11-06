@@ -27,6 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.infobtc.controller.dto.UsuarioPerfilDto;
 import br.com.infobtc.controller.dto.PerfilDto;
 import br.com.infobtc.controller.form.PerfilForm;
+import br.com.infobtc.controller.vo.UsuarioPerfilPorcentagemVo;
 import br.com.infobtc.controller.vo.UsuarioPerfilVo;
 import br.com.infobtc.dao.PerfilDao;
 import br.com.infobtc.model.Funcionalidade;
@@ -110,6 +111,12 @@ public class PerfilController {
 				.collect(Collectors.groupingBy(UsuarioPerfilVo::getNomePerfil, Collectors.mapping(UsuarioPerfilDto::new, Collectors.toList())));
 
 		return ResponseEntity.ok(perfilUsuarios);
+	}
+	
+	@GetMapping("/relatorio/perfil-usuarios-porcentagem")
+	public ResponseEntity<?> buscarPerfisCalculandoPorcentagemUsuarios() {		
+		List<UsuarioPerfilPorcentagemVo> resultado = perfilDao.buscarRelacaoPerfis();
+		return ResponseEntity.ok(resultado);
 	}
 	
 	private void salvar(PerfilForm perfilForm, Perfil perfil) {

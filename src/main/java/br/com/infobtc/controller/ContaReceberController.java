@@ -26,7 +26,7 @@ public class ContaReceberController {
 		LocalDate dtInicioParse =  LocalDate.parse(dtInicio);
 		LocalDate dtTerminoParse =  LocalDate.parse(dtTermino);
 		
-		List<ContratoParcelaVo> parcelas = contratoDao.consultarParcelasPorIntervaloEConsultor(dtInicioParse, dtTerminoParse, idConsultor, false);	
+		List<ContratoParcelaVo> parcelas = contratoDao.consultarParcelasPorIntervaloEConsultor(dtInicioParse, dtTerminoParse, idConsultor, repassado);	
 		return ResponseEntity.ok(parcelas);
 	}
 

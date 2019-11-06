@@ -22,12 +22,12 @@ public class RepasseForm {
 	private String observacao;
 	private MultipartFile anexo;
 	private Status status;
-	private Long id_parcela;
+	private Long parcela_id;
 	@NotNull
 	private TipoRecebedor tipo_recebedor;
 	private TipoRepasse tipo_repasse;
 	private String data;
-	
+
 	public void setarPropriedades(Repasse repasse, ParcelaRepository parcelaRepository) throws NotFoundException {
 		repasse.setValor(valor);
 		repasse.setObservacao(observacao);
@@ -35,16 +35,16 @@ public class RepasseForm {
 		repasse.setData(LocalDate.parse(data));
 		repasse.setTipoRecebedor(tipo_recebedor);
 		repasse.setTipoRepasse(tipo_repasse);
-		
-		Optional<Parcela> optional = parcelaRepository.findById(id_parcela);
-		
+
+		Optional<Parcela> optional = parcelaRepository.findById(parcela_id);
+
 		if (optional.isPresent()) {
 			Parcela parcela = optional.get();
 			Contrato contrato = parcela.getContrato();
 			parcela.setRepasse(repasse);
 
 			repasse.setParcela(parcela);
-			
+
 			if (tipo_recebedor == TipoRecebedor.CONSULTOR) {
 				repasse.setRecebedor(contrato.getConsultor().getNome());
 			} else if (tipo_recebedor == TipoRecebedor.INVESTIDOR) {
@@ -52,9 +52,9 @@ public class RepasseForm {
 			} else if (tipo_recebedor == TipoRecebedor.ESCRITORIO) {
 				repasse.setRecebedor("Escritório");
 			}
-			
+
 		} else {
-			throw new NotFoundException(String.format("O contrato de id %s não foi encontrado.", id_parcela));
+			throw new NotFoundException(String.format("O contrato de id %s não foi encontrado.", parcela_id));
 		}
 	}
 
@@ -90,12 +90,12 @@ public class RepasseForm {
 		this.status = status;
 	}
 
-	public void setId_parecla(Long id_parcela) {
-		this.id_parcela = id_parcela;
+	public Long getParcela_id() {
+		return parcela_id;
 	}
 
-	public Long getId_parcela() {
-		return id_parcela;
+	public void setParcela_id(Long parcela_id) {
+		this.parcela_id = parcela_id;
 	}
 
 	public void setData(String data) {
@@ -105,19 +105,19 @@ public class RepasseForm {
 	public String getData() {
 		return data;
 	}
-	
+
 	public TipoRecebedor getTipo_recebedor() {
 		return tipo_recebedor;
 	}
-	
+
 	public void setTipo_recebedor(TipoRecebedor tipo_recebedor) {
 		this.tipo_recebedor = tipo_recebedor;
 	}
-	
+
 	public void setTipo_repasse(TipoRepasse tipo_repasse) {
 		this.tipo_repasse = tipo_repasse;
 	}
-	
+
 	public TipoRepasse getTipo_repasse() {
 		return tipo_repasse;
 	}

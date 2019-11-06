@@ -36,9 +36,6 @@ public class RepasseController {
 	@Autowired
 	private RepasseRepository repasseRepository;
 
-//	@Autowired
-//	private ContratoRepository contratoRepository;
-
 	@Autowired
 	private ParcelaRepository parcelaRepository;
 	
