@@ -22,8 +22,6 @@ import br.com.infobtc.repository.InvestidorPessoaFisicaRepository;
 
 public class InvestidorPessoaFisicaForm {
 
-	@NotNull
-	@NotEmpty
 	private String cpf;
 
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -38,14 +36,10 @@ public class InvestidorPessoaFisicaForm {
 	@NotEmpty
 	private String profissao;
 
-	@NotNull
-	@NotEmpty
 	private String documento;
 	
 	private String passaporte;
 
-	@NotNull
-	@NotEmpty
 	private String orgao_emissor_uf;
 
 	private String regime_bens;
