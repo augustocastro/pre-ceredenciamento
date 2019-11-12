@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.infobtc.controller.vo.ContratoParcelaVo;
 import br.com.infobtc.dao.ContratoDao;
+import br.com.infobtc.model.StatusRepasse;
 
 @RestController
 @RequestMapping("/conta-receber")
@@ -22,11 +23,11 @@ public class ContaReceberController {
 	
 	@GetMapping()
 	public ResponseEntity<?> consultarContasPorIntervaloEConsultor(Long idConsultor, @RequestParam(required = true) String dtInicio, 
-			@RequestParam(required = true) String dtTermino, Boolean repassado) {
+			@RequestParam(required = true) String dtTermino, StatusRepasse statusRepasse) {
 		LocalDate dtInicioParse =  LocalDate.parse(dtInicio);
 		LocalDate dtTerminoParse =  LocalDate.parse(dtTermino);
 		
-		List<ContratoParcelaVo> parcelas = contratoDao.consultarParcelasPorIntervaloEConsultor(dtInicioParse, dtTerminoParse, idConsultor, repassado);	
+		List<ContratoParcelaVo> parcelas = contratoDao.consultarParcelasPorIntervaloEConsultor(dtInicioParse, dtTerminoParse, idConsultor, statusRepasse);	
 		return ResponseEntity.ok(parcelas);
 	}
 

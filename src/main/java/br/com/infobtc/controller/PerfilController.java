@@ -24,8 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.infobtc.controller.dto.UsuarioPerfilDto;
 import br.com.infobtc.controller.dto.PerfilDto;
+import br.com.infobtc.controller.dto.PerfilUsuariosDto;
+import br.com.infobtc.controller.dto.UsuarioPerfilDto;
 import br.com.infobtc.controller.form.PerfilForm;
 import br.com.infobtc.controller.vo.UsuarioPerfilPorcentagemVo;
 import br.com.infobtc.controller.vo.UsuarioPerfilVo;
@@ -106,10 +107,16 @@ public class PerfilController {
 	public ResponseEntity<?> buscarUsuariosAgrupandoPorPerfil() {		
 		List<UsuarioPerfilVo> resultado = perfilDao.buscarUsuariosAgrupandoPorPerfil();
 		
-		Map<String, List<UsuarioPerfilDto>> perfilUsuarios = resultado
+		Map<String, List<UsuarioPerfilDto>> perfilUsuariosMap = resultado
 				.stream()
 				.collect(Collectors.groupingBy(UsuarioPerfilVo::getNomePerfil, Collectors
 						.mapping(UsuarioPerfilDto::new, Collectors.toList())));
+		
+		List<PerfilUsuariosDto> perfilUsuarios = new ArrayList<PerfilUsuariosDto>();
+		
+		perfilUsuariosMap.forEach(( key, value ) -> {
+			perfilUsuarios.add(new PerfilUsuariosDto(key, value));
+		});
 
 		return ResponseEntity.ok(perfilUsuarios);
 	}

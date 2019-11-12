@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo;
 import br.com.infobtc.controller.vo.ContratoParcelaVo;
 import br.com.infobtc.controller.vo.ParcelaVo;
+import br.com.infobtc.model.StatusRepasse;
 
 @Repository
 public class ContratoDao {
@@ -19,7 +20,7 @@ public class ContratoDao {
 	@PersistenceContext
     private EntityManager manager;
 	
-	public List<ContratoParcelaVo> consultarParcelasPorIntervaloEConsultor(LocalDate dtInicio, LocalDate dtTermino, Long idConsultor, Boolean repassado) {
+	public List<ContratoParcelaVo> consultarParcelasPorIntervaloEConsultor(LocalDate dtInicio, LocalDate dtTermino, Long idConsultor, StatusRepasse statusRepasse) {
 		String campos = "c.investidor.nome, c.id, p.id, c.valor, c.dtInicio, c.dtTermino, p.data, p.parcela, c.quantidadeMeses, c.consultor";
 		
 		StringBuilder query = new StringBuilder();
@@ -29,7 +30,7 @@ public class ContratoDao {
 		query.append("WHERE 1 = 1 ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
-		query.append(String.format("AND %s ", repassado != null && repassado == true ? "p.repasse != null " : repassado != null && repassado == false ? "p.repasse = null " :  "1 = 1 "));
+		query.append(String.format("AND %s ", statusRepasse != null ? "p.status = :statusRepasse ":  "1 = 1 "));
 		query.append("ORDER BY p.data ASC");
 		TypedQuery<ContratoParcelaVo> typedQuery = manager.createQuery(query.toString(), ContratoParcelaVo.class);
 		
@@ -39,6 +40,7 @@ public class ContratoDao {
 		}
 		
 		if (idConsultor != null && idConsultor != 0) typedQuery.setParameter("idConsultor", idConsultor);
+		if (statusRepasse != null) typedQuery.setParameter("statusRepasse", statusRepasse);
 	
         return typedQuery.getResultList();
     }
