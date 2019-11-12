@@ -11,6 +11,7 @@ import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.Parcela;
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.Status;
+import br.com.infobtc.model.StatusRepasse;
 import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
 import br.com.infobtc.repository.ParcelaRepository;
@@ -42,7 +43,7 @@ public class RepasseForm {
 		if (optional.isPresent()) {
 			Parcela parcela = optional.get();
 			Contrato contrato = parcela.getContrato();
-			parcela.setRepasse(repasse);
+			parcela.getRepasses().add(repasse);
 
 			repasse.setParcela(parcela);
 
@@ -54,6 +55,9 @@ public class RepasseForm {
 				repasse.setRecebedor("Escritório");
 			}
 
+			if (parcela.getStatus() == StatusRepasse.A_EXECUTAR && tipo_recebedor == TipoRecebedor.INVESTIDOR) {				
+				parcela.setStatus(StatusRepasse.EXECUTADO);
+			}
 		} else {
 			throw new NotFoundException(String.format("O contrato de id %s não foi encontrado.", parcela_id));
 		}

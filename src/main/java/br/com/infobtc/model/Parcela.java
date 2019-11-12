@@ -2,11 +2,15 @@ package br.com.infobtc.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -21,8 +25,11 @@ public class Parcela {
 	@OneToOne
 	private Contrato contrato;
 
-	@OneToOne
-	private Repasse repasse;
+	@OneToMany
+	private List<Repasse> repasses;
+	
+	@Enumerated(EnumType.STRING)
+	private StatusRepasse status;
 
 	public Parcela() {
 		
@@ -32,6 +39,7 @@ public class Parcela {
 		this.data = data;
 		this.parcela = parcela;
 		this.contrato = contrato;
+		this.status = StatusRepasse.A_EXECUTAR;
 	}
 
 	public Long getId() {
@@ -66,12 +74,20 @@ public class Parcela {
 		this.contrato = contrato;
 	}
 
-	public Repasse getRepasse() {
-		return repasse;
+	public List<Repasse > getRepasses() {
+		return repasses;
 	}
 
-	public void setRepasse(Repasse repasse) {
-		this.repasse = repasse;
+	public void setRepasses(List<Repasse> repasses) {
+		this.repasses = repasses;
+	}
+	
+	public StatusRepasse getStatus() {
+		return status;
+	}
+	
+	public void setStatus(StatusRepasse status) {
+		this.status = status;
 	}
 
 	@Override

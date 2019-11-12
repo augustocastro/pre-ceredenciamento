@@ -2,6 +2,7 @@ package br.com.infobtc.controller;
 
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,7 +26,11 @@ import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.RepasseDto;
 import br.com.infobtc.controller.form.RepasseForm;
+import br.com.infobtc.controller.vo.RepasseParcelaVo;
+import br.com.infobtc.dao.RepasseDao;
 import br.com.infobtc.model.Repasse;
+import br.com.infobtc.model.StatusRepasse;
+import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
 import br.com.infobtc.model.Usuario;
 import br.com.infobtc.repository.ParcelaRepository;
@@ -52,6 +58,9 @@ public class RepasseController {
 	@Autowired
 	private TokenService tokenService; 
 
+	@Autowired
+	private RepasseDao repasseDao; 
+	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<?> cadastrar(HttpServletRequest request, @Valid @ModelAttribute RepasseForm repasseForm,
@@ -59,8 +68,10 @@ public class RepasseController {
 		Repasse repasse = new Repasse();
 		
 		try {
-			if (parcelaRepository.buscarRepassePorParcela(repasseForm.getParcela_id()).isPresent()) {
-				throw new NotFoundException(String.format("A parcela de id %s já foi repassada.", repasseForm.getParcela_id()));
+//			TODO: DEFINIR A REGRA
+			if (parcelaRepository.buscarRepassePorParcela(repasseForm.getParcela_id(), repasseForm.getTipo_recebedor()).isPresent()) {
+				throw new NotFoundException(String.format("A parcela de id %s já foi repassada para o %s.", repasseForm.getParcela_id(), 
+						repasseForm.getTipo_recebedor().toString().toLowerCase()));
 			}
 			
 			repasseForm.setarPropriedades(repasse, parcelaRepository);
@@ -90,8 +101,8 @@ public class RepasseController {
 	}
 
 	@GetMapping("parcela/{id}")
-	public ResponseEntity<RepasseDto> buscarRepassePorParcela(@PathVariable Long id) {
-		Optional<Repasse> repasse = parcelaRepository.buscarRepassePorParcela(id);
+	public ResponseEntity<RepasseDto> buscarRepassePorParcela(@PathVariable Long id, @RequestParam(required = true) TipoRecebedor tipoRecebedor) {
+		Optional<Repasse> repasse = parcelaRepository.buscarRepassePorParcela(id, tipoRecebedor);
 
 		if (repasse.isPresent()) {
 			return ResponseEntity.ok(new RepasseDto(repasse.get()));
@@ -111,6 +122,17 @@ public class RepasseController {
 			repasses = repasseRepository.findByParcelaContratoId(id);
 		}
 		return ResponseEntity.ok(new RepasseDto().converterPerfis(repasses));
+	}
+	
+	
+	@GetMapping("repasses")
+	public ResponseEntity<List<?>> consultarRepasses(TipoRecebedor tipoRecebedor, StatusRepasse statusRepasse, String dtInicio, String dtTermino, Long contratoId) {
+		
+		LocalDate dtInicioParse = dtInicio != null ? LocalDate.parse(dtInicio): null;
+		LocalDate dtTerminoParse = dtTermino != null ? LocalDate.parse(dtTermino): null;
+		
+		List<RepasseParcelaVo> resultado = repasseDao.buscarRepassseAplicandoFiltros(tipoRecebedor, statusRepasse, dtInicioParse, dtTerminoParse, contratoId);
+		return ResponseEntity.ok(resultado);
 	}
 	
 	private void setarUsuario(HttpServletRequest request, Repasse repasse) throws NotFoundException {

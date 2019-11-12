@@ -19,8 +19,10 @@ public class Repasse {
 	private double valor;
 	private String observacao;
 	private String anexo;
-	private Status status;
 	private LocalDate data;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status;
 	
 	@Enumerated(EnumType.STRING)
 	private TipoRepasse tipoRepasse; 

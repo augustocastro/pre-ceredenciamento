@@ -28,12 +28,11 @@ public class PerfilDao {
         return typedQuery.getResultList();
     }
 	
-	public List<UsuarioPerfilPorcentagemVo> buscarRelacaoPerfis() {
-		StringBuilder query = new StringBuilder();
-		
+	public List<UsuarioPerfilPorcentagemVo> buscarRelacaoPerfis() {		
 		String selectInterno = "SELECT COUNT(p.id) FROM Usuario u JOIN u.perfis p)";
 		String campos = "perfil, COUNT(perfil.id), (COUNT(perfil.id)*100/("+selectInterno+")";
 
+		StringBuilder query = new StringBuilder();
 		query.append("SELECT NEW br.com.infobtc.controller.vo.UsuarioPerfilPorcentagemVo("+campos+") ");
 		query.append("FROM Usuario usuario ");
 		query.append("JOIN usuario.perfis perfil ");
