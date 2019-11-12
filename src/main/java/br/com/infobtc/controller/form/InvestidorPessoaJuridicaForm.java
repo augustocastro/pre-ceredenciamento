@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaJuridicaRepository;
 
@@ -129,6 +130,7 @@ public class InvestidorPessoaJuridicaForm {
 		investidor.setDeclaracaoLicitude(declaracao_licitude);
 		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
 		investidor.setInstagram(instagram);
+		investidor.setStatusInvestidor(Status.EM_ANALISE);
 	}
 
 }

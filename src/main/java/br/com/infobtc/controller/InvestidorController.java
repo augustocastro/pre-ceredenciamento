@@ -129,21 +129,18 @@ public class InvestidorController {
 	@Transactional
 	public ResponseEntity<?> aprovar(@PathVariable Long id, @RequestParam(required = true) Status statusInvestidor, String justificativa) {
 		Optional<Investidor> optional = investidorRepository.findById(id);
-//		String token = tokenService.recuperarToken(request);
 				
 		if (optional.isPresent()) {
 			Investidor investidor = optional.get();
 			investidor.setJustificativaReprovacao(justificativa != null && statusInvestidor == Status.REPROVADO ? justificativa : investidor.getJustificativaReprovacao());
 			investidor.setStatusInvestidor(statusInvestidor);
-//			setarConsultor(token, investidor);
-			
 			return ResponseEntity.ok(investidor);
 		} 
 		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/relatorio/todos")
-	public ResponseEntity<List<?>> consultarTodos() {
+	public ResponseEntity<List<InvestidorEnderecoVo>> consultarTodos() {
 		List<InvestidorEnderecoVo> investidores = investidorDao.consultarTodos();
 		return ResponseEntity.ok(investidores);
 	}

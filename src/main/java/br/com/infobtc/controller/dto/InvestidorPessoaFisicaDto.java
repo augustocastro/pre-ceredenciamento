@@ -20,6 +20,7 @@ public class InvestidorPessoaFisicaDto {
 	private String cpf;
 	private String profissao;
 	private String documento;
+	private String passaporte;
 	private String orgao_emissor_uf;
 	private String regime_bens;
 	private String nacionalidade;
@@ -61,6 +62,7 @@ public class InvestidorPessoaFisicaDto {
 		this.status_investidor = investidor.getStatusInvestidor();
 		this.instagram = investidor.getInstagram();
 		this.justificativa_reprovacao = investidor.getJustificativaReprovacao();
+		this.passaporte = investidor.getPassaporte();
 	}
 
 	public Long getId() {
@@ -93,6 +95,10 @@ public class InvestidorPessoaFisicaDto {
 
 	public String getDocumento() {
 		return documento;
+	}
+	
+	public String getPassaporte() {
+		return passaporte;
 	}
 
 	public String getOrgao_emissor_uf() {

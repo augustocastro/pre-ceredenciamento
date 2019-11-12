@@ -68,7 +68,6 @@ public class RepasseController {
 		Repasse repasse = new Repasse();
 		
 		try {
-//			TODO: DEFINIR A REGRA
 			if (parcelaRepository.buscarRepassePorParcela(repasseForm.getParcela_id(), repasseForm.getTipo_recebedor()).isPresent()) {
 				throw new NotFoundException(String.format("A parcela de id %s já foi repassada para o %s.", repasseForm.getParcela_id(), 
 						repasseForm.getTipo_recebedor().toString().toLowerCase()));
@@ -76,15 +75,16 @@ public class RepasseController {
 			
 			repasseForm.setarPropriedades(repasse, parcelaRepository);
 			setarUsuario(request, repasse);
+			
+			if (repasseForm.getAnexo() != null) {
+				URI uploadFile = s3Service.uploadFile(repasseForm.getAnexo());
+				repasse.setAnexo(uploadFile.toURL().toString());
+			}
+			
+			repasseRepository.save(repasse);
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
 		}
-		if (repasseForm.getAnexo() != null) {
-			URI uploadFile = s3Service.uploadFile(repasseForm.getAnexo());
-			repasse.setAnexo(uploadFile.toURL().toString());
-		}
-
-		repasseRepository.save(repasse);
 
 		URI uri = uriComponentsBuilder.path("/repasse/{id}").buildAndExpand(repasse.getId()).toUri();
 		return ResponseEntity.created(uri).body(new RepasseDto(repasse));

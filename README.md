@@ -97,6 +97,7 @@ investidor = {
 	"sexo": "MASCULINO",
 	"profissao": "Programador",
 	"documento": "000000",
+	"passaporte": "54454asasa",
 	"orgao_emissor_uf": "PC - Goiás",
 	"regime_bens": "0",
 	"nome": "Teste",
@@ -107,7 +108,7 @@ investidor = {
 	"facebook": "https://www.facebook.com/johndoe",
 	"instagram": "johndoe",
 	"declaracao_licitude": false,
-	"declaracao_politicamente_exposta": true, 
+	"declaracao_politicamente_exposta": true,
 	"endereco": {
 		"endereco": "SCRL 709, Asa Norte",
 		"cidade": "Brasília",

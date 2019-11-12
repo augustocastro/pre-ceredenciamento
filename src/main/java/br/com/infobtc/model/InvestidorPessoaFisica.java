@@ -19,6 +19,7 @@ public class InvestidorPessoaFisica extends Investidor {
 	private String orgaoEmissorUf;
 	private String regimeBens;
 	private String nacionalidade;
+	private String passaporte;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate dtNascimento;
@@ -104,4 +105,13 @@ public class InvestidorPessoaFisica extends Investidor {
 	public void setEstadoCivil(EstadoCivil estadoCivil) {
 		this.estadoCivil = estadoCivil;
 	}
+	
+	public String getPassaporte() {
+		return passaporte;
+	}
+	
+	public void setPassaporte(String passaporte) {
+		this.passaporte = passaporte;
+	}
+	
 }

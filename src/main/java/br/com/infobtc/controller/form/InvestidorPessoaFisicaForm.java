@@ -16,6 +16,7 @@ import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.EstadoCivil;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.Sexo;
+import br.com.infobtc.model.Status;
 import br.com.infobtc.repository.EnderecoRepository;
 import br.com.infobtc.repository.InvestidorPessoaFisicaRepository;
 
@@ -40,6 +41,8 @@ public class InvestidorPessoaFisicaForm {
 	@NotNull
 	@NotEmpty
 	private String documento;
+	
+	private String passaporte;
 
 	@NotNull
 	@NotEmpty
@@ -100,6 +103,10 @@ public class InvestidorPessoaFisicaForm {
 
 	public String getDocumento() {
 		return documento;
+	}
+	
+	public String getPassaporte() {
+		return passaporte;
 	}
 
 	public String getOrgao_emissor_uf() {
@@ -249,6 +256,8 @@ public class InvestidorPessoaFisicaForm {
 		investidor.setInstagram(instagram);
 		investidor.setDeclaracaoLicitude(declaracao_licitude);
 		investidor.setDeclaracaoPoliticamenteExposta(declaracao_politicamente_exposta);
+		investidor.setPassaporte(passaporte);
+		investidor.setStatusInvestidor(Status.EM_ANALISE);
 	}
 	
 }
