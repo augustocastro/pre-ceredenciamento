@@ -27,6 +27,7 @@ public class ParcelaDao {
 		TypedQuery<Repasse> typedQuery = manager.createQuery(query.toString(), Repasse.class);
 
 		typedQuery.setParameter("id", id);
+		
 		if (tipoRecebedor != null) typedQuery.setParameter("tipoRecebedor", tipoRecebedor);
 
 		return typedQuery.getResultList();

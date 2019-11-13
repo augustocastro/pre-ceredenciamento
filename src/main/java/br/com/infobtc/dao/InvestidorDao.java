@@ -17,8 +17,10 @@ public class InvestidorDao {
     private EntityManager manager;
 
 	public List<InvestidorEnderecoVo> consultarTodos() {
+		String campos = "i.tipo, i.statusInvestidor, i.dtCadastramento, ipf.dtNascimento, i.nome, ipf.cpf, ipj.cnpj, i.telefone, e.endereco";
+		
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT NEW br.com.infobtc.controller.vo.InvestidorEnderecoVo(i.tipo, i.statusInvestidor, i.dtCadastramento, ipf.dtNascimento, i.nome, ipf.cpf, ipj.cnpj, i.telefone, e.endereco) ");
+		query.append("SELECT NEW br.com.infobtc.controller.vo.InvestidorEnderecoVo("+campos+") ");
 		query.append("FROM Investidor i ");
 		query.append("INNER JOIN Endereco e ON e.id = i.endereco.id ");
 		query.append("LEFT JOIN  InvestidorPessoaFisica ipf ON ipf.id = i.id ");
@@ -28,4 +30,5 @@ public class InvestidorDao {
 		
         return typedQuery.getResultList();
     }
+	
 }

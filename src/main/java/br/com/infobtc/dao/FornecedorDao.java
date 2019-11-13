@@ -12,7 +12,6 @@ import br.com.infobtc.controller.vo.FornecedorEnderecoVo;
 
 @Repository
 public class FornecedorDao {
-
 	
 	@PersistenceContext
     private EntityManager manager;
@@ -27,4 +26,5 @@ public class FornecedorDao {
 		
         return typedQuery.getResultList();
     }
+	
 }
