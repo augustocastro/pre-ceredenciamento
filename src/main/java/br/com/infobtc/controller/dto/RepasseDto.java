@@ -79,7 +79,7 @@ public class RepasseDto {
 		return tipo_repasse;
 	}
 
-	public List<RepasseDto> converterPerfis(List<Repasse> repasses) {
+	public List<RepasseDto> converterRepasses(List<Repasse> repasses) {
 		return repasses.stream().map(RepasseDto::new).collect(Collectors.toList());
 	}
 }

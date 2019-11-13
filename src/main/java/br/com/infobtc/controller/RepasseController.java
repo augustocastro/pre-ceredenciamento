@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -27,6 +26,7 @@ import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.RepasseDto;
 import br.com.infobtc.controller.form.RepasseForm;
 import br.com.infobtc.controller.vo.RepasseParcelaVo;
+import br.com.infobtc.dao.ParcelaDao;
 import br.com.infobtc.dao.RepasseDao;
 import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.StatusRepasse;
@@ -60,6 +60,9 @@ public class RepasseController {
 
 	@Autowired
 	private RepasseDao repasseDao; 
+
+	@Autowired
+	private ParcelaDao parcelaDao; 
 	
 	@PostMapping
 	@Transactional
@@ -68,7 +71,7 @@ public class RepasseController {
 		Repasse repasse = new Repasse();
 		
 		try {
-			if (parcelaRepository.buscarRepassePorParcela(repasseForm.getParcela_id(), repasseForm.getTipo_recebedor()).isPresent()) {
+			if (parcelaDao.buscarRepassePorParcela(repasseForm.getParcela_id(), repasseForm.getTipo_recebedor()).size() > 0) {
 				throw new NotFoundException(String.format("A parcela de id %s já foi repassada para o %s.", repasseForm.getParcela_id(), 
 						repasseForm.getTipo_recebedor().toString().toLowerCase()));
 			}
@@ -101,13 +104,11 @@ public class RepasseController {
 	}
 
 	@GetMapping("parcela/{id}")
-	public ResponseEntity<RepasseDto> buscarRepassePorParcela(@PathVariable Long id, @RequestParam(required = true) TipoRecebedor tipoRecebedor) {
-		Optional<Repasse> repasse = parcelaRepository.buscarRepassePorParcela(id, tipoRecebedor);
+	public ResponseEntity<List<RepasseDto>> buscarRepassePorParcela(@PathVariable Long id, TipoRecebedor tipoRecebedor) {
+		List<Repasse> repasses = parcelaDao.buscarRepassePorParcela(id, tipoRecebedor);
 
-		if (repasse.isPresent()) {
-			return ResponseEntity.ok(new RepasseDto(repasse.get()));
-		}
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok(new RepasseDto().converterRepasses(repasses));
+		
 	}
 
 	@GetMapping("contrato/{id}")
@@ -121,7 +122,7 @@ public class RepasseController {
 		} else {
 			repasses = repasseRepository.findByParcelaContratoId(id);
 		}
-		return ResponseEntity.ok(new RepasseDto().converterPerfis(repasses));
+		return ResponseEntity.ok(new RepasseDto().converterRepasses(repasses));
 	}
 	
 	
