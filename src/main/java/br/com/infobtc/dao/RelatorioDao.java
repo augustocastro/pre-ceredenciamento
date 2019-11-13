@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.infobtc.controller.vo.TotalContratoInvestidoresVolumeCapitalVo;
+import br.com.infobtc.controller.dto.TotalContratoInvestidoresVolumeCapitalDto;
 
 @Repository
 public class RelatorioDao {
@@ -18,7 +18,7 @@ public class RelatorioDao {
 	@PersistenceContext
     private EntityManager manager;
 	
-	public TotalContratoInvestidoresVolumeCapitalVo calculaTotaisMensal() {
+	public TotalContratoInvestidoresVolumeCapitalDto calculaTotaisMensal() {
 		String queryCountContratos = "SELECT COUNT(c.id) FROM Contrato c WHERE c.dtCadastro BETWEEN :start AND :end ";
 		String queryCountInvestidores = "SELECT COUNT(i.id) FROM Investidor i WHERE i.dtCadastramento BETWEEN :start AND :end ";
 		String querySomaVolumeCapital = "SELECT SUM(c.valor) FROM Contrato c WHERE c.dtCadastro BETWEEN :start AND :end ";
@@ -27,7 +27,7 @@ public class RelatorioDao {
 		Long totalInvestidores = (Long) executaQuery(queryCountInvestidores);
 		BigDecimal somaValorCapital = (BigDecimal) executaQuery(querySomaVolumeCapital);		
 
-		return new TotalContratoInvestidoresVolumeCapitalVo(totalContratos, totalInvestidores, somaValorCapital);
+		return new TotalContratoInvestidoresVolumeCapitalDto(totalContratos, totalInvestidores, somaValorCapital);
 	}
 	
 	private Number executaQuery(String query) {

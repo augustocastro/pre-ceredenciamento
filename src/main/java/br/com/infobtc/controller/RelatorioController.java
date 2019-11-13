@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.infobtc.controller.vo.TotalContratoInvestidoresVolumeCapitalVo;
+import br.com.infobtc.controller.dto.TotalContratoInvestidoresVolumeCapitalDto;
 import br.com.infobtc.dao.RelatorioDao;
 
 @RestController
@@ -18,7 +18,7 @@ public class RelatorioController {
 
 	@GetMapping("/totais-mensal")
 	public ResponseEntity<?> buscarTodos() {
-		TotalContratoInvestidoresVolumeCapitalVo resultado = relatorioDao.calculaTotaisMensal();
+		TotalContratoInvestidoresVolumeCapitalDto resultado = relatorioDao.calculaTotaisMensal();
 		return ResponseEntity.ok(resultado);
 	}
 }
