@@ -183,7 +183,26 @@ public class ContratoController<T> {
 	public ResponseEntity<?> buscarParcelas(Long idContrato, Boolean repassado) {
 		
 		List<ParcelaVo> contratos = contratoDao.buscarParcelas(idContrato, repassado);
+		contratos.removeIf(contrato -> contrato.getValor_repassado() != 0 && !contrato.isRepassado());
+		
 		return ResponseEntity.ok(contratos);
+	}
+	
+	
+	@PatchMapping("rescisao/{id}")
+	@Transactional
+	public ResponseEntity<?> solicitarRescisao(@PathVariable Long id) {
+		Optional<Contrato> optional = contratoRespository.findById(id);
+		
+		if (optional.isPresent()) {
+			Contrato contrato = optional.get();
+			contrato.setStatusContrato(Status.CANCELADO);
+			contrato.setStatusFinanceiro(Status.CANCELADO);
+			
+			return ResponseEntity.ok(contrato.criaDto());
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 
 }

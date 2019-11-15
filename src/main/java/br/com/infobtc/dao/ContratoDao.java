@@ -27,7 +27,7 @@ public class ContratoDao {
 		query.append("SELECT NEW br.com.infobtc.controller.vo.ContratoParcelaVo("+campos+")");
 		query.append("FROM Contrato c ");
 		query.append("JOIN c.parcelas p ");
-		query.append("WHERE 1 = 1 ");
+		query.append("WHERE c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO' ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
 		query.append(String.format("AND %s ", statusRepasse != null ? "p.status = :statusRepasse ":  "1 = 1 "));
@@ -51,11 +51,11 @@ public class ContratoDao {
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT NEW br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo("+campos+") ");
 		query.append("FROM Contrato c ");
-		query.append("JOIN c.parcelas p ");
+//		query.append("JOIN c.parcelas p ");
 		query.append("WHERE c.statusContrato != 'EM_ANALISE' AND c.statusFinanceiro != 'EM_ANALISE' ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
-		query.append("ORDER BY p.data ASC");
+//		query.append("ORDER BY p.data ASC");
 
 		TypedQuery<ContratoConsultorInvestidorVo> typedQuery = manager.createQuery(query.toString(), ContratoConsultorInvestidorVo.class);
 		
@@ -70,14 +70,15 @@ public class ContratoDao {
     }
 
 	public List<ParcelaVo> buscarParcelas(Long idContrato, Boolean repassado) {
-		String campos = "p.data, p.parcela, (CASE WHEN r != null THEN true ELSE false END), (CASE WHEN r != null THEN r.data ELSE null END), (CASE WHEN r != null THEN r.valor ELSE 0 END), p.contrato.id";
+		String campos = "p.data, p.parcela, (CASE WHEN r.tipoRecebedor = 'INVESTIDOR' THEN true ELSE false END), (CASE WHEN r.tipoRecebedor = 'INVESTIDOR' THEN r.data ELSE null END), (CASE WHEN r != null THEN r.valor ELSE 0 END), p.contrato.id";
 		
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT NEW br.com.infobtc.controller.vo.ParcelaVo("+campos+") ");
+		query.append("SELECT DISTINCT NEW br.com.infobtc.controller.vo.ParcelaVo("+campos+") ");
 		query.append("FROM Parcela p ");
+		query.append("JOIN p.contrato c ");
 		query.append("LEFT JOIN p.repasses r ");
-		query.append("WHERE 1 = 1 ");
-		query.append(String.format("AND %s ", repassado != null && repassado == true ? "r != null " : repassado != null && repassado == false ? "r = null " :  "1 = 1 "));
+		query.append("WHERE c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO' ");
+		query.append(String.format("AND %s ", repassado != null && repassado == true ? "r.tipoRecebedor = 'INVESTIDOR' " :  "1 = 1 "));
 		query.append(String.format("AND %s ", idContrato != null ? "p.contrato.id = :idContrato ": "1 = 1 "));
 		query.append("ORDER BY p.data ASC");
 		
