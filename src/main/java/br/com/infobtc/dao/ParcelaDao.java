@@ -21,6 +21,7 @@ public class ParcelaDao {
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT r FROM Parcela p ");
 		query.append("JOIN p.repasses r ");
+		query.append("WHERE p.tipoRepasse = 'REPASSE' ");
 		query.append("WHERE p.id = :id ");
 		query.append(String.format("AND %s ", tipoRecebedor != null ? "r.tipoRecebedor = :tipoRecebedor " : "1 = 1 "));
 
