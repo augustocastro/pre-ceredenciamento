@@ -59,7 +59,7 @@ public class RepasseForm {
 				parcela.setStatus(StatusRepasse.EXECUTADO);
 			}
 		} else {
-			throw new NotFoundException(String.format("O contrato de id %s não foi encontrado.", parcela_id));
+			throw new NotFoundException(String.format("A parcela de id %s não foi encontrada.", parcela_id));
 		}
 	}
 

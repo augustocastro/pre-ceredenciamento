@@ -68,6 +68,9 @@ public abstract class Contrato {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Parcela> parcelas;
 	
+	@OneToOne
+	private Rescisao rescisao;
+	
 	public Contrato() {
 		this.setStatusContrato(Status.EM_ANALISE);
 		this.setStatusFinanceiro(Status.EM_ANALISE);
@@ -201,6 +204,14 @@ public abstract class Contrato {
 	
 	public void setParcelas(List<Parcela> parcelas) {
 		this.parcelas = parcelas;
+	}
+	
+	public Rescisao getRescisao() {
+		return rescisao;
+	}
+	
+	public void setRescisao(Rescisao rescisao) {
+		this.rescisao = rescisao;
 	}
 	
 	public abstract Object criaDto();

@@ -27,7 +27,8 @@ public class ContratoDao {
 		query.append("SELECT NEW br.com.infobtc.controller.vo.ContratoParcelaVo("+campos+")");
 		query.append("FROM Contrato c ");
 		query.append("JOIN c.parcelas p ");
-		query.append("WHERE c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO' ");
+		query.append("LEFT JOIN c.rescisao r ");
+		query.append("WHERE (r IS NULL OR (r IS NOT NULL AND r.status != 'APROVADO' )) ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
 		query.append(String.format("AND %s ", statusRepasse != null ? "p.status = :statusRepasse ":  "1 = 1 "));
