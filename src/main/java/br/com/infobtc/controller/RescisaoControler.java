@@ -75,7 +75,7 @@ public class RescisaoControler {
 	
 	@PatchMapping("/aprovar/{id}")
 	@Transactional
-	public ResponseEntity<?> aprovarContrato(@PathVariable Long id, @RequestParam(required = true) Status status) {
+	public ResponseEntity<?> aprovarRescisao(@PathVariable Long id, @RequestParam(required = true) Status status) {
 		Optional<Rescisao> optional = rescisaoRepository.findById(id);
 
 		if (optional.isPresent()) {
