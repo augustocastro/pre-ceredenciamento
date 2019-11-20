@@ -19,4 +19,9 @@ public interface ContaRepository extends JpaRepository<Conta, Long> {
 	
 	@Query("SELECT c FROM Conta c WHERE (c.dtVencimento BETWEEN ?1 AND ?2) AND (c.valorPago < c.valorTotal)")
 	List<Conta> buscarContasPedentesSemana(LocalDate dataHoje, LocalDate dateDaquiUmaUmaSemana);
+	
+	
+	@Query("SELECT c FROM Conta c WHERE ?1 > c.dtVencimento AND c.status = 'EM_ABERTO'")
+	List<Conta> buscaContasAtrasadas(LocalDate dataHoje);
+	
 }

@@ -108,13 +108,14 @@ public class PerfilController {
 		
 		Map<String, List<UsuarioPerfilDto>> perfilUsuarios = resultado
 				.stream()
-				.collect(Collectors.groupingBy(UsuarioPerfilVo::getNomePerfil, Collectors.mapping(UsuarioPerfilDto::new, Collectors.toList())));
+				.collect(Collectors.groupingBy(UsuarioPerfilVo::getNomePerfil, Collectors
+						.mapping(UsuarioPerfilDto::new, Collectors.toList())));
 
 		return ResponseEntity.ok(perfilUsuarios);
 	}
 	
-	@GetMapping("/relatorio/perfil-usuarios-porcentagem")
-	public ResponseEntity<?> buscarPerfisCalculandoPorcentagemUsuarios() {		
+	@GetMapping("/relatorio/perfil-percentual-usuarios")
+	public ResponseEntity<?> buscarPerfisCalculandoPorcentualUsuarios() {		
 		List<UsuarioPerfilPorcentagemVo> resultado = perfilDao.buscarRelacaoPerfis();
 		return ResponseEntity.ok(resultado);
 	}

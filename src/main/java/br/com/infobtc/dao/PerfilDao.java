@@ -32,7 +32,7 @@ public class PerfilDao {
 		StringBuilder query = new StringBuilder();
 		
 		String selectInterno = "SELECT COUNT(p.id) FROM Usuario u JOIN u.perfis p)";
-		String campos = "perfil, COUNT(perfil.id), ROUND(COUNT(perfil.id)*100/("+selectInterno+")";
+		String campos = "perfil, COUNT(perfil.id), (COUNT(perfil.id)*100/("+selectInterno+")";
 
 		query.append("SELECT NEW br.com.infobtc.controller.vo.UsuarioPerfilPorcentagemVo("+campos+") ");
 		query.append("FROM Usuario usuario ");

@@ -7,15 +7,15 @@ import br.com.infobtc.model.Perfil;
 
 public class UsuarioPerfilPorcentagemVo {
 	
-	private String nome_perfil;
-	private long qt_ususarios_perfil;
-	private long porcentagem_perfil;
+	private String perfil;
+	private long qt_ususarios;
+	private double percentual_usuarios;
 	private List<String> funcionalidades;
 
-	public UsuarioPerfilPorcentagemVo(Perfil perfil, long qt_ususarios_perfil, long porcentagem_perfil) {
-		this.qt_ususarios_perfil = qt_ususarios_perfil;
-		this.porcentagem_perfil = porcentagem_perfil;
-		this.nome_perfil = perfil != null ? perfil.getNome() : null;
+	public UsuarioPerfilPorcentagemVo(Perfil perfil, long qt_ususarios_perfil, long percentual_usuarios) {
+		this.qt_ususarios = qt_ususarios_perfil;
+		this.percentual_usuarios = percentual_usuarios;
+		this.perfil = perfil != null ? perfil.getNome() : null;
 		
 		this.funcionalidades = perfil
 				 != null ? perfil
@@ -25,18 +25,19 @@ public class UsuarioPerfilPorcentagemVo {
 				.collect(Collectors.toList()) : null;
 	}
 
-	public String getNome_perfil() {
-		return nome_perfil;
-	}
 
-	public long getQt_ususarios_perfil() {
-		return qt_ususarios_perfil;
+	public String getPerfil() {
+		return perfil;
 	}
-
-	public long getPorcentagem_perfil() {
-		return porcentagem_perfil;
+	
+	public long getQt_ususarios() {
+		return qt_ususarios;
 	}
-
+	
+	public double getPercentual_usuarios() {
+		return percentual_usuarios;
+	}
+	
 	public List<String> getFuncionalidades() {
 		return funcionalidades;
 	}

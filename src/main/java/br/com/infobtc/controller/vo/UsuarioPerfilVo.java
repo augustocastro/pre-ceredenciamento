@@ -8,7 +8,7 @@ public class UsuarioPerfilVo {
 	private String nomePerfil;
 	private String emailUsuario;
 	private String nomeUsuario;
-	private double porcentagemOerfil;
+	private double porcentagemPerfil;
 
 	public UsuarioPerfilVo() {
 
@@ -18,7 +18,7 @@ public class UsuarioPerfilVo {
 		this.nomePerfil = nomePerfil;
 		this.emailUsuario = emailConsultor;
 		this.nomeUsuario = nomeConsultor;
-		this.porcentagemOerfil = porcentagemOerfil;
+		this.porcentagemPerfil = porcentagemOerfil;
 	}
 
 	public String getNomePerfil() {
@@ -33,8 +33,8 @@ public class UsuarioPerfilVo {
 		return nomeUsuario;
 	}
 
-	public double getPorcentagemOerfil() {
-		return porcentagemOerfil;
+	public double getPorcentagemPerfil() {
+		return porcentagemPerfil;
 	}
 
 }

@@ -11,7 +11,7 @@ public class UsuarioPerfilDto {
 	public UsuarioPerfilDto(UsuarioPerfilVo usuarioPerfilCustomDto) {
 		this.email_usuario = usuarioPerfilCustomDto.getEmailUsuario();
 		this.nome_usuario = usuarioPerfilCustomDto.getNomeUsuario();
-		this.porcentagem_perfil = usuarioPerfilCustomDto.getPorcentagemOerfil();
+		this.porcentagem_perfil = usuarioPerfilCustomDto.getPorcentagemPerfil();
 	}
 
 	public String getEmail_usuario() {
