@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 
 import br.com.infobtc.model.ContratoInvestimento;
+import br.com.infobtc.model.TipoRendimento;
 
 public class ContratoInvestimentoDetalhadoDto {
 
@@ -18,7 +20,7 @@ public class ContratoInvestimentoDetalhadoDto {
 	private BigDecimal valor;
 	private String status_contrato;
 	private String status_financeiro;
-	private String tipo_rendimento;
+	private TipoRendimento tipo_rendimento;
 	private String justificativa_reprovacao;
 	private boolean repassado;
 	private InvestidorDto investidor;
@@ -102,7 +104,7 @@ public class ContratoInvestimentoDetalhadoDto {
 		return status_financeiro;
 	}
 	
-	public String getTipo_rendimento() {
+	public TipoRendimento getTipo_rendimento() {
 		return this.tipo_rendimento;
 	}
 
@@ -116,6 +118,10 @@ public class ContratoInvestimentoDetalhadoDto {
 
 	public Page<ContratoInvestimentoDetalhadoDto> converter(Page<ContratoInvestimento> contratos) {
 		return contratos.map(ContratoInvestimentoDetalhadoDto::new);
+	}
+	
+	public List<ContratoInvestimentoDetalhadoDto> converter(List<ContratoInvestimento> contratos) {
+		return contratos.stream().map(ContratoInvestimentoDetalhadoDto::new).collect(Collectors.toList());
 	}
 
 }

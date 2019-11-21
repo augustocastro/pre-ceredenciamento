@@ -2,6 +2,7 @@ package br.com.infobtc.controller;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -34,6 +35,7 @@ import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.BancoForm;
 import br.com.infobtc.controller.form.ContratoInvestimentoForm;
 import br.com.infobtc.controller.service.ParcelaService;
+import br.com.infobtc.dao.ContratoDao;
 import br.com.infobtc.controller.form.ContratoArquivosForm;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
@@ -54,6 +56,9 @@ public class ContratoInvestimentoController {
 	
 	@Autowired
 	private ContratoInvestimentoRepository contratoInvestimentoRepository; 
+	
+	@Autowired
+	private ContratoDao contratoDao;
 	
 	@Autowired
 	private InvestidorRepository investidorRepository;
@@ -145,6 +150,13 @@ public class ContratoInvestimentoController {
 				contratos = contratoInvestimentoRepository.findByStatusContratoAndStatusFinanceiro(statusContrato, statusFinanceiro, paginacao);
 			}
 		}
+		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
+	}
+	
+	
+	@GetMapping("/investimentos-composto-aniversario")
+	public List<?> buscarTodos() {
+		List<ContratoInvestimento> contratos = contratoDao.buscarContratosCompostoAniversario();
 		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
 	}
 	

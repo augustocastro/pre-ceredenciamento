@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -16,18 +18,20 @@ import br.com.infobtc.controller.dto.ContratoInvestimentoDetalhadoDto;
 @PrimaryKeyJoinColumn(name = "id")
 public class ContratoInvestimento extends Contrato {
 
-	private String tipoRendimento;
-
+	@Enumerated(EnumType.STRING)
+	private TipoRendimento tipoRendimento;
+	private double valorRedimento;
+	
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<ContratoReinvestimento> reinvestimentos = new ArrayList<ContratoReinvestimento>();
 
 
-	public String getTipoRendimento() {
+	public TipoRendimento getTipoRendimento() {
 		return tipoRendimento;
 	}
 
-	public void setTipoRendimento(String tipoRendimento) {
+	public void setTipoRendimento(TipoRendimento tipoRendimento) {
 		this.tipoRendimento = tipoRendimento;
 	}
 
@@ -37,6 +41,14 @@ public class ContratoInvestimento extends Contrato {
 
 	public void setReinvestimentos(List<ContratoReinvestimento> reinvestimentos) {
 		this.reinvestimentos = reinvestimentos;
+	}
+	
+	public double getValorRedimento() {
+		return valorRedimento;
+	}
+	
+	public void setValorRedimento(double valorRedimento) {
+		this.valorRedimento += valorRedimento;
 	}
 
 	@Override

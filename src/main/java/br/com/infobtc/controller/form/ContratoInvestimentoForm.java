@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import br.com.infobtc.model.Consultor;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.Investidor;
+import br.com.infobtc.model.TipoRendimento;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
@@ -40,7 +41,7 @@ public class ContratoInvestimentoForm {
 
 	@NotNull
 	@NotEmpty
-	private String tipo_rendimento;
+	private TipoRendimento tipo_rendimento;
 	
 	@Valid
 	@NotNull
@@ -68,7 +69,7 @@ public class ContratoInvestimentoForm {
 		return investidor_id;
 	}
 	
-	public String getTipo_rendimento() {
+	public TipoRendimento getTipo_rendimento() {
 		return tipo_rendimento;
 	}
 

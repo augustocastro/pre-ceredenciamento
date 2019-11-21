@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo;
 import br.com.infobtc.controller.vo.ContratoParcelaVo;
 import br.com.infobtc.controller.vo.ParcelaVo;
+import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.StatusRepasse;
 
 @Repository
@@ -19,6 +20,22 @@ public class ContratoDao {
 	
 	@PersistenceContext
     private EntityManager manager;
+	
+	public List<ContratoInvestimento> buscarContratosCompostoAniversario() {		
+		LocalDate hoje = LocalDate.now();
+		
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT ci FROM Parcela p ");
+		query.append("JOIN p.contrato c ");
+		query.append("LEFT JOIN ContratoInvestimento ci ON ci.id = c.id ");
+		query.append("WHERE (ci IS NOT NULL AND ci.tipoRendimento = 'COMPOSTO') ");
+		query.append("AND p.data = :hoje");
+		
+		TypedQuery<ContratoInvestimento> typedQuery = manager.createQuery(query.toString(), ContratoInvestimento.class);
+		typedQuery.setParameter("hoje", hoje);
+		
+        return typedQuery.getResultList();
+	}
 	
 	public List<ContratoParcelaVo> consultarParcelasPorIntervaloEConsultor(LocalDate dtInicio, LocalDate dtTermino, Long idConsultor, StatusRepasse statusRepasse) {
 		String campos = "c.investidor.nome, c.id, p.id, c.valor, c.dtInicio, c.dtTermino, p.data, p.parcela, c.quantidadeMeses, c.consultor";
@@ -28,7 +45,10 @@ public class ContratoDao {
 		query.append("FROM Contrato c ");
 		query.append("JOIN c.parcelas p ");
 		query.append("LEFT JOIN c.rescisao r ");
-		query.append("WHERE (r IS NULL OR (r IS NOT NULL AND r.status != 'APROVADO' )) ");
+		query.append("LEFT JOIN ContratoInvestimento ci ON ci.id = c.id ");
+		query.append("WHERE (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') ");
+		query.append("AND (r IS NULL OR (r IS NOT NULL AND r.status != 'APROVADO')) ");
+		query.append("AND (ci IS NOT NULL AND ci.tipoRendimento = 'SIMPLES') ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
 		query.append(String.format("AND %s ", statusRepasse != null ? "p.status = :statusRepasse ":  "1 = 1 "));
@@ -52,11 +72,9 @@ public class ContratoDao {
 		StringBuilder query = new StringBuilder();
 		query.append("SELECT NEW br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo("+campos+") ");
 		query.append("FROM Contrato c ");
-//		query.append("JOIN c.parcelas p ");
 		query.append("WHERE c.statusContrato != 'EM_ANALISE' AND c.statusFinanceiro != 'EM_ANALISE' ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
-//		query.append("ORDER BY p.data ASC");
 
 		TypedQuery<ContratoConsultorInvestidorVo> typedQuery = manager.createQuery(query.toString(), ContratoConsultorInvestidorVo.class);
 		

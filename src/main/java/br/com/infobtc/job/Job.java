@@ -6,11 +6,13 @@ import java.time.LocalDateTime;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import br.com.infobtc.dao.ContratoDao;
 import br.com.infobtc.model.StatusConta;
 import br.com.infobtc.model.StatusRepasse;
 import br.com.infobtc.repository.ContaRepository;
 import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.ParcelaRepository;
+import br.com.infobtc.service.ContratoInvestimentoService;
 
 public class Job implements org.quartz.Job {
 
@@ -21,10 +23,28 @@ public class Job implements org.quartz.Job {
 	private DadosHashRepository dadosHashRepository;
 
 	@Autowired
-	private ParcelaRepository parcelaRepository; 
+	private ParcelaRepository parcelaRepository;
+	
+	@Autowired
+	private ContratoDao contratoDao; 
+	
+	@Autowired
+	private ContratoInvestimentoService contratoInvestimentoService;
 	
 	@Override
 	public void execute(JobExecutionContext context) {
+
+		// CONTRATOS
+		System.out.println("##########################################");
+		System.out.println("APLICANDO RENDIMENTO AOS INVESTIMENTOS COMPOSTOS: " + LocalDateTime.now().toString());
+		
+		contratoInvestimentoService
+			.aplicarRedimentoComposto(contratoDao.buscarContratosCompostoAniversario());
+		
+		System.out.println("##########################################");
+
+		System.out.println();
+
 		
 		// CONTAS
 		System.out.println("##########################################");
