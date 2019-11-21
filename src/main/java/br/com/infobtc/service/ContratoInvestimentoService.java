@@ -1,5 +1,6 @@
 package br.com.infobtc.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ public class ContratoInvestimentoService {
 	
 	public void aplicarRedimentoComposto(List<ContratoInvestimento> contratos) {
 		contratos.forEach(contrato -> {
-			double valorInvestido = contrato.getValor().doubleValue();
-			contrato.setValorRedimento(valorInvestido * 0.1);
+			double valorComRendimento = contrato.getValor()
+					.add(new BigDecimal(contrato.getValorRedimento())).doubleValue();
+			
+			contrato.setValorRedimento(valorComRendimento * 0.1);
 			contratoRepository.save(contrato);
 		});
 	}
