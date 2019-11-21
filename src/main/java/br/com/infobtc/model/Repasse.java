@@ -33,6 +33,9 @@ public class Repasse {
 	@OneToOne
 	private Parcela parcela;
 
+	@OneToOne
+	private Usuario usuario;
+	
 	public Long getId() {
 		return id;
 	}
@@ -112,4 +115,13 @@ public class Repasse {
 	public void setTipoRepasse(TipoRepasse tipoRepasse) {
 		this.tipoRepasse = tipoRepasse;
 	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 }

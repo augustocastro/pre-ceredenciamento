@@ -25,6 +25,7 @@ public class RepasseForm {
 	private Long parcela_id;
 	@NotNull
 	private TipoRecebedor tipo_recebedor;
+	@NotNull
 	private TipoRepasse tipo_repasse;
 	private String data;
 
