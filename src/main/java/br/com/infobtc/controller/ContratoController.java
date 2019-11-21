@@ -46,9 +46,6 @@ public class ContratoController<T> {
 	@Autowired
 	private ContratoRepository contratoRespository;
 
-//	@Autowired
-//	private RescisaoRepository rescisaoRepository;
-	
 	@Autowired
 	private ContratoDao contratoDao; 
 	

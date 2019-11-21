@@ -70,10 +70,10 @@ public class ContratoDao {
 		String campos = "c.id, c.statusContrato, c.statusFinanceiro, c.investidor.nome, c.consultor.nome, c.dtCadastro, c.valor, c.dtInicio, c.dtTermino";
 
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT NEW br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo("+campos+") ");
+		query.append("SELECT Distinct NEW br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo("+campos+") ");
 		query.append("FROM Contrato c ");
 		query.append("WHERE c.statusContrato != 'EM_ANALISE' AND c.statusFinanceiro != 'EM_ANALISE' ");
-		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
+		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "(c.dtInicio BETWEEN :dtInicio AND :dtTermino OR c.dtTermino BETWEEN :dtInicio AND :dtTermino) ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
 
 		TypedQuery<ContratoConsultorInvestidorVo> typedQuery = manager.createQuery(query.toString(), ContratoConsultorInvestidorVo.class);

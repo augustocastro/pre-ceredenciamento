@@ -26,7 +26,7 @@ public class ContratoConsultorInvestidorVo {
 		this.consultor = consultor;
 		this.dt_cadastramento = dt_cadastramento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.valor = valor.doubleValue();
-		this.prazo = dtInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " a " + dtInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		this.prazo = dtInicio.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " a " + dtTermino.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 
 	public Long getId() {
