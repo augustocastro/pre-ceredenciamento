@@ -28,7 +28,7 @@ public class ContratoDao {
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
 		query.append(String.format("AND %s ", repassado != null && repassado == true ? "p.repasse != null " : repassado != null && repassado == false ? "p.repasse = null " :  "1 = 1 "));
-		
+		query.append("ORDER BY p.data ASC");
 		TypedQuery<ContratoParcelaVo> typedQuery = manager.createQuery(query.toString(), ContratoParcelaVo.class);
 		
 		if (dtInicio != null && dtTermino != null) {
@@ -54,7 +54,8 @@ public class ContratoDao {
 		query.append("WHERE c.statusContrato != 'EM_ANALISE' AND c.statusFinanceiro != 'EM_ANALISE' ");
 		query.append(String.format("AND %s ", dtInicio != null && dtTermino != null ? "p.data BETWEEN :dtInicio AND :dtTermino ": "1 = 1 "));
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
-		
+		query.append("ORDER BY p.data ASC");
+
 		TypedQuery<ContratoConsultorInvestidorVo> typedQuery = manager.createQuery(query.toString(), ContratoConsultorInvestidorVo.class);
 		
 		if (dtInicio != null && dtTermino != null) {
@@ -80,6 +81,7 @@ public class ContratoDao {
 		query.append("WHERE 1 = 1 ");
 		query.append(String.format("AND %s ", repassado != null && repassado == true ? "p.repasse != null " : repassado != null && repassado == false ? "p.repasse = null " :  "1 = 1 "));
 		query.append(String.format("AND %s ", idContrato != null ? "p.contrato.id = :idContrato ": "1 = 1 "));
+		query.append("ORDER BY p.data ASC");
 		
 		TypedQuery<ParcelaVo> typedQuery = manager.createQuery(query.toString(), ParcelaVo.class);
 
