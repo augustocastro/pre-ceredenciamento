@@ -26,6 +26,7 @@ public class ContratoInvestimentoDetalhadoDto {
 	private InvestidorDto investidor;
 	private ConsultorDto consultor;
 	private BancoDto banco;
+	private RescisaoDto rescisao;
 	private String banco_recebimento_escritorio;
 	private List<ContratoReinvestimentoDto> reinvestimentos = new ArrayList<ContratoReinvestimentoDto>();
 	private List<String> arquivos_url = new ArrayList<String>();
@@ -50,6 +51,10 @@ public class ContratoInvestimentoDetalhadoDto {
 		this.justificativa_reprovacao = contratoInvestimento.getJustificativaReprovacao();
 		this.repassado = contratoInvestimento.isRepassado();
 		this.banco_recebimento_escritorio = contratoInvestimento.getBancoRecebimentoEscritorio();
+		if(contratoInvestimento.getRescisao() != null) {
+			this.rescisao = new RescisaoDto(contratoInvestimento.getRescisao());	
+		}
+		
 	}
 
 	public Long getId() {
@@ -122,6 +127,14 @@ public class ContratoInvestimentoDetalhadoDto {
 	
 	public List<ContratoInvestimentoDetalhadoDto> converter(List<ContratoInvestimento> contratos) {
 		return contratos.stream().map(ContratoInvestimentoDetalhadoDto::new).collect(Collectors.toList());
+	}
+
+	public RescisaoDto getRescisao() {
+		return rescisao;
+	}
+
+	public void setRescisao(RescisaoDto rescisao) {
+		this.rescisao = rescisao;
 	}
 
 }
