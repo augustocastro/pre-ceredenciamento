@@ -22,11 +22,11 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.infobtc.controller.dto.ContratoDto;
-import br.com.infobtc.mapper.ContratoMapper;
+import br.com.infobtc.mapper.ContratoConvertToDto;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Contrato implements ContratoMapper {
+public class Contrato implements ContratoConvertToDto {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,6 @@
 package br.com.infobtc.mapper;
 
-public interface ContratoMapper {
+public interface ContratoConvertToDto {
 
 	public abstract Object criaDto();
 
