@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.infobtc.controller.dto.ContratoDto;
 import br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo;
 import br.com.infobtc.controller.vo.ContratoParcelaVo;
 import br.com.infobtc.controller.vo.ParcelaVo;
@@ -53,6 +54,7 @@ public class ContratoDao {
 		query.append(String.format("AND %s ", idConsultor != null ? "c.consultor.id = :idConsultor ": "1 = 1 "));
 		query.append(String.format("AND %s ", statusRepasse != null ? "p.status = :statusRepasse ":  "1 = 1 "));
 		query.append("ORDER BY p.data ASC");
+		
 		TypedQuery<ContratoParcelaVo> typedQuery = manager.createQuery(query.toString(), ContratoParcelaVo.class);
 		
 		if (dtInicio != null && dtTermino != null) {
@@ -102,10 +104,21 @@ public class ContratoDao {
 		query.append("ORDER BY p.data ASC");
 		
 		TypedQuery<ParcelaVo> typedQuery = manager.createQuery(query.toString(), ParcelaVo.class);
-
-		if (idContrato != null && idContrato != 0) typedQuery.setParameter("idContrato", idContrato);
 		
-        return typedQuery.getResultList();
+		if (idContrato != null && idContrato != 0) typedQuery.setParameter("idContrato", idContrato);
+        
+		return typedQuery.getResultList();
     }
+	
+	public List<ContratoDto> buscarContratosComParcelasPendentes() {				
+		StringBuilder query = new StringBuilder();
+		query.append("SELECT DISTINCT NEW br.com.infobtc.controller.dto.ContratoDto(c) ");
+		query.append("FROM Contrato c ");
+		query.append("JOIN c.parcelas p ");
+		query.append("WHERE p.status != 'EXECUTADO' AND c.rescisao = null");
+		
+		TypedQuery<ContratoDto> typedQuery = manager.createQuery(query.toString(), ContratoDto.class);
+        return typedQuery.getResultList();
+	}
 	
 }

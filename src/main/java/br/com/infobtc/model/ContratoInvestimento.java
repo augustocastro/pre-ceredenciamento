@@ -13,10 +13,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.infobtc.controller.dto.ContratoInvestimentoDetalhadoDto;
+import br.com.infobtc.mapper.ContratoMapper;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class ContratoInvestimento extends Contrato {
+public class ContratoInvestimento extends Contrato implements ContratoMapper {
 
 	@Enumerated(EnumType.STRING)
 	private TipoRendimento tipoRendimento;

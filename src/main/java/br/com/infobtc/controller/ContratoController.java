@@ -187,6 +187,12 @@ public class ContratoController<T> {
 		return ResponseEntity.ok(new ContratoDto().converter(contratos));
 	}
 	
+	@GetMapping("relatorio/contratos-parcelas-pendentes")
+	public ResponseEntity<List<ContratoDto>> consultarContratosComParcelasPendentes() {
+		List<ContratoDto> contratos = contratoDao.buscarContratosComParcelasPendentes();
+		return ResponseEntity.ok(contratos);
+	}
+	
 	@GetMapping("parcela/parcelas")
 	public ResponseEntity<?> buscarParcelas(Long idContrato, Boolean repassado) {
 		

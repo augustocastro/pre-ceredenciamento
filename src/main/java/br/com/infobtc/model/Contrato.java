@@ -21,9 +21,12 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.infobtc.controller.dto.ContratoDto;
+import br.com.infobtc.mapper.ContratoMapper;
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Contrato {
+public class Contrato implements ContratoMapper {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -213,7 +216,10 @@ public abstract class Contrato {
 	public void setRescisao(Rescisao rescisao) {
 		this.rescisao = rescisao;
 	}
-	
-	public abstract Object criaDto();
 
+	@Override
+	public Object criaDto() {
+		return new ContratoDto(this);
+	}
+	
 }

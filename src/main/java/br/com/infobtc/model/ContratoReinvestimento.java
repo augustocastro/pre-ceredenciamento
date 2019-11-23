@@ -8,10 +8,11 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import br.com.infobtc.controller.dto.ContratoReinvestimentoDto;
+import br.com.infobtc.mapper.ContratoMapper;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "id")
-public class ContratoReinvestimento extends Contrato {
+public class ContratoReinvestimento extends Contrato implements ContratoMapper {
 
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.REMOVE)
