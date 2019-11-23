@@ -10,9 +10,10 @@ import br.com.infobtc.dao.ContratoDao;
 import br.com.infobtc.model.StatusConta;
 import br.com.infobtc.model.StatusRepasse;
 import br.com.infobtc.repository.ContaRepository;
+import br.com.infobtc.repository.ContratoRepository;
 import br.com.infobtc.repository.DadosHashRepository;
 import br.com.infobtc.repository.ParcelaRepository;
-import br.com.infobtc.service.ContratoInvestimentoService;
+import br.com.infobtc.service.ContratoService;
 
 public class Job implements org.quartz.Job {
 
@@ -26,10 +27,13 @@ public class Job implements org.quartz.Job {
 	private ParcelaRepository parcelaRepository;
 	
 	@Autowired
+	private ContratoRepository contratoRepository;
+	
+	@Autowired
 	private ContratoDao contratoDao; 
 	
 	@Autowired
-	private ContratoInvestimentoService contratoInvestimentoService;
+	private ContratoService contratoService;
 	
 	@Override
 	public void execute(JobExecutionContext context) {
@@ -38,12 +42,16 @@ public class Job implements org.quartz.Job {
 		System.out.println("##########################################");
 		System.out.println("APLICANDO RENDIMENTO AOS INVESTIMENTOS COMPOSTOS: " + LocalDateTime.now().toString());
 		
-		contratoInvestimentoService
-			.aplicarRedimentoComposto(contratoDao.buscarContratosCompostoAniversario());
+		contratoService.aplicarRedimentoComposto(contratoDao.buscarContratosCompostoAniversario());
 		
 		System.out.println("##########################################");
 
 		System.out.println();
+		
+    	System.out.println("##########################################");
+    	System.out.println("ENCERRANDO CONTRATOS: " + LocalDateTime.now().toString());
+    	contratoService.finalizarContrato(contratoRepository.findByDtTermino(LocalDate.now()));
+    	System.out.println("##########################################");
 
 		
 		// CONTAS

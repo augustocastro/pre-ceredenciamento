@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.infobtc.model.Contrato;
+import br.com.infobtc.model.Status;
 
 public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 	
@@ -21,6 +22,10 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 //	
 //	@Query("SELECT c FROM Contrato c WHERE (?1 >= c.dtInicio AND ?1 <= ?2 AND ?1 <= c.dtTermino AND c.dtTermino >= ?2) AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') ORDER BY c.consultor.nome")
 //	List<Contrato> findByIntervalDate(LocalDate dtInicio, LocalDate dtTermino);
+
+	List<Contrato> findByDtTermino(LocalDate dtTermino);
+	
+	List<Contrato> findByStatusContratoAndStatusFinanceiro(Status statusContrato, Status statusFinanceiro);
 	
 	@Query("SELECT c FROM Contrato c WHERE (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1 ORDER BY c.consultor.nome")
 	List<Contrato> findByIntervalDate(Long idConsultor);
@@ -39,4 +44,5 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 	
 	@Query("SELECT c FROM Contrato c WHERE c.dtCadastro BETWEEN ?1 AND ?2 AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
 	List<Contrato> buscarContratosSemana(LocalDate dateUmaSemanaAtras, LocalDate dataHoje);
+	
 }

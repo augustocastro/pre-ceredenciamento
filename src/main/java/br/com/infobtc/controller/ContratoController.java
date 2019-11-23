@@ -163,8 +163,8 @@ public class ContratoController<T> {
 	
 	@GetMapping("relatorio/contratos-semana")
 	public ResponseEntity<?> buscarContratosSemana() {
-		LocalDate dataHoje= LocalDate.now();
-		LocalDate dateUmaSemanaAtras= LocalDate.now().minusDays(7);
+		LocalDate dataHoje = LocalDate.now();
+		LocalDate dateUmaSemanaAtras = LocalDate.now().minusDays(7);
 		
 		List<Contrato> contratos = contratoRespository.buscarContratosSemana(dateUmaSemanaAtras, dataHoje);
 		return ResponseEntity.ok(new ContratoDto().converter(contratos));
@@ -177,6 +177,14 @@ public class ContratoController<T> {
 		
 		List<ContratoConsultorInvestidorVo> contratos = contratoDao.buscarRelacaoContratos(idConsultor, dataIncio, dataTermino);
 		return ResponseEntity.ok(contratos);
+	}
+	
+	@GetMapping("relatorio/contratos-encerrados")
+	public ResponseEntity<List<ContratoDto>> consultarContratosEncerrados() {
+		List<Contrato> contratos = contratoRespository
+				.findByStatusContratoAndStatusFinanceiro(Status.ENCERRADO, Status.ENCERRADO);
+		
+		return ResponseEntity.ok(new ContratoDto().converter(contratos));
 	}
 	
 	@GetMapping("parcela/parcelas")
