@@ -11,6 +11,7 @@ public class RescisaoDto {
 	private String dt_cadastramento;
 	private Long contrato_id;
 	private Status status;
+	private Long id;
 
 	public RescisaoDto() {
 		
@@ -21,6 +22,7 @@ public class RescisaoDto {
 		this.dt_cadastramento = rescisao.getDtCadastramento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.contrato_id = rescisao.getContrato().getId();
 		this.status = rescisao.getStatus();
+		this.id = rescisao.getId();
 	}
 
 	public String getJustificativa() {
@@ -37,6 +39,10 @@ public class RescisaoDto {
 
 	public Status getStatus() {
 		return status;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 }
