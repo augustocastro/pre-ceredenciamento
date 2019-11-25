@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.itextpdf.text.DocumentException;
 
 import br.com.infobtc.controller.dto.ContratoDto;
+import br.com.infobtc.controller.dto.ContratoParcelasDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.vo.ContratoConsultorInvestidorVo;
 import br.com.infobtc.controller.vo.ParcelaVo;
@@ -161,6 +162,14 @@ public class ContratoController<T> {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@GetMapping("consultor/contratos-reprovados/{id}")
+	public ResponseEntity<List<ContratoDto>> consultarContratosReporovasPorConsultor(@PathVariable Long id) {
+		List<Contrato> contratos = contratoRespository
+				.findByConsultorIdAndStatusContratoOrStatusFinanceiro(id, Status.REPROVADO, Status.REPROVADO);
+		
+		return ResponseEntity.ok(new ContratoDto().converter(contratos));
+	}
+	
 	@GetMapping("relatorio/contratos-semana")
 	public ResponseEntity<?> buscarContratosSemana() {
 		LocalDate dataHoje = LocalDate.now();
@@ -183,7 +192,6 @@ public class ContratoController<T> {
 	public ResponseEntity<List<ContratoDto>> consultarContratosEncerrados() {
 		List<Contrato> contratos = contratoRespository
 				.findByStatusContratoAndStatusFinanceiro(Status.ENCERRADO, Status.ENCERRADO);
-		
 		return ResponseEntity.ok(new ContratoDto().converter(contratos));
 	}
 	
@@ -193,13 +201,13 @@ public class ContratoController<T> {
 		return ResponseEntity.ok(contratos);
 	}
 	
-	@GetMapping("consultor/contratos-reprovados/{id}")
-	public ResponseEntity<List<ContratoDto>> consultarContratosReporovasPorConsultor(@PathVariable Long id) {
+	@GetMapping("relatorio/contratos-parcelas")
+	public ResponseEntity<List<ContratoParcelasDto>> consultarContratoComParcelas() {
 		List<Contrato> contratos = contratoRespository
-				.findByConsultorIdAndStatusContratoOrStatusFinanceiro(id, Status.REPROVADO, Status.REPROVADO);
-		
-		return ResponseEntity.ok(new ContratoDto().converter(contratos));
+				.findByStatusContratoAndStatusFinanceiroAndRescisaoId(Status.APROVADO, Status.APROVADO, null);
+		return ResponseEntity.ok(new ContratoParcelasDto().converter(contratos));
 	}
+	
 	
 	@GetMapping("parcela/parcelas")
 	public ResponseEntity<?> buscarParcelas(Long idContrato, Boolean repassado) {

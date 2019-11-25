@@ -29,6 +29,8 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 	
 	List<Contrato> findByConsultorIdAndStatusContratoOrStatusFinanceiro(Long idConsultor, Status statusContrato, Status statusFinanceiro);
 	
+	List<Contrato> findByStatusContratoAndStatusFinanceiroAndRescisaoId(Status statusContrato, Status statusFinanceiro, Long recisaoId);
+	
 	@Query("SELECT c FROM Contrato c WHERE (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1 ORDER BY c.consultor.nome")
 	List<Contrato> findByIntervalDate(Long idConsultor);
 	
