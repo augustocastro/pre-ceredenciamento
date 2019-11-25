@@ -27,6 +27,8 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 	
 	List<Contrato> findByStatusContratoAndStatusFinanceiro(Status statusContrato, Status statusFinanceiro);
 	
+	List<Contrato> findByConsultorIdAndStatusContratoOrStatusFinanceiro(Long idConsultor, Status statusContrato, Status statusFinanceiro);
+	
 	@Query("SELECT c FROM Contrato c WHERE (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO') AND c.consultor.id = ?1 ORDER BY c.consultor.nome")
 	List<Contrato> findByIntervalDate(Long idConsultor);
 	
@@ -44,5 +46,6 @@ public interface ContratoRepository extends JpaRepository<Contrato, Long> {
 	
 	@Query("SELECT c FROM Contrato c WHERE c.dtCadastro BETWEEN ?1 AND ?2 AND (c.statusContrato = 'APROVADO' AND c.statusFinanceiro = 'APROVADO')")
 	List<Contrato> buscarContratosSemana(LocalDate dateUmaSemanaAtras, LocalDate dataHoje);
+	
 	
 }

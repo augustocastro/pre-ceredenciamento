@@ -193,12 +193,18 @@ public class ContratoController<T> {
 		return ResponseEntity.ok(contratos);
 	}
 	
+	@GetMapping("consultor/contratos-reprovados/{id}")
+	public ResponseEntity<List<ContratoDto>> consultarContratosReporovasPorConsultor(@PathVariable Long id) {
+		List<Contrato> contratos = contratoRespository
+				.findByConsultorIdAndStatusContratoOrStatusFinanceiro(id, Status.REPROVADO, Status.REPROVADO);
+		
+		return ResponseEntity.ok(new ContratoDto().converter(contratos));
+	}
+	
 	@GetMapping("parcela/parcelas")
 	public ResponseEntity<?> buscarParcelas(Long idContrato, Boolean repassado) {
-		
 		List<ParcelaVo> contratos = contratoDao.buscarParcelas(idContrato, repassado);
 		contratos.removeIf(contrato -> contrato.getValor_repassado() != 0 && !contrato.isRepassado());
-		
 		return ResponseEntity.ok(contratos);
 	}
 
