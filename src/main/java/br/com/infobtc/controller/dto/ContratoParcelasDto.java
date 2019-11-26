@@ -13,10 +13,10 @@ public class ContratoParcelasDto {
 	private Long id;
 	private String dt_inicio;
 	private String dt_termino;
-	private String investidor;
+//	private String investidor;
 	private String consultor;
 	private String tipo_rendimento;
-	private List<ParcelaDto> parcelas;
+	private int quantidade_parcelas;
 
 	public ContratoParcelasDto() {
 	}
@@ -25,9 +25,9 @@ public class ContratoParcelasDto {
 		this.id = contrato.getId();
 		this.dt_inicio = contrato.getDtInicio().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		this.dt_termino = contrato.getDtTermino().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		this.investidor = contrato.getInvestidor().getNome();
+//		this.investidor = contrato.getInvestidor().getNome();
 		this.consultor = contrato.getConsultor().getNome();
-		this.parcelas = new ParcelaDto().converter(contrato.getParcelas());
+		this.quantidade_parcelas = contrato.getParcelas().size();
 		
 		if (contrato instanceof ContratoInvestimento) {
 			ContratoInvestimento contratoInvestimento =  (ContratoInvestimento)contrato;
@@ -50,9 +50,9 @@ public class ContratoParcelasDto {
 		return dt_termino;
 	}
 
-	public String getInvestidor() {
-		return investidor;
-	}
+//	public String getInvestidor() {
+//		return investidor;
+//	}
 
 	public String getConsultor() {
 		return consultor;
@@ -61,9 +61,9 @@ public class ContratoParcelasDto {
 	public String getTipo_rendimento() {
 		return tipo_rendimento;
 	}
-	
-	public List<ParcelaDto> getParcelas() {
-		return parcelas;
+
+	public int getQuantidade_parcelas() {
+		return quantidade_parcelas;
 	}
 	
 	public List<ContratoParcelasDto> converter(List<Contrato> contratos) {
