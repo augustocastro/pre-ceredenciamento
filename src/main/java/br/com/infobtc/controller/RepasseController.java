@@ -24,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.RepasseDto;
+import br.com.infobtc.controller.form.RepasseEmLoteForm;
 import br.com.infobtc.controller.form.RepasseForm;
 import br.com.infobtc.controller.vo.RepasseParcelaVo;
 import br.com.infobtc.dao.ParcelaDao;
@@ -36,6 +37,7 @@ import br.com.infobtc.model.Usuario;
 import br.com.infobtc.repository.ParcelaRepository;
 import br.com.infobtc.repository.RepasseRepository;
 import br.com.infobtc.repository.UsuarioRepository;
+import br.com.infobtc.service.RepasseService;
 import br.com.infobtc.service.S3Service;
 import javassist.NotFoundException;
 
@@ -63,6 +65,9 @@ public class RepasseController {
 
 	@Autowired
 	private ParcelaDao parcelaDao; 
+	
+	@Autowired
+	private RepasseService repasseService;
 	
 	@PostMapping
 	@Transactional
@@ -92,6 +97,20 @@ public class RepasseController {
 		URI uri = uriComponentsBuilder.path("/repasse/{id}").buildAndExpand(repasse.getId()).toUri();
 		return ResponseEntity.created(uri).body(new RepasseDto(repasse));
 	}
+	
+	// AQUI
+	@PostMapping("/repasse-lote")
+	@Transactional
+	public ResponseEntity<?> fazerRepasseEmLote(HttpServletRequest request, @Valid @ModelAttribute RepasseEmLoteForm repasseForm) throws MalformedURLException {
+		
+		try {
+			repasseService.salvarRepasseEmLote(request, repasseForm);
+		} catch (NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
+		}
+
+		return ResponseEntity.status(201).build();
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<RepasseDto> buscarPorId(@PathVariable Long id) {
@@ -108,7 +127,6 @@ public class RepasseController {
 		List<Repasse> repasses = parcelaDao.buscarRepassePorParcela(id, tipoRecebedor);
 
 		return ResponseEntity.ok(new RepasseDto().converterRepasses(repasses));
-		
 	}
 
 	@GetMapping("contrato/{id}")
@@ -135,6 +153,17 @@ public class RepasseController {
 		List<RepasseParcelaVo> resultado = repasseDao.buscarRepassseAplicandoFiltros(tipoRecebedor, statusRepasse, dtInicioParse, dtTerminoParse, contratoId);
 		return ResponseEntity.ok(resultado);
 	}
+	
+//	private void salvarRepasse(HttpServletRequest request, Repasse repasse, MultipartFile anexo) throws NotFoundException, MalformedURLException {
+//		setarUsuario(request, repasse);
+//		
+//		if (anexo != null) {
+//			URI uploadFile = s3Service.uploadFile(anexo);
+//			repasse.setAnexo(uploadFile.toURL().toString());
+//		}
+//		
+//		repasseRepository.save(repasse);
+//	}
 	
 	private void setarUsuario(HttpServletRequest request, Repasse repasse) throws NotFoundException {
 		String token = tokenService.recuperarToken(request);
