@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.infobtc.config.security.service.TokenService;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.dto.RepasseDto;
 import br.com.infobtc.controller.form.RepasseEmLoteForm;
@@ -33,12 +32,9 @@ import br.com.infobtc.model.Repasse;
 import br.com.infobtc.model.StatusRepasse;
 import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
-import br.com.infobtc.model.Usuario;
 import br.com.infobtc.repository.ParcelaRepository;
 import br.com.infobtc.repository.RepasseRepository;
-import br.com.infobtc.repository.UsuarioRepository;
 import br.com.infobtc.service.RepasseService;
-import br.com.infobtc.service.S3Service;
 import javassist.NotFoundException;
 
 @RestController
@@ -51,14 +47,14 @@ public class RepasseController {
 	@Autowired
 	private ParcelaRepository parcelaRepository;
 
-	@Autowired
-	private S3Service s3Service;
-	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private TokenService tokenService; 
+//	@Autowired
+//	private S3Service s3Service;
+//	
+//	@Autowired
+//	private UsuarioRepository usuarioRepository;
+//	
+//	@Autowired
+//	private TokenService tokenService; 
 
 	@Autowired
 	private RepasseDao repasseDao; 
@@ -76,20 +72,13 @@ public class RepasseController {
 		Repasse repasse = new Repasse();
 		
 		try {
-			if (parcelaDao.buscarRepassePorParcela(repasseForm.getParcela_id(), repasseForm.getTipo_recebedor()).size() > 0) {
-				throw new NotFoundException(String.format("A parcela de id %s já foi repassada para o %s.", repasseForm.getParcela_id(), 
-						repasseForm.getTipo_recebedor().toString().toLowerCase()));
-			}
-			
+//			if (parcelaDao.buscarRepassePorParcela(repasseForm.getParcela_id(), repasseForm.getTipo_recebedor()).size() > 0) {
+//				throw new NotFoundException(String.format("A parcela de id %s já foi repassada para o %s.", repasseForm.getParcela_id(), 
+//						repasseForm.getTipo_recebedor().toString().toLowerCase()));
+//			}
 			repasseForm.setarPropriedades(repasse, parcelaRepository);
-			setarUsuario(request, repasse);
-			
-			if (repasseForm.getAnexo() != null) {
-				URI uploadFile = s3Service.uploadFile(repasseForm.getAnexo());
-				repasse.setAnexo(uploadFile.toURL().toString());
-			}
-			
-			repasseRepository.save(repasse);
+			repasseService.setarUsuario(request, repasse);
+			repasseService.salvarRepasseComAnexos(request, repasse, repasseForm.getAnexo());
 		} catch (NotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErroDto(e.getMessage()));
 		}
@@ -98,9 +87,7 @@ public class RepasseController {
 		return ResponseEntity.created(uri).body(new RepasseDto(repasse));
 	}
 	
-	// AQUI
 	@PostMapping("/repasse-lote")
-	@Transactional
 	public ResponseEntity<?> fazerRepasseEmLote(HttpServletRequest request, @Valid @ModelAttribute RepasseEmLoteForm repasseForm) throws MalformedURLException {
 		
 		try {
@@ -165,16 +152,16 @@ public class RepasseController {
 //		repasseRepository.save(repasse);
 //	}
 	
-	private void setarUsuario(HttpServletRequest request, Repasse repasse) throws NotFoundException {
-		String token = tokenService.recuperarToken(request);
-		Long usuarioId  = tokenService.getUsuario(token);
-		
-		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
-		
-		if (usuario.isPresent()) {
-			repasse.setUsuario(usuario.get());
-		} else {
-			throw new NotFoundException(String.format("O usuário de id %s não foi encontrado.", usuarioId));
-		}
-	}
+//	private void setarUsuario(HttpServletRequest request, Repasse repasse) throws NotFoundException {
+//		String token = tokenService.recuperarToken(request);
+//		Long usuarioId  = tokenService.getUsuario(token);
+//		
+//		Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+//		
+//		if (usuario.isPresent()) {
+//			repasse.setUsuario(usuario.get());
+//		} else {
+//			throw new NotFoundException(String.format("O usuário de id %s não foi encontrado.", usuarioId));
+//		}
+//	}
 }

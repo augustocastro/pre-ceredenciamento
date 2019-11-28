@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
 
 public class RepasseEmLoteForm {
@@ -12,6 +13,7 @@ public class RepasseEmLoteForm {
 	private MultipartFile anexo;
 	private List<Long> parcelas_id;
 	private TipoRepasse tipo_repasse;
+	private TipoRecebedor tipo_recebedor;
 	private String data;
 
 	public String getObservacao() {
@@ -51,6 +53,14 @@ public class RepasseEmLoteForm {
 		this.tipo_repasse = tipo_repasse;
 	}
 
+	public TipoRecebedor getTipo_recebedor() {
+		return tipo_recebedor;
+	}
+	
+	public void setTipo_recebedor(TipoRecebedor tipo_recebedor) {
+		this.tipo_recebedor = tipo_recebedor;
+	}
+	
 	public void setData(String data) {
 		this.data = data;
 	}
