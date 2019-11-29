@@ -33,10 +33,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.infobtc.controller.dto.ContratoInvestimentoDetalhadoDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.BancoForm;
+import br.com.infobtc.controller.form.ContratoArquivosForm;
 import br.com.infobtc.controller.form.ContratoInvestimentoForm;
 import br.com.infobtc.controller.service.ParcelaService;
-import br.com.infobtc.dao.ContratoDao;
-import br.com.infobtc.controller.form.ContratoArquivosForm;
+import br.com.infobtc.controller.vo.InvestimentoConsultorBanco;
+import br.com.infobtc.dao.ContratoInvestimentoDao;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.Status;
@@ -57,8 +58,8 @@ public class ContratoInvestimentoController {
 	@Autowired
 	private ContratoInvestimentoRepository contratoInvestimentoRepository; 
 	
-	@Autowired
-	private ContratoDao contratoDao;
+//	@Autowired
+//	private ContratoDao contratoDao;
 	
 	@Autowired
 	private InvestidorRepository investidorRepository;
@@ -71,6 +72,10 @@ public class ContratoInvestimentoController {
 	
 	@Autowired
 	private ParcelaService parcelaService;
+
+
+	@Autowired
+	private ContratoInvestimentoDao contratoInvestimentoDao;
 	
 	@PostMapping
 	@Transactional
@@ -154,10 +159,19 @@ public class ContratoInvestimentoController {
 	}
 	
 	
-	@GetMapping("/investimentos-composto-aniversario")
-	public List<?> buscarTodos() {
-		List<ContratoInvestimento> contratos = contratoDao.buscarContratosCompostoAniversario();
-		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
+//	@GetMapping("/investimentos-composto-aniversario")
+//	public List<?> buscarTodos() {
+//		List<ContratoInvestimento> contratos = contratoDao.buscarContratosCompostoAniversario();
+//		return new ContratoInvestimentoDetalhadoDto().converter(contratos);
+//	}
+	
+//	Investimento: Data/ Nome (investidor)/ Banco/ Titular/ CPF OU CNPJ/ Agência/ Conta/ código / tipo Rendimento/ Consultor.
+
+	
+	@GetMapping("relatorio/investimentos")
+	public ResponseEntity<?> consultarInvestimentos() {
+		List<InvestimentoConsultorBanco> contratos = contratoInvestimentoDao.buscarInvestimentos();
+		return ResponseEntity.ok(contratos);
 	}
 	
 }
