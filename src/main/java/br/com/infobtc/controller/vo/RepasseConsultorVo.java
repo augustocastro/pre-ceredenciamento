@@ -7,7 +7,7 @@ import br.com.infobtc.model.Status;
 import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
 
-public class RepasseRepassadorVo {
+public class RepasseConsultorVo {
 
 	private double valor;
 	private String observacao;
@@ -21,7 +21,7 @@ public class RepasseRepassadorVo {
 	private String recebedor;
 	private String repassador;
 
-	public RepasseRepassadorVo(double valor, String observacao, String anexo, Status status, Long id_contrato, Long id_parcela,  LocalDate data, TipoRecebedor tipo_recebedor, TipoRepasse tipo_repasse,
+	public RepasseConsultorVo(double valor, String observacao, String anexo, Status status, Long id_contrato, Long id_parcela,  LocalDate data, TipoRecebedor tipo_recebedor, TipoRepasse tipo_repasse,
 			String recebedor, String repassador) {
 		this.valor = valor;
 		this.observacao = observacao;

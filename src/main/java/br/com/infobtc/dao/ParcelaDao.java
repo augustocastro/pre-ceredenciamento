@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.infobtc.controller.vo.RepasseRepassadorVo;
+import br.com.infobtc.controller.vo.RepasseConsultorVo;
 import br.com.infobtc.model.TipoRecebedor;
 
 @Repository
@@ -34,11 +34,11 @@ public class ParcelaDao {
 //		return typedQuery.getResultList();
 //	}
 	
-	public List<RepasseRepassadorVo> buscarRepassePorParcela(Long id, TipoRecebedor tipoRecebedor) {
+	public List<RepasseConsultorVo> buscarRepassePorParcela(Long id, TipoRecebedor tipoRecebedor) {
 		String campos = "r.valor, r.observacao, r.anexo, r.status, r.parcela.contrato.id, r.parcela.id, r.data, r.tipoRecebedor, r.tipoRepasse, r.recebedor, c.nome";
 		
 		StringBuilder query = new StringBuilder();
-		query.append("SELECT NEW br.com.infobtc.controller.vo.RepasseRepassadorVo("+campos+") ");
+		query.append("SELECT NEW br.com.infobtc.controller.vo.RepasseConsultorVo("+campos+") ");
 		query.append("FROM Parcela p ");
 		query.append("JOIN p.repasses r ");
 		query.append("INNER JOIN Consultor c ON c.usuario.id = r.usuario.id ");
@@ -46,7 +46,7 @@ public class ParcelaDao {
 		query.append("AND p.id = :id ");
 		query.append(String.format("AND %s ", tipoRecebedor != null ? "r.tipoRecebedor = :tipoRecebedor " : "1 = 1 "));
 
-		TypedQuery<RepasseRepassadorVo> typedQuery = manager.createQuery(query.toString(), RepasseRepassadorVo.class);
+		TypedQuery<RepasseConsultorVo> typedQuery = manager.createQuery(query.toString(), RepasseConsultorVo.class);
 
 		typedQuery.setParameter("id", id);
 		

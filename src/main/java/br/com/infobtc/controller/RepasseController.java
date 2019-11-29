@@ -26,7 +26,7 @@ import br.com.infobtc.controller.dto.RepasseDto;
 import br.com.infobtc.controller.form.RepasseEmLoteForm;
 import br.com.infobtc.controller.form.RepasseForm;
 import br.com.infobtc.controller.vo.RepasseParcelaVo;
-import br.com.infobtc.controller.vo.RepasseRepassadorVo;
+import br.com.infobtc.controller.vo.RepasseConsultorVo;
 import br.com.infobtc.dao.ParcelaDao;
 import br.com.infobtc.dao.RepasseDao;
 import br.com.infobtc.model.Repasse;
@@ -111,8 +111,8 @@ public class RepasseController {
 	}
 
 	@GetMapping("parcela/{id}")
-	public ResponseEntity<List<RepasseRepassadorVo>> buscarRepassePorParcela(@PathVariable Long id, TipoRecebedor tipoRecebedor) {
-		List<RepasseRepassadorVo> repasses = parcelaDao.buscarRepassePorParcela(id, tipoRecebedor);
+	public ResponseEntity<List<RepasseConsultorVo>> buscarRepassePorParcela(@PathVariable Long id, TipoRecebedor tipoRecebedor) {
+		List<RepasseConsultorVo> repasses = parcelaDao.buscarRepassePorParcela(id, tipoRecebedor);
 		return ResponseEntity.ok(repasses);
 	}
 
