@@ -19,7 +19,6 @@ import com.itextpdf.text.DocumentException;
 import br.com.infobtc.model.Contrato;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.ContratoReinvestimento;
-import br.com.infobtc.model.EstadoCivil;
 import br.com.infobtc.model.Investidor;
 import br.com.infobtc.model.InvestidorPessoaFisica;
 import br.com.infobtc.model.InvestidorPessoaJuridica;
@@ -36,13 +35,13 @@ public class ContratoPDFService {
 		
 		String nomeInvestidor = dadosInvestidor.get("nomeInvestidor");
 		String naoSei1 = dadosInvestidor.get("naoSe1");
-//		String naoSei2 = dadosInvestidor.get("naoSe2");
+		String naoSei2 = dadosInvestidor.get("naoSe2");
 		String tipoDocumento = dadosInvestidor.get("tipoDocumento");
 		String documento = dadosInvestidor.get("documento");
 		String endereco = dadosInvestidor.get("endereco");
 		String cep = dadosInvestidor.get("cep");
 
-		String page1 = String.format(lerArquivo("contrato/page1.txt"), nomeInvestidor, naoSei1, tipoDocumento, 
+		String page1 = String.format(lerArquivo("contrato/page1.txt"), nomeInvestidor, naoSei1, naoSei2, tipoDocumento, 
 				documento, endereco, cep, "10%");
 		String page2 = lerArquivo("contrato/page2.txt");
 		String page3 = lerArquivo("contrato/page3.txt");
@@ -82,7 +81,6 @@ public class ContratoPDFService {
 		
 		String documento;
 		String tipoDocumento;
-		EstadoCivil naoSei1 = null;
 
 		if (isInvestimento) {
 			ContratoInvestimento contratoInvestimento = (ContratoInvestimento) contrato;
@@ -91,7 +89,6 @@ public class ContratoPDFService {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
-				naoSei1 = investidorPessoaFisica.getEstadoCivil();
 			} else {
 				InvestidorPessoaJuridica investidorPessoaJuridica = (InvestidorPessoaJuridica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaJuridica.getCnpj();
@@ -103,8 +100,8 @@ public class ContratoPDFService {
 			dadosInvestidor.put("documento", documento);
 			dadosInvestidor.put("endereco", contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
 			dadosInvestidor.put("cep", contratoInvestimento.getInvestidor().getEndereco().getCep());
-			dadosInvestidor.put("naoSe1", naoSei1.toString());
-//			dadosInvestidor.put("naoSe2", "Não Sei 2");
+			dadosInvestidor.put("naoSe1", "Não Sei 1");
+			dadosInvestidor.put("naoSe2", "Não Sei 2");
 		} else {
 			ContratoReinvestimento contratoReinvestimento = (ContratoReinvestimento) contrato;
 			Investidor investidor = contratoReinvestimento.getInvestimento().getInvestidor();
@@ -113,7 +110,6 @@ public class ContratoPDFService {
 				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) investidor;
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
-				naoSei1 = investidorPessoaFisica.getEstadoCivil();
 			} else {
 				InvestidorPessoaJuridica investidorPessoaJuridica = (InvestidorPessoaJuridica) investidor;
 				documento = investidorPessoaJuridica.getCnpj();
@@ -125,8 +121,8 @@ public class ContratoPDFService {
 			dadosInvestidor.put("documento", documento);
 			dadosInvestidor.put("endereco", investidor.getEndereco().getEndereco().toUpperCase());
 			dadosInvestidor.put("cep", investidor.getEndereco().getCep());
-			dadosInvestidor.put("naoSe1", naoSei1.toString());
-//			dadosInvestidor.put("naoSe2", "Não Sei 2");
+			dadosInvestidor.put("naoSe1", "Não Sei 1");
+			dadosInvestidor.put("naoSe2", "Não Sei 2");
 		}
 
 		return dadosInvestidor;
