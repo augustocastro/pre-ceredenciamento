@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.infobtc.controller.dto.ContratoInvestimentoDetalhadoDto;
+import br.com.infobtc.controller.dto.ContratoInvestimentoDto;
 import br.com.infobtc.controller.dto.ErroDto;
 import br.com.infobtc.controller.form.BancoForm;
 import br.com.infobtc.controller.form.ContratoArquivosForm;
@@ -41,6 +42,7 @@ import br.com.infobtc.dao.ContratoInvestimentoDao;
 import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.Status;
+import br.com.infobtc.model.TipoRendimento;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ConsultorRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
@@ -168,10 +170,25 @@ public class ContratoInvestimentoController {
 //	Investimento: Data/ Nome (investidor)/ Banco/ Titular/ CPF OU CNPJ/ Agência/ Conta/ código / tipo Rendimento/ Consultor.
 
 	
-	@GetMapping("relatorio/investimentos")
-	public ResponseEntity<?> consultarInvestimentos() {
+	@GetMapping("relatorio/investimentos-banco")
+	public ResponseEntity<?> consultarInvestimentosComDadosBancarios() {
 		List<InvestimentoConsultorBanco> contratos = contratoInvestimentoDao.buscarInvestimentos();
 		return ResponseEntity.ok(contratos);
+	}
+	
+	@GetMapping("relatorio/investimentos")
+	public ResponseEntity<?> consultarInvestimentos(TipoRendimento tipoRendimento) {
+		List<ContratoInvestimento> contratos;
+		
+		if (tipoRendimento != null) {
+			contratos = contratoInvestimentoRepository
+					.findByTipoRendimentoAndStatusContratoAndStatusFinanceiro(tipoRendimento, Status.APROVADO, Status.APROVADO);	
+		} else {
+			contratos = contratoInvestimentoRepository
+					.findByStatusContratoAndStatusFinanceiro(Status.APROVADO, Status.APROVADO);
+		}
+			
+		return ResponseEntity.ok(new ContratoInvestimentoDto().converter(contratos));
 	}
 	
 }
