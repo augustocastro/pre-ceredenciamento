@@ -50,10 +50,10 @@ public class ContratoPDFService {
 		String valorContratoPorextenso = cw.write(contrato.getValor());
 		
 		int diaContrato = contrato.getDtInicio().getDayOfMonth();
-		String diaContratoPorExtenso = cw.write(new BigDecimal(diaContrato)).replace("reais", "").trim();
+		String diaContratoPorExtenso = cw.write(new BigDecimal(diaContrato)).replace("reais", "").replace("real", "").trim();
 		
 		int quantidadeMeses = contrato.getQuantidadeMeses();
-		String quantidadeMesesPorExtenso = cw.write(new BigDecimal(quantidadeMeses)).replace("reais", "").trim();
+		String quantidadeMesesPorExtenso = cw.write(new BigDecimal(quantidadeMeses)).replace("reais", "").replace("real", "").trim();
 		
 		String page1 = String.format(lerArquivo("contrato/page1.txt"), nomeInvestidor, estadoCivil, regimeBens, tipoDocumento, 
 				documento, endereco, cep, "10%", valorContratoFormatado, valorContratoPorextenso, diaContrato, diaContratoPorExtenso, quantidadeMeses, quantidadeMesesPorExtenso);

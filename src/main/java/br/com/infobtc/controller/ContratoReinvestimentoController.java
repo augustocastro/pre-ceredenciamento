@@ -2,6 +2,7 @@ package br.com.infobtc.controller;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -39,6 +40,7 @@ import br.com.infobtc.model.Banco;
 import br.com.infobtc.model.ContratoInvestimento;
 import br.com.infobtc.model.ContratoReinvestimento;
 import br.com.infobtc.model.Status;
+import br.com.infobtc.model.TipoRendimento;
 import br.com.infobtc.repository.BancoRepository;
 import br.com.infobtc.repository.ContratoInvestimentoRepository;
 import br.com.infobtc.repository.ContratoReinvestimentoRepository;
@@ -145,6 +147,21 @@ public class ContratoReinvestimentoController {
 				contratos = contratoReinvestimentoRepository.findByStatusContratoAndStatusFinanceiro(statusContrato, statusFinanceiro, paginacao);
 			}
 		}
+		return new ContratoReinvestimentoDto().converter(contratos);
+	}
+	
+	@GetMapping("/relatorio/reinvestimentos")
+	public List<ContratoReinvestimentoDto> consultarReinvestimentos(TipoRendimento tipoRendimento) {
+		List<ContratoReinvestimento> contratos;
+		
+		if (tipoRendimento != null) {
+			contratos = contratoReinvestimentoRepository
+					.findByInvestimentoTipoRendimentoAndStatusContratoAndStatusFinanceiro(tipoRendimento, Status.APROVADO, Status.APROVADO);	
+		} else {
+			contratos = contratoReinvestimentoRepository
+					.findByStatusContratoAndStatusFinanceiro(Status.APROVADO, Status.APROVADO);
+		}
+			
 		return new ContratoReinvestimentoDto().converter(contratos);
 	}
 
