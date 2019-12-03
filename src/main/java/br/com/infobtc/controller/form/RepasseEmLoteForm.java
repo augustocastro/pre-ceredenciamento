@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import br.com.infobtc.model.Status;
 import br.com.infobtc.model.TipoRecebedor;
 import br.com.infobtc.model.TipoRepasse;
 
@@ -15,6 +16,15 @@ public class RepasseEmLoteForm {
 	private TipoRepasse tipo_repasse;
 	private TipoRecebedor tipo_recebedor;
 	private String data;
+	private Status status;
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	public String getObservacao() {
 		return observacao;
