@@ -58,6 +58,7 @@ public class RepasseService {
 				repasse.setData(LocalDate.parse(repasseForm.getData()));
 				repasse.setTipoRecebedor(tipoRecebedor);
 				repasse.setTipoRepasse(repasseForm.getTipo_repasse());
+				repasse.setStatus(repasseForm.getStatus());
 				repasse.setParcela(parcela);
 
 				double valorContrato = contrato.getValor().doubleValue();
