@@ -29,53 +29,12 @@ import br.com.infobtc.model.InvestidorPessoaJuridica;
 public class ContratoPDFService {
 
 	public File gerarPdf(Contrato contrato) throws IOException, DocumentException {
-		OutputStream os = null;
+		final File outputFile = File.createTempFile("contrato", ".pdf");
 
-		boolean isInvestimento = contrato instanceof ContratoInvestimento ? true : false;
-		Map<String, String> dadosInvestidor = retornaDadosInvestidor(contrato, isInvestimento);
-		LocalDate hoje = LocalDate.now();
-
-		String nomeInvestidor = dadosInvestidor.get("nomeInvestidor");
-		String estadoCivil = dadosInvestidor.get("estadoCivil");
-		String regimeBens = dadosInvestidor.get("regimeBens");
-		String tipoDocumento = dadosInvestidor.get("tipoDocumento");
-		String documento = dadosInvestidor.get("documento");
-		String endereco = dadosInvestidor.get("endereco");
-		String cep = dadosInvestidor.get("cep");
-		String nomeConsultor = contrato.getConsultor().getNome();
-		String documentoConsultor = "000.000.000-00";
-
-		CurrencyWriter cw = new CurrencyWriter();
-
-		DecimalFormat decimal = new DecimalFormat("###,###,###,##0.00");
-		String valorContratoFormatado = decimal.format(contrato.getValor());
-		String valorContratoPorextenso = cw.write(contrato.getValor());
-
-		int diaContrato = contrato.getDtInicio().getDayOfMonth();
-		String diaContratoPorExtenso = cw.write(new BigDecimal(diaContrato)).replace("reais", "").replace("real", "")
-				.trim();
-
-		int quantidadeMeses = contrato.getQuantidadeMeses();
-		String quantidadeMesesPorExtenso = cw.write(new BigDecimal(quantidadeMeses)).replace("reais", "")
-				.replace("real", "").trim();
-
-		String page1 = String.format(lerArquivo("contrato/page1.txt"), nomeInvestidor, estadoCivil, regimeBens,
-				tipoDocumento, documento, endereco, cep, "10%", valorContratoFormatado, valorContratoPorextenso,
-				diaContrato, diaContratoPorExtenso, quantidadeMeses, quantidadeMesesPorExtenso);
-		String page2 = lerArquivo("contrato/page2.txt");
-		String page3 = lerArquivo("contrato/page3.txt");
-		String page4 = String.format(lerArquivo("contrato/page4.txt"), hoje.getDayOfMonth(),
-				retornaMes(hoje.getMonthValue()), hoje.getYear(), nomeInvestidor, tipoDocumento, documento,
-				nomeConsultor, documentoConsultor);
-
-		try {
-			final String[] paginas = new String[] { page1, page2, page3, page4 };
-
-			final File outputFile = File.createTempFile("contrato", ".pdf");
-			os = new FileOutputStream(outputFile);
+		try (OutputStream os = new FileOutputStream(outputFile)){
+			final String[] paginas = montarPdf(contrato);
 
 			ITextRenderer renderer = new ITextRenderer();
-
 			renderer.setDocumentFromString(paginas[0]);
 			renderer.layout();
 			renderer.createPDF(os, false);
@@ -87,16 +46,62 @@ public class ContratoPDFService {
 			}
 
 			renderer.finishPDF();
-
+			
 			return outputFile;
-		} finally {
-			if (os != null) {
-				os.close();
-			}
 		}
 	}
+	
+	private String[] montarPdf(Contrato contrato) throws IOException {
+		DecimalFormat decimal = new DecimalFormat("###,###,###,##0.00");
+		CurrencyWriter cw = new CurrencyWriter();
+		
+		Map<String, String> dadosInvestidor = retornaDadosInvestidor(contrato);
+		LocalDate hoje = LocalDate.now();
 
-	private Map<String, String> retornaDadosInvestidor(Contrato contrato, boolean isInvestimento) {
+		int diaContrato = contrato.getDtInicio().getDayOfMonth();
+		int quantidadeMeses = contrato.getQuantidadeMeses();
+		
+		String nomeInvestidor = dadosInvestidor.get("nomeInvestidor");
+		String estadoCivil = dadosInvestidor.get("estadoCivil");
+		String regimeBens = dadosInvestidor.get("regimeBens");
+		String tipoDocumento = dadosInvestidor.get("tipoDocumento");
+		String documento = dadosInvestidor.get("documento");
+		String endereco = dadosInvestidor.get("endereco");
+		String cep = dadosInvestidor.get("cep");
+		
+		String nomeConsultor = contrato.getConsultor().getNome();
+		String documentoConsultor = "000.000.000-00";
+		
+		String valorContratoFormatado = decimal.format(contrato.getValor());
+		String valorContratoPorextenso = cw.write(contrato.getValor());
+		String diaContratoPorExtenso = cw.write(new BigDecimal(contrato.getDtInicio().getDayOfMonth()));
+		String quantidadeMesesPorExtenso = cw.write(new BigDecimal(contrato.getQuantidadeMeses()));
+
+		diaContratoPorExtenso = diaContratoPorExtenso.replace("reais", "").replace("real", "").trim();
+		quantidadeMesesPorExtenso = quantidadeMesesPorExtenso.replace("reais", "").replace("real", "").trim();
+
+		Object paramsPage1[] = new Object[] { 
+				nomeInvestidor, estadoCivil, regimeBens, tipoDocumento, 
+				documento, endereco, cep, "10%", valorContratoFormatado, valorContratoPorextenso, 
+				diaContrato, diaContratoPorExtenso, quantidadeMeses, quantidadeMesesPorExtenso 
+		};
+		
+		Object paramsPage4[] = new Object[] { hoje.getDayOfMonth(),
+				retornaMes(hoje.getMonthValue()), hoje.getYear(), nomeInvestidor, 
+				tipoDocumento, documento, nomeConsultor, documentoConsultor 
+		};
+
+		String page1 = String.format(lerArquivo("contrato/page1.txt"), paramsPage1);
+		String page2 = lerArquivo("contrato/page2.txt");
+		String page3 = lerArquivo("contrato/page3.txt");
+		String page4 = String.format(lerArquivo("contrato/page4.txt"), paramsPage4);
+		
+		return new String[] { page1, page2, page3, page4 };
+	}
+
+	private Map<String, String> retornaDadosInvestidor(Contrato contrato) {
+		boolean isInvestimento = contrato instanceof ContratoInvestimento ? true : false;
+
 		Map<String, String> dadosInvestidor = new HashMap<String, String>();
 
 		String documento;
@@ -106,16 +111,14 @@ public class ContratoPDFService {
 			ContratoInvestimento contratoInvestimento = (ContratoInvestimento) contrato;
 
 			if (contratoInvestimento.getInvestidor().getTipo().equals("pessoa_fisica")) {
-				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento
-						.getInvestidor();
+				InvestidorPessoaFisica investidorPessoaFisica = (InvestidorPessoaFisica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaFisica.getCpf();
 				tipoDocumento = "CPF";
 				dadosInvestidor.put("estadoCivil", investidorPessoaFisica.getEstadoCivil().toString());
 				dadosInvestidor.put("regimeBens", investidorPessoaFisica.getRegime_bens());
 
 			} else {
-				InvestidorPessoaJuridica investidorPessoaJuridica = (InvestidorPessoaJuridica) contratoInvestimento
-						.getInvestidor();
+				InvestidorPessoaJuridica investidorPessoaJuridica = (InvestidorPessoaJuridica) contratoInvestimento.getInvestidor();
 				documento = investidorPessoaJuridica.getCnpj();
 				tipoDocumento = "CNPJ";
 			}
@@ -123,8 +126,7 @@ public class ContratoPDFService {
 			dadosInvestidor.put("nomeInvestidor", contratoInvestimento.getInvestidor().getNome().toUpperCase());
 			dadosInvestidor.put("tipoDocumento", tipoDocumento);
 			dadosInvestidor.put("documento", documento);
-			dadosInvestidor.put("endereco",
-					contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
+			dadosInvestidor.put("endereco", contratoInvestimento.getInvestidor().getEndereco().getEndereco().toUpperCase());
 			dadosInvestidor.put("cep", contratoInvestimento.getInvestidor().getEndereco().getCep());
 		} else {
 			ContratoReinvestimento contratoReinvestimento = (ContratoReinvestimento) contrato;
