@@ -1,0 +1,16 @@
+{
+	"cpf": "07047417176",
+	"sexo": "Masculino",
+	"nomeCompleto": "NOME COMPLETO",
+	"nomeSocial": "NOME SOCIAL",
+	"dataNascimento": "2019-06-16",
+	"estadoCivil": "Solteiiro",
+	"grauInstrucao": "Superior completo",
+	"rg": "151514",
+	"orgaoEmissor": "ORGAO EMISSOR",
+	"naturalidade": "NATURALIDADE",
+	"nacionalidade": "NACIONALIDADE",
+	"parentesco": "FILHO(A)",
+	"renda": 5000,
+	"titular": 1
+}

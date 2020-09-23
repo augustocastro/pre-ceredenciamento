@@ -1,0 +1,1351 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 173539328 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2749), pid=18241, tid=0x00007f3db4585700
+#
+# JRE version: Java(TM) SE Runtime Environment (8.0_261-b12) (build 1.8.0_261-b12)
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (25.261-b12 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f3dc8094800):  VMThread [stack: 0x00007f3db4486000,0x00007f3db4586000] [id=18256]
+
+Stack: [0x00007f3db4486000,0x00007f3db4586000],  sp=0x00007f3db45843f0,  free space=1016k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xadd805]  VMError::report_and_die()+0x2e5
+V  [libjvm.so+0x4e2a47]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*)+0x67
+V  [libjvm.so+0x9176e0]  os::pd_commit_memory(char*, unsigned long, unsigned long, bool)+0x100
+V  [libjvm.so+0x90ed0f]  os::commit_memory(char*, unsigned long, unsigned long, bool)+0x1f
+V  [libjvm.so+0x993ce6]  PSVirtualSpace::expand_by(unsigned long)+0x56
+V  [libjvm.so+0x994f78]  PSYoungGen::resize(unsigned long, unsigned long)+0xd8
+V  [libjvm.so+0x991716]  PSScavenge::invoke_no_policy()+0x1376
+V  [libjvm.so+0x991aac]  PSScavenge::invoke()+0x4c
+V  [libjvm.so+0x941538]  ParallelScavengeHeap::failed_mem_allocate(unsigned long)+0x68
+V  [libjvm.so+0xadf353]  VM_ParallelGCFailedAllocation::doit()+0x93
+V  [libjvm.so+0xae45a6]  VM_Operation::evaluate()+0x46
+V  [libjvm.so+0xae28dd]  VMThread::evaluate_operation(VM_Operation*) [clone .constprop.44]+0xcd
+V  [libjvm.so+0xae2ec3]  VMThread::loop()+0x3a3
+V  [libjvm.so+0xae3298]  VMThread::run()+0x78
+V  [libjvm.so+0x914d12]  java_start(Thread*)+0x102
+
+VM_Operation (0x00007f3d958d7550): ParallelGCFailedAllocation, mode: safepoint, requested by thread 0x00007f3d5220d800
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f3dc801e000 JavaThread "DestroyJavaVM" [_thread_blocked, id=18246, stack(0x00007f3dce1a9000,0x00007f3dce2a9000)]
+  0x00007f3d522c7800 JavaThread "http-nio-8080-Acceptor-0" daemon [_thread_in_native, id=18359, stack(0x00007f3d948cb000,0x00007f3d949cc000)]
+  0x00007f3d522aa000 JavaThread "http-nio-8080-ClientPoller-1" daemon [_thread_in_native, id=18358, stack(0x00007f3d949cc000,0x00007f3d94acd000)]
+  0x00007f3d522a8000 JavaThread "http-nio-8080-ClientPoller-0" daemon [_thread_in_native, id=18357, stack(0x00007f3d94acd000,0x00007f3d94bce000)]
+  0x00007f3d522a6000 JavaThread "http-nio-8080-exec-10" daemon [_thread_blocked, id=18356, stack(0x00007f3d94bce000,0x00007f3d94ccf000)]
+  0x00007f3d522a4800 JavaThread "http-nio-8080-exec-9" daemon [_thread_blocked, id=18355, stack(0x00007f3d94ccf000,0x00007f3d94dd0000)]
+  0x00007f3d522a2800 JavaThread "http-nio-8080-exec-8" daemon [_thread_blocked, id=18354, stack(0x00007f3d94dd0000,0x00007f3d94ed1000)]
+  0x00007f3d522a0800 JavaThread "http-nio-8080-exec-7" daemon [_thread_blocked, id=18353, stack(0x00007f3d94ed1000,0x00007f3d94fd2000)]
+  0x00007f3d5229e800 JavaThread "http-nio-8080-exec-6" daemon [_thread_blocked, id=18352, stack(0x00007f3d94fd2000,0x00007f3d950d3000)]
+  0x00007f3d5229c800 JavaThread "http-nio-8080-exec-5" daemon [_thread_blocked, id=18351, stack(0x00007f3d950d3000,0x00007f3d951d4000)]
+  0x00007f3d5229b000 JavaThread "http-nio-8080-exec-4" daemon [_thread_blocked, id=18350, stack(0x00007f3d951d4000,0x00007f3d952d5000)]
+  0x00007f3d52299000 JavaThread "http-nio-8080-exec-3" daemon [_thread_blocked, id=18349, stack(0x00007f3d952d5000,0x00007f3d953d6000)]
+  0x00007f3d52297000 JavaThread "http-nio-8080-exec-2" daemon [_thread_blocked, id=18348, stack(0x00007f3d953d6000,0x00007f3d954d7000)]
+  0x00007f3d52295800 JavaThread "http-nio-8080-exec-1" daemon [_thread_blocked, id=18347, stack(0x00007f3d954d7000,0x00007f3d955d8000)]
+  0x00007f3d52293800 JavaThread "NioBlockingSelector.BlockPoller-1" daemon [_thread_in_native, id=18346, stack(0x00007f3d978e5000,0x00007f3d979e6000)]
+  0x00007f3d5220d800 JavaThread "File Watcher" daemon [_thread_blocked, id=18345, stack(0x00007f3d957d8000,0x00007f3d958d9000)]
+  0x00007f3d521f4000 JavaThread "quartzScheduler_QuartzSchedulerThread" [_thread_blocked, id=18344, stack(0x00007f3d958d9000,0x00007f3d959da000)]
+  0x00007f3d521eb800 JavaThread "quartzScheduler_Worker-10" [_thread_blocked, id=18343, stack(0x00007f3d959da000,0x00007f3d95adb000)]
+  0x00007f3d521e9800 JavaThread "quartzScheduler_Worker-9" [_thread_blocked, id=18342, stack(0x00007f3d95adb000,0x00007f3d95bdc000)]
+  0x00007f3d521e7800 JavaThread "quartzScheduler_Worker-8" [_thread_blocked, id=18341, stack(0x00007f3d95bdc000,0x00007f3d95cdd000)]
+  0x00007f3d521e5800 JavaThread "quartzScheduler_Worker-7" [_thread_blocked, id=18340, stack(0x00007f3d95cdd000,0x00007f3d95dde000)]
+  0x00007f3d521e3800 JavaThread "quartzScheduler_Worker-6" [_thread_blocked, id=18339, stack(0x00007f3d95dde000,0x00007f3d95edf000)]
+  0x00007f3d521e2000 JavaThread "quartzScheduler_Worker-5" [_thread_blocked, id=18338, stack(0x00007f3d95edf000,0x00007f3d95fe0000)]
+  0x00007f3d521e0000 JavaThread "quartzScheduler_Worker-4" [_thread_blocked, id=18337, stack(0x00007f3d95fe0000,0x00007f3d960e1000)]
+  0x00007f3d521de800 JavaThread "quartzScheduler_Worker-3" [_thread_blocked, id=18336, stack(0x00007f3d960e1000,0x00007f3d961e2000)]
+  0x00007f3d521dd000 JavaThread "quartzScheduler_Worker-2" [_thread_blocked, id=18335, stack(0x00007f3d961e2000,0x00007f3d962e3000)]
+  0x00007f3d521db000 JavaThread "quartzScheduler_Worker-1" [_thread_blocked, id=18334, stack(0x00007f3d96de4000,0x00007f3d96ee5000)]
+  0x00007f3d51e67000 JavaThread "Live Reload Server" daemon [_thread_in_native, id=18286, stack(0x00007f3d96ce3000,0x00007f3d96de4000)]
+  0x00007f3d519cb000 JavaThread "HikariPool-1 housekeeper" daemon [_thread_blocked, id=18279, stack(0x00007f3d97be6000,0x00007f3d97ce7000)]
+  0x00007f3d516e8000 JavaThread "container-0" [_thread_blocked, id=18276, stack(0x00007f3da465b000,0x00007f3da475c000)]
+  0x00007f3d54543000 JavaThread "Catalina-utility-2" [_thread_blocked, id=18275, stack(0x00007f3da475c000,0x00007f3da485d000)]
+  0x00007f3d516e7000 JavaThread "Catalina-utility-1" [_thread_blocked, id=18274, stack(0x00007f3da695b000,0x00007f3da6a5c000)]
+  0x00007f3dc80e1000 JavaThread "Service Thread" daemon [_thread_blocked, id=18264, stack(0x00007f3da7bfc000,0x00007f3da7cfd000)]
+  0x00007f3dc80de000 JavaThread "C1 CompilerThread3" daemon [_thread_blocked, id=18263, stack(0x00007f3da7cfe000,0x00007f3da7dfe000)]
+  0x00007f3dc80dc000 JavaThread "C2 CompilerThread2" daemon [_thread_blocked, id=18262, stack(0x00007f3da7dff000,0x00007f3da7eff000)]
+  0x00007f3dc80da000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=18261, stack(0x00007f3da7f00000,0x00007f3da8000000)]
+  0x00007f3dc80d7000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=18260, stack(0x00007f3db4082000,0x00007f3db4182000)]
+  0x00007f3dc80d5800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=18259, stack(0x00007f3db4182000,0x00007f3db4283000)]
+  0x00007f3dc80a2800 JavaThread "Finalizer" daemon [_thread_blocked, id=18258, stack(0x00007f3db4283000,0x00007f3db4384000)]
+  0x00007f3dc809e000 JavaThread "Reference Handler" daemon [_thread_blocked, id=18257, stack(0x00007f3db4384000,0x00007f3db4485000)]
+
+Other Threads:
+=>0x00007f3dc8094800 VMThread [stack: 0x00007f3db4486000,0x00007f3db4586000] [id=18256]
+  0x00007f3dc80f1000 WatcherThread [stack: 0x00007f3da7afc000,0x00007f3da7bfc000] [id=18265]
+
+VM state:at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f3dc801a660] Threads_lock - owner thread: 0x00007f3dc8094800
+[0x00007f3dc801ab60] Heap_lock - owner thread: 0x00007f3d5220d800
+
+heap address: 0x0000000087000000, size: 1936 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 470528K, used 19949K [0x00000000d7b00000, 0x00000000f5a00000, 0x0000000100000000)
+  eden space 450560K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000f3300000)
+  from space 19968K, 99% used [0x00000000f3300000,0x00000000f467b5e0,0x00000000f4680000)
+  to   space 13312K, 0% used [0x00000000f4d00000,0x00000000f4d00000,0x00000000f5a00000)
+ ParOldGen       total 93184K, used 32394K [0x0000000087000000, 0x000000008cb00000, 0x00000000d7b00000)
+  object space 93184K, 34% used [0x0000000087000000,0x0000000088fa2bc0,0x000000008cb00000)
+ Metaspace       used 73079K, capacity 76316K, committed 76564K, reserved 1116160K
+  class space    used 9958K, capacity 10474K, committed 10556K, reserved 1048576K
+
+Card table byte_map: [0x00007f3db79db000,0x00007f3db7da4000] byte_map_base: 0x00007f3db75a3000
+
+Marking Bits: (ParMarkBitMap*) 0x00007f3dcd6570c0
+ Begin Bits: [0x00007f3dac380000, 0x00007f3dae1c0000)
+ End Bits:   [0x00007f3dae1c0000, 0x00007f3db0000000)
+
+Polling page: 0x00007f3dce2c4000
+
+CodeCache: size=245760Kb used=21603Kb max_used=22128Kb free=224156Kb
+ bounds [0x00007f3db8164000, 0x00007f3db9734000, 0x00007f3dc7164000]
+ total_blobs=6802 nmethods=6187 adapters=526
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 427,029 Thread 0x00007f3dc80de000 7478   !   3       org.apache.catalina.core.ContainerBase::getRealmInternal (38 bytes)
+Event: 427,209 Thread 0x00007f3dc80de000 nmethod 7478 0x00007f3db8a2c3d0 code [0x00007f3db8a2c5e0, 0x00007f3db8a2cff8]
+Event: 427,219 Thread 0x00007f3dc80de000 7479   !   3       org.apache.catalina.core.ContainerBase::getClusterInternal (38 bytes)
+Event: 427,437 Thread 0x00007f3dc80de000 nmethod 7479 0x00007f3db8a2b310 code [0x00007f3db8a2b520, 0x00007f3db8a2bf38]
+Event: 437,756 Thread 0x00007f3dc80de000 7480   !   3       org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor::processChildren (191 bytes)
+Event: 442,146 Thread 0x00007f3dc80de000 nmethod 7480 0x00007f3db8a28250 code [0x00007f3db8a285c0, 0x00007f3db8a2a7c8]
+Event: 442,272 Thread 0x00007f3dc80de000 7481   !   3       org.apache.catalina.core.ContainerBase::backgroundProcess (168 bytes)
+Event: 446,442 Thread 0x00007f3dc80de000 nmethod 7481 0x00007f3db8a25dd0 code [0x00007f3db8a260e0, 0x00007f3db8a27808]
+Event: 446,455 Thread 0x00007f3dc80de000 7482       3       org.apache.catalina.mapper.MapperListener::lifecycleEvent (178 bytes)
+Event: 446,505 Thread 0x00007f3dc80de000 nmethod 7482 0x00007f3db8a23cd0 code [0x00007f3db8a23fa0, 0x00007f3db8a25988]
+
+GC Heap History (10 events):
+Event: 6,089 GC heap after
+Heap after GC invocations=11 (full 1):
+ PSYoungGen      total 321536K, used 9499K [0x00000000d7b00000, 0x00000000efd00000, 0x0000000100000000)
+  eden space 307200K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000ea700000)
+  from space 14336K, 66% used [0x00000000eb500000,0x00000000ebe46c00,0x00000000ec300000)
+  to   space 14336K, 0% used [0x00000000ea700000,0x00000000ea700000,0x00000000eb500000)
+ ParOldGen       total 47616K, used 18018K [0x0000000087000000, 0x0000000089e80000, 0x00000000d7b00000)
+  object space 47616K, 37% used [0x0000000087000000,0x00000000881989f0,0x0000000089e80000)
+ Metaspace       used 33756K, capacity 35372K, committed 35416K, reserved 1079296K
+  class space    used 4427K, capacity 4730K, committed 4736K, reserved 1048576K
+}
+Event: 6,089 GC heap before
+{Heap before GC invocations=12 (full 2):
+ PSYoungGen      total 321536K, used 9499K [0x00000000d7b00000, 0x00000000efd00000, 0x0000000100000000)
+  eden space 307200K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000ea700000)
+  from space 14336K, 66% used [0x00000000eb500000,0x00000000ebe46c00,0x00000000ec300000)
+  to   space 14336K, 0% used [0x00000000ea700000,0x00000000ea700000,0x00000000eb500000)
+ ParOldGen       total 47616K, used 18018K [0x0000000087000000, 0x0000000089e80000, 0x00000000d7b00000)
+  object space 47616K, 37% used [0x0000000087000000,0x00000000881989f0,0x0000000089e80000)
+ Metaspace       used 33756K, capacity 35372K, committed 35416K, reserved 1079296K
+  class space    used 4427K, capacity 4730K, committed 4736K, reserved 1048576K
+Event: 6,146 GC heap after
+Heap after GC invocations=12 (full 2):
+ PSYoungGen      total 321536K, used 0K [0x00000000d7b00000, 0x00000000efd00000, 0x0000000100000000)
+  eden space 307200K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000ea700000)
+  from space 14336K, 0% used [0x00000000eb500000,0x00000000eb500000,0x00000000ec300000)
+  to   space 14336K, 0% used [0x00000000ea700000,0x00000000ea700000,0x00000000eb500000)
+ ParOldGen       total 68608K, used 18745K [0x0000000087000000, 0x000000008b300000, 0x00000000d7b00000)
+  object space 68608K, 27% used [0x0000000087000000,0x000000008824e780,0x000000008b300000)
+ Metaspace       used 33756K, capacity 35372K, committed 35416K, reserved 1079296K
+  class space    used 4427K, capacity 4730K, committed 4736K, reserved 1048576K
+}
+Event: 9,216 GC heap before
+{Heap before GC invocations=13 (full 2):
+ PSYoungGen      total 321536K, used 307200K [0x00000000d7b00000, 0x00000000efd00000, 0x0000000100000000)
+  eden space 307200K, 100% used [0x00000000d7b00000,0x00000000ea700000,0x00000000ea700000)
+  from space 14336K, 0% used [0x00000000eb500000,0x00000000eb500000,0x00000000ec300000)
+  to   space 14336K, 0% used [0x00000000ea700000,0x00000000ea700000,0x00000000eb500000)
+ ParOldGen       total 68608K, used 18745K [0x0000000087000000, 0x000000008b300000, 0x00000000d7b00000)
+  object space 68608K, 27% used [0x0000000087000000,0x000000008824e780,0x000000008b300000)
+ Metaspace       used 53314K, capacity 55096K, committed 55384K, reserved 1097728K
+  class space    used 7160K, capacity 7508K, committed 7552K, reserved 1048576K
+Event: 9,251 GC heap after
+Heap after GC invocations=13 (full 2):
+ PSYoungGen      total 321536K, used 14330K [0x00000000d7b00000, 0x00000000f6100000, 0x0000000100000000)
+  eden space 307200K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000ea700000)
+  from space 14336K, 99% used [0x00000000ea700000,0x00000000eb4fea68,0x00000000eb500000)
+  to   space 20480K, 0% used [0x00000000f4d00000,0x00000000f4d00000,0x00000000f6100000)
+ ParOldGen       total 68608K, used 29238K [0x0000000087000000, 0x000000008b300000, 0x00000000d7b00000)
+  object space 68608K, 42% used [0x0000000087000000,0x0000000088c8d8c0,0x000000008b300000)
+ Metaspace       used 53314K, capacity 55096K, committed 55384K, reserved 1097728K
+  class space    used 7160K, capacity 7508K, committed 7552K, reserved 1048576K
+}
+Event: 10,694 GC heap before
+{Heap before GC invocations=14 (full 2):
+ PSYoungGen      total 321536K, used 95017K [0x00000000d7b00000, 0x00000000f6100000, 0x0000000100000000)
+  eden space 307200K, 26% used [0x00000000d7b00000,0x00000000dc9cbba8,0x00000000ea700000)
+  from space 14336K, 99% used [0x00000000ea700000,0x00000000eb4fea68,0x00000000eb500000)
+  to   space 20480K, 0% used [0x00000000f4d00000,0x00000000f4d00000,0x00000000f6100000)
+ ParOldGen       total 68608K, used 29238K [0x0000000087000000, 0x000000008b300000, 0x00000000d7b00000)
+  object space 68608K, 42% used [0x0000000087000000,0x0000000088c8d8c0,0x000000008b300000)
+ Metaspace       used 56891K, capacity 58776K, committed 59028K, reserved 1099776K
+  class space    used 7706K, capacity 8076K, committed 8124K, reserved 1048576K
+Event: 10,716 GC heap after
+Heap after GC invocations=14 (full 2):
+ PSYoungGen      total 463872K, used 4462K [0x00000000d7b00000, 0x00000000f5a00000, 0x0000000100000000)
+  eden space 450560K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000f3300000)
+  from space 13312K, 33% used [0x00000000f4d00000,0x00000000f515b960,0x00000000f5a00000)
+  to   space 19968K, 0% used [0x00000000f3300000,0x00000000f3300000,0x00000000f4680000)
+ ParOldGen       total 68608K, used 36785K [0x0000000087000000, 0x000000008b300000, 0x00000000d7b00000)
+  object space 68608K, 53% used [0x0000000087000000,0x00000000893ec4e8,0x000000008b300000)
+ Metaspace       used 56891K, capacity 58776K, committed 59028K, reserved 1099776K
+  class space    used 7706K, capacity 8076K, committed 8124K, reserved 1048576K
+}
+Event: 10,716 GC heap before
+{Heap before GC invocations=15 (full 3):
+ PSYoungGen      total 463872K, used 4462K [0x00000000d7b00000, 0x00000000f5a00000, 0x0000000100000000)
+  eden space 450560K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000f3300000)
+  from space 13312K, 33% used [0x00000000f4d00000,0x00000000f515b960,0x00000000f5a00000)
+  to   space 19968K, 0% used [0x00000000f3300000,0x00000000f3300000,0x00000000f4680000)
+ ParOldGen       total 68608K, used 36785K [0x0000000087000000, 0x000000008b300000, 0x00000000d7b00000)
+  object space 68608K, 53% used [0x0000000087000000,0x00000000893ec4e8,0x000000008b300000)
+ Metaspace       used 56891K, capacity 58776K, committed 59028K, reserved 1099776K
+  class space    used 7706K, capacity 8076K, committed 8124K, reserved 1048576K
+Event: 10,923 GC heap after
+Heap after GC invocations=15 (full 3):
+ PSYoungGen      total 463872K, used 0K [0x00000000d7b00000, 0x00000000f5a00000, 0x0000000100000000)
+  eden space 450560K, 0% used [0x00000000d7b00000,0x00000000d7b00000,0x00000000f3300000)
+  from space 13312K, 0% used [0x00000000f4d00000,0x00000000f4d00000,0x00000000f5a00000)
+  to   space 19968K, 0% used [0x00000000f3300000,0x00000000f3300000,0x00000000f4680000)
+ ParOldGen       total 93184K, used 29673K [0x0000000087000000, 0x000000008cb00000, 0x00000000d7b00000)
+  object space 93184K, 31% used [0x0000000087000000,0x0000000088cfa718,0x000000008cb00000)
+ Metaspace       used 56891K, capacity 58776K, committed 59028K, reserved 1099776K
+  class space    used 7706K, capacity 8076K, committed 8124K, reserved 1048576K
+}
+Event: 448,879 GC heap before
+{Heap before GC invocations=16 (full 3):
+ PSYoungGen      total 463872K, used 450560K [0x00000000d7b00000, 0x00000000f5a00000, 0x0000000100000000)
+  eden space 450560K, 100% used [0x00000000d7b00000,0x00000000f3300000,0x00000000f3300000)
+  from space 13312K, 0% used [0x00000000f4d00000,0x00000000f4d00000,0x00000000f5a00000)
+  to   space 19968K, 0% used [0x00000000f3300000,0x00000000f3300000,0x00000000f4680000)
+ ParOldGen       total 93184K, used 29673K [0x0000000087000000, 0x000000008cb00000, 0x00000000d7b00000)
+  object space 93184K, 31% used [0x0000000087000000,0x0000000088cfa718,0x000000008cb00000)
+ Metaspace       used 73079K, capacity 76316K, committed 76564K, reserved 1116160K
+  class space    used 9958K, capacity 10474K, committed 10556K, reserved 1048576K
+
+Deoptimization events (10 events):
+Event: 14,296 Thread 0x00007f3d5220d800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f3db839e87c method=java.util.AbstractCollection.containsAll(Ljava/util/Collection;)Z @ 1
+Event: 14,296 Thread 0x00007f3d5220d800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f3db839e87c method=java.util.AbstractCollection.containsAll(Ljava/util/Collection;)Z @ 1
+Event: 14,296 Thread 0x00007f3d5220d800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f3db839e87c method=java.util.AbstractCollection.containsAll(Ljava/util/Collection;)Z @ 1
+Event: 14,296 Thread 0x00007f3d5220d800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f3db839e87c method=java.util.AbstractCollection.containsAll(Ljava/util/Collection;)Z @ 1
+Event: 62,305 Thread 0x00007f3d52299000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f3db874a204 method=java.nio.Buffer.limit(I)Ljava/nio/Buffer; @ 30
+Event: 62,587 Thread 0x00007f3d5229e800 Uncommon trap: reason=null_check action=make_not_entrant pc=0x00007f3db96f47d4 method=org.springframework.core.annotation.AnnotationUtils.isSynthesizable(Ljava/lang/Class;)Z @ 93
+Event: 62,640 Thread 0x00007f3d522a0800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f3db8fafb84 method=java.util.Properties$LineReader.readLine()I @ 37
+Event: 62,641 Thread 0x00007f3d522a0800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f3db8fa7984 method=java.util.Properties$LineReader.readLine()I @ 105
+Event: 62,819 Thread 0x00007f3d5229e800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f3db95e0f58 method=java.util.concurrent.ConcurrentHashMap.get(Ljava/lang/Object;)Ljava/lang/Object; @ 99
+Event: 79,170 Thread 0x00007f3d522a4800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00007f3db89c8824 method=org.springframework.core.ResolvableType.resolveType()Lorg/springframework/core/ResolvableType; @ 45
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 13,742 Thread 0x00007f3d5c004800 Exception <a 'java/lang/ClassNotFoundException': [Lorg/springframework/web/multipart/MultipartFile;Customizer> (0x00000000e727cc68) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/prims/jni.cpp, line 737]
+Event: 62,640 Thread 0x00007f3d522a0800 Implicit null exception at 0x00007f3db8faf5b7 to 0x00007f3db8fafb55
+Event: 62,641 Thread 0x00007f3d522a0800 Implicit null exception at 0x00007f3db8fa6f67 to 0x00007f3db8fa7915
+Event: 78,457 Thread 0x00007f3d522a4800 Exception <a 'java/lang/ClassNotFoundException': java/lang/ObjectCustomizer> (0x00000000ed148468) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 78,467 Thread 0x00007f3d522a4800 Exception <a 'java/lang/ClassNotFoundException': br/com/precredenciamento/controller/form/UsuarioExternoFormDataCustomizer> (0x00000000ed1b2690) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/classfile/system
+Event: 78,926 Thread 0x00007f3d522a4800 Exception <a 'java/lang/ClassNotFoundException': java/lang/ObjectCustomizer> (0x00000000edec4990) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 78,934 Thread 0x00007f3d522a4800 Exception <a 'java/lang/ClassNotFoundException': br/com/precredenciamento/model/EnderecoCustomizer> (0x00000000edf154a0) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210
+Event: 79,075 Thread 0x00007f3d522a4800 Exception <a 'java/lang/ClassNotFoundException': java/lang/ObjectCustomizer> (0x00000000ee261708) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 79,084 Thread 0x00007f3d522a4800 Exception <a 'java/lang/ClassNotFoundException': br/com/precredenciamento/model/UsuarioExternoCustomizer> (0x00000000ee2b9400) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/classfile/systemDictionary.cpp, li
+Event: 119,842 Thread 0x00007f3ce0038000 Exception <a 'java/lang/InterruptedException': sleep interrupted> (0x00000000eef18c08) thrown at [/scratch/jenkins/workspace/8-2-build-linux-amd64/jdk8u261/295/hotspot/src/share/vm/prims/jvm.cpp, line 3346]
+
+Events (10 events):
+Event: 184,791 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db82b12d0
+Event: 185,792 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db8551ad0
+Event: 188,795 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db8855950
+Event: 196,927 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db8af04d0
+Event: 200,796 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db8fa6c50
+Event: 200,797 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db8faf0d0
+Event: 207,795 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db9588d50
+Event: 207,796 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db96193d0
+Event: 207,796 Thread 0x00007f3dc80de000 flushing nmethod 0x00007f3db96ef750
+Event: 448,874 Executing VM operation: ParallelGCFailedAllocation
+
+
+Dynamic libraries:
+87000000-8cb00000 rw-p 00000000 00:00 0 
+8cb00000-d7b00000 ---p 00000000 00:00 0 
+d7b00000-f5a00000 rw-p 00000000 00:00 0 
+fff80000-100000000 ---p 00000000 00:00 0 
+100000000-100a4f000 rw-p 00000000 00:00 0 
+100a4f000-140000000 ---p 00000000 00:00 0 
+563708ed0000-563708ed1000 r-xp 00000000 103:02 9200921                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/bin/java
+5637090d0000-5637090d1000 r--p 00000000 103:02 9200921                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/bin/java
+5637090d1000-5637090d2000 rw-p 00001000 103:02 9200921                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/bin/java
+56370addc000-56370adfd000 rw-p 00000000 00:00 0                          [heap]
+7f3cd0000000-7f3cd0021000 rw-p 00000000 00:00 0 
+7f3cd0021000-7f3cd4000000 ---p 00000000 00:00 0 
+7f3cd8000000-7f3cd8021000 rw-p 00000000 00:00 0 
+7f3cd8021000-7f3cdc000000 ---p 00000000 00:00 0 
+7f3cdc000000-7f3cdc021000 rw-p 00000000 00:00 0 
+7f3cdc021000-7f3ce0000000 ---p 00000000 00:00 0 
+7f3ce0000000-7f3ce0242000 rw-p 00000000 00:00 0 
+7f3ce0242000-7f3ce4000000 ---p 00000000 00:00 0 
+7f3ce4000000-7f3ce4021000 rw-p 00000000 00:00 0 
+7f3ce4021000-7f3ce8000000 ---p 00000000 00:00 0 
+7f3ce8000000-7f3ce8021000 rw-p 00000000 00:00 0 
+7f3ce8021000-7f3cec000000 ---p 00000000 00:00 0 
+7f3cec000000-7f3cec021000 rw-p 00000000 00:00 0 
+7f3cec021000-7f3cf0000000 ---p 00000000 00:00 0 
+7f3cf0000000-7f3cf0021000 rw-p 00000000 00:00 0 
+7f3cf0021000-7f3cf4000000 ---p 00000000 00:00 0 
+7f3cf4000000-7f3cf4166000 rw-p 00000000 00:00 0 
+7f3cf4166000-7f3cf8000000 ---p 00000000 00:00 0 
+7f3cf8000000-7f3cf8021000 rw-p 00000000 00:00 0 
+7f3cf8021000-7f3cfc000000 ---p 00000000 00:00 0 
+7f3cfc000000-7f3cfc021000 rw-p 00000000 00:00 0 
+7f3cfc021000-7f3d00000000 ---p 00000000 00:00 0 
+7f3d00000000-7f3d000ca000 rw-p 00000000 00:00 0 
+7f3d000ca000-7f3d04000000 ---p 00000000 00:00 0 
+7f3d04000000-7f3d040aa000 rw-p 00000000 00:00 0 
+7f3d040aa000-7f3d08000000 ---p 00000000 00:00 0 
+7f3d08000000-7f3d08021000 rw-p 00000000 00:00 0 
+7f3d08021000-7f3d0c000000 ---p 00000000 00:00 0 
+7f3d0c000000-7f3d0c29e000 rw-p 00000000 00:00 0 
+7f3d0c29e000-7f3d10000000 ---p 00000000 00:00 0 
+7f3d10000000-7f3d10021000 rw-p 00000000 00:00 0 
+7f3d10021000-7f3d14000000 ---p 00000000 00:00 0 
+7f3d14000000-7f3d14021000 rw-p 00000000 00:00 0 
+7f3d14021000-7f3d18000000 ---p 00000000 00:00 0 
+7f3d18000000-7f3d18021000 rw-p 00000000 00:00 0 
+7f3d18021000-7f3d1c000000 ---p 00000000 00:00 0 
+7f3d1c000000-7f3d1c021000 rw-p 00000000 00:00 0 
+7f3d1c021000-7f3d20000000 ---p 00000000 00:00 0 
+7f3d20000000-7f3d20021000 rw-p 00000000 00:00 0 
+7f3d20021000-7f3d24000000 ---p 00000000 00:00 0 
+7f3d24000000-7f3d24021000 rw-p 00000000 00:00 0 
+7f3d24021000-7f3d28000000 ---p 00000000 00:00 0 
+7f3d28000000-7f3d28021000 rw-p 00000000 00:00 0 
+7f3d28021000-7f3d2c000000 ---p 00000000 00:00 0 
+7f3d2c000000-7f3d2c021000 rw-p 00000000 00:00 0 
+7f3d2c021000-7f3d30000000 ---p 00000000 00:00 0 
+7f3d30000000-7f3d30021000 rw-p 00000000 00:00 0 
+7f3d30021000-7f3d34000000 ---p 00000000 00:00 0 
+7f3d34000000-7f3d34021000 rw-p 00000000 00:00 0 
+7f3d34021000-7f3d38000000 ---p 00000000 00:00 0 
+7f3d38000000-7f3d38021000 rw-p 00000000 00:00 0 
+7f3d38021000-7f3d3c000000 ---p 00000000 00:00 0 
+7f3d3c000000-7f3d3c021000 rw-p 00000000 00:00 0 
+7f3d3c021000-7f3d40000000 ---p 00000000 00:00 0 
+7f3d40000000-7f3d40439000 rw-p 00000000 00:00 0 
+7f3d40439000-7f3d44000000 ---p 00000000 00:00 0 
+7f3d44000000-7f3d44021000 rw-p 00000000 00:00 0 
+7f3d44021000-7f3d48000000 ---p 00000000 00:00 0 
+7f3d48000000-7f3d48021000 rw-p 00000000 00:00 0 
+7f3d48021000-7f3d4c000000 ---p 00000000 00:00 0 
+7f3d4c000000-7f3d4c021000 rw-p 00000000 00:00 0 
+7f3d4c021000-7f3d50000000 ---p 00000000 00:00 0 
+7f3d50000000-7f3d522ce000 rw-p 00000000 00:00 0 
+7f3d522ce000-7f3d54000000 ---p 00000000 00:00 0 
+7f3d54000000-7f3d54550000 rw-p 00000000 00:00 0 
+7f3d54550000-7f3d58000000 ---p 00000000 00:00 0 
+7f3d58000000-7f3d58021000 rw-p 00000000 00:00 0 
+7f3d58021000-7f3d5c000000 ---p 00000000 00:00 0 
+7f3d5c000000-7f3d5c021000 rw-p 00000000 00:00 0 
+7f3d5c021000-7f3d60000000 ---p 00000000 00:00 0 
+7f3d60000000-7f3d60fd8000 rw-p 00000000 00:00 0 
+7f3d60fd8000-7f3d64000000 ---p 00000000 00:00 0 
+7f3d64000000-7f3d64021000 rw-p 00000000 00:00 0 
+7f3d64021000-7f3d68000000 ---p 00000000 00:00 0 
+7f3d68000000-7f3d69d88000 rw-p 00000000 00:00 0 
+7f3d69d88000-7f3d6c000000 ---p 00000000 00:00 0 
+7f3d6c000000-7f3d6dd67000 rw-p 00000000 00:00 0 
+7f3d6dd67000-7f3d70000000 ---p 00000000 00:00 0 
+7f3d70000000-7f3d70021000 rw-p 00000000 00:00 0 
+7f3d70021000-7f3d74000000 ---p 00000000 00:00 0 
+7f3d74000000-7f3d752af000 rw-p 00000000 00:00 0 
+7f3d752af000-7f3d78000000 ---p 00000000 00:00 0 
+7f3d78000000-7f3d78021000 rw-p 00000000 00:00 0 
+7f3d78021000-7f3d7c000000 ---p 00000000 00:00 0 
+7f3d7c000000-7f3d7c021000 rw-p 00000000 00:00 0 
+7f3d7c021000-7f3d80000000 ---p 00000000 00:00 0 
+7f3d80000000-7f3d80021000 rw-p 00000000 00:00 0 
+7f3d80021000-7f3d84000000 ---p 00000000 00:00 0 
+7f3d84000000-7f3d8429e000 rw-p 00000000 00:00 0 
+7f3d8429e000-7f3d88000000 ---p 00000000 00:00 0 
+7f3d88000000-7f3d88021000 rw-p 00000000 00:00 0 
+7f3d88021000-7f3d8c000000 ---p 00000000 00:00 0 
+7f3d90000000-7f3d90021000 rw-p 00000000 00:00 0 
+7f3d90021000-7f3d94000000 ---p 00000000 00:00 0 
+7f3d944cb000-7f3d9454b000 rw-p 00000000 00:00 0 
+7f3d9454b000-7f3d946cb000 ---p 00000000 00:00 0 
+7f3d946cb000-7f3d948cb000 rw-p 00000000 00:00 0 
+7f3d948cb000-7f3d948ce000 ---p 00000000 00:00 0 
+7f3d948ce000-7f3d949cc000 rw-p 00000000 00:00 0 
+7f3d949cc000-7f3d949cf000 ---p 00000000 00:00 0 
+7f3d949cf000-7f3d94acd000 rw-p 00000000 00:00 0 
+7f3d94acd000-7f3d94ad0000 ---p 00000000 00:00 0 
+7f3d94ad0000-7f3d94bce000 rw-p 00000000 00:00 0 
+7f3d94bce000-7f3d94bd1000 ---p 00000000 00:00 0 
+7f3d94bd1000-7f3d94ccf000 rw-p 00000000 00:00 0 
+7f3d94ccf000-7f3d94cd2000 ---p 00000000 00:00 0 
+7f3d94cd2000-7f3d94dd0000 rw-p 00000000 00:00 0 
+7f3d94dd0000-7f3d94dd3000 ---p 00000000 00:00 0 
+7f3d94dd3000-7f3d94ed1000 rw-p 00000000 00:00 0 
+7f3d94ed1000-7f3d94ed4000 ---p 00000000 00:00 0 
+7f3d94ed4000-7f3d94fd2000 rw-p 00000000 00:00 0 
+7f3d94fd2000-7f3d94fd5000 ---p 00000000 00:00 0 
+7f3d94fd5000-7f3d950d3000 rw-p 00000000 00:00 0 
+7f3d950d3000-7f3d950d6000 ---p 00000000 00:00 0 
+7f3d950d6000-7f3d951d4000 rw-p 00000000 00:00 0 
+7f3d951d4000-7f3d951d7000 ---p 00000000 00:00 0 
+7f3d951d7000-7f3d952d5000 rw-p 00000000 00:00 0 
+7f3d952d5000-7f3d952d8000 ---p 00000000 00:00 0 
+7f3d952d8000-7f3d953d6000 rw-p 00000000 00:00 0 
+7f3d953d6000-7f3d953d9000 ---p 00000000 00:00 0 
+7f3d953d9000-7f3d954d7000 rw-p 00000000 00:00 0 
+7f3d954d7000-7f3d954da000 ---p 00000000 00:00 0 
+7f3d954da000-7f3d957d8000 rw-p 00000000 00:00 0 
+7f3d957d8000-7f3d957db000 ---p 00000000 00:00 0 
+7f3d957db000-7f3d958d9000 rw-p 00000000 00:00 0 
+7f3d958d9000-7f3d958dc000 ---p 00000000 00:00 0 
+7f3d958dc000-7f3d959da000 rw-p 00000000 00:00 0 
+7f3d959da000-7f3d959dd000 ---p 00000000 00:00 0 
+7f3d959dd000-7f3d95adb000 rw-p 00000000 00:00 0 
+7f3d95adb000-7f3d95ade000 ---p 00000000 00:00 0 
+7f3d95ade000-7f3d95bdc000 rw-p 00000000 00:00 0 
+7f3d95bdc000-7f3d95bdf000 ---p 00000000 00:00 0 
+7f3d95bdf000-7f3d95cdd000 rw-p 00000000 00:00 0 
+7f3d95cdd000-7f3d95ce0000 ---p 00000000 00:00 0 
+7f3d95ce0000-7f3d95dde000 rw-p 00000000 00:00 0 
+7f3d95dde000-7f3d95de1000 ---p 00000000 00:00 0 
+7f3d95de1000-7f3d95edf000 rw-p 00000000 00:00 0 
+7f3d95edf000-7f3d95ee2000 ---p 00000000 00:00 0 
+7f3d95ee2000-7f3d95fe0000 rw-p 00000000 00:00 0 
+7f3d95fe0000-7f3d95fe3000 ---p 00000000 00:00 0 
+7f3d95fe3000-7f3d960e1000 rw-p 00000000 00:00 0 
+7f3d960e1000-7f3d960e4000 ---p 00000000 00:00 0 
+7f3d960e4000-7f3d961e2000 rw-p 00000000 00:00 0 
+7f3d961e2000-7f3d961e5000 ---p 00000000 00:00 0 
+7f3d961e5000-7f3d964e3000 rw-p 00000000 00:00 0 
+7f3d964e3000-7f3d966e3000 rw-p 00000000 00:00 0 
+7f3d966e3000-7f3d968e3000 rw-p 00000000 00:00 0 
+7f3d968e3000-7f3d96ae3000 rw-p 00000000 00:00 0 
+7f3d96ae3000-7f3d96ce3000 rw-p 00000000 00:00 0 
+7f3d96ce3000-7f3d96ce6000 ---p 00000000 00:00 0 
+7f3d96ce6000-7f3d96de4000 rw-p 00000000 00:00 0 
+7f3d96de4000-7f3d96de7000 ---p 00000000 00:00 0 
+7f3d96de7000-7f3d970e5000 rw-p 00000000 00:00 0 
+7f3d970e5000-7f3d972e5000 rw-p 00000000 00:00 0 
+7f3d972e5000-7f3d974e5000 rw-p 00000000 00:00 0 
+7f3d974e5000-7f3d976e5000 rw-p 00000000 00:00 0 
+7f3d976e5000-7f3d978e5000 rw-p 00000000 00:00 0 
+7f3d978e5000-7f3d978e8000 ---p 00000000 00:00 0 
+7f3d978e8000-7f3d97be6000 rw-p 00000000 00:00 0 
+7f3d97be6000-7f3d97be9000 ---p 00000000 00:00 0 
+7f3d97be9000-7f3d97ce7000 rw-p 00000000 00:00 0 
+7f3d97ce7000-7f3d97cea000 ---p 00000000 00:00 0 
+7f3d97cea000-7f3d97de8000 rw-p 00000000 00:00 0 
+7f3d97de8000-7f3d97dff000 r-xp 00000000 103:02 9455152                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f3d97dff000-7f3d97ffe000 ---p 00017000 103:02 9455152                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f3d97ffe000-7f3d97fff000 r--p 00016000 103:02 9455152                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f3d97fff000-7f3d98000000 rw-p 00017000 103:02 9455152                   /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f3d98000000-7f3d98021000 rw-p 00000000 00:00 0 
+7f3d98021000-7f3d9c000000 ---p 00000000 00:00 0 
+7f3d9c000000-7f3d9c021000 rw-p 00000000 00:00 0 
+7f3d9c021000-7f3da0000000 ---p 00000000 00:00 0 
+7f3da0000000-7f3da0021000 rw-p 00000000 00:00 0 
+7f3da0021000-7f3da4000000 ---p 00000000 00:00 0 
+7f3da4000000-7f3da4012000 r--s 00353000 103:02 8155434                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/resources.jar
+7f3da4012000-7f3da4212000 rw-p 00000000 00:00 0 
+7f3da4212000-7f3da4218000 r--s 0003f000 103:02 8540082                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/ext/sunjce_provider.jar
+7f3da4218000-7f3da4250000 r-xp 00000000 103:02 9200855                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libsunec.so
+7f3da4250000-7f3da444f000 ---p 00038000 103:02 9200855                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libsunec.so
+7f3da444f000-7f3da4454000 r--p 00037000 103:02 9200855                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libsunec.so
+7f3da4454000-7f3da4456000 rw-p 0003c000 103:02 9200855                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libsunec.so
+7f3da4456000-7f3da4457000 r--s 0000e000 103:02 8540084                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/ext/sunec.jar
+7f3da4457000-7f3da445b000 r--s 00041000 103:02 8540081                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/ext/sunpkcs11.jar
+7f3da445b000-7f3da465b000 rw-p 00000000 00:00 0 
+7f3da465b000-7f3da465e000 ---p 00000000 00:00 0 
+7f3da465e000-7f3da475c000 rw-p 00000000 00:00 0 
+7f3da475c000-7f3da475f000 ---p 00000000 00:00 0 
+7f3da475f000-7f3da4a5d000 rw-p 00000000 00:00 0 
+7f3da4a5d000-7f3da4a60000 r--s 0001a000 103:02 8155444                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/jce.jar
+7f3da4a60000-7f3da4a7c000 r--s 00393000 103:02 8540072                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/ext/cldrdata.jar
+7f3da4a7c000-7f3da4c7c000 rw-p 00000000 00:00 0 
+7f3da4c7c000-7f3da4c81000 r--s 002f9000 103:02 8155433                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/charsets.jar
+7f3da4c81000-7f3da4c92000 r--s 001c0000 103:02 8155431                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/jsse.jar
+7f3da4c92000-7f3da4e88000 rw-p 00000000 00:00 0 
+7f3da4e88000-7f3da4e92000 ---p 00000000 00:00 0 
+7f3da4e92000-7f3da5092000 rw-p 00000000 00:00 0 
+7f3da5092000-7f3da5292000 rw-p 00000000 00:00 0 
+7f3da5292000-7f3da5492000 rw-p 00000000 00:00 0 
+7f3da5492000-7f3da5692000 rw-p 00000000 00:00 0 
+7f3da5692000-7f3da5892000 rw-p 00000000 00:00 0 
+7f3da5892000-7f3da58a3000 r-xp 00000000 103:02 9198540                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnio.so
+7f3da58a3000-7f3da5aa2000 ---p 00011000 103:02 9198540                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnio.so
+7f3da5aa2000-7f3da5aa3000 r--p 00010000 103:02 9198540                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnio.so
+7f3da5aa3000-7f3da5aa4000 rw-p 00011000 103:02 9198540                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnio.so
+7f3da5aa4000-7f3da5ca4000 rw-p 00000000 00:00 0 
+7f3da5ca4000-7f3da5ea4000 rw-p 00000000 00:00 0 
+7f3da5ea4000-7f3da60a4000 rw-p 00000000 00:00 0 
+7f3da60a4000-7f3da60ba000 r-xp 00000000 103:02 9200879                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnet.so
+7f3da60ba000-7f3da62b9000 ---p 00016000 103:02 9200879                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnet.so
+7f3da62b9000-7f3da62ba000 r--p 00015000 103:02 9200879                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnet.so
+7f3da62ba000-7f3da62bb000 rw-p 00016000 103:02 9200879                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libnet.so
+7f3da62bb000-7f3da62c4000 r-xp 00000000 103:02 9200282                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libmanagement.so
+7f3da62c4000-7f3da64c3000 ---p 00009000 103:02 9200282                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libmanagement.so
+7f3da64c3000-7f3da64c4000 r--p 00008000 103:02 9200282                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libmanagement.so
+7f3da64c4000-7f3da64c5000 rw-p 00009000 103:02 9200282                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libmanagement.so
+7f3da64c5000-7f3da655b000 r--s 0110e000 103:02 8540074                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/ext/jfxrt.jar
+7f3da655b000-7f3da675b000 rw-p 00000000 00:00 0 
+7f3da675b000-7f3da695b000 rw-p 00000000 00:00 0 
+7f3da695b000-7f3da695e000 ---p 00000000 00:00 0 
+7f3da695e000-7f3da6a5c000 rw-p 00000000 00:00 0 
+7f3da6a5c000-7f3da6a5f000 ---p 00000000 00:00 0 
+7f3da6a5f000-7f3da6b5d000 rw-p 00000000 00:00 0 
+7f3da6b5d000-7f3da6b60000 ---p 00000000 00:00 0 
+7f3da6b60000-7f3da6c5e000 rw-p 00000000 00:00 0 
+7f3da6c5e000-7f3da6c68000 r--s 00116000 103:02 8540086                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/ext/localedata.jar
+7f3da6c68000-7f3da6c73000 r--s 000d3000 103:02 13000460                  /home/augusto/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.4.0.jre8/mssql-jdbc-6.4.0.jre8.jar
+7f3da6c73000-7f3da6c94000 r--s 003d8000 103:02 10384198                  /home/augusto/.m2/repository/com/unboundid/unboundid-ldapsdk/4.0.10/unboundid-ldapsdk-4.0.10.jar
+7f3da6c94000-7f3da6cae000 r--s 000f3000 103:02 10385972                  /home/augusto/.m2/repository/org/springframework/spring-context/5.1.6.RELEASE/spring-context-5.1.6.RELEASE.jar
+7f3da6cae000-7f3da6cba000 r--s 0005e000 103:02 10383632                  /home/augusto/.m2/repository/org/springframework/security/spring-security-core/5.1.5.RELEASE/spring-security-core-5.1.5.RELEASE.jar
+7f3da6cba000-7f3da6cbd000 r--s 00019000 103:02 10384197                  /home/augusto/.m2/repository/org/springframework/security/spring-security-ldap/5.1.5.RELEASE/spring-security-ldap-5.1.5.RELEASE.jar
+7f3da6cbd000-7f3da6cca000 r--s 00098000 103:02 10385973                  /home/augusto/.m2/repository/org/springframework/spring-beans/5.1.6.RELEASE/spring-beans-5.1.6.RELEASE.jar
+7f3da6cca000-7f3da6cd4000 r--s 00053000 103:02 10384196                  /home/augusto/.m2/repository/org/springframework/ldap/spring-ldap-core/2.3.2.RELEASE/spring-ldap-core-2.3.2.RELEASE.jar
+7f3da6cd4000-7f3da6ce7000 r--s 000fc000 103:02 10637352                  /home/augusto/.m2/repository/org/xhtmlrenderer/flying-saucer-core/9.0.1/flying-saucer-core-9.0.1.jar
+7f3da6ce7000-7f3da6cf8000 r--s 0019d000 103:02 10637350                  /home/augusto/.m2/repository/com/itextpdf/itextpdf/5.3.0/itextpdf-5.3.0.jar
+7f3da6cf8000-7f3da6cfa000 r--s 00018000 103:02 10637349                  /home/augusto/.m2/repository/org/xhtmlrenderer/flying-saucer-pdf-itext5/9.0.1/flying-saucer-pdf-itext5-9.0.1.jar
+7f3da6cfa000-7f3da6cfc000 r--s 0000c000 103:02 10362785                  /home/augusto/.m2/repository/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar
+7f3da6cfc000-7f3da6d00000 r--s 0001c000 103:02 10362746                  /home/augusto/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar
+7f3da6d00000-7f3da6d02000 r--s 00004000 103:02 10637346                  /home/augusto/.m2/repository/com/thedeanda/lorem/2.1/lorem-2.1.jar
+7f3da6d02000-7f3da6d05000 r--s 00022000 103:02 10488171                  /home/augusto/.m2/repository/org/antlr/stringtemplate/3.2.1/stringtemplate-3.2.1.jar
+7f3da6d05000-7f3da6d08000 r--s 00026000 103:02 10637345                  /home/augusto/.m2/repository/org/antlr/antlr-runtime/3.5.2/antlr-runtime-3.5.2.jar
+7f3da6d08000-7f3da6d0a000 r--s 00014000 103:02 10637342                  /home/augusto/.m2/repository/net/arnx/wmf2svg/0.9.8/wmf2svg-0.9.8.jar
+7f3da6d0a000-7f3da6d0e000 r--s 00040000 103:02 10637341                  /home/augusto/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar
+7f3da6d0e000-7f3da6d33000 r--s 002de000 103:02 10637339                  /home/augusto/.m2/repository/xalan/xalan/2.7.2/xalan-2.7.2.jar
+7f3da6d33000-7f3da6d35000 r--s 0000d000 103:02 10637337                  /home/augusto/.m2/repository/org/apache/avalon/framework/avalon-framework-impl/4.3.1/avalon-framework-impl-4.3.1.jar
+7f3da6d35000-7f3da6d38000 r--s 00006000 103:02 10637334                  /home/augusto/.m2/repository/org/apache/avalon/framework/avalon-framework-api/4.3.1/avalon-framework-api-4.3.1.jar
+7f3da6d38000-7f3da6d43000 r--s 00099000 103:02 10637332                  /home/augusto/.m2/repository/org/apache/xmlgraphics/xmlgraphics-commons/2.3/xmlgraphics-commons-2.3.jar
+7f3da6d43000-7f3da6d47000 r--s 0004c000 103:02 10879690                  /home/augusto/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.9.8/jackson-core-2.9.8.jar
+7f3da6d47000-7f3da6d4e000 r--s 00049000 103:02 10879681                  /home/augusto/.m2/repository/org/apache/httpcomponents/httpcore/4.4.11/httpcore-4.4.11.jar
+7f3da6d4e000-7f3da6d5b000 r--s 000b0000 103:02 10879679                  /home/augusto/.m2/repository/org/apache/httpcomponents/httpclient/4.5.8/httpclient-4.5.8.jar
+7f3da6d5b000-7f3da6d62000 r--s 0004b000 103:02 10364285                  /home/augusto/.m2/repository/commons-codec/commons-codec/1.11/commons-codec-1.11.jar
+7f3da6d62000-7f3da6d6b000 r--s 00064000 103:02 10637331                  /home/augusto/.m2/repository/org/apache/commons/commons-compress/1.12/commons-compress-1.12.jar
+7f3da6d6b000-7f3da6d73000 r--s 00073000 103:02 10364228                  /home/augusto/.m2/repository/org/apache/commons/commons-lang3/3.8.1/commons-lang3-3.8.1.jar
+7f3da6d73000-7f3da6d7c000 r--s 0006f000 103:02 10637328                  /home/augusto/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17.jar
+7f3da6d7c000-7f3da6d7d000 r--s 00002000 103:02 10637327                  /home/augusto/.m2/repository/org/slf4j/slf4j-log4j12/1.7.26/slf4j-log4j12-1.7.26.jar
+7f3da6d7d000-7f3da6d7f000 r--s 00003000 103:02 10637326                  /home/augusto/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.26/jcl-over-slf4j-1.7.26.jar
+7f3da6d7f000-7f3da6d83000 r--s 00014000 103:02 10637322                  /home/augusto/.m2/repository/net/engio/mbassador/1.2.4.2/mbassador-1.2.4.2.jar
+7f3da6d83000-7f3da6d88000 r--s 00040000 103:02 10637321                  /home/augusto/.m2/repository/org/plutext/jaxb-svg11/1.0.2/jaxb-svg11-1.0.2.jar
+7f3da6d88000-7f3da6ddf000 r--s 004e5000 103:02 10386044                  /home/augusto/.m2/repository/org/docx4j/docx4j/6.1.2/docx4j-6.1.2.jar
+7f3da6ddf000-7f3da6dec000 r--s 00075000 103:02 10637320                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-swf-libraries/1.11.22/aws-java-sdk-swf-libraries-1.11.22.jar
+7f3da6dec000-7f3da6df7000 r--s 027f5000 103:02 10637319                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-models/1.11.848/aws-java-sdk-models-1.11.848.jar
+7f3da6df7000-7f3da6e08000 r--s 0008c000 103:02 10503039                  /home/augusto/.m2/repository/joda-time/joda-time/2.10.1/joda-time-2.10.1.jar
+7f3da6e08000-7f3da6e0a000 r--s 0000b000 103:02 10503038                  /home/augusto/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-cbor/2.9.8/jackson-dataformat-cbor-2.9.8.jar
+7f3da6e0a000-7f3da6e14000 r--s 00081000 103:02 12330307                  /home/augusto/.m2/repository/software/amazon/ion/ion-java/1.0.2/ion-java-1.0.2.jar
+7f3da6e14000-7f3da6e16000 r--s 0000e000 103:02 10501908                  /home/augusto/.m2/repository/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar
+7f3da6e16000-7f3da6e2e000 r--s 000e0000 103:02 10503037                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-core/1.11.848/aws-java-sdk-core-1.11.848.jar
+7f3da6e2e000-7f3da6e3c000 r--s 00091000 103:02 10637315                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-workdocs/1.11.848/aws-java-sdk-workdocs-1.11.848.jar
+7f3da6e3c000-7f3da6e4d000 r--s 000a2000 103:02 10637314                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-organizations/1.11.848/aws-java-sdk-organizations-1.11.848.jar
+7f3da6e4d000-7f3da6e58000 r--s 00075000 103:02 10637310                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mechanicalturkrequester/1.11.848/aws-java-sdk-mechanicalturkrequester-1.11.848.jar
+7f3da6e58000-7f3da6e5c000 r--s 00021000 103:02 10637308                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-lex/1.11.848/aws-java-sdk-lex-1.11.848.jar
+7f3da6e5c000-7f3da6e64000 r--s 0005b000 103:02 10637305                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-batch/1.11.848/aws-java-sdk-batch-1.11.848.jar
+7f3da6e64000-7f3da6e6c000 r--s 00047000 103:02 10637304                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-shield/1.11.848/aws-java-sdk-shield-1.11.848.jar
+7f3da6e6c000-7f3da6e7b000 r--s 000a1000 103:02 10637302                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-appstream/1.11.848/aws-java-sdk-appstream-1.11.848.jar
+7f3da6e7b000-7f3da6e8a000 r--s 000ba000 103:02 10637299                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codebuild/1.11.848/aws-java-sdk-codebuild-1.11.848.jar
+7f3da6e8a000-7f3da6e8d000 r--s 00010000 103:02 10637298                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-costandusagereport/1.11.848/aws-java-sdk-costandusagereport-1.11.848.jar
+7f3da6e8d000-7f3da6e93000 r--s 0003b000 103:02 10637294                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-health/1.11.848/aws-java-sdk-health-1.11.848.jar
+7f3da6e93000-7f3da6ea3000 r--s 0008d000 103:02 10637296                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-stepfunctions/1.11.848/aws-java-sdk-stepfunctions-1.11.848.jar
+7f3da6ea3000-7f3da6ec5000 r--s 001a6000 103:02 10637293                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-lightsail/1.11.848/aws-java-sdk-lightsail-1.11.848.jar
+7f3da6ec5000-7f3da6eca000 r--s 0002b000 103:02 10637291                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-polly/1.11.848/aws-java-sdk-polly-1.11.848.jar
+7f3da6eca000-7f3da6ede000 r--s 000da000 103:02 10637289                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-rekognition/1.11.848/aws-java-sdk-rekognition-1.11.848.jar
+7f3da6ede000-7f3da6ee5000 r--s 0004d000 103:02 10637285                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-snowball/1.11.848/aws-java-sdk-snowball-1.11.848.jar
+7f3da6ee5000-7f3da6eeb000 r--s 00033000 103:02 10637283                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-applicationautoscaling/1.11.848/aws-java-sdk-applicationautoscaling-1.11.848.jar
+7f3da6eeb000-7f3da6ef4000 r--s 0005a000 103:02 10637282                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-discovery/1.11.848/aws-java-sdk-discovery-1.11.848.jar
+7f3da6ef4000-7f3da6f11000 r--s 0014d000 103:02 10637279                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cognitoidp/1.11.848/aws-java-sdk-cognitoidp-1.11.848.jar
+7f3da6f11000-7f3da6f14000 r--s 00015000 103:02 10637277                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-marketplacemeteringservice/1.11.848/aws-java-sdk-marketplacemeteringservice-1.11.848.jar
+7f3da6f14000-7f3da6f2a000 r--s 000e6000 103:02 10637276                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-dms/1.11.848/aws-java-sdk-dms-1.11.848.jar
+7f3da6f2a000-7f3da6f42000 r--s 00121000 103:02 10637273                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-gamelift/1.11.848/aws-java-sdk-gamelift-1.11.848.jar
+7f3da6f42000-7f3da6f49000 r--s 00038000 103:02 10637272                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-acm/1.11.848/aws-java-sdk-acm-1.11.848.jar
+7f3da6f49000-7f3da6f65000 r--s 0016a000 103:02 10637270                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-api-gateway/1.11.848/aws-java-sdk-api-gateway-1.11.848.jar
+7f3da6f65000-7f3da6fa0000 r--s 002ca000 103:02 10637269                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iot/1.11.848/aws-java-sdk-iot-1.11.848.jar
+7f3da6fa0000-7f3da6fad000 r--s 0008e000 103:02 10637265                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-inspector/1.11.848/aws-java-sdk-inspector-1.11.848.jar
+7f3da6fad000-7f3da6faf000 r--s 00009000 103:02 10637262                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-marketplacecommerceanalytics/1.11.848/aws-java-sdk-marketplacecommerceanalytics-1.11.848.jar
+7f3da6faf000-7f3da6fd5000 r--s 0019e000 103:02 10637263                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-waf/1.11.848/aws-java-sdk-waf-1.11.848.jar
+7f3da6fd5000-7f3da6fe5000 r--s 000a6000 103:02 10637260                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elasticsearch/1.11.848/aws-java-sdk-elasticsearch-1.11.848.jar
+7f3da6fe5000-7f3da6ffa000 r--s 000fc000 103:02 10637258                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-devicefarm/1.11.848/aws-java-sdk-devicefarm-1.11.848.jar
+7f3da6ffa000-7f3da701c000 r--s 0014c000 103:02 10637257                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codecommit/1.11.848/aws-java-sdk-codecommit-1.11.848.jar
+7f3da701c000-7f3da7026000 r--s 00059000 103:02 10637252                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-efs/1.11.848/aws-java-sdk-efs-1.11.848.jar
+7f3da7026000-7f3da7038000 r--s 000b7000 103:02 10637253                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-directory/1.11.848/aws-java-sdk-directory-1.11.848.jar
+7f3da7038000-7f3da7042000 r--s 0006b000 103:02 10637251                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-machinelearning/1.11.848/aws-java-sdk-machinelearning-1.11.848.jar
+7f3da7042000-7f3da7050000 r--s 00091000 103:02 10637249                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-workspaces/1.11.848/aws-java-sdk-workspaces-1.11.848.jar
+7f3da7050000-7f3da7084000 r--s 0023c000 103:02 10637246                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ssm/1.11.848/aws-java-sdk-ssm-1.11.848.jar
+7f3da7084000-7f3da7089000 r--s 00033000 103:02 10637243                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudhsm/1.11.848/aws-java-sdk-cloudhsm-1.11.848.jar
+7f3da7089000-7f3da7094000 r--s 00071000 103:02 10637242                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ecr/1.11.848/aws-java-sdk-ecr-1.11.848.jar
+7f3da7094000-7f3da70a7000 r--s 000f2000 103:02 10637240                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ecs/1.11.848/aws-java-sdk-ecs-1.11.848.jar
+7f3da70a7000-7f3da70b7000 r--s 000bc000 103:02 10637238                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-lambda/1.11.848/aws-java-sdk-lambda-1.11.848.jar
+7f3da70b7000-7f3da70d3000 r--s 0013b000 103:02 10637237                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-config/1.11.848/aws-java-sdk-config-1.11.848.jar
+7f3da70d3000-7f3da70df000 r--s 00085000 103:02 10503035                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kms/1.11.848/aws-java-sdk-kms-1.11.848.jar
+7f3da70df000-7f3da70f0000 r--s 000ae000 103:02 10637235                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codepipeline/1.11.848/aws-java-sdk-codepipeline-1.11.848.jar
+7f3da70f0000-7f3da7107000 r--s 000ea000 103:02 10637234                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codedeploy/1.11.848/aws-java-sdk-codedeploy-1.11.848.jar
+7f3da7107000-7f3da7109000 r--s 0000a000 103:02 10637232                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudwatchmetrics/1.11.848/aws-java-sdk-cloudwatchmetrics-1.11.848.jar
+7f3da7109000-7f3da7114000 r--s 00065000 103:02 10637227                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudsearch/1.11.848/aws-java-sdk-cloudsearch-1.11.848.jar
+7f3da7114000-7f3da7122000 r--s 0009a000 103:02 10637225                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-autoscaling/1.11.848/aws-java-sdk-autoscaling-1.11.848.jar
+7f3da7122000-7f3da7135000 r--s 000af000 103:02 10637223                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ses/1.11.848/aws-java-sdk-ses-1.11.848.jar
+7f3da7135000-7f3da714a000 r--s 000f6000 103:02 10637222                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-opsworks/1.11.848/aws-java-sdk-opsworks-1.11.848.jar
+7f3da714a000-7f3da7167000 r--s 00141000 103:02 10637220                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kinesis/1.11.848/aws-java-sdk-kinesis-1.11.848.jar
+7f3da7167000-7f3da7181000 r--s 0011b000 103:02 10637217                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-clouddirectory/1.11.848/aws-java-sdk-clouddirectory-1.11.848.jar
+7f3da7181000-7f3da719a000 r--s 000f2000 103:02 10637215                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudfront/1.11.848/aws-java-sdk-cloudfront-1.11.848.jar
+7f3da719a000-7f3da71ab000 r--s 000ba000 103:02 10637214                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudformation/1.11.848/aws-java-sdk-cloudformation-1.11.848.jar
+7f3da71ab000-7f3da71bb000 r--s 000c0000 103:02 10637213                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-directconnect/1.11.848/aws-java-sdk-directconnect-1.11.848.jar
+7f3da71bb000-7f3da71c2000 r--s 00038000 103:02 10637211                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cognitosync/1.11.848/aws-java-sdk-cognitosync-1.11.848.jar
+7f3da71c2000-7f3da71c9000 r--s 00044000 103:02 10637207                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cognitoidentity/1.11.848/aws-java-sdk-cognitoidentity-1.11.848.jar
+7f3da71c9000-7f3da71d4000 r--s 0006b000 103:02 10637205                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-events/1.11.848/aws-java-sdk-events-1.11.848.jar
+7f3da71d4000-7f3da71df000 r--s 0007f000 103:02 10637204                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-logs/1.11.848/aws-java-sdk-logs-1.11.848.jar
+7f3da71df000-7f3da71e8000 r--s 0005d000 103:02 10637203                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudwatch/1.11.848/aws-java-sdk-cloudwatch-1.11.848.jar
+7f3da71e8000-7f3da71f1000 r--s 0004d000 103:02 10637199                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudtrail/1.11.848/aws-java-sdk-cloudtrail-1.11.848.jar
+7f3da71f1000-7f3da71f6000 r--s 00033000 103:02 10637198                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-budgets/1.11.848/aws-java-sdk-budgets-1.11.848.jar
+7f3da71f6000-7f3da71ff000 r--s 00052000 103:02 10637197                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sns/1.11.848/aws-java-sdk-sns-1.11.848.jar
+7f3da71ff000-7f3da7225000 r--s 0019b000 103:02 10637193                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-dynamodb/1.11.848/aws-java-sdk-dynamodb-1.11.848.jar
+7f3da7225000-7f3da728b000 r--s 0055b000 103:02 10637192                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ec2/1.11.848/aws-java-sdk-ec2-1.11.848.jar
+7f3da728b000-7f3da7294000 r--s 00059000 103:02 10637191                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elastictranscoder/1.11.848/aws-java-sdk-elastictranscoder-1.11.848.jar
+7f3da7294000-7f3da72a4000 r--s 000aa000 103:02 10637188                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elasticache/1.11.848/aws-java-sdk-elasticache-1.11.848.jar
+7f3da72a4000-7f3da72b7000 r--s 000cb000 103:02 10637187                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-emr/1.11.848/aws-java-sdk-emr-1.11.848.jar
+7f3da72b7000-7f3da72c5000 r--s 0007a000 103:02 10637184                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elasticloadbalancingv2/1.11.848/aws-java-sdk-elasticloadbalancingv2-1.11.848.jar
+7f3da72c5000-7f3da72cf000 r--s 00057000 103:02 10637183                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elasticloadbalancing/1.11.848/aws-java-sdk-elasticloadbalancing-1.11.848.jar
+7f3da72cf000-7f3da72d5000 r--s 00041000 103:02 10637181                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-datapipeline/1.11.848/aws-java-sdk-datapipeline-1.11.848.jar
+7f3da72d5000-7f3da72f4000 r--s 00134000 103:02 10637177                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iam/1.11.848/aws-java-sdk-iam-1.11.848.jar
+7f3da72f4000-7f3da72ff000 r--s 00075000 103:02 10637176                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-glacier/1.11.848/aws-java-sdk-glacier-1.11.848.jar
+7f3da72ff000-7f3da730e000 r--s 0009f000 103:02 10637175                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elasticbeanstalk/1.11.848/aws-java-sdk-elasticbeanstalk-1.11.848.jar
+7f3da730e000-7f3da7328000 r--s 00106000 103:02 10637172                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-redshift/1.11.848/aws-java-sdk-redshift-1.11.848.jar
+7f3da7328000-7f3da7347000 r--s 00179000 103:02 10637173                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-rds/1.11.848/aws-java-sdk-rds-1.11.848.jar
+7f3da7347000-7f3da734e000 r--s 00049000 103:02 10637170                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sqs/1.11.848/aws-java-sdk-sqs-1.11.848.jar
+7f3da734e000-7f3da7353000 r--s 00020000 103:02 10637168                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sts/1.11.848/aws-java-sdk-sts-1.11.848.jar
+7f3da7353000-7f3da7356000 r--s 00017000 103:02 10637164                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-importexport/1.11.848/aws-java-sdk-importexport-1.11.848.jar
+7f3da7356000-7f3da736f000 r--s 00103000 103:02 10503033                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-s3/1.11.848/aws-java-sdk-s3-1.11.848.jar
+7f3da736f000-7f3da7386000 r--s 000f1000 103:02 10637161                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-route53/1.11.848/aws-java-sdk-route53-1.11.848.jar
+7f3da7386000-7f3da739a000 r--s 000ea000 103:02 10637159                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-storagegateway/1.11.848/aws-java-sdk-storagegateway-1.11.848.jar
+7f3da739a000-7f3da73ad000 r--s 000cd000 103:02 10637157                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-simpleworkflow/1.11.848/aws-java-sdk-simpleworkflow-1.11.848.jar
+7f3da73ad000-7f3da73b9000 r--s 0007e000 103:02 10637158                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-servermigration/1.11.848/aws-java-sdk-servermigration-1.11.848.jar
+7f3da73b9000-7f3da73d1000 r--s 00114000 103:02 10637155                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-servicecatalog/1.11.848/aws-java-sdk-servicecatalog-1.11.848.jar
+7f3da73d1000-7f3da73d5000 r--s 00021000 103:02 10637152                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-simpledb/1.11.848/aws-java-sdk-simpledb-1.11.848.jar
+7f3da73d5000-7f3da73dc000 r--s 0003a000 103:02 10637149                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-support/1.11.848/aws-java-sdk-support-1.11.848.jar
+7f3da73dc000-7f3da73e2000 r--s 0003c000 103:02 10637148                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-opsworkscm/1.11.848/aws-java-sdk-opsworkscm-1.11.848.jar
+7f3da73e2000-7f3da73ec000 r--s 00073000 103:02 10637147                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-xray/1.11.848/aws-java-sdk-xray-1.11.848.jar
+7f3da73ec000-7f3da7413000 r--s 001ea000 103:02 10637145                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-pinpoint/1.11.848/aws-java-sdk-pinpoint-1.11.848.jar
+7f3da7413000-7f3da7417000 r--s 00020000 103:02 10637144                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-resourcegroupstaggingapi/1.11.848/aws-java-sdk-resourcegroupstaggingapi-1.11.848.jar
+7f3da7417000-7f3da7423000 r--s 0008f000 103:02 10637140                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-lexmodelbuilding/1.11.848/aws-java-sdk-lexmodelbuilding-1.11.848.jar
+7f3da7423000-7f3da7429000 r--s 0003f000 103:02 10637137                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codestar/1.11.848/aws-java-sdk-codestar-1.11.848.jar
+7f3da7429000-7f3da742b000 r--s 00009000 103:02 10637136                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-marketplaceentitlement/1.11.848/aws-java-sdk-marketplaceentitlement-1.11.848.jar
+7f3da742b000-7f3da7434000 r--s 00061000 103:02 10637134                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-athena/1.11.848/aws-java-sdk-athena-1.11.848.jar
+7f3da7434000-7f3da744b000 r--s 00101000 103:02 10637133                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-greengrass/1.11.848/aws-java-sdk-greengrass-1.11.848.jar
+7f3da744b000-7f3da7453000 r--s 00052000 103:02 10637129                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-dax/1.11.848/aws-java-sdk-dax-1.11.848.jar
+7f3da7453000-7f3da745a000 r--s 00035000 103:02 10637128                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-migrationhub/1.11.848/aws-java-sdk-migrationhub-1.11.848.jar
+7f3da745a000-7f3da7481000 r--s 001e5000 103:02 10637127                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-glue/1.11.848/aws-java-sdk-glue-1.11.848.jar
+7f3da7481000-7f3da7486000 r--s 0002b000 103:02 10637125                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloudhsmv2/1.11.848/aws-java-sdk-cloudhsmv2-1.11.848.jar
+7f3da7486000-7f3da748a000 r--s 0001f000 103:02 10637121                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mobile/1.11.848/aws-java-sdk-mobile-1.11.848.jar
+7f3da748a000-7f3da748d000 r--s 0000f000 103:02 10637120                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-pricing/1.11.848/aws-java-sdk-pricing-1.11.848.jar
+7f3da748d000-7f3da7499000 r--s 00089000 103:02 10637118                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-costexplorer/1.11.848/aws-java-sdk-costexplorer-1.11.848.jar
+7f3da7499000-7f3da74a1000 r--s 00052000 103:02 10637117                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediapackage/1.11.848/aws-java-sdk-mediapackage-1.11.848.jar
+7f3da74a1000-7f3da74c5000 r--s 001b4000 103:02 10637115                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-medialive/1.11.848/aws-java-sdk-medialive-1.11.848.jar
+7f3da74c5000-7f3da74c8000 r--s 00011000 103:02 10637112                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediastoredata/1.11.848/aws-java-sdk-mediastoredata-1.11.848.jar
+7f3da74c8000-7f3da74ce000 r--s 00035000 103:02 10637109                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediastore/1.11.848/aws-java-sdk-mediastore-1.11.848.jar
+7f3da74ce000-7f3da74e9000 r--s 00154000 103:02 10637108                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediaconvert/1.11.848/aws-java-sdk-mediaconvert-1.11.848.jar
+7f3da74e9000-7f3da74f1000 r--s 00057000 103:02 10637107                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mq/1.11.848/aws-java-sdk-mq-1.11.848.jar
+7f3da74f1000-7f3da7504000 r--s 000d7000 103:02 10637106                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-guardduty/1.11.848/aws-java-sdk-guardduty-1.11.848.jar
+7f3da7504000-7f3da7510000 r--s 00083000 103:02 10637105                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-appsync/1.11.848/aws-java-sdk-appsync-1.11.848.jar
+7f3da7510000-7f3da7519000 r--s 00060000 103:02 11826537                  /home/augusto/.m2/repository/io/netty/netty-handler/4.1.34.Final/netty-handler-4.1.34.Final.jar
+7f3da7519000-7f3da751f000 r--s 00048000 103:02 11826536                  /home/augusto/.m2/repository/io/netty/netty-codec/4.1.34.Final/netty-codec-4.1.34.Final.jar
+7f3da751f000-7f3da7521000 r--s 00007000 103:02 11826527                  /home/augusto/.m2/repository/io/netty/netty-resolver/4.1.34.Final/netty-resolver-4.1.34.Final.jar
+7f3da7521000-7f3da752b000 r--s 00068000 103:02 11826521                  /home/augusto/.m2/repository/io/netty/netty-transport/4.1.34.Final/netty-transport-4.1.34.Final.jar
+7f3da752b000-7f3da752e000 r--s 00041000 103:02 11826520                  /home/augusto/.m2/repository/io/netty/netty-buffer/4.1.34.Final/netty-buffer-4.1.34.Final.jar
+7f3da752e000-7f3da753a000 r--s 00084000 103:02 11826519                  /home/augusto/.m2/repository/io/netty/netty-common/4.1.34.Final/netty-common-4.1.34.Final.jar
+7f3da753a000-7f3da7544000 r--s 00080000 103:02 11826518                  /home/augusto/.m2/repository/io/netty/netty-codec-http/4.1.34.Final/netty-codec-http-4.1.34.Final.jar
+7f3da7544000-7f3da754f000 r--s 00069000 103:02 10637100                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kinesisvideo/1.11.848/aws-java-sdk-kinesisvideo-1.11.848.jar
+7f3da754f000-7f3da7551000 r--s 00007000 103:02 10637099                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sagemakerruntime/1.11.848/aws-java-sdk-sagemakerruntime-1.11.848.jar
+7f3da7551000-7f3da7554000 r--s 00014000 103:02 10637098                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iotjobsdataplane/1.11.848/aws-java-sdk-iotjobsdataplane-1.11.848.jar
+7f3da7554000-7f3da7587000 r--s 0028a000 103:02 10637097                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sagemaker/1.11.848/aws-java-sdk-sagemaker-1.11.848.jar
+7f3da7587000-7f3da758c000 r--s 0002a000 103:02 10503028                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-translate/1.11.848/aws-java-sdk-translate-1.11.848.jar
+7f3da758c000-7f3da759d000 r--s 000bf000 103:02 10503026                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-comprehend/1.11.848/aws-java-sdk-comprehend-1.11.848.jar
+7f3da759d000-7f3da75a3000 r--s 00037000 103:02 10503027                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-resourcegroups/1.11.848/aws-java-sdk-resourcegroups-1.11.848.jar
+7f3da75a3000-7f3da75bf000 r--s 00123000 103:02 10503023                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-alexaforbusiness/1.11.848/aws-java-sdk-alexaforbusiness-1.11.848.jar
+7f3da75bf000-7f3da75c5000 r--s 00038000 103:02 10503020                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-serverlessapplicationrepository/1.11.848/aws-java-sdk-serverlessapplicationrepository-1.11.848.jar
+7f3da75c5000-7f3da75ca000 r--s 00028000 103:02 10503018                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-cloud9/1.11.848/aws-java-sdk-cloud9-1.11.848.jar
+7f3da75ca000-7f3da75d3000 r--s 0005c000 103:02 10503015                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-servicediscovery/1.11.848/aws-java-sdk-servicediscovery-1.11.848.jar
+7f3da75d3000-7f3da75de000 r--s 00076000 103:02 10503016                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-workmail/1.11.848/aws-java-sdk-workmail-1.11.848.jar
+7f3da75de000-7f3da75e3000 r--s 00028000 103:02 10503013                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-autoscalingplans/1.11.848/aws-java-sdk-autoscalingplans-1.11.848.jar
+7f3da75e3000-7f3da75eb000 r--s 0005c000 103:02 10503011                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-transcribe/1.11.848/aws-java-sdk-transcribe-1.11.848.jar
+7f3da75eb000-7f3da75f7000 r--s 00076000 103:02 10503008                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-connect/1.11.848/aws-java-sdk-connect-1.11.848.jar
+7f3da75f7000-7f3da7600000 r--s 00059000 103:02 10503006                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-fms/1.11.848/aws-java-sdk-fms-1.11.848.jar
+7f3da7600000-7f3da7607000 r--s 0003c000 103:02 10503005                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-secretsmanager/1.11.848/aws-java-sdk-secretsmanager-1.11.848.jar
+7f3da7607000-7f3da760f000 r--s 0004a000 103:02 10503004                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-acmpca/1.11.848/aws-java-sdk-acmpca-1.11.848.jar
+7f3da760f000-7f3da761e000 r--s 00098000 103:02 10503001                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iotanalytics/1.11.848/aws-java-sdk-iotanalytics-1.11.848.jar
+7f3da761e000-7f3da7623000 r--s 00027000 103:02 10502999                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iot1clickdevices/1.11.848/aws-java-sdk-iot1clickdevices-1.11.848.jar
+7f3da7623000-7f3da7629000 r--s 0002e000 103:02 10502997                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iot1clickprojects/1.11.848/aws-java-sdk-iot1clickprojects-1.11.848.jar
+7f3da7629000-7f3da762c000 r--s 00012000 103:02 10502993                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-pi/1.11.848/aws-java-sdk-pi-1.11.848.jar
+7f3da762c000-7f3da763b000 r--s 000a2000 103:02 10502992                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-neptune/1.11.848/aws-java-sdk-neptune-1.11.848.jar
+7f3da763b000-7f3da763f000 r--s 0001e000 103:02 10502991                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediatailor/1.11.848/aws-java-sdk-mediatailor-1.11.848.jar
+7f3da763f000-7f3da7648000 r--s 0005d000 103:02 10502988                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-eks/1.11.848/aws-java-sdk-eks-1.11.848.jar
+7f3da7648000-7f3da764c000 r--s 0001b000 103:02 10502986                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-macie/1.11.848/aws-java-sdk-macie-1.11.848.jar
+7f3da764c000-7f3da7651000 r--s 00025000 103:02 10502984                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-dlm/1.11.848/aws-java-sdk-dlm-1.11.848.jar
+7f3da7651000-7f3da7657000 r--s 00036000 103:02 10502983                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-signer/1.11.848/aws-java-sdk-signer-1.11.848.jar
+7f3da7657000-7f3da7674000 r--s 0014a000 103:02 10502980                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-chime/1.11.848/aws-java-sdk-chime-1.11.848.jar
+7f3da7674000-7f3da7682000 r--s 0008e000 103:02 10502978                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-pinpointemail/1.11.848/aws-java-sdk-pinpointemail-1.11.848.jar
+7f3da7682000-7f3da7687000 r--s 00020000 103:02 10502977                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-pinpointsmsvoice/1.11.848/aws-java-sdk-pinpointsmsvoice-1.11.848.jar
+7f3da7687000-7f3da768e000 r--s 00046000 103:02 10502973                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-s3control/1.11.848/aws-java-sdk-s3control-1.11.848.jar
+7f3da768e000-7f3da7696000 r--s 00053000 103:02 10502972                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ram/1.11.848/aws-java-sdk-ram-1.11.848.jar
+7f3da7696000-7f3da769e000 r--s 00048000 103:02 10502970                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-route53resolver/1.11.848/aws-java-sdk-route53resolver-1.11.848.jar
+7f3da769e000-7f3da76a2000 r--s 00023000 103:02 10502968                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-rdsdata/1.11.848/aws-java-sdk-rdsdata-1.11.848.jar
+7f3da76a2000-7f3da76c3000 r--s 0019c000 103:02 10502966                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-quicksight/1.11.848/aws-java-sdk-quicksight-1.11.848.jar
+7f3da76c3000-7f3da76cd000 r--s 00071000 103:02 10502963                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-amplify/1.11.848/aws-java-sdk-amplify-1.11.848.jar
+7f3da76cd000-7f3da76de000 r--s 000d8000 103:02 10502965                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-robomaker/1.11.848/aws-java-sdk-robomaker-1.11.848.jar
+7f3da76de000-7f3da76e8000 r--s 00065000 103:02 10502961                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-datasync/1.11.848/aws-java-sdk-datasync-1.11.848.jar
+7f3da76e8000-7f3da76ef000 r--s 00041000 103:02 10502957                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-transfer/1.11.848/aws-java-sdk-transfer-1.11.848.jar
+7f3da76ef000-7f3da76f7000 r--s 00051000 103:02 10502956                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-globalaccelerator/1.11.848/aws-java-sdk-globalaccelerator-1.11.848.jar
+7f3da76f7000-7f3da7700000 r--s 00050000 103:02 10502955                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-comprehendmedical/1.11.848/aws-java-sdk-comprehendmedical-1.11.848.jar
+7f3da7700000-7f3da7711000 r--s 000b8000 103:02 10502951                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kinesisanalyticsv2/1.11.848/aws-java-sdk-kinesisanalyticsv2-1.11.848.jar
+7f3da7711000-7f3da7719000 r--s 00054000 103:02 10502949                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediaconnect/1.11.848/aws-java-sdk-mediaconnect-1.11.848.jar
+7f3da7719000-7f3da7721000 r--s 0005b000 103:02 10502948                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-fsx/1.11.848/aws-java-sdk-fsx-1.11.848.jar
+7f3da7721000-7f3da773a000 r--s 0013b000 103:02 10502945                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-securityhub/1.11.848/aws-java-sdk-securityhub-1.11.848.jar
+7f3da773a000-7f3da7741000 r--s 00041000 103:02 10502944                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-licensemanager/1.11.848/aws-java-sdk-licensemanager-1.11.848.jar
+7f3da7741000-7f3da7754000 r--s 000d7000 103:02 10502943                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-appmesh/1.11.848/aws-java-sdk-appmesh-1.11.848.jar
+7f3da7754000-7f3da775e000 r--s 00070000 103:02 10502939                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kafka/1.11.848/aws-java-sdk-kafka-1.11.848.jar
+7f3da775e000-7f3da7761000 r--s 0000b000 103:02 10502938                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-apigatewaymanagementapi/1.11.848/aws-java-sdk-apigatewaymanagementapi-1.11.848.jar
+7f3da7761000-7f3da7772000 r--s 000dc000 103:02 10502937                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-apigatewayv2/1.11.848/aws-java-sdk-apigatewayv2-1.11.848.jar
+7f3da7772000-7f3da777d000 r--s 00075000 103:02 10502934                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-docdb/1.11.848/aws-java-sdk-docdb-1.11.848.jar
+7f3da777d000-7f3da778a000 r--s 00092000 103:02 10502933                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-backup/1.11.848/aws-java-sdk-backup-1.11.848.jar
+7f3da778a000-7f3da7793000 r--s 00052000 103:02 10502931                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-worklink/1.11.848/aws-java-sdk-worklink-1.11.848.jar
+7f3da7793000-7f3da7798000 r--s 00029000 103:02 10502929                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-textract/1.11.848/aws-java-sdk-textract-1.11.848.jar
+7f3da7798000-7f3da77a1000 r--s 0005c000 103:02 10502926                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-managedblockchain/1.11.848/aws-java-sdk-managedblockchain-1.11.848.jar
+7f3da77a1000-7f3da77a8000 r--s 00043000 103:02 10502923                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-mediapackagevod/1.11.848/aws-java-sdk-mediapackagevod-1.11.848.jar
+7f3da77a8000-7f3da77b2000 r--s 00064000 103:02 10502924                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-groundstation/1.11.848/aws-java-sdk-groundstation-1.11.848.jar
+7f3da77b2000-7f3da77bd000 r--s 0006c000 103:02 10502921                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iotthingsgraph/1.11.848/aws-java-sdk-iotthingsgraph-1.11.848.jar
+7f3da77bd000-7f3da77c6000 r--s 00055000 103:02 10502918                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iotevents/1.11.848/aws-java-sdk-iotevents-1.11.848.jar
+7f3da77c6000-7f3da77ca000 r--s 0001d000 103:02 10502917                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ioteventsdata/1.11.848/aws-java-sdk-ioteventsdata-1.11.848.jar
+7f3da77ca000-7f3da77cd000 r--s 00009000 103:02 10502915                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-personalizeruntime/1.11.848/aws-java-sdk-personalizeruntime-1.11.848.jar
+7f3da77cd000-7f3da77db000 r--s 000a0000 103:02 10502913                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-personalize/1.11.848/aws-java-sdk-personalize-1.11.848.jar
+7f3da77db000-7f3da77dd000 r--s 00006000 103:02 10502912                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-personalizeevents/1.11.848/aws-java-sdk-personalizeevents-1.11.848.jar
+7f3da77dd000-7f3da77e3000 r--s 00036000 103:02 10502909                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-servicequotas/1.11.848/aws-java-sdk-servicequotas-1.11.848.jar
+7f3da77e3000-7f3da77eb000 r--s 00050000 103:02 10502905                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-applicationinsights/1.11.848/aws-java-sdk-applicationinsights-1.11.848.jar
+7f3da77eb000-7f3da77ed000 r--s 00007000 103:02 10502904                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ec2instanceconnect/1.11.848/aws-java-sdk-ec2instanceconnect-1.11.848.jar
+7f3da77ed000-7f3da77f7000 r--s 0006a000 103:02 10502903                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-eventbridge/1.11.848/aws-java-sdk-eventbridge-1.11.848.jar
+7f3da77f7000-7f3da77fe000 r--s 00037000 103:02 10502901                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-lakeformation/1.11.848/aws-java-sdk-lakeformation-1.11.848.jar
+7f3da77fe000-7f3da7809000 r--s 00070000 103:02 10502902                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-forecast/1.11.848/aws-java-sdk-forecast-1.11.848.jar
+7f3da7809000-7f3da780b000 r--s 00009000 103:02 10502895                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-forecastquery/1.11.848/aws-java-sdk-forecastquery-1.11.848.jar
+7f3da780b000-7f3da7811000 r--s 0003a000 103:02 10502894                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-qldb/1.11.848/aws-java-sdk-qldb-1.11.848.jar
+7f3da7811000-7f3da7814000 r--s 00017000 103:02 10502893                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-qldbsession/1.11.848/aws-java-sdk-qldbsession-1.11.848.jar
+7f3da7814000-7f3da7815000 r--s 00005000 103:02 10502890                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-workmailmessageflow/1.11.848/aws-java-sdk-workmailmessageflow-1.11.848.jar
+7f3da7815000-7f3da781b000 r--s 0002d000 103:02 10502892                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codestarnotifications/1.11.848/aws-java-sdk-codestarnotifications-1.11.848.jar
+7f3da781b000-7f3da7820000 r--s 0002d000 103:02 10502885                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-savingsplans/1.11.848/aws-java-sdk-savingsplans-1.11.848.jar
+7f3da7820000-7f3da7822000 r--s 00010000 103:02 10502884                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sso/1.11.848/aws-java-sdk-sso-1.11.848.jar
+7f3da7822000-7f3da7825000 r--s 00010000 103:02 10502883                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ssooidc/1.11.848/aws-java-sdk-ssooidc-1.11.848.jar
+7f3da7825000-7f3da7829000 r--s 0001e000 103:02 10502882                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-marketplacecatalog/1.11.848/aws-java-sdk-marketplacecatalog-1.11.848.jar
+7f3da7829000-7f3da783f000 r--s 000e7000 103:02 10502877                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-sesv2/1.11.848/aws-java-sdk-sesv2-1.11.848.jar
+7f3da783f000-7f3da7848000 r--s 00059000 103:02 10502876                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-dataexchange/1.11.848/aws-java-sdk-dataexchange-1.11.848.jar
+7f3da7848000-7f3da784b000 r--s 0000e000 103:02 10502874                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-migrationhubconfig/1.11.848/aws-java-sdk-migrationhubconfig-1.11.848.jar
+7f3da784b000-7f3da784f000 r--s 00015000 103:02 10502875                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-connectparticipant/1.11.848/aws-java-sdk-connectparticipant-1.11.848.jar
+7f3da784f000-7f3da785e000 r--s 000a6000 103:02 10502869                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-wafv2/1.11.848/aws-java-sdk-wafv2-1.11.848.jar
+7f3da785e000-7f3da7867000 r--s 00063000 103:02 10502868                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-appconfig/1.11.848/aws-java-sdk-appconfig-1.11.848.jar
+7f3da7867000-7f3da786b000 r--s 0001a000 103:02 10502866                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iotsecuretunneling/1.11.848/aws-java-sdk-iotsecuretunneling-1.11.848.jar
+7f3da786b000-7f3da786e000 r--s 00019000 103:02 10502867                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-elasticinference/1.11.848/aws-java-sdk-elasticinference-1.11.848.jar
+7f3da786e000-7f3da787b000 r--s 00097000 103:02 10502864                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-imagebuilder/1.11.848/aws-java-sdk-imagebuilder-1.11.848.jar
+7f3da787b000-7f3da7883000 r--s 00055000 103:02 10502859                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-schemas/1.11.848/aws-java-sdk-schemas-1.11.848.jar
+7f3da7883000-7f3da788a000 r--s 00041000 103:02 10502857                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-accessanalyzer/1.11.848/aws-java-sdk-accessanalyzer-1.11.848.jar
+7f3da788a000-7f3da7890000 r--s 00038000 103:02 10502856                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-computeoptimizer/1.11.848/aws-java-sdk-computeoptimizer-1.11.848.jar
+7f3da7890000-7f3da7898000 r--s 00058000 103:02 10502854                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-networkmanager/1.11.848/aws-java-sdk-networkmanager-1.11.848.jar
+7f3da7898000-7f3da78a4000 r--s 0008e000 103:02 10502852                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kendra/1.11.848/aws-java-sdk-kendra-1.11.848.jar
+7f3da78a4000-7f3da78b1000 r--s 00096000 103:02 10502851                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-frauddetector/1.11.848/aws-java-sdk-frauddetector-1.11.848.jar
+7f3da78b1000-7f3da78b7000 r--s 00030000 103:02 10502848                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codegurureviewer/1.11.848/aws-java-sdk-codegurureviewer-1.11.848.jar
+7f3da78b7000-7f3da78bf000 r--s 00054000 103:02 10502849                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codeguruprofiler/1.11.848/aws-java-sdk-codeguruprofiler-1.11.848.jar
+7f3da78bf000-7f3da78c3000 r--s 00016000 103:02 10502844                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-outposts/1.11.848/aws-java-sdk-outposts-1.11.848.jar
+7f3da78c3000-7f3da78c6000 r--s 00015000 103:02 10502845                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-augmentedairuntime/1.11.848/aws-java-sdk-augmentedairuntime-1.11.848.jar
+7f3da78c6000-7f3da78c9000 r--s 0001b000 103:02 10502841                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ebs/1.11.848/aws-java-sdk-ebs-1.11.848.jar
+7f3da78c9000-7f3da78cc000 r--s 0000b000 103:02 10502838                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-kinesisvideosignalingchannels/1.11.848/aws-java-sdk-kinesisvideosignalingchannels-1.11.848.jar
+7f3da78cc000-7f3da78d1000 r--s 00022000 103:02 10502835                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-detective/1.11.848/aws-java-sdk-detective-1.11.848.jar
+7f3da78d1000-7f3da78d5000 r--s 00021000 103:02 10502834                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codestarconnections/1.11.848/aws-java-sdk-codestarconnections-1.11.848.jar
+7f3da78d5000-7f3da78db000 r--s 00034000 103:02 10502833                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-synthetics/1.11.848/aws-java-sdk-synthetics-1.11.848.jar
+7f3da78db000-7f3da78ed000 r--s 000c8000 103:02 10502831                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-iotsitewise/1.11.848/aws-java-sdk-iotsitewise-1.11.848.jar
+7f3da78ed000-7f3da7900000 r--s 000e7000 103:02 10502827                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-macie2/1.11.848/aws-java-sdk-macie2-1.11.848.jar
+7f3da7900000-7f3da7909000 r--s 00068000 103:02 10502826                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-codeartifact/1.11.848/aws-java-sdk-codeartifact-1.11.848.jar
+7f3da7909000-7f3da790c000 r--s 00011000 103:02 10502825                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-honeycode/1.11.848/aws-java-sdk-honeycode-1.11.848.jar
+7f3da790c000-7f3da7912000 r--s 00042000 103:02 10502824                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-ivs/1.11.848/aws-java-sdk-ivs-1.11.848.jar
+7f3da7912000-7f3da7916000 r--s 0001a000 103:02 10502823                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-braket/1.11.848/aws-java-sdk-braket-1.11.848.jar
+7f3da7916000-7f3da7918000 r--s 00005000 103:02 10502818                  /home/augusto/.m2/repository/com/amazonaws/jmespath-java/1.11.848/jmespath-java-1.11.848.jar
+7f3da7918000-7f3da791b000 r--s 00011000 103:02 10502816                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk-identitystore/1.11.848/aws-java-sdk-identitystore-1.11.848.jar
+7f3da791b000-7f3da791c000 r--s 00000000 103:02 10502814                  /home/augusto/.m2/repository/com/amazonaws/aws-java-sdk/1.11.848/aws-java-sdk-1.11.848.jar
+7f3da791c000-7f3da7922000 r--s 0003e000 103:02 10502811                  /home/augusto/.m2/repository/commons-io/commons-io/2.7/commons-io-2.7.jar
+7f3da7922000-7f3da7924000 r--s 0000f000 103:02 10502810                  /home/augusto/.m2/repository/javax/activation/activation/1.1.1/activation-1.1.1.jar
+7f3da7924000-7f3da792c000 r--s 00099000 103:02 10502807                  /home/augusto/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar
+7f3da792c000-7f3da792e000 r--s 0000b000 103:02 10502806                  /home/augusto/.m2/repository/org/apache/commons/commons-email/1.4/commons-email-1.4.jar
+7f3da792e000-7f3da7940000 r--s 00137000 103:02 10879711                  /home/augusto/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.9.8/jackson-databind-2.9.8.jar
+7f3da7940000-7f3da7943000 r--s 00019000 103:02 10502804                  /home/augusto/.m2/repository/io/jsonwebtoken/jjwt/0.9.1/jjwt-0.9.1.jar
+7f3da7943000-7f3da7956000 r--s 00201000 103:02 10502801                  /home/augusto/.m2/repository/com/h2database/h2/1.4.199/h2-1.4.199.jar
+7f3da7956000-7f3da7960000 r--s 000c0000 103:02 10502803                  /home/augusto/.m2/repository/org/postgresql/postgresql/42.2.5/postgresql-42.2.5.jar
+7f3da7960000-7f3da7962000 r--s 002c4000 103:02 10502800                  /home/augusto/.m2/repository/io/springfox/springfox-swagger-ui/2.9.2/springfox-swagger-ui-2.9.2.jar
+7f3da7962000-7f3da7964000 r--s 00004000 103:02 10502799                  /home/augusto/.m2/repository/org/mapstruct/mapstruct/1.2.0.Final/mapstruct-1.2.0.Final.jar
+7f3da7964000-7f3da7966000 r--s 00000000 103:02 10386040                  /home/augusto/.m2/repository/org/springframework/plugin/spring-plugin-metadata/1.2.0.RELEASE/spring-plugin-metadata-1.2.0.RELEASE.jar
+7f3da7966000-7f3da7967000 r--s 00004000 103:02 10386038                  /home/augusto/.m2/repository/org/springframework/plugin/spring-plugin-core/1.2.0.RELEASE/spring-plugin-core-1.2.0.RELEASE.jar
+7f3da7967000-7f3da7969000 r--s 00009000 103:02 10879594                  /home/augusto/.m2/repository/org/slf4j/slf4j-api/1.7.26/slf4j-api-1.7.26.jar
+7f3da7969000-7f3da796b000 r--s 0000f000 103:02 10362681                  /home/augusto/.m2/repository/com/fasterxml/classmate/1.4.0/classmate-1.4.0.jar
+7f3da796b000-7f3da799a000 r--s 00226000 103:02 10386037                  /home/augusto/.m2/repository/com/google/guava/guava/20.0/guava-20.0.jar
+7f3da799a000-7f3da799f000 r--s 0002b000 103:02 10502797                  /home/augusto/.m2/repository/io/springfox/springfox-spring-web/2.9.2/springfox-spring-web-2.9.2.jar
+7f3da799f000-7f3da79a3000 r--s 00017000 103:02 10386034                  /home/augusto/.m2/repository/io/springfox/springfox-swagger-common/2.9.2/springfox-swagger-common-2.9.2.jar
+7f3da79a3000-7f3da79a6000 r--s 00012000 103:02 10386033                  /home/augusto/.m2/repository/io/springfox/springfox-schema/2.9.2/springfox-schema-2.9.2.jar
+7f3da79a6000-7f3da79aa000 r--s 00019000 103:02 10386030                  /home/augusto/.m2/repository/io/springfox/springfox-core/2.9.2/springfox-core-2.9.2.jar
+7f3da79aa000-7f3da79ad000 r--s 0000b000 103:02 10386028                  /home/augusto/.m2/repository/io/springfox/springfox-spi/2.9.2/springfox-spi-2.9.2.jar
+7f3da79ad000-7f3da79b0000 r--s 0000e000 103:02 10879689                  /home/augusto/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.9.0/jackson-annotations-2.9.0.jar
+7f3da79b0000-7f3da79b4000 r--s 00022000 103:02 10386029                  /home/augusto/.m2/repository/io/swagger/swagger-models/1.5.20/swagger-models-1.5.20.jar
+7f3da79b4000-7f3da79b6000 r--s 00004000 103:02 10386024                  /home/augusto/.m2/repository/io/swagger/swagger-annotations/1.5.20/swagger-annotations-1.5.20.jar
+7f3da79b6000-7f3da79b9000 r--s 0000e000 103:02 10386022                  /home/augusto/.m2/repository/io/springfox/springfox-swagger2/2.9.2/springfox-swagger2-2.9.2.jar
+7f3da79b9000-7f3da79bc000 r--s 0001e000 103:02 10502795                  /home/augusto/.m2/repository/com/zaxxer/HikariCP-java7/2.4.13/HikariCP-java7-2.4.13.jar
+7f3da79bc000-7f3da79cc000 r--s 00089000 103:02 10386019                  /home/augusto/.m2/repository/com/mchange/mchange-commons-java/0.2.15/mchange-commons-java-0.2.15.jar
+7f3da79cc000-7f3da79d7000 r--s 0009f000 103:02 10386021                  /home/augusto/.m2/repository/org/quartz-scheduler/quartz/2.3.1/quartz-2.3.1.jar
+7f3da79d7000-7f3da79df000 r--s 00037000 103:02 10502792                  /home/augusto/.m2/repository/org/springframework/spring-tx/5.1.6.RELEASE/spring-tx-5.1.6.RELEASE.jar
+7f3da79df000-7f3da79e4000 r--s 00028000 103:02 10502791                  /home/augusto/.m2/repository/org/springframework/spring-context-support/5.1.6.RELEASE/spring-context-support-5.1.6.RELEASE.jar
+7f3da79e4000-7f3da79e5000 r--s 00000000 103:02 10386016                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-quartz/2.1.4.RELEASE/spring-boot-starter-quartz-2.1.4.RELEASE.jar
+7f3da79e5000-7f3da79e6000 r--s 00005000 103:02 10386013                  /home/augusto/.m2/repository/org/springframework/spring-jcl/5.1.6.RELEASE/spring-jcl-5.1.6.RELEASE.jar
+7f3da79e6000-7f3da79fe000 r--s 00124000 103:02 10386008                  /home/augusto/.m2/repository/org/springframework/spring-core/5.1.6.RELEASE/spring-core-5.1.6.RELEASE.jar
+7f3da79fe000-7f3da7a22000 r--s 00111000 103:02 10386000                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.1.4.RELEASE/spring-boot-autoconfigure-2.1.4.RELEASE.jar
+7f3da7a22000-7f3da7a37000 r--s 000d4000 103:02 10385999                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot/2.1.4.RELEASE/spring-boot-2.1.4.RELEASE.jar
+7f3da7a37000-7f3da7a3d000 r--s 0002e000 103:02 10502789                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-devtools/2.1.4.RELEASE/spring-boot-devtools-2.1.4.RELEASE.jar
+7f3da7a3d000-7f3da7a4c000 r--s 000b5000 103:02 10385998                  /home/augusto/.m2/repository/org/springframework/spring-webmvc/5.1.6.RELEASE/spring-webmvc-5.1.6.RELEASE.jar
+7f3da7a4c000-7f3da7a68000 r--s 00137000 103:02 10385995                  /home/augusto/.m2/repository/org/springframework/spring-web/5.1.6.RELEASE/spring-web-5.1.6.RELEASE.jar
+7f3da7a68000-7f3da7a6d000 r--s 00012000 103:02 10362554                  /home/augusto/.m2/repository/javax/validation/validation-api/2.0.1.Final/validation-api-2.0.1.Final.jar
+7f3da7a6d000-7f3da7a8a000 r--s 000fe000 103:02 10879629                  /home/augusto/.m2/repository/org/hibernate/validator/hibernate-validator/6.0.16.Final/hibernate-validator-6.0.16.Final.jar
+7f3da7a8a000-7f3da7a8f000 r--s 0003c000 103:02 10385994                  /home/augusto/.m2/repository/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.17/tomcat-embed-websocket-9.0.17.jar
+7f3da7a8f000-7f3da7a94000 r--s 00039000 103:02 10385992                  /home/augusto/.m2/repository/org/apache/tomcat/embed/tomcat-embed-el/9.0.17/tomcat-embed-el-9.0.17.jar
+7f3da7a94000-7f3da7abe000 r--s 002f9000 103:02 10385991                  /home/augusto/.m2/repository/org/apache/tomcat/embed/tomcat-embed-core/9.0.17/tomcat-embed-core-9.0.17.jar
+7f3da7abe000-7f3da7abf000 r--s 00000000 103:02 10385990                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-tomcat/2.1.4.RELEASE/spring-boot-starter-tomcat-2.1.4.RELEASE.jar
+7f3da7abf000-7f3da7ac1000 r--s 00001000 103:02 10879619                  /home/augusto/.m2/repository/com/fasterxml/jackson/module/jackson-module-parameter-names/2.9.8/jackson-module-parameter-names-2.9.8.jar
+7f3da7ac1000-7f3da7ac4000 r--s 00016000 103:02 10879620                  /home/augusto/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.9.8/jackson-datatype-jsr310-2.9.8.jar
+7f3da7ac4000-7f3da7ac6000 r--s 00007000 103:02 10879612                  /home/augusto/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.9.8/jackson-datatype-jdk8-2.9.8.jar
+7f3da7ac6000-7f3da7ac7000 r--s 00000000 103:02 10385985                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-json/2.1.4.RELEASE/spring-boot-starter-json-2.1.4.RELEASE.jar
+7f3da7ac7000-7f3da7acc000 r--s 00040000 103:02 10385981                  /home/augusto/.m2/repository/org/springframework/spring-expression/5.1.6.RELEASE/spring-expression-5.1.6.RELEASE.jar
+7f3da7acc000-7f3da7adb000 r--s 00075000 103:02 10383627                  /home/augusto/.m2/repository/org/springframework/security/spring-security-web/5.1.5.RELEASE/spring-security-web-5.1.5.RELEASE.jar
+7f3da7adb000-7f3da7ae8000 r--s 000b2000 103:02 10383626                  /home/augusto/.m2/repository/org/springframework/security/spring-security-config/5.1.5.RELEASE/spring-security-config-5.1.5.RELEASE.jar
+7f3da7ae8000-7f3da7af2000 r--s 00051000 103:02 10385980                  /home/augusto/.m2/repository/org/springframework/spring-aop/5.1.6.RELEASE/spring-aop-5.1.6.RELEASE.jar
+7f3da7af2000-7f3da7af9000 r--s 00043000 103:02 10362668                  /home/augusto/.m2/repository/org/yaml/snakeyaml/1.23/snakeyaml-1.23.jar
+7f3da7af9000-7f3da7afb000 r--s 00005000 103:02 10362689                  /home/augusto/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+7f3da7afb000-7f3da7afc000 ---p 00000000 00:00 0 
+7f3da7afc000-7f3da7bfc000 rw-p 00000000 00:00 0 
+7f3da7bfc000-7f3da7bff000 ---p 00000000 00:00 0 
+7f3da7bff000-7f3da7cfd000 rw-p 00000000 00:00 0 
+7f3da7cfd000-7f3da7cfe000 ---p 00000000 00:00 0 
+7f3da7cfe000-7f3da7d01000 ---p 00000000 00:00 0 
+7f3da7d01000-7f3da7dfe000 rw-p 00000000 00:00 0 
+7f3da7dfe000-7f3da7dff000 ---p 00000000 00:00 0 
+7f3da7dff000-7f3da7e02000 ---p 00000000 00:00 0 
+7f3da7e02000-7f3da7eff000 rw-p 00000000 00:00 0 
+7f3da7eff000-7f3da7f00000 ---p 00000000 00:00 0 
+7f3da7f00000-7f3da7f03000 ---p 00000000 00:00 0 
+7f3da7f03000-7f3da8000000 rw-p 00000000 00:00 0 
+7f3da8000000-7f3da8021000 rw-p 00000000 00:00 0 
+7f3da8021000-7f3dac000000 ---p 00000000 00:00 0 
+7f3dac000000-7f3dac001000 r--s 00000000 103:02 10385984                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-web/2.1.4.RELEASE/spring-boot-starter-web-2.1.4.RELEASE.jar
+7f3dac001000-7f3dac003000 r--s 00000000 103:02 10879610                  /home/augusto/.m2/repository/org/slf4j/jul-to-slf4j/1.7.26/jul-to-slf4j-1.7.26.jar
+7f3dac003000-7f3dac009000 r--s 0003c000 103:02 10362657                  /home/augusto/.m2/repository/org/apache/logging/log4j/log4j-api/2.11.2/log4j-api-2.11.2.jar
+7f3dac009000-7f3dac00b000 r--s 00003000 103:02 10362687                  /home/augusto/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.11.2/log4j-to-slf4j-2.11.2.jar
+7f3dac00b000-7f3dac016000 r--s 00069000 103:02 10362641                  /home/augusto/.m2/repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar
+7f3dac016000-7f3dac01c000 r--s 00041000 103:02 10362669                  /home/augusto/.m2/repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar
+7f3dac01c000-7f3dac01d000 r--s 00000000 103:02 10385979                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-logging/2.1.4.RELEASE/spring-boot-starter-logging-2.1.4.RELEASE.jar
+7f3dac01d000-7f3dac01e000 r--s 00000000 103:02 10385978                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter/2.1.4.RELEASE/spring-boot-starter-2.1.4.RELEASE.jar
+7f3dac01e000-7f3dac0a1000 r--s 00626000 103:02 10502775                  /home/augusto/.m2/repository/org/hibernate/hibernate-core/5.3.9.Final/hibernate-core-5.3.9.Final.jar
+7f3dac0a1000-7f3dac380000 r--p 00000000 103:02 1054696                   /usr/lib/locale/locale-archive
+7f3dac380000-7f3db0000000 rw-p 00000000 00:00 0 
+7f3db0000000-7f3db0021000 rw-p 00000000 00:00 0 
+7f3db0021000-7f3db4000000 ---p 00000000 00:00 0 
+7f3db4000000-7f3db4001000 r--s 00000000 103:02 10385975                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-security/2.1.4.RELEASE/spring-boot-starter-security-2.1.4.RELEASE.jar
+7f3db4001000-7f3db4019000 r--s 00106000 103:02 10502779                  /home/augusto/.m2/repository/org/springframework/data/spring-data-commons/2.1.6.RELEASE/spring-data-commons-2.1.6.RELEASE.jar
+7f3db4019000-7f3db4021000 r--s 0004f000 103:02 10502776                  /home/augusto/.m2/repository/org/springframework/data/spring-data-jpa/2.1.6.RELEASE/spring-data-jpa-2.1.6.RELEASE.jar
+7f3db4021000-7f3db4068000 r--s 002da000 103:02 10879578                  /home/augusto/.m2/repository/net/bytebuddy/byte-buddy/1.9.12/byte-buddy-1.9.12.jar
+7f3db4068000-7f3db4081000 r--s 001de000 103:02 10502771                  /home/augusto/.m2/repository/org/aspectj/aspectjweaver/1.9.2/aspectjweaver-1.9.2.jar
+7f3db4081000-7f3db4082000 ---p 00000000 00:00 0 
+7f3db4082000-7f3db4085000 ---p 00000000 00:00 0 
+7f3db4085000-7f3db4182000 rw-p 00000000 00:00 0 
+7f3db4182000-7f3db4185000 ---p 00000000 00:00 0 
+7f3db4185000-7f3db4283000 rw-p 00000000 00:00 0 
+7f3db4283000-7f3db4286000 ---p 00000000 00:00 0 
+7f3db4286000-7f3db4384000 rw-p 00000000 00:00 0 
+7f3db4384000-7f3db4387000 ---p 00000000 00:00 0 
+7f3db4387000-7f3db4485000 rw-p 00000000 00:00 0 
+7f3db4485000-7f3db4486000 ---p 00000000 00:00 0 
+7f3db4486000-7f3db61a9000 rw-p 00000000 00:00 0 
+7f3db61a9000-7f3db6385000 r--s 03e04000 103:02 8155437                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/rt.jar
+7f3db6385000-7f3db6f4d000 rw-p 00000000 00:00 0 
+7f3db6f4d000-7f3db6f4e000 ---p 00000000 00:00 0 
+7f3db6f4e000-7f3db704e000 rw-p 00000000 00:00 0 
+7f3db704e000-7f3db704f000 ---p 00000000 00:00 0 
+7f3db704f000-7f3db714f000 rw-p 00000000 00:00 0 
+7f3db714f000-7f3db7150000 ---p 00000000 00:00 0 
+7f3db7150000-7f3db7250000 rw-p 00000000 00:00 0 
+7f3db7250000-7f3db7251000 ---p 00000000 00:00 0 
+7f3db7251000-7f3db7351000 rw-p 00000000 00:00 0 
+7f3db7351000-7f3db7352000 ---p 00000000 00:00 0 
+7f3db7352000-7f3db7452000 rw-p 00000000 00:00 0 
+7f3db7452000-7f3db7453000 ---p 00000000 00:00 0 
+7f3db7453000-7f3db7553000 rw-p 00000000 00:00 0 
+7f3db7553000-7f3db7554000 ---p 00000000 00:00 0 
+7f3db7554000-7f3db7654000 rw-p 00000000 00:00 0 
+7f3db7654000-7f3db7655000 ---p 00000000 00:00 0 
+7f3db7655000-7f3db7783000 rw-p 00000000 00:00 0 
+7f3db7783000-7f3db79db000 ---p 00000000 00:00 0 
+7f3db79db000-7f3db7a09000 rw-p 00000000 00:00 0 
+7f3db7a09000-7f3db7c60000 ---p 00000000 00:00 0 
+7f3db7c60000-7f3db7d50000 rw-p 00000000 00:00 0 
+7f3db7d50000-7f3db7da3000 ---p 00000000 00:00 0 
+7f3db7da3000-7f3db7dfc000 rw-p 00000000 00:00 0 
+7f3db7dfc000-7f3db8164000 ---p 00000000 00:00 0 
+7f3db8164000-7f3db9734000 rwxp 00000000 00:00 0 
+7f3db9734000-7f3dc7164000 ---p 00000000 00:00 0 
+7f3dc7164000-7f3dc717f000 r-xp 00000000 103:02 9200847                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libzip.so
+7f3dc717f000-7f3dc737e000 ---p 0001b000 103:02 9200847                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libzip.so
+7f3dc737e000-7f3dc737f000 r--p 0001a000 103:02 9200847                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libzip.so
+7f3dc737f000-7f3dc7380000 rw-p 0001b000 103:02 9200847                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libzip.so
+7f3dc7380000-7f3dc738b000 r-xp 00000000 103:02 9455199                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f3dc738b000-7f3dc758a000 ---p 0000b000 103:02 9455199                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f3dc758a000-7f3dc758b000 r--p 0000a000 103:02 9455199                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f3dc758b000-7f3dc758c000 rw-p 0000b000 103:02 9455199                   /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f3dc758c000-7f3dc7592000 rw-p 00000000 00:00 0 
+7f3dc7592000-7f3dc75a9000 r-xp 00000000 103:02 9455196                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f3dc75a9000-7f3dc77a8000 ---p 00017000 103:02 9455196                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f3dc77a8000-7f3dc77a9000 r--p 00016000 103:02 9455196                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f3dc77a9000-7f3dc77aa000 rw-p 00017000 103:02 9455196                   /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f3dc77aa000-7f3dc77ac000 rw-p 00000000 00:00 0 
+7f3dc77ac000-7f3dc77b7000 r-xp 00000000 103:02 9455201                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f3dc77b7000-7f3dc79b6000 ---p 0000b000 103:02 9455201                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f3dc79b6000-7f3dc79b7000 r--p 0000a000 103:02 9455201                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f3dc79b7000-7f3dc79b8000 rw-p 0000b000 103:02 9455201                   /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f3dc79b8000-7f3dc79c0000 r-xp 00000000 103:02 9455197                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f3dc79c0000-7f3dc7bc0000 ---p 00008000 103:02 9455197                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f3dc7bc0000-7f3dc7bc1000 r--p 00008000 103:02 9455197                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f3dc7bc1000-7f3dc7bc2000 rw-p 00009000 103:02 9455197                   /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f3dc7bc2000-7f3dc7bee000 r-xp 00000000 103:02 9200858                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libjava.so
+7f3dc7bee000-7f3dc7dee000 ---p 0002c000 103:02 9200858                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libjava.so
+7f3dc7dee000-7f3dc7def000 r--p 0002c000 103:02 9200858                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libjava.so
+7f3dc7def000-7f3dc7df1000 rw-p 0002d000 103:02 9200858                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libjava.so
+7f3dc7df1000-7f3dc7dfe000 r-xp 00000000 103:02 9200859                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libverify.so
+7f3dc7dfe000-7f3dc7ffd000 ---p 0000d000 103:02 9200859                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libverify.so
+7f3dc7ffd000-7f3dc7fff000 r--p 0000c000 103:02 9200859                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libverify.so
+7f3dc7fff000-7f3dc8000000 rw-p 0000e000 103:02 9200859                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/libverify.so
+7f3dc8000000-7f3dc9ee1000 rw-p 00000000 00:00 0 
+7f3dc9ee1000-7f3dcc000000 ---p 00000000 00:00 0 
+7f3dcc000000-7f3dcc002000 r--s 0000a000 103:02 10502785                  /home/augusto/.m2/repository/org/springframework/spring-aspects/5.1.6.RELEASE/spring-aspects-5.1.6.RELEASE.jar
+7f3dcc002000-7f3dcc006000 r--s 0002d000 103:02 10502781                  /home/augusto/.m2/repository/org/springframework/spring-orm/5.1.6.RELEASE/spring-orm-5.1.6.RELEASE.jar
+7f3dcc006000-7f3dcc009000 r--s 00010000 103:02 10486948                  /home/augusto/.m2/repository/org/hibernate/common/hibernate-commons-annotations/5.0.4.Final/hibernate-commons-annotations-5.0.4.Final.jar
+7f3dcc009000-7f3dcc00e000 r--s 0004b000 103:02 10879580                  /home/augusto/.m2/repository/org/dom4j/dom4j/2.1.1/dom4j-2.1.1.jar
+7f3dcc00e000-7f3dcc013000 r--s 00068000 103:02 10486941                  /home/augusto/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar
+7f3dcc013000-7f3dcc0d9000 rw-p 00000000 00:00 0 
+7f3dcc0d9000-7f3dcc0e0000 r-xp 00000000 103:02 9455206                   /lib/x86_64-linux-gnu/librt-2.27.so
+7f3dcc0e0000-7f3dcc2df000 ---p 00007000 103:02 9455206                   /lib/x86_64-linux-gnu/librt-2.27.so
+7f3dcc2df000-7f3dcc2e0000 r--p 00006000 103:02 9455206                   /lib/x86_64-linux-gnu/librt-2.27.so
+7f3dcc2e0000-7f3dcc2e1000 rw-p 00007000 103:02 9455206                   /lib/x86_64-linux-gnu/librt-2.27.so
+7f3dcc2e1000-7f3dcc47e000 r-xp 00000000 103:02 9455171                   /lib/x86_64-linux-gnu/libm-2.27.so
+7f3dcc47e000-7f3dcc67d000 ---p 0019d000 103:02 9455171                   /lib/x86_64-linux-gnu/libm-2.27.so
+7f3dcc67d000-7f3dcc67e000 r--p 0019c000 103:02 9455171                   /lib/x86_64-linux-gnu/libm-2.27.so
+7f3dcc67e000-7f3dcc67f000 rw-p 0019d000 103:02 9455171                   /lib/x86_64-linux-gnu/libm-2.27.so
+7f3dcc67f000-7f3dcd373000 r-xp 00000000 103:02 9200257                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/server/libjvm.so
+7f3dcd373000-7f3dcd572000 ---p 00cf4000 103:02 9200257                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/server/libjvm.so
+7f3dcd572000-7f3dcd608000 r--p 00cf3000 103:02 9200257                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/server/libjvm.so
+7f3dcd608000-7f3dcd639000 rw-p 00d89000 103:02 9200257                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/server/libjvm.so
+7f3dcd639000-7f3dcd674000 rw-p 00000000 00:00 0 
+7f3dcd674000-7f3dcd85b000 r-xp 00000000 103:02 9455163                   /lib/x86_64-linux-gnu/libc-2.27.so
+7f3dcd85b000-7f3dcda5b000 ---p 001e7000 103:02 9455163                   /lib/x86_64-linux-gnu/libc-2.27.so
+7f3dcda5b000-7f3dcda5f000 r--p 001e7000 103:02 9455163                   /lib/x86_64-linux-gnu/libc-2.27.so
+7f3dcda5f000-7f3dcda61000 rw-p 001eb000 103:02 9455163                   /lib/x86_64-linux-gnu/libc-2.27.so
+7f3dcda61000-7f3dcda65000 rw-p 00000000 00:00 0 
+7f3dcda65000-7f3dcda68000 r-xp 00000000 103:02 9455170                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7f3dcda68000-7f3dcdc67000 ---p 00003000 103:02 9455170                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7f3dcdc67000-7f3dcdc68000 r--p 00002000 103:02 9455170                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7f3dcdc68000-7f3dcdc69000 rw-p 00003000 103:02 9455170                   /lib/x86_64-linux-gnu/libdl-2.27.so
+7f3dcdc69000-7f3dcdc80000 r-xp 00000000 103:02 9200852                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/jli/libjli.so
+7f3dcdc80000-7f3dcde7f000 ---p 00017000 103:02 9200852                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/jli/libjli.so
+7f3dcde7f000-7f3dcde80000 r--p 00016000 103:02 9200852                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/jli/libjli.so
+7f3dcde80000-7f3dcde81000 rw-p 00017000 103:02 9200852                   /home/augusto/dev/tools/java/jdk1.8.0_261/jre/lib/amd64/jli/libjli.so
+7f3dcde81000-7f3dcde9b000 r-xp 00000000 103:02 9455204                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f3dcde9b000-7f3dce09a000 ---p 0001a000 103:02 9455204                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f3dce09a000-7f3dce09b000 r--p 00019000 103:02 9455204                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f3dce09b000-7f3dce09c000 rw-p 0001a000 103:02 9455204                   /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f3dce09c000-7f3dce0a0000 rw-p 00000000 00:00 0 
+7f3dce0a0000-7f3dce0c7000 r-xp 00000000 103:02 9455155                   /lib/x86_64-linux-gnu/ld-2.27.so
+7f3dce0c7000-7f3dce0ca000 r--s 0002b000 103:02 10486942                  /home/augusto/.m2/repository/org/jboss/jandex/2.0.5.Final/jandex-2.0.5.Final.jar
+7f3dce0ca000-7f3dce0d5000 r--s 000b2000 103:02 10502777                  /home/augusto/.m2/repository/org/javassist/javassist/3.23.1-GA/javassist-3.23.1-GA.jar
+7f3dce0d5000-7f3dce0db000 r--s 00023000 103:02 10486933                  /home/augusto/.m2/repository/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar
+7f3dce0db000-7f3dce0dd000 r--s 0000f000 103:02 10879577                  /home/augusto/.m2/repository/org/jboss/logging/jboss-logging/3.3.2.Final/jboss-logging-3.3.2.Final.jar
+7f3dce0dd000-7f3dce0de000 r--s 00006000 103:02 10486934                  /home/augusto/.m2/repository/javax/transaction/javax.transaction-api/1.3/javax.transaction-api-1.3.jar
+7f3dce0de000-7f3dce1a8000 rw-p 00000000 00:00 0 
+7f3dce1a8000-7f3dce1a9000 ---p 00000000 00:00 0 
+7f3dce1a9000-7f3dce1ac000 ---p 00000000 00:00 0 
+7f3dce1ac000-7f3dce2ab000 rw-p 00000000 00:00 0 
+7f3dce2ab000-7f3dce2b4000 r--s 0005a000 103:02 10502770                  /home/augusto/.m2/repository/org/springframework/spring-jdbc/5.1.6.RELEASE/spring-jdbc-5.1.6.RELEASE.jar
+7f3dce2b4000-7f3dce2b8000 r--s 00020000 103:02 10486932                  /home/augusto/.m2/repository/com/zaxxer/HikariCP/3.2.0/HikariCP-3.2.0.jar
+7f3dce2b8000-7f3dce2b9000 r--s 00000000 103:02 10502768                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/2.1.4.RELEASE/spring-boot-starter-jdbc-2.1.4.RELEASE.jar
+7f3dce2b9000-7f3dce2ba000 r--s 00000000 103:02 10502769                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-aop/2.1.4.RELEASE/spring-boot-starter-aop-2.1.4.RELEASE.jar
+7f3dce2ba000-7f3dce2bb000 r--s 00000000 103:02 10502767                  /home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/2.1.4.RELEASE/spring-boot-starter-data-jpa-2.1.4.RELEASE.jar
+7f3dce2bb000-7f3dce2c3000 rw-s 00000000 103:02 1723181                   /tmp/hsperfdata_augusto/18241
+7f3dce2c3000-7f3dce2c4000 rw-p 00000000 00:00 0 
+7f3dce2c4000-7f3dce2c5000 ---p 00000000 00:00 0 
+7f3dce2c5000-7f3dce2c7000 rw-p 00000000 00:00 0 
+7f3dce2c7000-7f3dce2c8000 r--p 00027000 103:02 9455155                   /lib/x86_64-linux-gnu/ld-2.27.so
+7f3dce2c8000-7f3dce2c9000 rw-p 00028000 103:02 9455155                   /lib/x86_64-linux-gnu/ld-2.27.so
+7f3dce2c9000-7f3dce2ca000 rw-p 00000000 00:00 0 
+7ffd773fd000-7ffd77428000 rw-p 00000000 00:00 0                          [stack]
+7ffd77438000-7ffd7743b000 r--p 00000000 00:00 0                          [vvar]
+7ffd7743b000-7ffd7743c000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Dfile.encoding=UTF-8 
+java_command: br.com.precredenciamento.InfobtcApplication
+java_class_path (initial): /home/augusto/dev/sesc/infobtc/target/classes:/home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-data-jpa/2.1.4.RELEASE/spring-boot-starter-data-jpa-2.1.4.RELEASE.jar:/home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-aop/2.1.4.RELEASE/spring-boot-starter-aop-2.1.4.RELEASE.jar:/home/augusto/.m2/repository/org/aspectj/aspectjweaver/1.9.2/aspectjweaver-1.9.2.jar:/home/augusto/.m2/repository/org/springframework/boot/spring-boot-starter-jdbc/2.1.4.RELEASE/spring-boot-starter-jdbc-2.1.4.RELEASE.jar:/home/augusto/.m2/repository/com/zaxxer/HikariCP/3.2.0/HikariCP-3.2.0.jar:/home/augusto/.m2/repository/org/springframework/spring-jdbc/5.1.6.RELEASE/spring-jdbc-5.1.6.RELEASE.jar:/home/augusto/.m2/repository/javax/transaction/javax.transaction-api/1.3/javax.transaction-api-1.3.jar:/home/augusto/.m2/repository/org/hibernate/hibernate-core/5.3.9.Final/hibernate-core-5.3.9.Final.jar:/home/augusto/.m2/repository/org/jboss/logging/jboss-logging/3.3.2.Final/jboss-logging-3.3.2.Final.jar:/home/augusto/.m2/repository/javax/persistence/javax.persistence-api/2.2/javax.persistence-api-2.2.jar:/home/augusto/.m2/repository/org/javassist/javassist/3.23.1-GA/javassist-3.23.1-GA.jar:/home/augusto/.m2/repository/net/bytebuddy/byte-buddy/1.9.12/byte-buddy-1.9.12.jar:/home/augusto/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar:/home/augusto/.m2/repository/org/jboss/jandex/2.0.5.Final/jandex-2.0.5.Final.jar:/home/augusto/.m2/repository/org/dom4j/dom4j/2.1.1/dom4j-2.1.1.jar:/home/augusto/.m2/repository/org/hibernate/common/hibernate-commons-annotations/5.0.4.Final/hibernate-commons-annotations-5.0.4.Final.jar:/home/augusto/.m2/repository/org/springframework/data/spring-data-jpa/2.1.6.RELEASE/spring-data-jpa-2.1.6.RELEASE.jar:/home/augusto/.m2/repository/org/springframework/data/spring-data-commons/2.1.6.RELEASE/spring-data-commons-2.1.6.RELEASE.jar:/home/augusto/.m2/repository/org/springframework/spring-orm/5.1.6.RELEASE/
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/usr/lib/jvm/java-14-oracle
+PATH=/opt/maven/bin:/usr/lib/jvm/java-14-oracle/bin//home/augusto/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-14-oracle/bin:/usr/lib/jvm/java-14-oracle/db/bin
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xade140], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xade140], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x912c70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x912c70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x912c70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x912c70], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x912b40], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x913160], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x913160], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x913160], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x913160], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=LinuxMint
+DISTRIB_RELEASE=19.3
+DISTRIB_CODENAME=tricia
+DISTRIB_DESCRIPTION="Linux Mint 19.3 Tricia"
+
+uname:Linux 5.0.0-32-generic #34~18.04.2-Ubuntu SMP Thu Oct 10 10:36:02 UTC 2019 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE 0k, NPROC 30668, NOFILE 4096, AS infinity
+load average:11,66 4,44 3,11
+
+/proc/meminfo:
+MemTotal:        7921988 kB
+MemFree:          101144 kB
+MemAvailable:      50628 kB
+Buffers:            1152 kB
+Cached:           612532 kB
+SwapCached:         8356 kB
+Active:          5991140 kB
+Inactive:        1248820 kB
+Active(anon):    5957436 kB
+Inactive(anon):  1219436 kB
+Active(file):      33704 kB
+Inactive(file):    29384 kB
+Unevictable:       12976 kB
+Mlocked:             112 kB
+SwapTotal:       2097148 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:       6632904 kB
+Mapped:           137380 kB
+Shmem:            549508 kB
+KReclaimable:     106116 kB
+Slab:             288136 kB
+SReclaimable:     106116 kB
+SUnreclaim:       182020 kB
+KernelStack:       30176 kB
+PageTables:       121608 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     6058140 kB
+Committed_AS:   21761876 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+Percpu:             4544 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:      531656 kB
+DirectMap2M:     7612416 kB
+DirectMap1G:           0 kB
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-7
+cpu_memory_nodes: 0
+active_processor_count: 8
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 6836404224
+memory_max_usage_in_bytes: 7594610688
+
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 142 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2450.535
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2453.664
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2449.840
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2463.249
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2451.503
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2450.206
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2452.997
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 142
+model name	: Intel(R) Core(TM) i5-8250U CPU @ 1.60GHz
+stepping	: 10
+microcode	: 0x84
+cpu MHz		: 2454.616
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb invpcid_single pti ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid mpx rdseed adx smap clflushopt intel_pt xsaveopt xsavec xgetbv1 xsaves dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs
+bogomips	: 3600.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 7921988k(102976k free), swap 2097148k(0k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (25.261-b12) for linux-amd64 JRE (1.8.0_261-b12), built on Jun 17 2020 23:41:40 by "java_re" with gcc 7.3.0
+
+time: Mon Sep  7 16:41:00 2020
+timezone: -03
+elapsed time: 449 seconds (0d 0h 7m 29s)
+
