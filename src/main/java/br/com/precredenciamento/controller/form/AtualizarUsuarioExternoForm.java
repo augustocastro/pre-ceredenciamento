@@ -90,6 +90,11 @@ public class AtualizarUsuarioExternoForm extends Form {
 	@NotNull
 	public double renda;
 	
+	@NotNull
+	public boolean carteiraRegistrada;
+	
+	@NotBlank
+	public String tipoDocEmpregador;
 	
 	@NotNull
 	public EnderecoForm endereco;
@@ -121,5 +126,7 @@ public class AtualizarUsuarioExternoForm extends Form {
 		usuario.setCnpjEmpregador(cnpjEmpregador);
 		usuario.setNomeEmpresa(nomeEmpresa);
 		usuario.setRenda(renda);
+		usuario.setCarteiraRegistrada(carteiraRegistrada);
+		usuario.setTipoDocEmpregador(tipoDocEmpregador);
 	}
 }

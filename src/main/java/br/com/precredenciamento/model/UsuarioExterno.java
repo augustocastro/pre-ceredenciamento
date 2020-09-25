@@ -43,6 +43,8 @@ public class UsuarioExterno {
 	private String cnpjEmpregador;
 	private String nomeEmpresa;
 	private double renda;
+	private boolean carteiraRegistrada;
+	private String tipoDocEmpregador;
 	
 	@OneToMany(mappedBy = "titular")
     private List<Dependente> dependentes;
@@ -277,4 +279,20 @@ public class UsuarioExterno {
 		this.dependentes = dependentes;
 	}
 
+	public boolean isCarteiraRegistrada() {
+		return carteiraRegistrada;
+	}
+
+	public String getTipoDocEmpregador() {
+		return tipoDocEmpregador;
+	}
+
+	public void setCarteiraRegistrada(boolean carteiraRegistrada) {
+		this.carteiraRegistrada = carteiraRegistrada;
+	}
+
+	public void setTipoDocEmpregador(String tipoDocEmpregador) {
+		this.tipoDocEmpregador = tipoDocEmpregador;
+	}
+	
 }

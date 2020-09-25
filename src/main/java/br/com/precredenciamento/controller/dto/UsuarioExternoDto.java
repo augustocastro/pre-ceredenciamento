@@ -32,6 +32,8 @@ public class UsuarioExternoDto {
 	public double renda;
 	public EnderecoDto endereco;
 	public ArquivoDto fotoPerfil;
+	public boolean carteiraRegistrada;
+	public String tipoDocEmpregador;
 	
 	public UsuarioExternoDto converter(UsuarioExterno usuario) {
 		id = usuario.getId();
@@ -58,6 +60,8 @@ public class UsuarioExternoDto {
 		cnpjEmpregador = usuario.getCnpjEmpregador();
 		nomeEmpresa = usuario.getNomeEmpresa();
 		renda = usuario.getRenda();
+		carteiraRegistrada = usuario.isCarteiraRegistrada();
+		tipoDocEmpregador = usuario.getTipoDocEmpregador();
 		fotoPerfil = new ArquivoDto(usuario.getFotoPerfil());
 		endereco = new EnderecoDto(usuario.getEndereco());
 		return this;
