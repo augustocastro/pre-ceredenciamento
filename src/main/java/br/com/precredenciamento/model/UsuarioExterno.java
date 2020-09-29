@@ -49,8 +49,21 @@ public class UsuarioExterno {
 	@OneToMany(mappedBy = "titular")
     private List<Dependente> dependentes;
 	
+	@br.com.precredenciamento.anotacao.Arquivo
 	@OneToOne(cascade = CascadeType.ALL)
 	private Arquivo fotoPerfil;
+	
+	@br.com.precredenciamento.anotacao.Arquivo
+	@OneToOne(cascade = CascadeType.ALL)
+	private Arquivo fotoCpf;
+	
+	@br.com.precredenciamento.anotacao.Arquivo
+	@OneToOne(cascade = CascadeType.ALL)
+	private Arquivo fotoRG;
+	
+	@br.com.precredenciamento.anotacao.Arquivo
+	@OneToOne(cascade = CascadeType.ALL)
+	private Arquivo fotoCarteiraTrabalho;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
@@ -269,6 +282,30 @@ public class UsuarioExterno {
 	
 	public void setFotoPerfil(Arquivo fotoPerfil) {
 		this.fotoPerfil = fotoPerfil;
+	}
+	
+	public Arquivo getFotoCpf() {
+		return fotoCpf;
+	}
+	
+	public void setFotoCpf(Arquivo fotoCpf) {
+		this.fotoCpf = fotoCpf;
+	}
+	
+	public Arquivo getFotoRG() {
+		return fotoRG;
+	}
+	
+	public void setFotoRG(Arquivo fotoRG) {
+		this.fotoRG = fotoRG;
+	}
+	
+	public Arquivo getFotoCarteiraTrabalho() {
+		return fotoCarteiraTrabalho;
+	}
+	
+	public void setFotoCarteiraTrabalho(Arquivo fotoCarteriaTrabalho) {
+		this.fotoCarteiraTrabalho = fotoCarteriaTrabalho;
 	}
 	
 	public List<Dependente> getDependentes() {

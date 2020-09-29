@@ -32,6 +32,9 @@ public class UsuarioExternoDto {
 	public double renda;
 	public EnderecoDto endereco;
 	public ArquivoDto fotoPerfil;
+	public ArquivoDto fotoCpf;
+	public ArquivoDto fotoRG;
+	public ArquivoDto fotoCarteiraTrabalho;
 	public boolean carteiraRegistrada;
 	public String tipoDocEmpregador;
 	
@@ -63,6 +66,9 @@ public class UsuarioExternoDto {
 		carteiraRegistrada = usuario.isCarteiraRegistrada();
 		tipoDocEmpregador = usuario.getTipoDocEmpregador();
 		fotoPerfil = new ArquivoDto(usuario.getFotoPerfil());
+		fotoCpf = new ArquivoDto(usuario.getFotoCpf());
+		fotoRG = new ArquivoDto(usuario.getFotoRG());
+		fotoCarteiraTrabalho = new ArquivoDto(usuario.getFotoCarteiraTrabalho());
 		endereco = new EnderecoDto(usuario.getEndereco());
 		return this;
 	}
