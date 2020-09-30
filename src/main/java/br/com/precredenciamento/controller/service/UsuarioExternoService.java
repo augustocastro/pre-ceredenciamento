@@ -3,6 +3,7 @@ package br.com.precredenciamento.controller.service;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 import javax.validation.Validator;
 
@@ -63,6 +64,7 @@ public class UsuarioExternoService {
 		form.setarPropriedades(usuario, validator);
 
 		salvarNovoArquivos(usuario, formData);
+		salvarAnexos(usuario, formData);
 
 		enderecoRepository.save(endereco);
 		usuarioExternoRepository.save(usuario);
@@ -103,6 +105,27 @@ public class UsuarioExternoService {
 			}
 		} catch (Exception e) {
 			throw new RuntimeException("Erro ao salvar arquivos");
+		}
+	}
+	
+	private void salvarAnexos(UsuarioExterno usuario, AtualizarUsuarioExternoFormData formData) {
+		if (formData.getAnexos() == null ) {
+			return;
+		}
+		
+		if (formData.getAnexos().length <= 20) {
+			usuario.getAnexos().forEach(anexo -> {
+				arquivoService.removerPorId(anexo.getId());
+			});
+			
+			usuario.setAnexos(new ArrayList<Arquivo>());
+			
+			for(MultipartFile file: formData.getAnexos()) {
+				Arquivo arquivo = arquivoService.salvar(file);
+				usuario.adicionarAnexo(arquivo);
+			}
+		} else {
+			throw new IllegalArgumentException("Ultrapassou a quantidade máxima de 20 anexos");
 		}
 	}
 

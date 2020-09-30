@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -68,6 +70,17 @@ public class UsuarioExterno {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
+	@JoinTable(name = "usuario_externo_arquivos_anexos", joinColumns = @JoinColumn(
+            name = "usuario_externo_id",
+            referencedColumnName = "id"
+    ),
+    inverseJoinColumns = @JoinColumn(
+            name = "arquivo_id",
+            referencedColumnName = "id"
+    ))
+	@OneToMany(cascade = CascadeType.ALL)
+    private List<Arquivo> anexos;
+	
 	public Long getId() {
 		return id;
 	}
@@ -303,7 +316,7 @@ public class UsuarioExterno {
 	public Arquivo getFotoCarteiraTrabalho() {
 		return fotoCarteiraTrabalho;
 	}
-	
+
 	public void setFotoCarteiraTrabalho(Arquivo fotoCarteriaTrabalho) {
 		this.fotoCarteiraTrabalho = fotoCarteriaTrabalho;
 	}
@@ -332,4 +345,16 @@ public class UsuarioExterno {
 		this.tipoDocEmpregador = tipoDocEmpregador;
 	}
 	
+	public List<Arquivo> getAnexos() {
+		return anexos;
+	}
+
+	public void setAnexos(List<Arquivo> anexos) {
+		this.anexos = anexos;
+	}
+	
+	public void adicionarAnexo(Arquivo anexo) {
+		this.anexos.add(anexo);
+	}
+
 }

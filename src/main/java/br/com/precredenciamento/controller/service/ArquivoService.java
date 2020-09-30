@@ -20,7 +20,6 @@ public class ArquivoService {
 
 	public Arquivo salvar(MultipartFile file) {
 		try {
-//			Blob blob = Hibernate.getLobCreator(sessionFactory.getCurrentSession()).createBlob(file.getBytes());
 			Arquivo arquivo = new Arquivo();
 			arquivo.setNome(file.getOriginalFilename());
 			arquivo.setArquivo(file.getBytes());			

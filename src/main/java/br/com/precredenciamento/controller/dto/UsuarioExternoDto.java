@@ -1,6 +1,8 @@
 package br.com.precredenciamento.controller.dto;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.precredenciamento.model.UsuarioExterno;
 
@@ -37,6 +39,7 @@ public class UsuarioExternoDto {
 	public ArquivoDto fotoCarteiraTrabalho;
 	public boolean carteiraRegistrada;
 	public String tipoDocEmpregador;
+	public List<ArquivoDto> anexos;
 	
 	public UsuarioExternoDto converter(UsuarioExterno usuario) {
 		id = usuario.getId();
@@ -66,10 +69,15 @@ public class UsuarioExternoDto {
 		carteiraRegistrada = usuario.isCarteiraRegistrada();
 		tipoDocEmpregador = usuario.getTipoDocEmpregador();
 		fotoPerfil = new ArquivoDto(usuario.getFotoPerfil());
-		fotoCpf = new ArquivoDto(usuario.getFotoCpf());
-		fotoRG = new ArquivoDto(usuario.getFotoRG());
-		fotoCarteiraTrabalho = new ArquivoDto(usuario.getFotoCarteiraTrabalho());
+		fotoCpf = usuario.getFotoCpf() != null ? new ArquivoDto(usuario.getFotoCpf()) : null;
+		fotoRG = usuario.getFotoRG() != null ? new ArquivoDto(usuario.getFotoRG()) : null;
+		fotoCarteiraTrabalho = usuario.getFotoCarteiraTrabalho() != null ? new ArquivoDto(usuario.getFotoCarteiraTrabalho()): null;
 		endereco = new EnderecoDto(usuario.getEndereco());
+	
+		if (usuario.getAnexos() != null && !usuario.getAnexos().isEmpty()) {
+			anexos = usuario.getAnexos().stream().map(ArquivoDto::new).collect(Collectors.toList());
+		
+		}
 		return this;
 	}
 }

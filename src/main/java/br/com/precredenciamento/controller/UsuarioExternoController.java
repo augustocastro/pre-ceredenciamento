@@ -78,6 +78,8 @@ public class UsuarioExternoController {
 			return ResponseEntity.status(500).body(new ErroDto("Erro nos arquivos enviados."));
 		} catch (ValidacaoException e) {
 			return ResponseEntity.status(400).body(e.getErros());
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(400).body(new ErroDto(e.getMessage(), false));
 		}
 	}
 	

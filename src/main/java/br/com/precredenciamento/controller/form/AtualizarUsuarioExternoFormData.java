@@ -14,6 +14,7 @@ public class AtualizarUsuarioExternoFormData {
 	private MultipartFile fotoCpf;
 	private MultipartFile fotoRG;
 	private MultipartFile fotoCarteiraTrabalho;
+	private MultipartFile[] anexos;
 
 	public String getUsuario() {
 		return usuario;
@@ -54,5 +55,13 @@ public class AtualizarUsuarioExternoFormData {
 	public void setFotoCarteiraTrabalho(MultipartFile fotoCarteiraTrabalho) {
 		this.fotoCarteiraTrabalho = fotoCarteiraTrabalho;
 	}
-
+	
+	public MultipartFile[] getAnexos() {
+		return anexos;
+	}
+	
+	public void setAnexos(MultipartFile[] anexos) {
+		this.anexos = anexos;
+	}
+	
 }
