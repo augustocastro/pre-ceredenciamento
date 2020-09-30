@@ -3,6 +3,8 @@ package br.com.precredenciamento.controller.service;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.validation.Validator;
@@ -25,12 +27,15 @@ import br.com.precredenciamento.controller.form.AtualizarUsuarioExternoFormData;
 import br.com.precredenciamento.controller.form.CadastrarUsuarioExternoForm;
 import br.com.precredenciamento.controller.form.EnderecoForm;
 import br.com.precredenciamento.controller.form.NovaSenhaUsuarioExternoForm;
+import br.com.precredenciamento.helper.ArquivoHelper;
+import br.com.precredenciamento.helper.DataHelper;
 import br.com.precredenciamento.model.Arquivo;
 import br.com.precredenciamento.model.Codigo;
 import br.com.precredenciamento.model.Endereco;
 import br.com.precredenciamento.model.UsuarioExterno;
 import br.com.precredenciamento.repository.EnderecoRepository;
 import br.com.precredenciamento.repository.UsuarioExternoRepository;
+import br.com.precredenciamento.service.EmailService;
 import br.com.precredenciamento.validacao.ValidacaoException;
 import javassist.NotFoundException;
 
@@ -45,6 +50,9 @@ public class UsuarioExternoService {
 
 	@Autowired
 	private CodigoService codigoService;
+	
+	@Autowired
+	private EmailService emailService;
 
 	@Autowired
 	private ArquivoService arquivoService;
@@ -129,11 +137,25 @@ public class UsuarioExternoService {
 		}
 	}
 
-	public UsuarioExterno salvar(CadastrarUsuarioExternoForm form) {
+	public UsuarioExterno salvar(CadastrarUsuarioExternoForm form) {		
 		UsuarioExterno usuario = new UsuarioExterno();
 		form.setarPropriedades(usuario);
 		usuarioExternoRepository.save(usuario);
+		enviarEmailPosCadastro(usuario);
 		return usuario;
+	}
+	
+	public void enviarEmailPosCadastro(UsuarioExterno usuarioExterno) {
+		try {
+			String dataComparecimento = DataHelper.formtarData(LocalDate.now().plusDays(30));
+			
+			String mensagem = ArquivoHelper.lerArquivo("texto-email-pos-cadastro.html");
+			mensagem = mensagem.replace("[data-comparecimento]", dataComparecimento);
+			
+			emailService.send(mensagem, "SESC - Cadastro Realizado com Sucesso", usuarioExterno.getEmail());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public Page<UsuarioExternoListagemDto> buscarTodos(

@@ -13,7 +13,7 @@ public class EmailService {
 
 	public void send(String ...args) {
 		try {			
-			String mensagem = String.format(args[0]);
+			String mensagem = args[0];
 			
 			HtmlEmail email = new HtmlEmail();
 			email.setHostName("smtp.gmail.com");

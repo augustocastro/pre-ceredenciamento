@@ -1,5 +1,8 @@
 package br.com.precredenciamento.helper;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class DataHelper {
 
 	public static String retornaMes(int mes) {
@@ -31,5 +34,9 @@ public class DataHelper {
 		default:
 			return "";
 		}
+	}
+	
+	public static String formtarData(LocalDate data) {
+		return data.format(DateTimeFormatter.ofPattern("dd/MM/uuuu"));
 	}
 }
