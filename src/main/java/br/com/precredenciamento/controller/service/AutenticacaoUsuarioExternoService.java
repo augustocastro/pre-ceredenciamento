@@ -50,6 +50,7 @@ public class AutenticacaoUsuarioExternoService {
 		String destinatario = form.getEmail();
 
 		StringBuilder mensagem = new StringBuilder();
+//		mensagem.append("<img src=\"logo.png\" height=\"100\" width=\"100\">");
 		mensagem.append("Ola! <strong><user></strong> Segue o Link abaixo para Trocar sua senha<br><br>".replace("<user>", usuario.getNomeCompleto()));
 		mensagem.append("<a href='http://localhost:4200/trocar-senha/?codigo=<code>'>http://localhost:4200/trocar-senha/?codigo=<code></a>".replaceAll("<code>", codigo));
 

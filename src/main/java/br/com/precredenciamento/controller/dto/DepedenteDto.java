@@ -14,7 +14,7 @@ public class DepedenteDto {
 	public LocalDate dataNascimento;
 	public String parentesco;
 	public String estadoCivil;
-	public String grauInstrucao;
+//	public String grauInstrucao;
 	public String rg;
 	public String orgaoEmissor;
 	public String naturalidade;
@@ -32,7 +32,7 @@ public class DepedenteDto {
 		dataNascimento = usuario.getDataNascimento();
 		parentesco = usuario.getParentesco();
 		estadoCivil = usuario.getEstadoCivil();
-		grauInstrucao = usuario.getGrauInstrucao();
+//		grauInstrucao = usuario.getGrauInstrucao();
 		rg = usuario.getRg();
 		orgaoEmissor = usuario.getOrgaoEmissor();
 		naturalidade = usuario.getNaturalidade();

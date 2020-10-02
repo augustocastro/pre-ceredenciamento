@@ -43,8 +43,8 @@ public class DependenteForm extends Form {
 	@NotBlank
 	public String estadoCivil;
 
-	@NotBlank
-	public String grauInstrucao;
+//	@NotBlank
+//	public String grauInstrucao;
 
 	@NotBlank
 	public String rg;
@@ -73,7 +73,7 @@ public class DependenteForm extends Form {
 		dependente.setDataNascimento(dataNascimento);
 		dependente.setParentesco(parentesco);
 		dependente.setEstadoCivil(estadoCivil);
-		dependente.setGrauInstrucao(grauInstrucao);
+//		dependente.setGrauInstrucao(grauInstrucao);
 		dependente.setRg(rg);
 		dependente.setOrgaoEmissor(orgaoEmissor);
 		dependente.setNaturalidade(naturalidade);
