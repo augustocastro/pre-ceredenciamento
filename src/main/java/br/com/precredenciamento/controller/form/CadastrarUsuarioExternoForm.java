@@ -1,6 +1,7 @@
 package br.com.precredenciamento.controller.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import br.com.precredenciamento.model.UsuarioExterno;
 
@@ -12,7 +13,6 @@ public class CadastrarUsuarioExternoForm {
 	@NotBlank
 	public String nomeCompleto;
 	
-	@NotBlank
 	public String email;
 	
 	@NotBlank

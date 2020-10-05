@@ -28,8 +28,6 @@ public class AtualizarUsuarioExternoForm extends Form {
 	@NotBlank
 	public String nomeCompleto;
 
-	@NotNull
-	@NotBlank
 	public String nomeSocial;
 
 	@JsonDeserialize(using = LocalDateDeserializer.class)
@@ -73,7 +71,6 @@ public class AtualizarUsuarioExternoForm extends Form {
 	@NotBlank
 	public String telefoneComercial;
 	
-	@NotBlank
 	public String email;
 
 	@JsonDeserialize(using = LocalDateDeserializer.class)

@@ -27,8 +27,6 @@ public class DependenteForm extends Form {
 	@NotBlank
 	public String nomeCompleto;
 
-	@NotNull
-	@NotBlank
 	public String nomeSocial;
 
 	@JsonDeserialize(using = LocalDateDeserializer.class)

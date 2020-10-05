@@ -140,7 +140,9 @@ public class UsuarioExternoService {
 		UsuarioExterno usuario = new UsuarioExterno();
 		form.setarPropriedades(usuario);
 		usuarioExternoRepository.save(usuario);
-		enviarEmailPosCadastro(usuario);
+		if(form.email != "" && form.email != null) {
+			enviarEmailPosCadastro(usuario);			
+		}
 		return usuario;
 	}
 	
