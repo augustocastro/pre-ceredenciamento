@@ -111,4 +111,4 @@ arquivos = [files]
 
     $ kubectl create secret generic sqlserver-user-pass --from-literal=password='yourStrong(!)Password' --from-literal=user=sa -n desenvolvimento
 
-    $ kubectl create secret generic mysql-db-url --from-literal=database=master --from-literal=url='jdbc:sqlserver://precredenciamento-sqlserver:1433;databaseName=master' -n desenvolvimento
+    $ kubectl create secret generic sqlserver-db-url --from-literal=database=master --from-literal=url='jdbc:sqlserver://precredenciamento-sqlserver:1433;databaseName=master' -n desenvolvimento
