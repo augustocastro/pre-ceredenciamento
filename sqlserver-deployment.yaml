@@ -1,0 +1,50 @@
+apiVersion: v1                    # API version
+kind: Service                     # Type of kubernetes resource 
+metadata:
+  name: precredenciamento-sqlserver         # Name of the resource
+  labels:                         # Labels that will be applied to the resource
+    app: precredenciamento
+spec:
+  ports:
+    - port: 1433
+  selector:                       # Selects any Pod with labels `app=precredenciamento,tier=sqlserver`
+    app: precredenciamento
+    tier: sqlserver
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment                    # Type of the kubernetes resource
+metadata:
+  name: precredenciamento-sqlserver           # Name of the deployment
+  labels:                           # Labels applied to this deployment 
+    app: precredenciamento
+spec:
+  selector:
+    matchLabels:                    # This deployment applies to the Pods matching the specified labels
+      app: precredenciamento
+      tier: sqlserver
+  strategy:
+    type: Recreate
+  template:                         # Template for the Pods in this deployment
+    metadata:
+      labels:                       # Labels to be applied to the Pods in this deployment
+        app: precredenciamento
+        tier: sqlserver
+    spec:                           # The spec for the containers that will be run inside the Pods in this deployment
+      containers:
+      - image: mcr.microsoft.com/mssql/server:2017-latest            # The container image
+        name: sqlserver
+        env:                        # Environment variables passed to the container 
+        - name: ACCEPT_EULA 
+          valueFrom:                # Read environment variables from kubernetes secrets
+            secretKeyRef:
+              name: accept-eula
+              key: value
+        - name: SA_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sqlserver-user-pass
+              key: password
+        ports:
+        - containerPort: 1433        # The port that the container exposes       
+          name: sqlserver
