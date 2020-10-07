@@ -26,13 +26,16 @@ import br.com.precredenciamento.controller.form.AtualizarUsuarioExternoFormData;
 import br.com.precredenciamento.controller.form.CadastrarUsuarioExternoForm;
 import br.com.precredenciamento.controller.form.EnderecoForm;
 import br.com.precredenciamento.controller.form.NovaSenhaUsuarioExternoForm;
+import br.com.precredenciamento.controller.form.UsuarioExternoNomeSocialForm;
 import br.com.precredenciamento.helper.ArquivoHelper;
 import br.com.precredenciamento.helper.DataHelper;
 import br.com.precredenciamento.model.Arquivo;
 import br.com.precredenciamento.model.Codigo;
 import br.com.precredenciamento.model.Endereco;
 import br.com.precredenciamento.model.UsuarioExterno;
+import br.com.precredenciamento.model.UsuarioExternoNomeSocial;
 import br.com.precredenciamento.repository.EnderecoRepository;
+import br.com.precredenciamento.repository.UsuarioExternoNomeSocialRepository;
 import br.com.precredenciamento.repository.UsuarioExternoRepository;
 import br.com.precredenciamento.service.EmailService;
 import br.com.precredenciamento.validacao.ValidacaoException;
@@ -46,6 +49,9 @@ public class UsuarioExternoService {
 
 	@Autowired
 	private UsuarioExternoRepository usuarioExternoRepository;
+	
+	@Autowired
+	private UsuarioExternoNomeSocialRepository usuarioExternoNomeSocialRepository; 
 
 	@Autowired
 	private CodigoService codigoService;
@@ -64,16 +70,23 @@ public class UsuarioExternoService {
 
 		UsuarioExterno usuario = this.usuarioExternoRepository.findById(form.id).get();
 		Endereco endereco = new Endereco();
+		UsuarioExternoNomeSocial usuarioExternoNomeSocial = new UsuarioExternoNomeSocial();
+		
 		usuario.setEndereco(endereco);
 		EnderecoForm enderecoForm = form.endereco;
-
 		enderecoForm.setarPropriedades(endereco, validator);
+
+		usuario.setCadastroNomeSocial(usuarioExternoNomeSocial);
+		UsuarioExternoNomeSocialForm usuarioExternoNomeSocialForm = form.cadastroNomeSocial;
+		usuarioExternoNomeSocialForm.setarPropriedades(usuarioExternoNomeSocial);
+
 		form.setarPropriedades(usuario, validator);
 
 		salvarNovoArquivos(usuario, formData);
 		salvarAnexos(usuario, formData);
 
 		enderecoRepository.save(endereco);
+		usuarioExternoNomeSocialRepository.save(usuarioExternoNomeSocial);
 		usuarioExternoRepository.save(usuario);
 
 		return usuario;

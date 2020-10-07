@@ -96,6 +96,8 @@ public class AtualizarUsuarioExternoForm extends Form {
 	@NotNull
 	public EnderecoForm endereco;
 	
+	public UsuarioExternoNomeSocialForm cadastroNomeSocial;
+	
 	public void setarPropriedades(UsuarioExterno usuario, Validator validator) throws ValidacaoException {
 		validar(validator);
 		usuario.setId(id);

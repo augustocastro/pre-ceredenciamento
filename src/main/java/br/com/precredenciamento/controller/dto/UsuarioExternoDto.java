@@ -40,6 +40,8 @@ public class UsuarioExternoDto {
 	public boolean carteiraRegistrada;
 	public String tipoDocEmpregador;
 	public List<ArquivoDto> anexos;
+	public UsuarioExternoNomeSocialDto cadastroNomeSocial;
+	public ArquivoDto comprovanteNomeSocial;
 	
 	public UsuarioExternoDto converter(UsuarioExterno usuario) {
 		id = usuario.getId();
@@ -72,12 +74,16 @@ public class UsuarioExternoDto {
 		fotoCpf = usuario.getFotoCpf() != null ? new ArquivoDto(usuario.getFotoCpf()) : null;
 		fotoRG = usuario.getFotoRG() != null ? new ArquivoDto(usuario.getFotoRG()) : null;
 		fotoCarteiraTrabalho = usuario.getFotoCarteiraTrabalho() != null ? new ArquivoDto(usuario.getFotoCarteiraTrabalho()): null;
+
 		endereco = new EnderecoDto(usuario.getEndereco());
+		cadastroNomeSocial = new UsuarioExternoNomeSocialDto(usuario.getCadastroNomeSocial());
+
+		comprovanteNomeSocial = usuario.getComprovanteNomeSocial()!= null ? new ArquivoDto(usuario.getComprovanteNomeSocial()): null;
 	
 		if (usuario.getAnexos() != null && !usuario.getAnexos().isEmpty()) {
 			anexos = usuario.getAnexos().stream().map(ArquivoDto::new).collect(Collectors.toList());
-		
 		}
+		
 		return this;
 	}
 }

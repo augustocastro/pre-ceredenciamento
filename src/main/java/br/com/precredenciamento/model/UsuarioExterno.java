@@ -49,22 +49,22 @@ public class UsuarioExterno {
 	private double renda;
 	private boolean carteiraRegistrada;
 	private String tipoDocEmpregador;
-	
+
 	@OneToMany(mappedBy = "titular")
-    private List<Dependente> dependentes;
-	
+	private List<Dependente> dependentes;
+
 	@br.com.precredenciamento.anotacao.Arquivo
 	@OneToOne(cascade = CascadeType.ALL)
 	private Arquivo fotoPerfil;
-	
+
 	@br.com.precredenciamento.anotacao.Arquivo
 	@OneToOne(cascade = CascadeType.ALL)
 	private Arquivo fotoCpf;
-	
+
 	@br.com.precredenciamento.anotacao.Arquivo
 	@OneToOne(cascade = CascadeType.ALL)
 	private Arquivo fotoRG;
-	
+
 	@br.com.precredenciamento.anotacao.Arquivo
 	@OneToOne(cascade = CascadeType.ALL)
 	private Arquivo fotoCarteiraTrabalho;
@@ -72,17 +72,20 @@ public class UsuarioExterno {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
-	@JoinTable(name = "usuario_externo_arquivos_anexos", joinColumns = @JoinColumn(
-            name = "usuario_externo_id",
-            referencedColumnName = "id"
-    ),
-    inverseJoinColumns = @JoinColumn(
-            name = "arquivo_id",
-            referencedColumnName = "id"
-    ))
+	@JoinTable(name = "usuario_externo_arquivos_anexos", 
+			joinColumns = @JoinColumn(name = "usuario_externo_id", referencedColumnName = "id"), 
+			inverseJoinColumns = @JoinColumn(name = "arquivo_id", referencedColumnName = "id")
+	)
 	@OneToMany(cascade = CascadeType.ALL)
-    private List<Arquivo> anexos;
+	private List<Arquivo> anexos;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	private UsuarioExternoNomeSocial cadastroNomeSocial;
 	
+	@br.com.precredenciamento.anotacao.Arquivo
+	@OneToOne(cascade = CascadeType.ALL)
+	private Arquivo comprovanteNomeSocial;
+
 	public Long getId() {
 		return id;
 	}
@@ -234,19 +237,19 @@ public class UsuarioExterno {
 	public void setTelefoneComercial(String telefoneComercial) {
 		this.telefoneComercial = telefoneComercial;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
-	
+
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
@@ -290,31 +293,31 @@ public class UsuarioExterno {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	public Arquivo getFotoPerfil() {
 		return fotoPerfil;
 	}
-	
+
 	public void setFotoPerfil(Arquivo fotoPerfil) {
 		this.fotoPerfil = fotoPerfil;
 	}
-	
+
 	public Arquivo getFotoCpf() {
 		return fotoCpf;
 	}
-	
+
 	public void setFotoCpf(Arquivo fotoCpf) {
 		this.fotoCpf = fotoCpf;
 	}
-	
+
 	public Arquivo getFotoRG() {
 		return fotoRG;
 	}
-	
+
 	public void setFotoRG(Arquivo fotoRG) {
 		this.fotoRG = fotoRG;
 	}
-	
+
 	public Arquivo getFotoCarteiraTrabalho() {
 		return fotoCarteiraTrabalho;
 	}
@@ -322,11 +325,11 @@ public class UsuarioExterno {
 	public void setFotoCarteiraTrabalho(Arquivo fotoCarteriaTrabalho) {
 		this.fotoCarteiraTrabalho = fotoCarteriaTrabalho;
 	}
-	
+
 	public List<Dependente> getDependentes() {
 		return dependentes;
 	}
-	
+
 	public void setDependentes(List<Dependente> dependentes) {
 		this.dependentes = dependentes;
 	}
@@ -346,7 +349,7 @@ public class UsuarioExterno {
 	public void setTipoDocEmpregador(String tipoDocEmpregador) {
 		this.tipoDocEmpregador = tipoDocEmpregador;
 	}
-	
+
 	public List<Arquivo> getAnexos() {
 		return anexos;
 	}
@@ -354,9 +357,27 @@ public class UsuarioExterno {
 	public void setAnexos(List<Arquivo> anexos) {
 		this.anexos = anexos;
 	}
-	
+
 	public void adicionarAnexo(Arquivo anexo) {
 		this.anexos.add(anexo);
 	}
+
+	public UsuarioExternoNomeSocial getCadastroNomeSocial() {
+		return cadastroNomeSocial;
+	}
+
+	public void setCadastroNomeSocial(UsuarioExternoNomeSocial cadastroNomeSocial) {
+		this.cadastroNomeSocial = cadastroNomeSocial;
+	}
+
+	public Arquivo getComprovanteNomeSocial() {
+		return comprovanteNomeSocial;
+	}
+
+	public void setComprovanteNomeSocial(Arquivo comprovanteNomeSocial) {
+		this.comprovanteNomeSocial = comprovanteNomeSocial;
+	}
+	
+	
 
 }

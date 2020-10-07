@@ -14,6 +14,7 @@ public class AtualizarUsuarioExternoFormData {
 	private MultipartFile fotoCpf;
 	private MultipartFile fotoRG;
 	private MultipartFile fotoCarteiraTrabalho;
+	private MultipartFile comprovanteNomeSocial;
 	private MultipartFile[] anexos;
 
 	public String getUsuario() {
@@ -62,6 +63,14 @@ public class AtualizarUsuarioExternoFormData {
 	
 	public void setAnexos(MultipartFile[] anexos) {
 		this.anexos = anexos;
+	}
+	
+	public MultipartFile getComprovanteNomeSocial() {
+		return comprovanteNomeSocial;
+	}
+	
+	public void setComprovanteNomeSocial(MultipartFile comprovanteNomeSocial) {
+		this.comprovanteNomeSocial = comprovanteNomeSocial;
 	}
 	
 }

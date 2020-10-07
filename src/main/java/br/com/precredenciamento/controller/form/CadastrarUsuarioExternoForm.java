@@ -1,7 +1,6 @@
 package br.com.precredenciamento.controller.form;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import br.com.precredenciamento.model.UsuarioExterno;
 
