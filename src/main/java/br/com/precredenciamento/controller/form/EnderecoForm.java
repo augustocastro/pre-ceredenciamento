@@ -12,6 +12,8 @@ import br.com.precredenciamento.validacao.ValidacaoException;
 @Valid
 public class EnderecoForm extends Form {
 
+	public Long id;
+	
 	@NotNull
 	@NotEmpty
 	public String cep;
@@ -56,6 +58,7 @@ public class EnderecoForm extends Form {
 	}
 	
 	public void setarPropriedades(Endereco endereco) throws ValidacaoException {
+		endereco.setId(id);
 		endereco.setCep(cep);
 		endereco.setEndereco(this.endereco);
 		endereco.setComplemento(complemento);

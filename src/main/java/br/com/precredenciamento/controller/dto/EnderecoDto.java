@@ -4,6 +4,7 @@ import br.com.precredenciamento.model.Endereco;
 
 public class EnderecoDto {
 
+	public Long id;
 	public String cep;
 	public String endereco;
 	public String complemento;
@@ -13,7 +14,8 @@ public class EnderecoDto {
 	public String habitacao;
 
 	public EnderecoDto(Endereco endereco) {
-		if (endereco != null) {			
+		if (endereco != null) {
+			this.id = endereco.getId();
 			this.cep = endereco.getCep();
 			this.endereco = endereco.getEndereco();
 			this.complemento = endereco.getComplemento();

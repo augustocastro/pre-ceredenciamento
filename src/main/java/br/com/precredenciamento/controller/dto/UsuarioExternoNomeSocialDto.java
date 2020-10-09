@@ -6,6 +6,7 @@ import br.com.precredenciamento.model.UsuarioExternoNomeSocial;
 
 public class UsuarioExternoNomeSocialDto {
 
+	public Long id;
 	public String nome;
 	public String rg;
 	public String orgaoEmissorRg;
@@ -24,6 +25,7 @@ public class UsuarioExternoNomeSocialDto {
 
 	public UsuarioExternoNomeSocialDto(UsuarioExternoNomeSocial usuarioExternoNomeSocial) {
 		if (usuarioExternoNomeSocial != null) {
+			id = usuarioExternoNomeSocial.getId();
 			nome = usuarioExternoNomeSocial.getNome();
 			rg = usuarioExternoNomeSocial.getRg();
 			orgaoEmissorRg = usuarioExternoNomeSocial.getOrgaoEmissorRg();

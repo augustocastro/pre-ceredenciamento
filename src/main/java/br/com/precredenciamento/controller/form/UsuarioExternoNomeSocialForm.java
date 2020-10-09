@@ -12,6 +12,7 @@ import br.com.precredenciamento.validacao.ValidacaoException;
 
 public class UsuarioExternoNomeSocialForm extends Form {
 
+	private Long id;
 	private String nome;
 	private String rg;
 	private String orgaoEmissorRg;
@@ -146,7 +147,16 @@ public class UsuarioExternoNomeSocialForm extends Form {
 		this.tipoRequerimento = tipoRequerimento;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+	
 	public void setarPropriedades(UsuarioExternoNomeSocial usuarioExternoNomeSocial) throws ValidacaoException {
+		usuarioExternoNomeSocial.setId(id);
 		usuarioExternoNomeSocial.setNome(nome);
 		usuarioExternoNomeSocial.setRg(rg);
 		usuarioExternoNomeSocial.setOrgaoEmissorRg(orgaoEmissorRg);
