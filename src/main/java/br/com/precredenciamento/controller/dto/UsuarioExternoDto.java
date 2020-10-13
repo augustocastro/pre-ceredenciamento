@@ -31,6 +31,7 @@ public class UsuarioExternoDto {
 	public LocalDate dataAdmisao;
 	public String cnpjEmpregador;
 	public String nomeEmpresa;
+	public String observacao;
 	public double renda;
 	public EnderecoDto endereco;
 	public ArquivoDto fotoPerfil;
@@ -67,6 +68,7 @@ public class UsuarioExternoDto {
 		dataAdmisao = usuario.getDataAdmisao();
 		cnpjEmpregador = usuario.getCnpjEmpregador();
 		nomeEmpresa = usuario.getNomeEmpresa();
+		observacao = usuario.getObservacao();
 		renda = usuario.getRenda();
 		carteiraRegistrada = usuario.isCarteiraRegistrada();
 		tipoDocEmpregador = usuario.getTipoDocEmpregador();

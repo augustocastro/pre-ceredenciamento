@@ -46,6 +46,9 @@ public class UsuarioExterno {
 	private LocalDate dataAdmisao;
 	private String cnpjEmpregador;
 	private String nomeEmpresa;
+	
+	@Column(length = 300)
+	private String observacao;
 	private double renda;
 	private boolean carteiraRegistrada;
 	private String tipoDocEmpregador;
@@ -72,16 +75,13 @@ public class UsuarioExterno {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Endereco endereco;
 
-	@JoinTable(name = "usuario_externo_arquivos_anexos", 
-			joinColumns = @JoinColumn(name = "usuario_externo_id", referencedColumnName = "id"), 
-			inverseJoinColumns = @JoinColumn(name = "arquivo_id", referencedColumnName = "id")
-	)
+	@JoinTable(name = "usuario_externo_arquivos_anexos", joinColumns = @JoinColumn(name = "usuario_externo_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "arquivo_id", referencedColumnName = "id"))
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Arquivo> anexos;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private UsuarioExternoNomeSocial cadastroNomeSocial;
-	
+
 	@br.com.precredenciamento.anotacao.Arquivo
 	@OneToOne(cascade = CascadeType.ALL)
 	private Arquivo comprovanteNomeSocial;
@@ -377,7 +377,13 @@ public class UsuarioExterno {
 	public void setComprovanteNomeSocial(Arquivo comprovanteNomeSocial) {
 		this.comprovanteNomeSocial = comprovanteNomeSocial;
 	}
-	
-	
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 
 }

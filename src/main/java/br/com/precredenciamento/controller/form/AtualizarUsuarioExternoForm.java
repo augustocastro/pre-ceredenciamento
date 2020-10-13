@@ -87,6 +87,8 @@ public class AtualizarUsuarioExternoForm extends Form {
 	@NotNull
 	public double renda;
 	
+	public String observacao;
+	
 	@NotNull
 	public boolean carteiraRegistrada;
 	
@@ -127,5 +129,6 @@ public class AtualizarUsuarioExternoForm extends Form {
 		usuario.setRenda(renda);
 		usuario.setCarteiraRegistrada(carteiraRegistrada);
 		usuario.setTipoDocEmpregador(tipoDocEmpregador);
+		usuario.setObservacao(observacao);
 	}
 }
