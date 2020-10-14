@@ -100,3 +100,15 @@ json = {
 
 arquivos = [files]
 ````
+
+
+
+### Secrets
+
+>> Importante criar as secrets (senhas, usuario e url para o properties)
+
+    $ kubectl create secret generic accept-eula --from-literal=value=Y -n desenvolvimento
+
+    $ kubectl create secret generic sqlserver-user-pass --from-literal=password='yourStrong(!)Password' --from-literal=user=sa -n desenvolvimento
+
+    $ kubectl create secret generic sqlserver-db-url --from-literal=database=master --from-literal=url='jdbc:sqlserver://precredenciamento-sqlserver:1433;databaseName=master' -n desenvolvimento
