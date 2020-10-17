@@ -20,10 +20,16 @@ public class DataSourceConfig {
     @Primary
     public DataSource preCredenciamentoDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		dataSource.setUrl("jdbc:sqlserver://precredenciamento-sqlserver:1433;databaseName=master");
+//		dataSource.setUsername("sa");
+//		dataSource.setPassword("yourStrong(!)Password");
+		
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://precredenciamento-sqlserver:1433;databaseName=master");
+		dataSource.setUrl("jdbc:sqlserver://localhost:1433;databaseName=master");
 		dataSource.setUsername("sa");
-		dataSource.setPassword("yourStrong(!)Password");
+		dataSource.setPassword("SA_PASSWORD=yourStrong(!)Password");
+
 		return dataSource;
     }
     

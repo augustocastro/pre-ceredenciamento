@@ -89,6 +89,10 @@ public class UsuarioExternoService {
 		usuarioExternoNomeSocialRepository.save(usuarioExternoNomeSocial);
 		usuarioExternoRepository.save(usuario);
 
+		if(form.email != "" && form.email != null) {
+			enviarEmailPosCadastro(usuario);			
+		}
+		
 		return usuario;
 	}
 
@@ -153,10 +157,6 @@ public class UsuarioExternoService {
 		UsuarioExterno usuario = new UsuarioExterno();
 		form.setarPropriedades(usuario);
 		usuarioExternoRepository.save(usuario);
-		if(form.email != "" && form.email != null) {
-			enviarEmailPosCadastro(usuario);			
-		}
-		return usuario;
 	}
 	
 	public void enviarEmailPosCadastro(UsuarioExterno usuarioExterno) {
