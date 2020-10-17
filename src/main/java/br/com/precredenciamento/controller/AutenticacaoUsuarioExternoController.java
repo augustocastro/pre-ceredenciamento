@@ -1,6 +1,7 @@
 package br.com.precredenciamento.controller;
 
 import javax.naming.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -54,9 +55,10 @@ public class AutenticacaoUsuarioExternoController {
     }
 	
 	@PostMapping("/recuperar-senha")
-    public ResponseEntity<?> recuperarSenha(@Valid @RequestBody RecuperarSenhaUsuarioExternoForm form) {
+    public ResponseEntity<?> recuperarSenha(@Valid @RequestBody RecuperarSenhaUsuarioExternoForm form, HttpServletRequest request) {
 		try {
-			Codigo codigoRecuperacaoSenha = autenticacaoUsuarioExternoService.enviarEmailRecuperacaoSenha(form);
+			String urlOrigem = request.getHeader("origin");
+			Codigo codigoRecuperacaoSenha = autenticacaoUsuarioExternoService.enviarEmailRecuperacaoSenha(form, urlOrigem);
 			return ResponseEntity.status(200).body(codigoRecuperacaoSenha);
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(new ErroDto("Erro ao enviar e-email."));
